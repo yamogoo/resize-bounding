@@ -1,0 +1,51 @@
+{
+  "name": "vue3-bb-resize",
+  "description": "A Simple Resize Bounding Component for Vue3",
+  "private": true,
+  "version": "0.0.1",
+  "author": {
+    "name": "Misha Grebennikov",
+    "email": "grebennikovmisha@gmail.com"
+  },
+  "keywords": [
+    "vue3",
+    "resize",
+    "bounding box",
+    "resize bounding",
+    "resizable element"
+  ],
+  "main": "./dist/vue3-bb-resize.umd.cjs",
+  "module": "./dist/vue3-bb-resize.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/vue3-bb-resize.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "build:types": "tsc --emitDeclarationOnly",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.4.29",
+    "vue3-bb-resize": "link:"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.5",
+    "@vue/test-utils": "^2.4.6",
+    "sass": "^1.77.6",
+    "terser": "^5.31.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.3.1",
+    "vite-plugin-dts": "^3.9.1",
+    "vitest": "^1.6.0",
+    "vue-tsc": "^2.0.21"
+  }
+}
