@@ -31,7 +31,13 @@
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
     "build:types": "tsc --emitDeclarationOnly",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "test:unit": "vitest",
+    "test:unit:update": "vitest -u",
+    "test:ui": "vitest --ui",
+    "type-check": "vue-tsc --build --force",
+    "typecheck:app": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
   },
   "dependencies": {
     "vue": "^3.4.29",
@@ -39,6 +45,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
+    "@vitest/ui": "^1.6.0",
     "@vue/test-utils": "^2.4.6",
     "sass": "^1.77.6",
     "terser": "^5.31.1",
