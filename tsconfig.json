@@ -11,8 +11,9 @@
     "declaration": true,
     "declarationDir": "dist/types",
     "emitDeclarationOnly": true,
-    "outDir": "dist",
     "lib": ["ESNext", "DOM", ],
+
+    "outDir": "dist",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],

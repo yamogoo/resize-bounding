@@ -1,5 +1,8 @@
 <template>
-  <div :class="['bb-resize__pane', `--${dir}`]" data-testid="bb-resize-pane">
+  <div
+    :class="['bb-resize__pane', `--${direction}`]"
+    data-testid="bb-resize-pane"
+  >
     <div
       ref="refPane"
       data-testid="bb-resize-pane-splitter"
@@ -9,67 +12,61 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, type Ref } from "vue";
+import { onMounted, onUnmounted, inject, ref, type Ref } from "vue";
+
+import { StylesInjectionKey } from "./symbols";
 
 export interface Props {
-  dir: BbResizePaneDirections;
+  direction?: PaneDirections;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  dir: BbResizePaneDirections.RIGHT,
+  direction: PaneDirections.RIGHT,
 });
 
 const emits = defineEmits<{
-  (e: "drag:start", ev: PointerEvent): void;
-  (e: "drag:move", data: BbResizePaneEmittedData): void;
-  (e: "drag:end", ev: PointerEvent): void;
+  (e: "drag:start", data: PaneEmittedData): void;
+  (e: "drag:move", data: PaneEmittedData): void;
+  (e: "drag:end", data: PaneEmittedData, ev: PointerEvent): void;
   (e: "focus", isFocused: boolean): void;
 }>();
 
-const refPane: Ref<HTMLDivElement | null> = ref(null);
-const isSplitterShown: Ref<boolean> = ref(false);
+const styles = inject(StylesInjectionKey);
 
+const refPane: Ref<HTMLDivElement | null> = ref(null);
+
+const isSplitterShown = ref(false);
 let isResizing = false;
 
-const cursorActive =
-  props.dir === BbResizePaneDirections.RIGHT ? "col-resize" : "row-resize";
+const updateCursor = (state: boolean) => {
+  const body = document.body;
 
-onMounted(() => {
-  if (refPane.value) {
-    refPane.value.addEventListener("mouseenter", onMouseEnter.bind(null, true));
-    refPane.value.addEventListener(
-      "mouseleave",
-      onMouseEnter.bind(null, false)
-    );
+  let cursorActive: string | undefined;
 
-    refPane.value.addEventListener("pointerdown", onDragStart);
+  if (
+    props.direction === PaneDirections.RIGHT ||
+    props.direction === PaneDirections.LEFT
+  ) {
+    cursorActive = styles?.cursor.active.horizontal;
+  } else if (
+    props.direction === PaneDirections.TOP ||
+    props.direction === PaneDirections.BOTTOM
+  ) {
+    cursorActive = styles?.cursor.active.vertical;
   }
-});
 
-onUnmounted(() => {
-  if (refPane.value) {
-    refPane.value.removeEventListener(
-      "mouseenter",
-      onMouseEnter.bind(this, true)
-    );
-    refPane.value.removeEventListener(
-      "mouseleave",
-      onMouseEnter.bind(this, false)
-    );
+  body.style.cursor = state ? cursorActive ?? "auto" : "auto";
+};
 
-    refPane.value.removeEventListener("pointerdown", onDragStart);
-  }
-});
+const emitFocus = (state: boolean) => {
+  emits("focus", state);
+};
 
 const onMouseEnter = (state: boolean): void => {
   if (!(state === false && isResizing)) {
     isSplitterShown.value = state;
-
-    const body = document.querySelector("body") as HTMLBodyElement;
-    const cursor = state ? cursorActive : "auto";
-    body.style.cursor = cursor;
-
-    emits("focus", state);
+    updateCursor(state);
+    emitFocus(state);
   }
 };
 
@@ -80,49 +77,81 @@ const onDragStart = (e: PointerEvent): void => {
   isResizing = true;
   onMouseEnter(true);
 
-  const body = document.querySelector("body") as HTMLBodyElement;
-  body.style.cursor = cursorActive;
-
-  emits("drag:start", e);
+  emits("drag:start", {
+    x: Math.round(e.clientX),
+    y: Math.round(e.clientY),
+    dir: props.direction,
+  });
 
   const onDragMove = (e: PointerEvent): void => {
-    const x = e.clientX;
-    const y = e.clientY;
-
-    const dir = props.dir;
-
-    emits("drag:move", { x, y, dir });
+    emits("drag:move", {
+      x: Math.round(e.clientX),
+      y: Math.round(e.clientY),
+      dir: props.direction,
+    });
   };
 
   const onDragEnd = (e: PointerEvent): void => {
-    e.stopPropagation();
-
     isResizing = false;
-    onMouseEnter(false);
 
-    body.style.cursor = "auto";
+    onMouseEnter(false);
+    updateCursor(false);
 
     document.removeEventListener("pointermove", onDragMove);
     document.removeEventListener("pointerup", onDragEnd);
-    emits("drag:end", e);
+
+    emits(
+      "drag:end",
+      {
+        x: Math.round(e.clientX),
+        y: Math.round(e.clientY),
+        dir: props.direction,
+      },
+      e
+    );
   };
 
   document.addEventListener("pointermove", onDragMove);
   document.addEventListener("pointerup", onDragEnd);
 };
 
+const addEventListeners = () => {
+  if (refPane.value) {
+    refPane.value.addEventListener("mouseenter", () => onMouseEnter(true));
+    refPane.value.addEventListener("mouseleave", () => onMouseEnter(false));
+
+    refPane.value.addEventListener("pointerdown", onDragStart);
+  }
+};
+
+const removeEventListeners = () => {
+  if (refPane.value) {
+    refPane.value.removeEventListener("mouseenter", () => onMouseEnter(true));
+    refPane.value.removeEventListener("mouseleave", () => onMouseEnter(false));
+
+    refPane.value.removeEventListener("pointerdown", onDragStart);
+  }
+};
+
+onMounted(addEventListeners);
+onUnmounted(removeEventListeners);
+
 defineExpose({ refPane });
 </script>
 
 <script lang="ts">
-export enum BbResizePaneDirections {
-  RIGHT = "right",
-  BOTTOM = "bottom",
+export enum PaneDirections {
+  LEFT = "l",
+  RIGHT = "r",
+  BOTTOM = "b",
+  TOP = "t",
+  HORIZONTAL = "h",
+  VERTICAL = "v",
 }
 
-export interface BbResizePaneEmittedData {
+export interface PaneEmittedData {
   x: number;
   y: number;
-  dir: BbResizePaneDirections | string;
+  dir: string;
 }
 </script>
