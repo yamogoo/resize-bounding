@@ -2,15 +2,22 @@
   <div
     ref="refRoot"
     class="bb-resize"
+    data-testid="bb-resize"
     :style="`width: ${width}px; min-width: ${width}px; height: ${height}px; min-height: ${height}px;`"
   >
-    <div class="bb-resize__container">
+    <div class="bb-resize--container" data-testid="bb-resize-container">
       <slot :width></slot>
     </div>
-    <template v-for="(pane, idx) in panes" :key="idx">
+    <template v-for="({ show, direction }, idx) in panes" :key="idx">
       <Vue3BbResizePane
-        v-if="!disabled && pane.show"
-        :direction="pane.direction"
+        v-if="!disabled && show"
+        :direction="direction"
+        :constantlyShowKnob="options?.pane.knob.constantlyShow"
+        @focus="
+          (isFocused: boolean) => {
+            $emit('focus', { state: isFocused, direction });
+          }
+        "
         @drag:start="onDragStart"
         @drag:move="onDragMove"
         @drag:end="onDragEnd"
@@ -20,9 +27,9 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, provide, defineComponent, PropType } from "vue";
+import { ref, computed, provide, defineComponent, type PropType } from "vue";
 
-import type { BBResizeOptions } from "./typings";
+import type { BBResizeOptions, BBResizeStyles } from "./typings";
 import { StylesInjectionKey } from "./symbols";
 
 import Vue3BbResizePane, {
@@ -87,7 +94,7 @@ export default defineComponent({
       min: number,
       max: number | undefined,
       prev: number | undefined,
-      next: number
+      next: number,
     ): boolean => {
       return (
         next > min && next < (max ?? Number.POSITIVE_INFINITY) && prev !== next
@@ -153,6 +160,7 @@ export default defineComponent({
     };
   },
   emits: [
+    "focus",
     "update:width",
     "update:height",
     "drag:start",
@@ -190,10 +198,17 @@ export default defineComponent({
     },
     directions: {
       type: String as PropType<PaneDirections | string>,
-      default: PaneDirections.RIGHT,
+      default: "",
+    },
+    alwaysShowKnob: {
+      type: Boolean,
+      default: false,
+    },
+    options: {
+      type: Object as PropType<BBResizeOptions>,
     },
     styles: {
-      type: Object as PropType<BBResizeOptions>,
+      type: Object as PropType<BBResizeStyles>,
       default: {
         cursor: {
           active: {
@@ -219,10 +234,26 @@ $__pressed-color: #3655e171;
   flex-direction: row;
   height: 100%;
 
-  &__container {
+  &--container {
     position: relative;
     display: block;
     width: 100%;
+  }
+
+  .bb-resize__pane__splitter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  .bb-resize__pane__splitter__icon {
+    position: absolute;
+    width: 12px;
+    height: 120px;
+    border-radius: 12px;
+    background-color: red;
+    margin: auto;
   }
 
   &__pane {
@@ -231,7 +262,7 @@ $__pressed-color: #3655e171;
     z-index: 9999;
 
     &.--l {
-      left: 0px;
+      left: 2px;
       width: 0px;
       height: 100%;
 
@@ -243,7 +274,7 @@ $__pressed-color: #3655e171;
     }
 
     &.--r {
-      right: 0px;
+      right: 2px;
       width: 0px;
       height: 100%;
 
@@ -255,7 +286,7 @@ $__pressed-color: #3655e171;
     }
 
     &.--b {
-      bottom: 0px;
+      bottom: -2px;
       height: 0px;
       width: 100%;
 
@@ -267,7 +298,7 @@ $__pressed-color: #3655e171;
     }
 
     &.--t {
-      top: 0px;
+      top: 2px;
       height: 0px;
       width: 100%;
 

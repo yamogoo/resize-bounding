@@ -1,12 +1,14 @@
 {
   "name": "vue3-bb-resize",
-  "description": "A Simple Resize Bounding Component for Vue3",
+  "description": "Intuitive resizing of inner user components via draggable boundary panes for Vue3",
   "private": true,
   "version": "0.0.1",
+  "license": "MIT",
   "author": {
-    "name": "Misha Grebennikov",
+    "name": "yamogoo",
     "email": "grebennikovmisha@gmail.com"
   },
+  "repository": "git@github.com:yamogoo/vue3-bb-resize.git",
   "keywords": [
     "vue3",
     "resize",
@@ -29,8 +31,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
-    "build:types": "tsc --emitDeclarationOnly",
+    "build": "vite build",
+    "build:types": "vue-tsc -b --emitDeclarationOnly",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "test:unit": "vitest",
@@ -40,13 +42,21 @@
     "typecheck:app": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
   },
   "dependencies": {
-    "vue": "^3.4.29",
-    "vue3-bb-resize": "link:"
+    "vue": "^3.4.29"
   },
   "devDependencies": {
+    "@rushstack/eslint-patch": "^1.10.3",
+    "@tsconfig/node20": "^20.1.4",
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^20.14.8",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vitest/ui": "^1.6.0",
+    "@vue/eslint-config-prettier": "^9.0.0",
+    "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/test-utils": "^2.4.6",
+    "@vue/tsconfig": "^0.5.1",
+    "eslint": "^9.5.0",
+    "jsdom": "^24.1.0",
     "sass": "^1.77.6",
     "terser": "^5.31.1",
     "typescript": "^5.2.2",

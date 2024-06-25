@@ -7,21 +7,29 @@
       ref="refPane"
       data-testid="bb-resize-pane-splitter"
       :class="['bb-resize__pane__splitter', isSplitterShown ? 'show' : 'hide']"
-    ></div>
+    >
+      <div
+        v-if="isSplitterShown || constantlyShowKnob"
+        class="bb-resize__pane__splitter__icon"
+        :style="knobStyle"
+      ></div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, inject, ref, type Ref } from "vue";
+import { onMounted, onUnmounted, inject, ref, type Ref, computed } from "vue";
 
 import { StylesInjectionKey } from "./symbols";
 
 export interface Props {
   direction?: PaneDirections;
+  constantlyShowKnob?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   direction: PaneDirections.RIGHT,
+  constantlyShowKnob: false,
 });
 
 const emits = defineEmits<{
@@ -38,20 +46,22 @@ const refPane: Ref<HTMLDivElement | null> = ref(null);
 const isSplitterShown = ref(false);
 let isResizing = false;
 
+const knobStyle = computed(() => {
+  const isHorizontal = checkIsHorizontal();
+  return `transform: rotate(${isHorizontal ? 0 : 90}deg);`;
+});
+
+const checkIsHorizontal = (): boolean => /[l | r | h]/.test(props.direction);
+const checkIsVertical = (): boolean => /[t | b | v]/.test(props.direction);
+
 const updateCursor = (state: boolean) => {
   const body = document.body;
 
   let cursorActive: string | undefined;
 
-  if (
-    props.direction === PaneDirections.RIGHT ||
-    props.direction === PaneDirections.LEFT
-  ) {
+  if (checkIsHorizontal()) {
     cursorActive = styles?.cursor.active.horizontal;
-  } else if (
-    props.direction === PaneDirections.TOP ||
-    props.direction === PaneDirections.BOTTOM
-  ) {
+  } else if (checkIsVertical()) {
     cursorActive = styles?.cursor.active.vertical;
   }
 
@@ -62,11 +72,27 @@ const emitFocus = (state: boolean) => {
   emits("focus", state);
 };
 
-const onMouseEnter = (state: boolean): void => {
+const onFocus = (e: PointerEvent, isFocused: boolean): void => {
+  e.stopPropagation();
+
+  const { pointerType } = e;
+
+  if (pointerType === "touch") return;
+  else {
+    onSelected(isFocused);
+  }
+};
+
+const onSelected = (state: boolean): void => {
   if (!(state === false && isResizing)) {
     isSplitterShown.value = state;
     updateCursor(state);
     emitFocus(state);
+
+    if (state && refPane.value)
+      refPane.value.addEventListener("pointerdown", onDragStart);
+    else if (!state && refPane.value)
+      refPane.value.removeEventListener("pointerdown", onDragStart);
   }
 };
 
@@ -75,7 +101,7 @@ const onDragStart = (e: PointerEvent): void => {
   e.stopImmediatePropagation();
 
   isResizing = true;
-  onMouseEnter(true);
+  onSelected(true);
 
   emits("drag:start", {
     x: Math.round(e.clientX),
@@ -94,7 +120,7 @@ const onDragStart = (e: PointerEvent): void => {
   const onDragEnd = (e: PointerEvent): void => {
     isResizing = false;
 
-    onMouseEnter(false);
+    onSelected(false);
     updateCursor(false);
 
     document.removeEventListener("pointermove", onDragMove);
@@ -107,7 +133,7 @@ const onDragStart = (e: PointerEvent): void => {
         y: Math.round(e.clientY),
         dir: props.direction,
       },
-      e
+      e,
     );
   };
 
@@ -117,19 +143,15 @@ const onDragStart = (e: PointerEvent): void => {
 
 const addEventListeners = () => {
   if (refPane.value) {
-    refPane.value.addEventListener("mouseenter", () => onMouseEnter(true));
-    refPane.value.addEventListener("mouseleave", () => onMouseEnter(false));
-
-    refPane.value.addEventListener("pointerdown", onDragStart);
+    refPane.value.addEventListener("pointerenter", (e) => onFocus(e, true));
+    refPane.value.addEventListener("pointerleave", (e) => onFocus(e, false));
   }
 };
 
 const removeEventListeners = () => {
   if (refPane.value) {
-    refPane.value.removeEventListener("mouseenter", () => onMouseEnter(true));
-    refPane.value.removeEventListener("mouseleave", () => onMouseEnter(false));
-
-    refPane.value.removeEventListener("pointerdown", onDragStart);
+    refPane.value.removeEventListener("pointerenter", (e) => onFocus(e, true));
+    refPane.value.removeEventListener("pointerleave", (e) => onFocus(e, false));
   }
 };
 

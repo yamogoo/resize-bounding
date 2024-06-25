@@ -1,0 +1,71 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Vue3BbResize > classes > should have "hide class by default" 1`] = `
+[
+  "bb-resize__pane__splitter",
+  "hide",
+]
+`;
+
+exports[`Vue3BbResize > events > drag > should emit "drag:start -> drag:move -> drag:end" with {x, y, dir} 1`] = `
+[
+  [
+    {
+      "dir": "r",
+      "x": NaN,
+      "y": NaN,
+    },
+  ],
+]
+`;
+
+exports[`Vue3BbResize > events > drag > should emit "drag:start -> drag:move -> drag:end" with {x, y, dir} 2`] = `
+[
+  [
+    {
+      "dir": "r",
+      "x": NaN,
+      "y": NaN,
+    },
+  ],
+]
+`;
+
+exports[`Vue3BbResize > events > drag > should emit "drag:start -> drag:move -> drag:end" with {x, y, dir} 3`] = `
+[
+  [
+    {
+      "dir": "r",
+      "x": NaN,
+      "y": NaN,
+    },
+    Event {
+      "isTrusted": false,
+    },
+  ],
+]
+`;
+
+exports[`Vue3BbResize > events > focus > should emit "focus" with state (false) 1`] = `false`;
+
+exports[`Vue3BbResize > events > focus > should emit "focus" with state (true) 1`] = `true`;
+
+exports[`Vue3BbResize > events > styles > a style of the cursor should be "auto" 1`] = `"auto"`;
+
+exports[`Vue3BbResize > events > styles > a style of the cursor should be "col-resize" (--h) 1`] = `
+<body
+  style="cursor: auto;"
+/>
+`;
+
+exports[`Vue3BbResize > events > styles > a style of the cursor should be "col-resize" (--l) 1`] = `
+<body
+  style="cursor: auto;"
+/>
+`;
+
+exports[`Vue3BbResize > events > styles > a style of the cursor should be "col-resize" (--r) 1`] = `
+<body
+  style="cursor: auto;"
+/>
+`;

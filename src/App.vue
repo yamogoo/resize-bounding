@@ -13,8 +13,11 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Roboto";
-  box-sizing: border-box;
   overflow: hidden;
+
+  * {
+    box-sizing: border-box;
+  }
 }
 
 h1 {

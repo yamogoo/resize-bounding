@@ -1,5 +1,12 @@
 export interface BBResizeOptions {
-  s: string;
+  pane: {
+    knob: {
+      constantlyShow: boolean;
+    };
+  };
+}
+
+export interface BBResizeStyles {
   cursor: {
     active: {
       horizontal: string;
