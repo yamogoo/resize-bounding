@@ -1,7 +1,7 @@
-import { InjectionKey } from "vue";
+import { type InjectionKey } from "vue";
 
-import { BBResizeOptions } from "./typings";
+import type { BBResizeStyles } from "./typings";
 
 export const StylesInjectionKey = Symbol() as InjectionKey<
-  BBResizeOptions | undefined
+  BBResizeStyles | undefined
 >;

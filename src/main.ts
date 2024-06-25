@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import App from "./App.vue";
+import App from "@/App.vue";
 
 // import Vue3BbResize from "vue3-bb-resize";
 

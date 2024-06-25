@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 .back
+src/tests-report
+tsconfig.build.json

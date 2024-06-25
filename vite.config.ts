@@ -4,12 +4,16 @@ import { fileURLToPath, URL } from "node:url";
 import terserConfig from "./terser.config";
 
 import vue from "@vitejs/plugin-vue";
+
 import { resolve } from "path";
 
-const __dirname = new URL(".", import.meta.url).pathname;
-
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    // dts({
+    //   outDir: ["dist"],
+    // }),
+  ],
   server: {
     port: 9043,
   },
@@ -20,7 +24,7 @@ export default defineConfig({
     terserOptions: terserConfig,
 
     lib: {
-      entry: resolve(__dirname, "src/index.ts"),
+      entry: resolve(__dirname, "./src/index.ts"),
       name: "Vue3BbResize",
       fileName: `vue3-bb-resize`,
     },
@@ -48,3 +52,6 @@ export default defineConfig({
     },
   },
 });
+function dts(arg0: { outDir: string[] }): import("vite").PluginOption {
+  throw new Error("Function not implemented.");
+}

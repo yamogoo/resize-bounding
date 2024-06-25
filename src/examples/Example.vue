@@ -1,4 +1,5 @@
 <template>
+  <!-- <h1 class="title">Resize Bounding</h1> -->
   <main class="bb-resize-app-example">
     <div class="bb-resize-app-example--container">
       <div class="bb-resize-app-example__layout">
@@ -8,9 +9,32 @@
           :min-height="layout.controlPanel.minHeight"
           :max-height="layout.controlPanel.maxHeight"
           :directions="'b'"
-          @update:height="(height: number) => { layout.controlPanel.height = height }"
+          @update:height="
+            (height: number) => {
+              layout.controlPanel.height = height;
+            }
+          "
         >
-          <h1>Control Panel</h1>
+          <div class="bb-resize-app-example__layout--control-panel--container">
+            <div class="bb-resize-app-example__logo">
+              <p class="bb-resize-app-example__logo--descriptor">
+                Resize Bounding
+              </p>
+            </div>
+            <div class="bb-resize-app-example__control-panel">
+              <label>Navigator width</label>
+              <input type="number" v-model="layout.navigator.width" />
+
+              <label>Effects width</label>
+              <input type="number" v-model="layout.effects.width" />
+
+              <label>Timeline height</label>
+              <input type="number" v-model="layout.timeline.height" />
+
+              <label>Props width</label>
+              <input type="number" v-model="layout.timelineProps.width" />
+            </div>
+          </div>
         </Vue3BbResize>
 
         <Vue3BbResize class="bb-resize-app-example__layout--top">
@@ -18,50 +42,71 @@
             <Vue3BbResize
               class="bb-resize-app-example__navigator"
               :width="layout.navigator.width"
-              :min-width="240"
-              :max-width="480"
+              :min-width="layout.navigator.minWidth"
+              :max-width="layout.navigator.maxWidth"
               :directions="'r'"
-              @update:width="(width: number) => { layout.navigator.width = width }"
+              @update:width="
+                (width: number) => {
+                  layout.navigator.width = width;
+                }
+              "
             >
-              <h1>Navigator</h1>
+              <HInnerBlock :image-path="'/$a.shape.svg'"> </HInnerBlock>
             </Vue3BbResize>
 
-            <div class="bb-resize-app-example__viewport">
-              <h1>Viewport</h1>
-            </div>
+            <HInnerBlock :image-path="'/$a.shape.svg'"> </HInnerBlock>
             <Vue3BbResize
               class="bb-resize-app-example__effects"
-              :width="layout.viewport.width"
-              :min-width="240"
+              :width="layout.effects.width"
+              :min-width="layout.effects.minWidth"
               :directions="'l'"
-              @update:width="(width: number) => { layout.viewport.width = width }"
+              @update:width="
+                (width: number) => {
+                  layout.effects.width = width;
+                }
+              "
             >
-              <h1>Effects</h1>
+              <HInnerBlock :image-path="'/$a.shape.svg'"> </HInnerBlock>
             </Vue3BbResize>
           </div>
         </Vue3BbResize>
 
         <Vue3BbResize
           class="bb-resize-app-example__layout--bottom"
-          :height="layout.bottom.height"
-          :min-height="240"
-          :max-height="480"
+          :height="layout.timeline.height"
+          :min-height="layout.timeline.minHeight"
+          :max-height="layout.timeline.maxHeight"
           :directions="'t'"
-          @update:height="(height: number) => { layout.bottom.height = height }"
+          :options="{
+            pane: {
+              knob: {
+                constantlyShow: true,
+              },
+            },
+          }"
+          @update:height="
+            (height: number) => {
+              layout.timeline.height = height;
+            }
+          "
         >
           <div class="bb-resize-app-example__layout--bottom--container">
             <Vue3BbResize
               class="bb-resize-app-example__timeline-props"
               :width="layout.timelineProps.width"
-              :min-width="240"
-              :max-width="480"
-              :directions="'rt'"
-              @update:width="(width: number) => { layout.timelineProps.width = width }"
+              :min-width="layout.timelineProps.minWidth"
+              :max-width="layout.timelineProps.maxWidth"
+              :directions="'r'"
+              @update:width="
+                (width: number) => {
+                  layout.timelineProps.width = width;
+                }
+              "
             >
-              <h1>Props</h1>
+              <HInnerBlock :image-path="'/$a.shape.svg'"> </HInnerBlock>
             </Vue3BbResize>
             <Vue3BbResize class="bb-resize-app-example__timeline">
-              <h1>Timeline</h1>
+              <HInnerBlock :image-path="'/$a.shape.svg'"> </HInnerBlock>
             </Vue3BbResize>
           </div>
         </Vue3BbResize>
@@ -74,6 +119,7 @@
 import { ref, type Ref } from "vue";
 
 import Vue3BbResize from "@/components/Vue3BbResize.vue";
+import HInnerBlock from "@/examples/helpers/HInnerBlock.vue";
 
 interface ContainerSize {
   width: number;
@@ -91,37 +137,44 @@ const layout: Ref<
     | "viewport"
     | "timeline"
     | "timelineProps"
-    | "bottom"
     | "controlPanel",
     Partial<ContainerSize>
   >
 > = ref({
   navigator: {
     width: 320,
+    minWidth: 240,
+    maxWidth: 640,
   },
   effects: {
     width: 360,
+    minWidth: 240,
   },
   viewport: {
     width: 360,
   },
-  timeline: {},
+  timeline: {
+    height: 320,
+    minHeight: 240,
+    maxHeight: 480,
+  },
   timelineProps: {
     width: 360,
+    minWidth: 240,
+    maxWidth: 480,
   },
   controlPanel: {
     height: 44,
     minHeight: 44,
     maxHeight: 80,
   },
-  bottom: {
-    height: 320,
-  },
 });
 </script>
 
 <style lang="scss">
-$__border-color: #000;
+$__border-color: #cccccc;
+$__background--primary: #e8ebec;
+$__background--secondary: #dde0e1;
 
 %border-right {
   border-right: 1px solid $__border-color;
@@ -129,6 +182,21 @@ $__border-color: #000;
 
 %border-bottom {
   border-bottom: 1px solid $__border-color;
+}
+
+%container--normal {
+  background: $__background--primary;
+}
+
+%container--accent {
+  background: $__background--secondary;
+}
+
+.bb-resize-app-example {
+  &__heading {
+    font-size: 76px;
+    font-weight: 500;
+  }
 }
 
 .bb-resize-app-example {
@@ -150,12 +218,14 @@ $__border-color: #000;
     border: 1px solid $__border-color;
     border-radius: 24px;
     overflow: hidden;
+    @extend %container--normal;
 
     &--top {
+      overflow: hidden;
+
       &--container {
         display: flex;
-        width: 100%;
-        height: 100%;
+        @include box(100%);
       }
 
       @extend %border-bottom;
@@ -164,20 +234,34 @@ $__border-color: #000;
     &--control-panel {
       &--container {
         display: flex;
-        width: 100%;
-        height: 100%;
+        flex-direction: row;
+        gap: 12px;
+        @include box(100%);
       }
 
       @extend %border-bottom;
     }
 
     &--bottom {
+      // overflow: hidden;
+
       &--container {
         display: flex;
-        width: 100%;
-        height: 100%;
+        @include box(100%);
       }
     }
+  }
+
+  &__logo {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  &__control-panel {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
   }
 
   &__navigator {
@@ -187,8 +271,22 @@ $__border-color: #000;
   // &__effects {}
 
   &__viewport {
-    width: 100%;
+    @include box(100%);
+    padding: 20px;
+    @extend %container--accent;
     @extend %border-right;
+
+    &--container {
+      @include box(100%);
+    }
+
+    &__canvas {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include box(100%);
+      @extend %container--normal;
+    }
   }
 
   &__timeline-props {

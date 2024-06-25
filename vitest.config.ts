@@ -14,5 +14,5 @@ export default mergeConfig(
       outputFile: "./src/tests-report/index.html",
       globals: true,
     },
-  })
+  }),
 );
