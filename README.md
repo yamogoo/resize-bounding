@@ -1,29 +1,39 @@
 ![image](./public/bb-resize.svg)
 
-# Vue3 Resize Bounding ![Version](https://img.shields.io/badge/version-0.0.1-blue)
+# Vue3 Resize Bounding ![Version](https://img.shields.io/badge/version-0.0.1-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Vue3 Resize Bounding** is a versatile and user-friendly component for Vue 3 that enables intuitive resizing of inner user components via draggable boundary panes. With resizable panes on the top, left, right, and bottom, users can seamlessly adjust the dimensions of the content within the default slot, providing a flexible and dynamic user experience. Ideal for applications requiring custom layout adjustments, this component enhances interactivity and control with ease.
 
 > **Examples**
+>
 > - [Interactive Grid](./src/examples/Example.vue)
 > - [Editor Layout](./src/examples/Example.vue)
 > - [Navigator Layout](./src/examples/Example.vue)
-
-<span f--md>This project is licensed under the terms of the [MIT license](./LICENSE).</span>
 
 ---
 
 ## Documentation
 
-### Install
+### Installation and Usage
+
+Using npm:
 
 ```bash
 npm i vue3-bb-resize
 ```
 
+Using yarn:
+
+```bash
+yarn add vue3-bb-resize
+```
+
 ### Setup
 
+The most common use case is to register the component globally.
+
 ```ts
+// main.js
 import App from "@/App";
 import { createApp } from "vue";
 
@@ -65,7 +75,7 @@ app.mount("#app");
     <tr>
 	    <th style="width: 320px;">property</th>
 	    <th style="width: 320px;">type</th>
-	    <!-- <th>default value</th> -->
+	    <th>default value</th>
 	    <th colspan="2" >description</th>
     </tr>
   </thead>
@@ -73,102 +83,113 @@ app.mount("#app");
       <tr>
 	<td rowspan="9"><code>directions</code></td>
 	<td rowspan="9"><code>string</code></td>
-	<!-- <td rowspan="9"><code>''</code></td> -->
-      </tr>
+	<td rowspan="9"><code>''</code></td>
+    </tr>
       <tr>
         <td colspan="2">The literal <code>'trbl'</code> specifies which boundaries should be enabled for resizing. The order of the characters is not significant.</span>
         </td>
       </tr>
-      <td>value</td>
-       <td>type</td>
+      <th>value</th>
+      <th>description</th>
       <tr>
-        <td>${\textsf{\color{red}'t'}}$</td>
+        <td>'t'</td>
         <td>top</td>
       </tr>
       <tr>
-        <td>${\textsf{\color{red}'r'}}$</td>
+        <td>'r'</td>
         <td>right</td>
       </tr>
       <tr>
-        <td>${\textsf{\color{red}'b'}}$</td>
+        <td>'b'</td>
         <td>bottom</td>
       </tr>
       <tr>
-        <td>${\textsf{\color{red}'l'}}$</td>
+        <td>'l'</td>
         <td>left</td>
       </tr>
       <tr>
-        <td>${\textsf{\color{red}'h'}}$</td>
-        <td>horizontal, equivalent to <code>'lr'</code></td>
+        <td>'h'</td>
+        <td>horizontal alias, equivalent to <code>'lr'</code></td>
       </tr>
       <tr>
-        <td>${\textsf{\color{red}'v'}}$</td>
-        <td>vertical, equivalent to <code>'tb'</code></td>
+        <td>'v'</td>
+        <td>vertical alias, equivalent to <code>'tb'</code></td>
       </tr>
     <tr>
       <td><code>disabled</code></td>
       <td><code>boolean</code></td>
-      <!-- <td><code>false</code></td> -->
+      <td><code>false</code></td>
       <td colspan="2">Disable border selection</td> 
     </tr>
     <tr>
       <td><code>width</code></td>
       <td><code>number | undefined</code></td>
-      <!-- <td><code>undefined</code></td> -->
+      <td><code>undefined</code></td>
       <td colspan="2">Set current container width. <code>undefiend</code> Equivalent to <code>Number.POSITIVE_INFINITY</code></td>
     </tr>
     <tr>
       <td><code>minWidth</code></td>
       <td><code>number | undefined</code></td>
-      <!-- <td><code>0</code></td> -->
+      <td><code>0</code></td>
       <td colspan="2">Minimum value of the width resizing range</td>
     </tr>
     <tr>
       <td><code>maxWidth</code></td>
       <td><code>number | undefined</code></td>
-      <!-- <td><code>undefined</code></td> -->
+      <td><code>undefined</code></td>
       <td colspan="2">Maximum resizing range value. <code>undefiend</code> Equivalent to <code>Number.POSITIVE_INFINITY</code></td>
     </tr>
     <tr>
       <td><code>height</code></td>
       <td><code>number | undefined</code></td>
-      <!-- <td><code>0</code></td> -->
+      <td><code>0</code></td>
       <td colspan="2">Set current container height</td>
     </tr>
     <tr>
       <td><code>minWidth</code></td>
       <td><code>number | undefined</code></td>
-      <!-- <td><code>0</code></td> -->
+      <td><code>0</code></td>
       <td colspan="2">Minimum height resizing range value</td>
     </tr>
     <tr>
       <td><code>maxWidth</code></td>
       <td><code>number | undefined</code></td>
-      <!-- <td><code>undefined</code></td> -->
+      <td><code>undefined</code></td>
       <td colspan="2">The maximum value of the height resizing range. <code>undefiend</code> Equivalent to <code>Number.POSITIVE_INFINITY</code></td>
     </tr>
     <tr>
-      <td><code>options</code></td>
-      <td><code>BBResizeOptions</code></td>
-      <!-- <td><code>undefined</code></td> -->
-      <td colspan="2">
-        <ul>
-          <li>
-            <code>options.pane.knob.constantlyShow: boolean</code><br>Always display knob</li>
-          </ul>
-        </td>
+      <th colspan="5">additional options</th>
     </tr>
     <tr>
-      <td><code>styles</code></td>
-      <td><code>BBResizeStyles</code></td>
-      <!-- <td><code>undefined</code></td> -->
-      <td colspan="2">
-        <ul>
-          <li>
-            Custom styles
-            </li>
-          </ul>
+      <th >property</th>
+      <th >type</th>
+      <th colspan="3">default value</th>
+    </tr>
+    <tr>
+      <td rowspan="2"><code>options</code></td>
+      <td rowspan="2"><code>BBResizeOptions</code></td>
+      <tr>
+        <td colspan="3">
+          Always display knob:<br>
+          <code>options.pane.knob.constantlyShow: boolean</code>
         </td>
+      </tr>
+    </tr>
+    <tr>
+      <td rowspan="3"><code>styles</code></td>
+      <td rowspan="3"><code>BBResizeStyles</code></td>
+      <tr>
+        <td colspan="3">
+        Cursor style for horizontal bounding during Focus and Resize:<br>
+        <code>styles.cursor.active.vertical</code>: <code>'row-resize'</code>
+        </td>
+      </tr>
+        <tr>
+        <td colspan="3">
+         Cursor style for vertical bounding during Focus and Resize: <br>
+        <code>styles.cursor.active.horizontal</code>: <code>'col-resize'</code>
+        </td>
+        </tr>
     </tr>
 	</tbody>
 </table>
@@ -179,7 +200,7 @@ app.mount("#app");
   <thead>
     <tr>
 	    <th>property</th>
-	    <th style="width: 320px;">type</th>
+	    <th style="width: 280px;">type</th>
 	    <th colspan="2">description</th>
     </tr>
   </thead>
@@ -217,10 +238,10 @@ app.mount("#app");
 	</tbody>
 </table>
 
-
-
 ---
 
 ## Author
 
-- **Mikhail Grebennikov** - [yamogoo](https://github.com/yamogoo)
+**Mikhail Grebennikov** - [yamogoo](https://github.com/yamogoo)
+
+This project is licensed under the terms of the [MIT license](./LICENSE).

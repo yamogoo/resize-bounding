@@ -1,6 +1,8 @@
 import { createApp } from "vue";
 import App from "@/App.vue";
 
+import prismjs from "prismjs";
+
 // import Vue3BbResize from "vue3-bb-resize";
 
 const app = createApp(App);
