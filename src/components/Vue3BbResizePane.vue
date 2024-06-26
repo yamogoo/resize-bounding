@@ -6,10 +6,10 @@
     <div
       ref="refPane"
       data-testid="bb-resize-pane-splitter"
-      :class="['bb-resize__pane__splitter', isSplitterShown ? 'show' : 'hide']"
+      :class="['bb-resize__pane__splitter', isFocused ? 'show' : 'hide']"
     >
       <div
-        v-if="isSplitterShown || constantlyShowKnob"
+        v-if="isFocused || constantlyShowKnob"
         class="bb-resize__pane__splitter__icon"
         :style="knobStyle"
       ></div>
@@ -18,14 +18,9 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, inject, ref, type Ref, computed } from "vue";
+import { onMounted, onUnmounted, ref, type Ref, computed } from "vue";
 
-import { StylesInjectionKey } from "./symbols";
-
-export interface Props {
-  direction?: PaneDirections;
-  constantlyShowKnob?: boolean;
-}
+import type { BBResizeStyles, BBResizeOptions } from "./typings";
 
 const props = withDefaults(defineProps<Props>(), {
   direction: PaneDirections.RIGHT,
@@ -33,17 +28,15 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emits = defineEmits<{
-  (e: "drag:start", data: PaneEmittedData): void;
-  (e: "drag:move", data: PaneEmittedData): void;
-  (e: "drag:end", data: PaneEmittedData, ev: PointerEvent): void;
-  (e: "focus", isFocused: boolean): void;
+  (e: Emits.DRAG_START, data: PaneEmittedData): void;
+  (e: Emits.DRAG_MOVE, data: PaneEmittedData): void;
+  (e: Emits.DRAG_END, data: PaneEmittedData): void;
+  (e: Emits.FOCUS, isFocused: boolean): void;
 }>();
-
-const styles = inject(StylesInjectionKey);
 
 const refPane: Ref<HTMLDivElement | null> = ref(null);
 
-const isSplitterShown = ref(false);
+const isFocused = ref(false);
 let isResizing = false;
 
 const knobStyle = computed(() => {
@@ -55,45 +48,30 @@ const checkIsHorizontal = (): boolean => /[l | r | h]/.test(props.direction);
 const checkIsVertical = (): boolean => /[t | b | v]/.test(props.direction);
 
 const updateCursor = (state: boolean) => {
-  const body = document.body;
-
-  let cursorActive: string | undefined;
+  let cursorActive: string;
 
   if (checkIsHorizontal()) {
-    cursorActive = styles?.cursor.active.horizontal;
+    cursorActive = props.styles?.cursor?.active.horizontal ?? "col-resize";
   } else if (checkIsVertical()) {
-    cursorActive = styles?.cursor.active.vertical;
-  }
+    cursorActive = props.styles?.cursor?.active.vertical ?? "row-resize";
+  } else cursorActive = "auto";
 
-  body.style.cursor = state ? cursorActive ?? "auto" : "auto";
+  if (refPane.value) refPane.value.style.cursor = state ? cursorActive : "auto";
 };
 
 const emitFocus = (state: boolean) => {
-  emits("focus", state);
+  emits(Emits.FOCUS, state);
 };
 
 const onFocus = (e: PointerEvent, isFocused: boolean): void => {
   e.stopPropagation();
-
-  const { pointerType } = e;
-
-  if (pointerType === "touch") return;
-  else {
-    onSelected(isFocused);
-  }
+  onSelected(isFocused);
 };
 
 const onSelected = (state: boolean): void => {
-  if (!(state === false && isResizing)) {
-    isSplitterShown.value = state;
-    updateCursor(state);
-    emitFocus(state);
-
-    if (state && refPane.value)
-      refPane.value.addEventListener("pointerdown", onDragStart);
-    else if (!state && refPane.value)
-      refPane.value.removeEventListener("pointerdown", onDragStart);
-  }
+  isFocused.value = state;
+  updateCursor(state);
+  emitFocus(state);
 };
 
 const onDragStart = (e: PointerEvent): void => {
@@ -101,16 +79,19 @@ const onDragStart = (e: PointerEvent): void => {
   e.stopImmediatePropagation();
 
   isResizing = true;
-  onSelected(true);
+  onSelected(isResizing);
 
-  emits("drag:start", {
+  const el = e.currentTarget as HTMLDivElement;
+  el.setPointerCapture(e.pointerId);
+
+  emits(Emits.DRAG_START, {
     x: Math.round(e.clientX),
     y: Math.round(e.clientY),
     dir: props.direction,
   });
 
   const onDragMove = (e: PointerEvent): void => {
-    emits("drag:move", {
+    emits(Emits.DRAG_MOVE, {
       x: Math.round(e.clientX),
       y: Math.round(e.clientY),
       dir: props.direction,
@@ -120,38 +101,60 @@ const onDragStart = (e: PointerEvent): void => {
   const onDragEnd = (e: PointerEvent): void => {
     isResizing = false;
 
-    onSelected(false);
-    updateCursor(false);
+    onSelected(isResizing);
+    updateCursor(isResizing);
 
-    document.removeEventListener("pointermove", onDragMove);
-    document.removeEventListener("pointerup", onDragEnd);
+    const el = e.currentTarget as HTMLDivElement;
+    el.releasePointerCapture(e.pointerId);
 
-    emits(
-      "drag:end",
-      {
-        x: Math.round(e.clientX),
-        y: Math.round(e.clientY),
-        dir: props.direction,
-      },
-      e,
-    );
+    el.removeEventListener("pointermove", onDragMove);
+    el.removeEventListener("pointerup", onDragEnd);
+
+    emits(Emits.DRAG_END, {
+      x: Math.round(e.clientX),
+      y: Math.round(e.clientY),
+      dir: props.direction,
+    });
   };
 
-  document.addEventListener("pointermove", onDragMove);
-  document.addEventListener("pointerup", onDragEnd);
+  el.addEventListener("pointermove", onDragMove);
+  el.addEventListener("pointerup", onDragEnd);
+};
+
+const onDragCancel = (e: PointerEvent): void => {
+  const el = e.currentTarget as HTMLDivElement;
+
+  isResizing = false;
+  el.releasePointerCapture(e.pointerId);
+
+  emits(Emits.DRAG_END, {
+    x: Math.round(e.clientX),
+    y: Math.round(e.clientY),
+    dir: props.direction,
+  });
 };
 
 const addEventListeners = () => {
-  if (refPane.value) {
-    refPane.value.addEventListener("pointerenter", (e) => onFocus(e, true));
-    refPane.value.addEventListener("pointerleave", (e) => onFocus(e, false));
+  const el = refPane.value;
+
+  if (el) {
+    el.addEventListener("pointerenter", (e) => onFocus(e, true));
+    el.addEventListener("pointerleave", (e) => onFocus(e, false));
+
+    el.addEventListener("pointerdown", onDragStart);
+    el.addEventListener("pointercancel", onDragCancel);
   }
 };
 
 const removeEventListeners = () => {
-  if (refPane.value) {
-    refPane.value.removeEventListener("pointerenter", (e) => onFocus(e, true));
-    refPane.value.removeEventListener("pointerleave", (e) => onFocus(e, false));
+  const el = refPane.value;
+
+  if (el) {
+    el.removeEventListener("pointerenter", (e) => onFocus(e, true));
+    el.removeEventListener("pointerleave", (e) => onFocus(e, false));
+
+    el.removeEventListener("pointerdown", onDragStart);
+    el.addEventListener("pointercancel", onDragCancel);
   }
 };
 
@@ -162,13 +165,32 @@ defineExpose({ refPane });
 </script>
 
 <script lang="ts">
+export interface Props {
+  direction?: PaneDirectionKey;
+  constantlyShowKnob?: boolean;
+  styles?: Partial<BBResizeStyles>;
+  options?: Partial<BBResizeOptions>;
+}
+
+export enum PaneDirectionAliases {
+  HORIZONTAL = "h",
+  VERTICAL = "v",
+}
+
 export enum PaneDirections {
   LEFT = "l",
   RIGHT = "r",
   BOTTOM = "b",
   TOP = "t",
-  HORIZONTAL = "h",
-  VERTICAL = "v",
+}
+
+export type PaneDirectionKey = PaneDirections | PaneDirections | string;
+
+export enum Emits {
+  FOCUS = "focus",
+  DRAG_START = "drag:start",
+  DRAG_MOVE = "drag:move",
+  DRAG_END = "drag:end",
 }
 
 export interface PaneEmittedData {
@@ -177,3 +199,94 @@ export interface PaneEmittedData {
   dir: string;
 }
 </script>
+
+<style lang="scss">
+$__show-color: blue;
+$__pressed-color: #3655e171;
+
+.bb-resize {
+  .bb-resize__pane__splitter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  .bb-resize__pane__splitter__icon {
+    position: absolute;
+    width: 12px;
+    height: 120px;
+    border-radius: 12px;
+    background-color: red;
+    margin: auto;
+  }
+
+  &__pane {
+    position: absolute;
+    display: block;
+    z-index: 9999;
+
+    &.--l {
+      left: 2px;
+      width: 0px;
+      height: 100%;
+
+      .bb-resize__pane__splitter {
+        right: 0;
+        width: 4px;
+        height: 100%;
+      }
+    }
+
+    &.--r {
+      right: 2px;
+      width: 0px;
+      height: 100%;
+
+      .bb-resize__pane__splitter {
+        left: 0;
+        width: 4px;
+        height: 100%;
+      }
+    }
+
+    &.--b {
+      bottom: -2px;
+      height: 0px;
+      width: 100%;
+
+      .bb-resize__pane__splitter {
+        top: 0;
+        width: 100%;
+        height: 4px;
+      }
+    }
+
+    &.--t {
+      top: 2px;
+      height: 0px;
+      width: 100%;
+
+      .bb-resize__pane__splitter {
+        bottom: 0;
+        width: 100%;
+        height: 4px;
+      }
+    }
+
+    &__splitter {
+      position: absolute;
+      display: block;
+      z-index: 0;
+
+      &.show {
+        background-color: $__show-color;
+      }
+
+      &.pressed {
+        background-color: $__pressed-color;
+      }
+    }
+  }
+}
+</style>

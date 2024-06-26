@@ -5,17 +5,17 @@
     data-testid="bb-resize"
     :style="`width: ${width}px; min-width: ${width}px; height: ${height}px; min-height: ${height}px;`"
   >
-    <div class="bb-resize--container" data-testid="bb-resize-container">
-      <slot :width></slot>
-    </div>
+    <slot :width :height></slot>
     <template v-for="({ show, direction }, idx) in panes" :key="idx">
       <Vue3BbResizePane
         v-if="!disabled && show"
         :direction="direction"
         :constantlyShowKnob="options?.pane.knob.constantlyShow"
+        :styles
+        :options
         @focus="
-          (isFocused: boolean) => {
-            $emit('focus', { state: isFocused, direction });
+          (isFocused) => {
+            $emit(Emits.FOCUS, { state: isFocused, direction });
           }
         "
         @drag:start="onDragStart"
@@ -27,20 +27,28 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, provide, defineComponent, type PropType } from "vue";
+import { ref, computed, defineComponent, type PropType } from "vue";
 
 import type { BBResizeOptions, BBResizeStyles } from "./typings";
-import { StylesInjectionKey } from "./symbols";
 
 import Vue3BbResizePane, {
+  PaneDirectionAliases,
   PaneDirections,
+  type PaneDirectionKey,
   type PaneEmittedData,
 } from "./Vue3BbResizePane.vue";
 
+export enum Emits {
+  FOCUS = "focus",
+  UPDATE_WIDTH = "update:width",
+  UPDATE_HEIGHT = "update:height",
+  DRAG_START = "drag:start",
+  DRAG_MOVE = "drag:move",
+  DRAG_END = "drag:end",
+}
+
 export default defineComponent({
   setup(props, { emit }) {
-    provide(StylesInjectionKey, props.styles);
-
     const refRoot = ref<HTMLDivElement | null>(null);
 
     let { width: newWidth, height: newHeight } = props;
@@ -51,25 +59,25 @@ export default defineComponent({
       left: {
         show:
           RegExp(PaneDirections.LEFT).test(props.directions) ||
-          RegExp(PaneDirections.HORIZONTAL).test(props.directions),
+          RegExp(PaneDirectionAliases.HORIZONTAL).test(props.directions),
         direction: PaneDirections.LEFT,
       },
       right: {
         show:
           RegExp(PaneDirections.RIGHT).test(props.directions) ||
-          RegExp(PaneDirections.HORIZONTAL).test(props.directions),
+          RegExp(PaneDirectionAliases.HORIZONTAL).test(props.directions),
         direction: PaneDirections.RIGHT,
       },
       bottom: {
         show:
           RegExp(PaneDirections.BOTTOM).test(props.directions) ||
-          RegExp(PaneDirections.VERTICAL).test(props.directions),
+          RegExp(PaneDirectionAliases.VERTICAL).test(props.directions),
         direction: PaneDirections.BOTTOM,
       },
       top: {
         show:
           RegExp(PaneDirections.TOP).test(props.directions) ||
-          RegExp(PaneDirections.VERTICAL).test(props.directions),
+          RegExp(PaneDirectionAliases.VERTICAL).test(props.directions),
         direction: PaneDirections.TOP,
       },
     }));
@@ -87,7 +95,7 @@ export default defineComponent({
       startX = x;
       startY = y;
 
-      emit("drag:start", dir);
+      emit(Emits.DRAG_START, dir);
     };
 
     const isInRange = (
@@ -104,7 +112,7 @@ export default defineComponent({
     const onDragMove = ({ x, y, dir }: PaneEmittedData): void => {
       if (!refRoot.value) return;
 
-      emit("drag:move", dir);
+      emit(Emits.DRAG_MOVE, dir);
 
       switch (dir) {
         case PaneDirections.BOTTOM:
@@ -113,7 +121,7 @@ export default defineComponent({
           if (
             isInRange(props.minHeight, props.maxHeight, prevHeight, newHeight)
           ) {
-            emit("update:height", newHeight);
+            emit(Emits.UPDATE_HEIGHT, newHeight);
             prevHeight = newHeight;
           }
           break;
@@ -123,7 +131,7 @@ export default defineComponent({
           if (
             isInRange(props.minHeight, props.maxHeight, prevHeight, newHeight)
           ) {
-            emit("update:height", newHeight);
+            emit(Emits.UPDATE_HEIGHT, newHeight);
             prevHeight = newHeight;
           }
           break;
@@ -131,7 +139,7 @@ export default defineComponent({
           newWidth = startWidth + (x - startX);
 
           if (isInRange(props.minWidth, props.maxWidth, prevWidth, newWidth)) {
-            emit("update:width", newWidth);
+            emit(Emits.UPDATE_WIDTH, newWidth);
             prevWidth = newWidth;
           }
           break;
@@ -139,7 +147,7 @@ export default defineComponent({
           newWidth = startWidth + (startX - x);
 
           if (isInRange(props.minWidth, props.maxWidth, prevWidth, newWidth)) {
-            emit("update:width", newWidth);
+            emit(Emits.UPDATE_WIDTH, newWidth);
             prevWidth = newWidth;
           }
           break;
@@ -147,7 +155,7 @@ export default defineComponent({
     };
 
     const onDragEnd = ({ dir }: PaneEmittedData): void => {
-      emit("drag:end", dir);
+      emit(Emits.DRAG_END, dir);
     };
 
     return {
@@ -157,16 +165,17 @@ export default defineComponent({
       onDragEnd,
       panes,
       PaneDirections,
+      Emits,
     };
   },
-  emits: [
-    "focus",
-    "update:width",
-    "update:height",
-    "drag:start",
-    "drag:move",
-    "drag:end",
-  ],
+  emits: {
+    [Emits.FOCUS]: (_data: { state: boolean; direction: string }) => void {},
+    [Emits.UPDATE_WIDTH]: (_width: number) => void {},
+    [Emits.UPDATE_HEIGHT]: (_height: number) => void {},
+    [Emits.DRAG_START]: (_dir: string) => void {},
+    [Emits.DRAG_MOVE]: (_dir: string) => void {},
+    [Emits.DRAG_END]: (_dir: string) => void {},
+  },
   props: {
     width: {
       type: Number,
@@ -197,7 +206,7 @@ export default defineComponent({
       default: false,
     },
     directions: {
-      type: String as PropType<PaneDirections | string>,
+      type: String as PropType<PaneDirectionKey | string>,
       default: "",
     },
     alwaysShowKnob: {
@@ -206,6 +215,13 @@ export default defineComponent({
     },
     options: {
       type: Object as PropType<BBResizeOptions>,
+      default: {
+        pane: {
+          knob: {
+            constantlyShow: false,
+          },
+        },
+      },
     },
     styles: {
       type: Object as PropType<BBResizeStyles>,
@@ -225,103 +241,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-$__show-color: blue;
-$__pressed-color: #3655e171;
-
 .bb-resize {
   position: relative;
   display: flex;
-  flex-direction: row;
-  height: 100%;
-
-  &--container {
-    position: relative;
-    display: block;
-    width: 100%;
-  }
-
-  .bb-resize__pane__splitter {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-  }
-
-  .bb-resize__pane__splitter__icon {
-    position: absolute;
-    width: 12px;
-    height: 120px;
-    border-radius: 12px;
-    background-color: red;
-    margin: auto;
-  }
-
-  &__pane {
-    position: absolute;
-    display: block;
-    z-index: 9999;
-
-    &.--l {
-      left: 2px;
-      width: 0px;
-      height: 100%;
-
-      .bb-resize__pane__splitter {
-        right: 0;
-        width: 4px;
-        height: 100%;
-      }
-    }
-
-    &.--r {
-      right: 2px;
-      width: 0px;
-      height: 100%;
-
-      .bb-resize__pane__splitter {
-        left: 0;
-        width: 4px;
-        height: 100%;
-      }
-    }
-
-    &.--b {
-      bottom: -2px;
-      height: 0px;
-      width: 100%;
-
-      .bb-resize__pane__splitter {
-        top: 0;
-        width: 100%;
-        height: 4px;
-      }
-    }
-
-    &.--t {
-      top: 2px;
-      height: 0px;
-      width: 100%;
-
-      .bb-resize__pane__splitter {
-        bottom: 0;
-        width: 100%;
-        height: 4px;
-      }
-    }
-
-    &__splitter {
-      position: absolute;
-      display: block;
-      z-index: 0;
-
-      &.show {
-        background-color: $__show-color;
-      }
-
-      &.pressed {
-        background-color: $__pressed-color;
-      }
-    }
-  }
 }
 </style>
