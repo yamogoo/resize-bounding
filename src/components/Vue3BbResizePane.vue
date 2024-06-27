@@ -1,30 +1,40 @@
 <template>
   <div
-    :class="['bb-resize__pane', `--${direction}`]"
+    :class="[`${prefix}__pane`, `--${direction}`]"
     data-testid="bb-resize-pane"
+    :style="[paneComputedStyle, styles?.pane]"
   >
     <div
       ref="refPane"
-      data-testid="bb-resize-pane-splitter"
-      :class="['bb-resize__pane__splitter', isFocused ? 'show' : 'hide']"
+      data-testid="bb-resize-splitter"
+      :class="[`${prefix}__splitter`, isFocused ? 'show' : 'hide']"
+      :style="[splitterComputedStyle, styles?.splitter]"
     >
       <div
-        v-if="isFocused || constantlyShowKnob"
-        class="bb-resize__pane__splitter__icon"
-        :style="knobStyle"
+        v-if="isFocused || options?.knob?.constantlyShow"
+        data-testid="bb-resize-knob"
+        :class="[`${prefix}__knob`]"
+        :style="[knobComputedStyle, styles?.knob]"
       ></div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, type Ref, computed } from "vue";
+import {
+  onMounted,
+  onUnmounted,
+  ref,
+  type Ref,
+  computed,
+  type ComputedRef,
+  type HTMLAttributes,
+} from "vue";
 
-import type { BBResizeStyles, BBResizeOptions } from "./typings";
+import type { BBResize } from "./typings";
 
 const props = withDefaults(defineProps<Props>(), {
   direction: PaneDirections.RIGHT,
-  constantlyShowKnob: false,
 });
 
 const emits = defineEmits<{
@@ -34,14 +44,52 @@ const emits = defineEmits<{
   (e: Emits.FOCUS, isFocused: boolean): void;
 }>();
 
+const options: ComputedRef<BBResize.PaneOptions> = computed(() => {
+  return {
+    ...{
+      width: 4,
+      knob: {
+        constantlyShow: false,
+      },
+      cursor: {
+        horizontal: "col-resize",
+        vertical: "row-resize",
+      },
+    },
+    ...props.options,
+  };
+});
+
 const refPane: Ref<HTMLDivElement | null> = ref(null);
+
+const paneComputedStyle = computed(() => {
+  const _width = options.value.width;
+
+  if (refPane.value && _width) {
+    const _styles = paneStylesMap(_width);
+    const value: HTMLAttributes["style"] =
+      _styles[props.direction as PaneDirections];
+    return value;
+  }
+});
+
+const splitterComputedStyle = computed(() => {
+  const _width = options.value.width;
+
+  if (refPane.value && _width) {
+    const _styles = splitterStylesMap(_width);
+    const value: HTMLAttributes["style"] =
+      _styles[props.direction as PaneDirections];
+    return value;
+  }
+});
 
 const isFocused = ref(false);
 let isResizing = false;
 
-const knobStyle = computed(() => {
+const knobComputedStyle = computed(() => {
   const isHorizontal = checkIsHorizontal();
-  return `transform: rotate(${isHorizontal ? 0 : 90}deg);`;
+  return { transform: `rotate(${isHorizontal ? 0 : 90}deg)` };
 });
 
 const checkIsHorizontal = (): boolean => /[l | r | h]/.test(props.direction);
@@ -51,9 +99,9 @@ const updateCursor = (state: boolean) => {
   let cursorActive: string;
 
   if (checkIsHorizontal()) {
-    cursorActive = props.styles?.cursor?.active.horizontal ?? "col-resize";
+    cursorActive = props.options?.cursor?.horizontal ?? "col-resize";
   } else if (checkIsVertical()) {
-    cursorActive = props.styles?.cursor?.active.vertical ?? "row-resize";
+    cursorActive = props.options?.cursor?.vertical ?? "row-resize";
   } else cursorActive = "auto";
 
   if (refPane.value) refPane.value.style.cursor = state ? cursorActive : "auto";
@@ -166,10 +214,10 @@ defineExpose({ refPane });
 
 <script lang="ts">
 export interface Props {
+  prefix: string;
   direction?: PaneDirectionKey;
-  constantlyShowKnob?: boolean;
-  styles?: Partial<BBResizeStyles>;
-  options?: Partial<BBResizeOptions>;
+  options?: Partial<BBResize.PaneOptions>;
+  styles?: Partial<BBResize.Styles>;
 }
 
 export enum PaneDirectionAliases {
@@ -198,6 +246,31 @@ export interface PaneEmittedData {
   y: number;
   dir: string;
 }
+
+export const paneStylesMap = (
+  size: number,
+): Record<PaneDirections, HTMLAttributes["style"]> => {
+  const offset = `${size / 2}px`;
+  return {
+    l: { top: 0, left: offset, width: "0px", height: "100%" },
+    r: { top: 0, right: offset, width: "0px", height: "100%" },
+    t: { left: 0, top: offset, width: "100%", height: "0px" },
+    b: { left: 0, bottom: offset, width: "100%", height: "0px" },
+  };
+};
+
+export const splitterStylesMap = (
+  size: number,
+): Record<PaneDirections, HTMLAttributes["style"]> => {
+  const _size = `${size}px`;
+
+  return {
+    l: { right: 0, width: _size, height: "100%" },
+    r: { left: 0, width: _size, height: "100%" },
+    t: { bottom: 0, height: _size, width: "100%" },
+    b: { top: 0, height: _size, width: "100%" },
+  };
+};
 </script>
 
 <style lang="scss">
@@ -205,88 +278,62 @@ $__show-color: blue;
 $__pressed-color: #3655e171;
 
 .bb-resize {
-  .bb-resize__pane__splitter {
+  &__pane {
+    position: absolute;
+    display: block;
+    z-index: 9999;
+
+    // &.--l {
+
+    //   .bb-resize__pane__splitter {
+    //   }
+    // }
+
+    // &.--r {
+
+    //   .bb-resize__pane__splitter {
+    //   }
+    // }
+
+    // &.--b {
+
+    //   .bb-resize__pane__splitter {
+    //   }
+    // }
+
+    // &.--t {
+
+    //   .bb-resize__pane__splitter {
+    //   }
+    // }
+  }
+
+  &__splitter {
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 9999;
   }
 
-  .bb-resize__pane__splitter__icon {
+  &__splitter {
+    position: absolute;
+
+    &.show {
+      background-color: $__show-color;
+    }
+
+    &.pressed {
+      background-color: $__pressed-color;
+    }
+  }
+
+  &__knob {
     position: absolute;
     width: 12px;
     height: 120px;
     border-radius: 12px;
     background-color: red;
     margin: auto;
-  }
-
-  &__pane {
-    position: absolute;
-    display: block;
-    z-index: 9999;
-
-    &.--l {
-      left: 2px;
-      width: 0px;
-      height: 100%;
-
-      .bb-resize__pane__splitter {
-        right: 0;
-        width: 4px;
-        height: 100%;
-      }
-    }
-
-    &.--r {
-      right: 2px;
-      width: 0px;
-      height: 100%;
-
-      .bb-resize__pane__splitter {
-        left: 0;
-        width: 4px;
-        height: 100%;
-      }
-    }
-
-    &.--b {
-      bottom: -2px;
-      height: 0px;
-      width: 100%;
-
-      .bb-resize__pane__splitter {
-        top: 0;
-        width: 100%;
-        height: 4px;
-      }
-    }
-
-    &.--t {
-      top: 2px;
-      height: 0px;
-      width: 100%;
-
-      .bb-resize__pane__splitter {
-        bottom: 0;
-        width: 100%;
-        height: 4px;
-      }
-    }
-
-    &__splitter {
-      position: absolute;
-      display: block;
-      z-index: 0;
-
-      &.show {
-        background-color: $__show-color;
-      }
-
-      &.pressed {
-        background-color: $__pressed-color;
-      }
-    }
   }
 }
 </style>

@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { mount, VueWrapper } from "@vue/test-utils";
+import { mount, shallowMount, VueWrapper } from "@vue/test-utils";
 
 import { DataTestIds } from "./setup";
 
@@ -11,6 +11,9 @@ import {
 } from "@/components/Vue3BbResizePane.vue";
 
 import Vue3BbResizePane from "@/components/Vue3BbResizePane.vue";
+import type { HTMLAttributes } from "vue";
+
+const DEFAULT_PREFIX = "bb-resize";
 
 describe("Vue3BbResize", () => {
   beforeEach(() => {
@@ -19,7 +22,10 @@ describe("Vue3BbResize", () => {
   });
 
   describe("components", () => {
-    test.each(["r", "l", "t", "b", "h", "v"])(
+    test.each([
+      ...Object.values(PaneDirections),
+      ...Object.values(PaneDirectionAliases),
+    ])(
       `Should not display any selected borders when set to "disabled" (--%s)`,
       (direction) => {
         const wrapper = mount(Vue3BbResize, {
@@ -29,9 +35,7 @@ describe("Vue3BbResize", () => {
           },
         });
 
-        const panEl = wrapper.findAll(
-          `[data-testid="${DataTestIds.BB_RESIZE_PANE}"]`,
-        );
+        const panEl = wrapper.findAll(`[data-testid="${DataTestIds.PANE}"]`);
 
         expect(panEl.length).toBe(0);
         expect(panEl.length).toMatchSnapshot();
@@ -47,9 +51,7 @@ describe("Vue3BbResize", () => {
           },
         });
 
-        const panEls = wrapper.findAll(
-          `[data-testid="${DataTestIds.BB_RESIZE_PANE}"]`,
-        );
+        const panEls = wrapper.findAll(`[data-testid="${DataTestIds.PANE}"]`);
         expect(panEls.length).toBe(directions.length);
         expect(panEls.length).toMatchSnapshot();
       },
@@ -64,9 +66,7 @@ describe("Vue3BbResize", () => {
           },
         });
 
-        const panEls = wrapper.findAll(
-          `[data-testid="${DataTestIds.BB_RESIZE_PANE}"]`,
-        );
+        const panEls = wrapper.findAll(`[data-testid="${DataTestIds.PANE}"]`);
         expect(panEls.length).toBe(0);
         expect(panEls.length).toMatchSnapshot();
       },
@@ -83,9 +83,7 @@ describe("Vue3BbResize", () => {
           },
         });
 
-        const html = wrapper
-          .find(`[data-testid="${DataTestIds.BB_RESIZE}"]`)
-          .html();
+        const html = wrapper.find(`[data-testid="${DataTestIds.ROOT}"]`).html();
         expect(html).toContain(slot);
         expect(html).toMatchSnapshot();
       },
@@ -93,20 +91,49 @@ describe("Vue3BbResize", () => {
   });
 
   describe("classes", () => {
-    test.each(["r", "l", "t", "b"])('should have "--%s" class', (direction) => {
-      const wrapper = mount(Vue3BbResize, {
-        props: {
-          directions: direction,
-        },
+    describe("prefix", () => {
+      test.each(["my-prefix"])("should have custom prefix (%s)", (prefix) => {
+        const wrapper = shallowMount(Vue3BbResize, {
+          props: {
+            options: {
+              prefix,
+            },
+          },
+        });
+
+        const rootEl = wrapper.find(`[data-testid="${DataTestIds.ROOT}"]`);
+        const classes = rootEl.classes();
+
+        expect(classes).toContain(prefix);
+        expect(classes).toMatchSnapshot();
       });
 
-      const panEl = wrapper.findAll(
-        `[data-testid="${DataTestIds.BB_RESIZE_PANE}"]`,
-      );
+      test("should have default prefix (%s)", () => {
+        const wrapper = shallowMount(Vue3BbResize);
 
-      expect(panEl[0].classes(`--${direction}`)).toBeTruthy();
-      expect(panEl[0].classes(`--${direction}`)).toMatchSnapshot();
+        const rootEl = wrapper.find(`[data-testid="${DataTestIds.ROOT}"]`);
+        const classes = rootEl.classes();
+
+        expect(classes).toContain(DEFAULT_PREFIX);
+        expect(classes).toMatchSnapshot();
+      });
     });
+
+    test.each([Object.values(PaneDirections)])(
+      'should have "--%s" class',
+      (direction) => {
+        const wrapper = mount(Vue3BbResize, {
+          props: {
+            directions: direction,
+          },
+        });
+
+        const panEl = wrapper.findAll(`[data-testid="${DataTestIds.PANE}"]`);
+
+        expect(panEl[0].classes(`--${direction}`)).toBeTruthy();
+        expect(panEl[0].classes(`--${direction}`)).toMatchSnapshot();
+      },
+    );
   });
 
   describe("events", () => {
@@ -136,7 +163,7 @@ describe("Vue3BbResize", () => {
           expect(paneWrapper.exists()).toBeTruthy();
 
           const pane = paneWrapper.find(
-            `[data-testid="${DataTestIds.BB_RESIZE_PANE_SPLITTER}"]`,
+            `[data-testid="${DataTestIds.SPLITTER}"]`,
           );
 
           let events: PaneEmittedData[] = [];
@@ -195,7 +222,7 @@ describe("Vue3BbResize", () => {
           });
 
           const paneEls = wrapper.findAll(
-            `[data-testid="${DataTestIds.BB_RESIZE_PANE_SPLITTER}"]`,
+            `[data-testid="${DataTestIds.SPLITTER}"]`,
           );
 
           directions.map(async (_d, idx) => {
@@ -218,7 +245,48 @@ describe("Vue3BbResize", () => {
     });
   });
 
-  // describe("styles", () => {});
+  describe("styles", () => {
+    describe("container", () => {
+      test.each([{ background: "red" }])(
+        "should apply custom styles (%s)",
+        (container: HTMLAttributes["style"]) => {
+          const wrapper = shallowMount(Vue3BbResize, {
+            props: {
+              styles: {
+                container,
+              },
+            },
+          });
 
-  // describe("options", () => {});
+          const containerEl = wrapper.find(
+            `[data-testid="${DataTestIds.ROOT}"]`,
+          );
+          const styles = containerEl.attributes("style");
+
+          expect(styles).toContain("background: red");
+          expect(styles).toMatchSnapshot();
+        },
+      );
+
+      test.each([{ background: "blue", display: "flex" }])(
+        "should apply inline styles (%s)",
+        (container: HTMLAttributes["style"]) => {
+          const wrapper = shallowMount(Vue3BbResize, {
+            props: {
+              style: container,
+            },
+          });
+
+          const containerEl = wrapper.find(
+            `[data-testid="${DataTestIds.ROOT}"]`,
+          );
+          const styles = containerEl.attributes("style");
+
+          expect(styles).toContain("display: flex");
+          expect(styles).toContain("background: blue");
+          expect(styles).toMatchSnapshot();
+        },
+      );
+    });
+  });
 });

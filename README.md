@@ -2,7 +2,7 @@
 
 # Vue3 Resize Bounding ![Version](https://img.shields.io/badge/version-0.0.1-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Vue3 Resize Bounding** is a versatile and user-friendly component for Vue 3 that enables intuitive resizing of inner user components via draggable boundary panes. With resizable panes on the top, left, right, and bottom, users can seamlessly adjust the dimensions of the content within the default slot, providing a flexible and dynamic user experience. Ideal for applications requiring custom layout adjustments, this component enhances interactivity and control with ease.
+**Vue3 Resize Bounding** is a highly-customizable, versatile and user-friendly component for Vue 3 that enables intuitive resizing of inner user components via draggable boundary panes. With resizable panes on the top, left, right, and bottom, users can seamlessly adjust the dimensions of the content within the default slot, providing a flexible and dynamic user experience. Ideal for applications requiring custom layout adjustments, this component enhances interactivity and control with ease.
 
 > **Examples**
 >
@@ -57,7 +57,7 @@ app.mount("#app");
     @update:height="(height) => (container.height = height)"
   >
     <!-- YOUR COMPONENT START -->
-    <nav style="width="100%; height: 100%;>My Container</nav>
+    <div style="width="100%; height: 100%;>My Container</div>
     <!-- YOUR COMPONENT END -->
   </bb-resize>
 </template>
@@ -166,30 +166,42 @@ app.mount("#app");
       <th colspan="3">default value</th>
     </tr>
     <tr>
-      <td rowspan="2"><code>options</code></td>
-      <td rowspan="2"><code>BBResizeOptions</code></td>
+      <td rowspan="4"><code>options</code></td>
+      <td rowspan="4"><code>Partial &#60BBResize.Options&#62</code></td>
       <tr>
         <td colspan="3">
           Always display knob:<br>
           <code>options.pane.knob.constantlyShow: boolean</code>
         </td>
       </tr>
+      <tr>
+      <td colspan="3">
+        Cursor style for horizontal bounding during Focus and Resize:<br>
+        <code>options.pane.cursor.vertical</code>: <code>'row-resize'</code>
+        </td>
+      </tr>
+      <tr>
+      <td colspan="3">
+         Cursor style for vertical bounding during Focus and Resize: <br>
+        <code>options.pane.cursor.horizontal</code>: <code>'col-resize'</code>
+      </td>
+      </tr>
     </tr>
     <tr>
       <td rowspan="3"><code>styles</code></td>
-      <td rowspan="3"><code>BBResizeStyles</code></td>
+      <td rowspan="3"><code>Partial &#60BBResize.Styles&#62</code></td>
       <tr>
         <td colspan="3">
-        Cursor style for horizontal bounding during Focus and Resize:<br>
-        <code>styles.cursor.active.vertical</code>: <code>'row-resize'</code>
+        Sets custom styles for each component class:<br>
+        <code>Record<
+    "container" | "pane" | "splitter" | "knob",
+    HTMLAttributes["style"]
+  ></code><br><br>
+  where class name is: <code>`${prefix}__${name}`</code><br>
         </td>
       </tr>
-        <tr>
-        <td colspan="3">
-         Cursor style for vertical bounding during Focus and Resize: <br>
-        <code>styles.cursor.active.horizontal</code>: <code>'col-resize'</code>
-        </td>
-        </tr>
+      <tr>
+      </tr>
     </tr>
 	</tbody>
 </table>
@@ -237,6 +249,90 @@ app.mount("#app");
     </tr>
 	</tbody>
 </table>
+
+---
+
+### Overriding
+
+#### Options:
+
+The Options object is responsible for fine-tuning the component and setting calculated parameters.
+
+```html
+<!-- MyResizeBoundingComponent.vue -->
+<template>
+  <Vue3BbResize
+    v-bind="$attrs"
+    :directions="'hv'"
+    :options="{
+      prefix: 'my-bb-resize',
+      pane: {
+        width: 12,
+        cursor: {
+          horizontal: 'ew-resize',
+        },
+      },
+    }"
+  >
+    <slot></slot>
+  </Vue3BbResize>
+</template>
+```
+
+Using typescript:
+
+```html
+<!-- MyResizeBoundingComponent.vue -->
+<template>
+  <Vue3BbResize v-bind="$attrs" :directions="'hv'" :options>
+    <slot></slot>
+  </Vue3BbResize>
+</template>
+```
+
+```ts
+// MyResizeBoundingComponent.vue
+<script setup lang="ts">
+import type { BBResize } from 'vue3-bb-resize';
+
+const myOptions: Partial<BBResize.Options> = {
+  pane: {
+    prefix: 'my-bb-resize',
+    width: 12,
+    cursor: {
+      horizontal: 'ew-resize',
+    },
+  },
+}
+```
+
+#### Custom Styling
+
+To customize styles, use the `styles` props object:
+
+```ts
+const styles = {
+  container: { display: "flex" },
+  splitter: { background: "red" },
+  knob: { width: "12px", height: "120px" },
+};
+```
+
+Or you may also use the inline `style` attribute to set container styles:
+
+```html
+<Vue3BbResize
+  :directions="'hv'"
+  :style="{ display: flex }"
+  :styles="{
+    splitter: { background: yellow },
+    knob: { width: '12px', height: '120px' }
+  }"
+>
+</Vue3BbResize>
+```
+
+> How you override container `styles` depends on your preferences
 
 ---
 
