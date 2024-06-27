@@ -1,18 +1,19 @@
 <template>
   <div
+    v-bind="$attrs"
     ref="refRoot"
-    class="bb-resize"
-    data-testid="bb-resize"
-    :style="`width: ${width}px; min-width: ${width}px; height: ${height}px; min-height: ${height}px;`"
+    data-testid="bb-resize-container"
+    :class="options.prefix"
+    :style="[computedStyle, styles?.container]"
   >
     <slot :width :height></slot>
     <template v-for="({ show, direction }, idx) in panes" :key="idx">
       <Vue3BbResizePane
         v-if="!disabled && show"
+        :prefix="options.prefix ?? ''"
         :direction="direction"
-        :constantlyShowKnob="options?.pane.knob.constantlyShow"
+        :options="options.pane"
         :styles
-        :options
         @focus="
           (isFocused) => {
             $emit(Emits.FOCUS, { state: isFocused, direction });
@@ -27,9 +28,16 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, defineComponent, type PropType } from "vue";
+import {
+  ref,
+  computed,
+  defineComponent,
+  type PropType,
+  type ComputedRef,
+  type HTMLAttributes,
+} from "vue";
 
-import type { BBResizeOptions, BBResizeStyles } from "./typings";
+import type { BBResize } from "./typings";
 
 import Vue3BbResizePane, {
   PaneDirectionAliases,
@@ -47,6 +55,15 @@ export enum Emits {
   DRAG_END = "drag:end",
 }
 
+const defaultOptions: BBResize.Options = {
+  prefix: "bb-resize",
+  pane: {
+    knob: {
+      constantlyShow: true,
+    },
+  },
+};
+
 export default defineComponent({
   setup(props, { emit }) {
     const refRoot = ref<HTMLDivElement | null>(null);
@@ -54,6 +71,24 @@ export default defineComponent({
     let { width: newWidth, height: newHeight } = props;
     let prevWidth = newWidth,
       prevHeight = newHeight;
+
+    const computedStyle: ComputedRef<HTMLAttributes["style"]> = computed(() => {
+      const _width = {
+        width: `${props.width}px`,
+        minWidth: `${props.width}px`,
+      };
+
+      const _height = {
+        height: `${props.height}px`,
+        minHeight: `${props.height}px`,
+      };
+
+      return {
+        position: "relative",
+        ...(props.width && _width),
+        ...(props.height && _height),
+      };
+    });
 
     const panes = computed(() => ({
       left: {
@@ -88,6 +123,10 @@ export default defineComponent({
     let startX = 0,
       startY = 0;
 
+    const options = computed(() => {
+      return { ...defaultOptions, ...props.options };
+    });
+
     const onDragStart = ({ x, y, dir }: PaneEmittedData): void => {
       startWidth = props.width ?? 0;
       startHeight = props.height ?? 0;
@@ -98,15 +137,17 @@ export default defineComponent({
       emit(Emits.DRAG_START, dir);
     };
 
-    const isInRange = (
+    const truncateInRange = (
       min: number,
       max: number | undefined,
-      prev: number | undefined,
       next: number,
-    ): boolean => {
-      return (
-        next > min && next < (max ?? Number.POSITIVE_INFINITY) && prev !== next
-      );
+    ): number => {
+      const _max = max ?? Number.POSITIVE_INFINITY;
+
+      if (next <= min) return min;
+      else if (next >= _max) return _max;
+
+      return next;
     };
 
     const onDragMove = ({ x, y, dir }: PaneEmittedData): void => {
@@ -114,43 +155,58 @@ export default defineComponent({
 
       emit(Emits.DRAG_MOVE, dir);
 
-      switch (dir) {
-        case PaneDirections.BOTTOM:
-          newHeight = startHeight + (y - startY);
+      if (dir === PaneDirections.LEFT) {
+        newWidth = startWidth + (startX - x);
 
-          if (
-            isInRange(props.minHeight, props.maxHeight, prevHeight, newHeight)
-          ) {
-            emit(Emits.UPDATE_HEIGHT, newHeight);
-            prevHeight = newHeight;
-          }
-          break;
-        case PaneDirections.TOP:
-          newHeight = startHeight + (startY - y);
+        if (prevWidth === newWidth) return;
 
-          if (
-            isInRange(props.minHeight, props.maxHeight, prevHeight, newHeight)
-          ) {
-            emit(Emits.UPDATE_HEIGHT, newHeight);
-            prevHeight = newHeight;
-          }
-          break;
-        case PaneDirections.RIGHT:
-          newWidth = startWidth + (x - startX);
+        const truncated = truncateInRange(
+          props.minWidth,
+          props.maxWidth,
+          newWidth,
+        );
 
-          if (isInRange(props.minWidth, props.maxWidth, prevWidth, newWidth)) {
-            emit(Emits.UPDATE_WIDTH, newWidth);
-            prevWidth = newWidth;
-          }
-          break;
-        case PaneDirections.LEFT:
-          newWidth = startWidth + (startX - x);
+        emit(Emits.UPDATE_WIDTH, truncated);
+        prevWidth = truncated;
+      } else if (dir === PaneDirections.RIGHT) {
+        newWidth = startWidth + (x - startX);
 
-          if (isInRange(props.minWidth, props.maxWidth, prevWidth, newWidth)) {
-            emit(Emits.UPDATE_WIDTH, newWidth);
-            prevWidth = newWidth;
-          }
-          break;
+        if (prevWidth === newWidth) return;
+
+        const truncated = truncateInRange(
+          props.minWidth,
+          props.maxWidth,
+          newWidth,
+        );
+
+        emit(Emits.UPDATE_WIDTH, truncated);
+        prevWidth = truncated;
+      } else if (dir === PaneDirections.TOP) {
+        newHeight = startHeight + (startY - y);
+
+        if (prevHeight === newHeight) return;
+
+        const truncated = truncateInRange(
+          props.minHeight,
+          props.maxHeight,
+          newHeight,
+        );
+
+        emit(Emits.UPDATE_HEIGHT, truncated);
+        prevHeight = truncated;
+      } else if (dir === PaneDirections.BOTTOM) {
+        newHeight = startHeight + (y - startY);
+
+        if (prevHeight === newHeight) return;
+
+        const truncated = truncateInRange(
+          props.minHeight,
+          props.maxHeight,
+          newHeight,
+        );
+
+        emit(Emits.UPDATE_HEIGHT, truncated);
+        prevHeight = truncated;
       }
     };
 
@@ -163,18 +219,27 @@ export default defineComponent({
       onDragStart,
       onDragMove,
       onDragEnd,
+      truncateInRange,
+      computedStyle,
+      options,
       panes,
       PaneDirections,
       Emits,
     };
   },
+  inheritAttrs: true,
   emits: {
-    [Emits.FOCUS]: (_data: { state: boolean; direction: string }) => void {},
-    [Emits.UPDATE_WIDTH]: (_width: number) => void {},
-    [Emits.UPDATE_HEIGHT]: (_height: number) => void {},
-    [Emits.DRAG_START]: (_dir: string) => void {},
-    [Emits.DRAG_MOVE]: (_dir: string) => void {},
-    [Emits.DRAG_END]: (_dir: string) => void {},
+    [Emits.FOCUS]: (data: { state: boolean; direction: string }) =>
+      typeof data === "object" &&
+      "state" in data &&
+      typeof data.state === "boolean" &&
+      "direction" in data &&
+      typeof data.direction === "string",
+    [Emits.UPDATE_WIDTH]: (width: number) => typeof width === "number",
+    [Emits.UPDATE_HEIGHT]: (height: number) => typeof height === "number",
+    [Emits.DRAG_START]: (dir: string) => typeof dir === "string",
+    [Emits.DRAG_MOVE]: (dir: string) => typeof dir === "string",
+    [Emits.DRAG_END]: (dir: string) => typeof dir === "string",
   },
   props: {
     width: {
@@ -214,35 +279,13 @@ export default defineComponent({
       default: false,
     },
     options: {
-      type: Object as PropType<BBResizeOptions>,
-      default: {
-        pane: {
-          knob: {
-            constantlyShow: false,
-          },
-        },
-      },
+      type: Object as PropType<Partial<BBResize.Options>>,
     },
     styles: {
-      type: Object as PropType<BBResizeStyles>,
-      default: {
-        cursor: {
-          active: {
-            horizontal: "col-resize",
-            vertical: "row-resize",
-          },
-        },
-      },
+      type: Object as PropType<Partial<BBResize.Styles>>,
     },
   },
   name: "Vue3BbResize",
   components: { Vue3BbResizePane },
 });
 </script>
-
-<style lang="scss">
-.bb-resize {
-  position: relative;
-  display: flex;
-}
-</style>

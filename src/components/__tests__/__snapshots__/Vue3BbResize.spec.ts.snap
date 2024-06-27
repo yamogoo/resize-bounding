@@ -1,12 +1,18 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Vue3BbResize > classes > should have "--b" class 1`] = `true`;
+exports[`Vue3BbResize > classes > prefix > should have custom prefix (my-prefix) 1`] = `
+[
+  "my-prefix",
+]
+`;
+
+exports[`Vue3BbResize > classes > prefix > should have default prefix (%s) 1`] = `
+[
+  "bb-resize",
+]
+`;
 
 exports[`Vue3BbResize > classes > should have "--l" class 1`] = `true`;
-
-exports[`Vue3BbResize > classes > should have "--r" class 1`] = `true`;
-
-exports[`Vue3BbResize > classes > should have "--t" class 1`] = `true`;
 
 exports[`Vue3BbResize > components > Should not display any selected borders when set to "disabled" (--b) 1`] = `0`;
 
@@ -83,7 +89,7 @@ exports[`Vue3BbResize > events > drag > should emit the "drag:start -> drag:move
 `;
 
 exports[`Vue3BbResize > slots > should render default slot 1`] = `
-"<div class="bb-resize" data-testid="bb-resize" style="min-width: undefinedpx; min-height: undefinedpx;">
+"<div data-testid="bb-resize-container" class="bb-resize" style="position: relative;">
   <p>Inner Container</p>
   <!--v-if-->
   <!--v-if-->
@@ -91,3 +97,7 @@ exports[`Vue3BbResize > slots > should render default slot 1`] = `
   <!--v-if-->
 </div>"
 `;
+
+exports[`Vue3BbResize > styles > container > should apply custom styles ({ background: 'red' }) 1`] = `"position: relative; background: red;"`;
+
+exports[`Vue3BbResize > styles > container > should apply inline styles ({ background: 'blue', display: 'flex' }) 1`] = `"background: blue; display: flex; position: relative;"`;

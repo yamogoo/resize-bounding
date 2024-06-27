@@ -3,14 +3,15 @@
   <main class="bb-resize-app-example">
     <div class="bb-resize-app-example--container">
       <div class="bb-resize-app-example__layout">
-        <Vue3BbResize
+        <!-- Overriding -->
+        <MyBBResize
           class="bb-resize-app-example__layout--control-panel"
           :height="layout.controlPanel.height"
           :min-height="layout.controlPanel.minHeight"
           :max-height="layout.controlPanel.maxHeight"
           :directions="'b'"
           @update:height="
-            (height: number) => {
+            (height) => {
               layout.controlPanel.height = height;
             }
           "
@@ -35,7 +36,7 @@
               <input type="number" v-model="layout.timelineProps.width" />
             </div>
           </div>
-        </Vue3BbResize>
+        </MyBBResize>
 
         <Vue3BbResize class="bb-resize-app-example__layout--top">
           <div class="bb-resize-app-example__layout--top--container">
@@ -46,7 +47,7 @@
               :max-width="layout.navigator.maxWidth"
               :directions="'r'"
               @update:width="
-                (width: number) => {
+                (width) => {
                   layout.navigator.width = width;
                 }
               "
@@ -59,9 +60,10 @@
               class="bb-resize-app-example__effects"
               :width="layout.effects.width"
               :min-width="layout.effects.minWidth"
+              :max-width="layout.effects.maxWidth"
               :directions="'l'"
               @update:width="
-                (width: number) => {
+                (width) => {
                   layout.effects.width = width;
                 }
               "
@@ -85,7 +87,7 @@
             },
           }"
           @update:height="
-            (height: number) => {
+            (height) => {
               layout.timeline.height = height;
             }
           "
@@ -98,7 +100,7 @@
               :max-width="layout.timelineProps.maxWidth"
               :directions="'r'"
               @update:width="
-                (width: number) => {
+                (width) => {
                   layout.timelineProps.width = width;
                 }
               "
@@ -119,6 +121,7 @@
 import { ref, type Ref } from "vue";
 
 import Vue3BbResize from "@/components/Vue3BbResize.vue";
+import MyBBResize from "./MyBBResize.vue";
 import HInnerBlock from "@/examples/helpers/HInnerBlock.vue";
 
 interface ContainerSize {
@@ -149,6 +152,7 @@ const layout: Ref<
   effects: {
     width: 360,
     minWidth: 240,
+    maxWidth: 640,
   },
   viewport: {
     width: 360,
@@ -221,6 +225,7 @@ $__background--secondary: #dde0e1;
     @extend %container--normal;
 
     &--top {
+      height: 100%;
       overflow: hidden;
 
       &--container {
