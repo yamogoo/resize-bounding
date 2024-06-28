@@ -37,6 +37,8 @@ import {
   type HTMLAttributes,
 } from "vue";
 
+import { deepMerge } from "./utils";
+
 import type { BBResize } from "./typings";
 
 import Vue3BbResizePane, {
@@ -58,6 +60,8 @@ export enum Emits {
 const defaultOptions: BBResize.Options = {
   prefix: "bb-resize",
   pane: {
+    width: 12,
+    position: "internal",
     knob: {
       constantlyShow: true,
     },
@@ -124,7 +128,7 @@ export default defineComponent({
       startY = 0;
 
     const options = computed(() => {
-      return { ...defaultOptions, ...props.options };
+      return deepMerge(defaultOptions, props.options);
     });
 
     const onDragStart = ({ x, y, dir }: PaneEmittedData): void => {
@@ -272,7 +276,7 @@ export default defineComponent({
     },
     directions: {
       type: String as PropType<PaneDirectionKey | string>,
-      default: "",
+      default: `${PaneDirectionAliases.HORIZONTAL}${PaneDirectionAliases.VERTICAL}`,
     },
     alwaysShowKnob: {
       type: Boolean,
@@ -280,6 +284,7 @@ export default defineComponent({
     },
     options: {
       type: Object as PropType<Partial<BBResize.Options>>,
+      default: {},
     },
     styles: {
       type: Object as PropType<Partial<BBResize.Styles>>,

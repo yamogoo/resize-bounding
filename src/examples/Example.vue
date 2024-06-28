@@ -81,6 +81,8 @@
           :directions="'t'"
           :options="{
             pane: {
+              width: 2,
+              position: 'center',
               knob: {
                 constantlyShow: true,
               },
