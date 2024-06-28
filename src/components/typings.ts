@@ -5,8 +5,17 @@ export namespace BBResize {
     constantlyShow: boolean;
   }
 
+  export enum SplitterPositions {
+    CENTER = "center",
+    EXTERNAL = "external",
+    INTERNAL = "internal",
+  }
+
+  export type PanePosition = SplitterPositions | string;
+
   export interface PaneOptions {
     width: number;
+    position: PanePosition;
     cursor: Partial<
       Record<"horizontal" | "vertical", CSSStyleDeclaration["cursor"]>
     >;

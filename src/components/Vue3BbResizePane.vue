@@ -2,19 +2,19 @@
   <div
     :class="[`${prefix}__pane`, `--${direction}`]"
     data-testid="bb-resize-pane"
-    :style="[paneComputedStyle, styles?.pane]"
+    :style="[styles?.pane, paneComputedStyle]"
   >
     <div
       ref="refPane"
       data-testid="bb-resize-splitter"
       :class="[`${prefix}__splitter`, isFocused ? 'show' : 'hide']"
-      :style="[splitterComputedStyle, styles?.splitter]"
+      :style="[styles?.splitter, splitterComputedStyle]"
     >
       <div
         v-if="isFocused || options?.knob?.constantlyShow"
         data-testid="bb-resize-knob"
         :class="[`${prefix}__knob`]"
-        :style="[knobComputedStyle, styles?.knob]"
+        :style="[styles?.knob, knobComputedStyle]"
       ></div>
     </div>
   </div>
@@ -31,7 +31,7 @@ import {
   type HTMLAttributes,
 } from "vue";
 
-import type { BBResize } from "./typings";
+import { BBResize } from "./typings";
 
 const props = withDefaults(defineProps<Props>(), {
   direction: PaneDirections.RIGHT,
@@ -44,29 +44,13 @@ const emits = defineEmits<{
   (e: Emits.FOCUS, isFocused: boolean): void;
 }>();
 
-const options: ComputedRef<BBResize.PaneOptions> = computed(() => {
-  return {
-    ...{
-      width: 4,
-      knob: {
-        constantlyShow: false,
-      },
-      cursor: {
-        horizontal: "col-resize",
-        vertical: "row-resize",
-      },
-    },
-    ...props.options,
-  };
-});
-
 const refPane: Ref<HTMLDivElement | null> = ref(null);
 
 const paneComputedStyle = computed(() => {
-  const _width = options.value.width;
+  const _width = props.options?.width ?? 4;
 
   if (refPane.value && _width) {
-    const _styles = paneStylesMap(_width);
+    const _styles = paneBaseStyles(_width);
     const value: HTMLAttributes["style"] =
       _styles[props.direction as PaneDirections];
     return value;
@@ -74,10 +58,14 @@ const paneComputedStyle = computed(() => {
 });
 
 const splitterComputedStyle = computed(() => {
-  const _width = options.value.width;
+  console.log(props.options);
+  const _width = props.options?.width;
 
   if (refPane.value && _width) {
-    const _styles = splitterStylesMap(_width);
+    const _styles = splitterBaseStyles(
+      _width,
+      props.options?.position ?? "center",
+    );
     const value: HTMLAttributes["style"] =
       _styles[props.direction as PaneDirections];
     return value;
@@ -92,8 +80,14 @@ const knobComputedStyle = computed(() => {
   return { transform: `rotate(${isHorizontal ? 0 : 90}deg)` };
 });
 
-const checkIsHorizontal = (): boolean => /[l | r | h]/.test(props.direction);
-const checkIsVertical = (): boolean => /[t | b | v]/.test(props.direction);
+const checkIsHorizontal = (): boolean =>
+  new RegExp(
+    `[${PaneDirections.LEFT} | ${PaneDirections.RIGHT} | ${PaneDirectionAliases.HORIZONTAL}]`,
+  ).test(props.direction);
+const checkIsVertical = (): boolean =>
+  new RegExp(
+    `[${PaneDirections.TOP} | ${PaneDirections.BOTTOM} | ${PaneDirectionAliases.VERTICAL}]`,
+  ).test(props.direction);
 
 const updateCursor = (state: boolean) => {
   let cursorActive: string;
@@ -247,28 +241,44 @@ export interface PaneEmittedData {
   dir: string;
 }
 
-export const paneStylesMap = (
+export const paneBaseStyles = (
   size: number,
 ): Record<PaneDirections, HTMLAttributes["style"]> => {
-  const offset = `${size / 2}px`;
+  const _offset = `${size / 2}px`;
+
   return {
-    l: { top: 0, left: offset, width: "0px", height: "100%" },
-    r: { top: 0, right: offset, width: "0px", height: "100%" },
-    t: { left: 0, top: offset, width: "100%", height: "0px" },
-    b: { left: 0, bottom: offset, width: "100%", height: "0px" },
+    l: { top: "0px", left: _offset, width: "0px", height: "100%" },
+    r: { top: "0px", right: _offset, width: "0px", height: "100%" },
+    t: { left: "0px", top: _offset, width: "100%", height: "0px" },
+    b: { left: "0px", bottom: _offset, width: "100%", height: "0px" },
   };
 };
 
-export const splitterStylesMap = (
+export const splitterBaseStyles = (
   size: number,
+  position: BBResize.PanePosition,
 ): Record<PaneDirections, HTMLAttributes["style"]> => {
   const _size = `${size}px`;
 
+  let _offset: string = BBResize.SplitterPositions.CENTER;
+
+  switch (position) {
+    case BBResize.SplitterPositions.CENTER:
+      _offset = `0px`;
+      break;
+    case BBResize.SplitterPositions.EXTERNAL:
+      _offset = `${size / 2}px`;
+      break;
+    case BBResize.SplitterPositions.INTERNAL:
+      _offset = `-${size / 2}px`;
+      break;
+  }
+
   return {
-    l: { right: 0, width: _size, height: "100%" },
-    r: { left: 0, width: _size, height: "100%" },
-    t: { bottom: 0, height: _size, width: "100%" },
-    b: { top: 0, height: _size, width: "100%" },
+    l: { right: _offset, width: _size, height: "100%" },
+    r: { left: _offset, width: _size, height: "100%" },
+    t: { bottom: _offset, height: _size, width: "100%" },
+    b: { top: _offset, height: _size, width: "100%" },
   };
 };
 </script>

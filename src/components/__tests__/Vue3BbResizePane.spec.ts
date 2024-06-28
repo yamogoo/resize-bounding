@@ -8,11 +8,12 @@ import Vue3BbResizePane, {
   Emits,
   PaneDirectionAliases,
   PaneDirections,
-  paneStylesMap,
-  splitterStylesMap,
+  paneBaseStyles,
+  splitterBaseStyles,
   type PaneEmittedData,
   type Props,
 } from "@/components/Vue3BbResizePane.vue";
+import { BBResize } from "../typings";
 
 describe("Vue3BbResize", () => {
   beforeEach(() => {
@@ -326,8 +327,11 @@ describe("Vue3BbResize", () => {
           );
 
           const SIZE = 12;
-          const paneMap = paneStylesMap(SIZE);
-          const splitterMap = splitterStylesMap(SIZE);
+          const paneMap = paneBaseStyles(SIZE);
+          const splitterMap = splitterBaseStyles(
+            SIZE,
+            BBResize.SplitterPositions.CENTER,
+          );
 
           test.each([
             [PaneDirections.LEFT, paneMap.l],
@@ -408,7 +412,7 @@ describe("Vue3BbResize", () => {
           props: {
             prefix: DEFAULT_PREFIX,
             styles: {
-              pane: { width: "1px" },
+              pane: { border: "1px solid" },
               splitter: { background: "yellow" },
               knob: { width: "320px", background: "pink" },
             },
@@ -428,11 +432,57 @@ describe("Vue3BbResize", () => {
         const knobEl = wrapper.find(`[data-testid="${DataTestIds.KNOB}"]`);
         const knobStyles = knobEl.attributes("style");
 
-        expect(paneStyles).toContain("width: 1px");
+        expect(paneStyles).toContain("border: 1px solid");
         expect(splitterStyles).toContain("background: yellow");
         expect(knobStyles).toContain("width: 320px");
         expect(knobStyles).toContain("background: pink");
       });
+
+      test.each([
+        [{ left: "70px", right: "70px", width: "70px" }, PaneDirections.RIGHT],
+      ])(
+        "inner styles of splitter should not have to overrided by customStyles",
+        async (customStyles, direction) => {
+          const SPLITTER_WIDTH = 12;
+
+          const styles = splitterBaseStyles(
+            SPLITTER_WIDTH,
+            BBResize.SplitterPositions.CENTER,
+          )[direction];
+
+          const wrapper = shallowMount(Vue3BbResizePane, {
+            props: {
+              prefix: DEFAULT_PREFIX,
+              direction,
+              styles: {
+                splitter: customStyles,
+              },
+              options: {
+                width: SPLITTER_WIDTH,
+              },
+            },
+          });
+
+          const splitterEl = wrapper.find(
+            `[data-testid="${DataTestIds.SPLITTER}"]`,
+          );
+
+          await splitterEl.trigger("pointerenter");
+          const splitterStyles = splitterEl.attributes("style");
+
+          if (styles && splitterStyles) {
+            for (const [k, v] of Object.entries(styles)) {
+              const value = `${k}: ${v.toString()}`.trim();
+              const trimedStyles = splitterStyles.toString().trim();
+
+              expect(trimedStyles).toContain(value);
+              expect(value).toMatchSnapshot();
+              expect(trimedStyles).toMatchSnapshot();
+            }
+            expect(splitterStyles).toMatchSnapshot();
+          }
+        },
+      );
     });
   });
 });
