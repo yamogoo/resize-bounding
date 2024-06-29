@@ -1,88 +1,106 @@
 <template>
-  <!-- <h1 class="title">Resize Bounding</h1> -->
   <main class="bb-resize-app-example">
     <div class="bb-resize-app-example--container">
       <div class="bb-resize-app-example__layout">
-        <!-- Overriding -->
-        <MyBBResize
-          class="bb-resize-app-example__layout--control-panel"
-          :height="layout.controlPanel.height"
-          :min-height="layout.controlPanel.minHeight"
-          :max-height="layout.controlPanel.maxHeight"
+        <Vue3BbResize
+          :height="layout.a.height"
+          :min-height="layout.a.minHeight"
+          :max-height="layout.a.maxHeight"
           :directions="'b'"
+          :style="{ position: 'relative', borderBottom: '1px solid gray' }"
           @update:height="
             (height) => {
-              layout.controlPanel.height = height;
+              layout.a.height = height;
             }
           "
         >
-          <div class="bb-resize-app-example__layout--control-panel--container">
-            <div class="bb-resize-app-example__logo">
-              <p class="bb-resize-app-example__logo--descriptor">
-                Resize Bounding
-              </p>
-            </div>
-            <div class="bb-resize-app-example__control-panel">
-              <label>Navigator width</label>
-              <input type="number" v-model="layout.navigator.width" />
-
-              <label>Effects width</label>
-              <input type="number" v-model="layout.effects.width" />
-
-              <label>Timeline height</label>
-              <input type="number" v-model="layout.timeline.height" />
-
-              <label>Props width</label>
-              <input type="number" v-model="layout.timelineProps.width" />
-            </div>
-          </div>
-        </MyBBResize>
-
-        <Vue3BbResize class="bb-resize-app-example__layout--top">
-          <div class="bb-resize-app-example__layout--top--container">
-            <Vue3BbResize
-              class="bb-resize-app-example__navigator"
-              :width="layout.navigator.width"
-              :min-width="layout.navigator.minWidth"
-              :max-width="layout.navigator.maxWidth"
-              :directions="'r'"
-              @update:width="
-                (width) => {
-                  layout.navigator.width = width;
+          <HInnerBlock
+            :title="layout.a.title"
+            :image-path="'/bb-resize-cover.svg'"
+          >
+            <HSizeField
+              :height="layout.a.height"
+              @update:height="
+                (height) => {
+                  layout.a.height = height;
                 }
               "
-            >
-              <HInnerBlock :image-path="'/$a.shape.svg'"> </HInnerBlock>
-            </Vue3BbResize>
-
-            <HInnerBlock :image-path="'/$a.shape.svg'"> </HInnerBlock>
-            <Vue3BbResize
-              class="bb-resize-app-example__effects"
-              :width="layout.effects.width"
-              :min-width="layout.effects.minWidth"
-              :max-width="layout.effects.maxWidth"
-              :directions="'l'"
-              @update:width="
-                (width) => {
-                  layout.effects.width = width;
-                }
-              "
-            >
-              <HInnerBlock :image-path="'/$a.shape.svg'"> </HInnerBlock>
-            </Vue3BbResize>
-          </div>
+            />
+          </HInnerBlock>
         </Vue3BbResize>
-
         <Vue3BbResize
-          class="bb-resize-app-example__layout--bottom"
-          :height="layout.timeline.height"
-          :min-height="layout.timeline.minHeight"
-          :max-height="layout.timeline.maxHeight"
+          :directions="''"
+          :style="[{ display: 'flex', height: '100%' }]"
+        >
+          <Vue3BbResize
+            :width="layout.b.width"
+            :min-width="layout.b.minWidth"
+            :max-width="layout.b.maxWidth"
+            :directions="'r'"
+            :style="[{ display: 'flex', borderRight: '1px solid gray' }]"
+            @update:width="
+              (width) => {
+                layout.b.width = width;
+              }
+            "
+          >
+            <HInnerBlock
+              :title="layout.b.title"
+              :image-path="'/bb-resize-cover.svg'"
+            >
+              <HSizeField
+                :width="layout.b.width"
+                @update:width="
+                  (width) => {
+                    layout.b.width = width;
+                  }
+                "
+              />
+            </HInnerBlock>
+          </Vue3BbResize>
+          <HInnerBlock
+            :title="layout.c.title"
+            :image-path="'/bb-resize-cover.svg'"
+          >
+            <HSizeField />
+          </HInnerBlock>
+          <Vue3BbResize
+            :width="layout.d.width"
+            :min-width="layout.d.minWidth"
+            :max-width="layout.d.maxWidth"
+            :directions="'l'"
+            :style="{ borderLeft: '1px solid gray' }"
+            @update:width="
+              (width) => {
+                layout.d.width = width;
+              }
+            "
+          >
+            <HInnerBlock
+              :title="layout.d.title"
+              :image-path="'/bb-resize-cover.svg'"
+            >
+              <HSizeField
+                :width="layout.d.width"
+                @update:width="
+                  (width) => {
+                    layout.d.width = width;
+                  }
+                "
+              />
+            </HInnerBlock>
+          </Vue3BbResize>
+        </Vue3BbResize>
+        <Vue3BbResize
+          :height="layout.e.height"
+          :min-height="layout.e.minHeight"
+          :max-height="layout.e.maxHeight"
           :directions="'t'"
+          :style="[
+            { display: 'flex', width: '100%', borderTop: '1px solid gray' },
+          ]"
           :options="{
             pane: {
-              width: 2,
-              position: 'center',
               knob: {
                 constantlyShow: true,
               },
@@ -90,29 +108,69 @@
           }"
           @update:height="
             (height) => {
-              layout.timeline.height = height;
+              layout.e.height = height;
             }
           "
         >
-          <div class="bb-resize-app-example__layout--bottom--container">
-            <Vue3BbResize
-              class="bb-resize-app-example__timeline-props"
-              :width="layout.timelineProps.width"
-              :min-width="layout.timelineProps.minWidth"
-              :max-width="layout.timelineProps.maxWidth"
-              :directions="'r'"
-              @update:width="
-                (width) => {
-                  layout.timelineProps.width = width;
-                }
-              "
+          <Vue3BbResize
+            :width="layout.e.width"
+            :min-width="layout.e.minWidth"
+            :max-width="layout.e.maxWidth"
+            :directions="'r'"
+            :options="{
+              pane: {
+                knob: {
+                  constantlyShow: true,
+                },
+              },
+            }"
+            :style="{
+              borderRight: '1px solid gray',
+            }"
+            @update:width="
+              (width) => {
+                layout.e.width = width;
+              }
+            "
+          >
+            <HInnerBlock
+              :title="layout.e.title"
+              :image-path="'/bb-resize-cover.svg'"
             >
-              <HInnerBlock :image-path="'/$a.shape.svg'"> </HInnerBlock>
-            </Vue3BbResize>
-            <Vue3BbResize class="bb-resize-app-example__timeline">
-              <HInnerBlock :image-path="'/$a.shape.svg'"> </HInnerBlock>
-            </Vue3BbResize>
-          </div>
+              <HSizeField
+                :width="layout.e.width"
+                :height="layout.e.height"
+                @update:width="
+                  (width) => {
+                    layout.f.width = width;
+                  }
+                "
+                @update:height="
+                  (height) => {
+                    layout.e.height = height;
+                  }
+                "
+              />
+            </HInnerBlock>
+          </Vue3BbResize>
+          <Vue3BbResize
+            :directions="''"
+            :style="[{ display: 'flex', width: '100%' }]"
+          >
+            <HInnerBlock
+              :title="layout.f.title"
+              :image-path="'/bb-resize-cover.svg'"
+            >
+              <HSizeField
+                :height="layout.e.height"
+                @update:height="
+                  (height) => {
+                    layout.e.height = height;
+                  }
+                "
+              />
+            </HInnerBlock>
+          </Vue3BbResize>
         </Vue3BbResize>
       </div>
     </div>
@@ -123,8 +181,8 @@
 import { ref, type Ref } from "vue";
 
 import Vue3BbResize from "@/components/Vue3BbResize.vue";
-import MyBBResize from "./MyBBResize.vue";
 import HInnerBlock from "@/examples/helpers/HInnerBlock.vue";
+import HSizeField from "@/examples/helpers/HSizeField.vue";
 
 interface ContainerSize {
   width: number;
@@ -137,169 +195,77 @@ interface ContainerSize {
 
 const layout: Ref<
   Record<
-    | "navigator"
-    | "effects"
-    | "viewport"
-    | "timeline"
-    | "timelineProps"
-    | "controlPanel",
-    Partial<ContainerSize>
+    "a" | "c" | "b" | "e" | "d" | "f",
+    Partial<ContainerSize & { title: string }>
   >
 > = ref({
-  navigator: {
+  a: {
+    height: 200,
+    minHeight: 200,
+    maxHeight: 320,
+    title: "A",
+  },
+  b: {
     width: 320,
     minWidth: 240,
     maxWidth: 640,
+    title: "B",
   },
-  effects: {
+  c: {
+    width: 360,
+    title: "C",
+  },
+  d: {
     width: 360,
     minWidth: 240,
     maxWidth: 640,
+    title: "D",
   },
-  viewport: {
-    width: 360,
-  },
-  timeline: {
+  e: {
     height: 320,
     minHeight: 240,
     maxHeight: 480,
-  },
-  timelineProps: {
-    width: 360,
+    width: 640,
     minWidth: 240,
-    maxWidth: 480,
+    maxWidth: 640,
+    title: "E",
   },
-  controlPanel: {
-    height: 44,
-    minHeight: 44,
-    maxHeight: 80,
+  f: {
+    title: "F",
   },
 });
 </script>
 
 <style lang="scss">
-$__border-color: #cccccc;
+$__border-color: gray;
 $__background--primary: #e8ebec;
-$__background--secondary: #dde0e1;
-
-%border-right {
-  border-right: 1px solid $__border-color;
-}
-
-%border-bottom {
-  border-bottom: 1px solid $__border-color;
-}
 
 %container--normal {
   background: $__background--primary;
 }
 
-%container--accent {
-  background: $__background--secondary;
-}
-
-.bb-resize-app-example {
-  &__heading {
-    font-size: 76px;
-    font-weight: 500;
-  }
-}
-
 .bb-resize-app-example {
   display: flex;
-  width: 100%;
-  height: 100%;
+  @include box(100%);
+
+  * {
+    user-select: none;
+  }
 
   &--container {
     @include box(100%);
-    padding: 40px;
+    padding: 20px;
     box-sizing: border-box;
   }
 
   &__layout {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
+    @include box(100%);
+    @extend %container--normal;
     border: 1px solid $__border-color;
     border-radius: 24px;
     overflow: hidden;
-    @extend %container--normal;
-
-    &--top {
-      height: 100%;
-      overflow: hidden;
-
-      &--container {
-        display: flex;
-        @include box(100%);
-      }
-
-      @extend %border-bottom;
-    }
-
-    &--control-panel {
-      &--container {
-        display: flex;
-        flex-direction: row;
-        gap: 12px;
-        @include box(100%);
-      }
-
-      @extend %border-bottom;
-    }
-
-    &--bottom {
-      // overflow: hidden;
-
-      &--container {
-        display: flex;
-        @include box(100%);
-      }
-    }
   }
-
-  &__logo {
-    display: flex;
-    flex-direction: row;
-    gap: 12px;
-  }
-
-  &__control-panel {
-    display: flex;
-    flex-direction: row;
-    gap: 12px;
-  }
-
-  &__navigator {
-    @extend %border-right;
-  }
-
-  // &__effects {}
-
-  &__viewport {
-    @include box(100%);
-    padding: 20px;
-    @extend %container--accent;
-    @extend %border-right;
-
-    &--container {
-      @include box(100%);
-    }
-
-    &__canvas {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      @include box(100%);
-      @extend %container--normal;
-    }
-  }
-
-  &__timeline-props {
-    @extend %border-right;
-  }
-
-  // &__timeline { }
 }
 </style>

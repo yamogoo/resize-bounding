@@ -2,19 +2,23 @@
   <Vue3BbResize
     v-bind="$attrs"
     :options="{
+      prefix: 'my-bb-resize',
       pane: {
         width: 12,
         knob: {
           constantlyShow: true,
         },
         cursor: {
-          vertical: 'ew-resize',
+          vertical: 'grab',
         },
       },
     }"
     :styles="{
-      knob: {
-        background: 'green',
+      pane: {
+        knob: {
+          class: 'my-knob',
+          style: { background: 'green' },
+        },
       },
     }"
   >

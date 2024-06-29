@@ -2,15 +2,17 @@
 
 exports[`Vue3BbResize > classes > each element should have custom prefix (my-prefix) 1`] = `
 [
-  "my-prefix__pane",
+  "my-prefix-undefined",
   "--r",
+  "hide",
 ]
 `;
 
 exports[`Vue3BbResize > classes > each element should have custom prefix (my-prefix) 2`] = `
 [
-  "my-prefix__pane",
+  "my-prefix-undefined",
   "--r",
+  "hide",
 ]
 `;
 

@@ -3,8 +3,8 @@
     v-bind="$attrs"
     ref="refRoot"
     data-testid="bb-resize-container"
-    :class="options.prefix"
-    :style="[computedStyle, styles?.container]"
+    :class="[`${options.prefix}-${styles.container?.class}`]"
+    :style="[computedStyle, styles?.container?.style]"
   >
     <slot :width :height></slot>
     <template v-for="({ show, direction }, idx) in panes" :key="idx">
@@ -13,7 +13,7 @@
         :prefix="options.prefix ?? ''"
         :direction="direction"
         :options="options.pane"
-        :styles
+        :styles="styles.pane"
         @focus="
           (isFocused) => {
             $emit(Emits.FOCUS, { state: isFocused, direction });
@@ -60,10 +60,47 @@ export enum Emits {
 const defaultOptions: BBResize.Options = {
   prefix: "bb-resize",
   pane: {
-    width: 12,
-    position: "internal",
+    width: 4,
+    position: "central",
+    showBorder: true,
     knob: {
-      constantlyShow: true,
+      constantlyShow: false,
+    },
+  },
+};
+
+const defaultStyles: BBResize.Styles = {
+  container: {
+    class: "container",
+  },
+  pane: {
+    class: "pane",
+    style: {
+      position: "absolute",
+      display: "block",
+      zIndex: 9999,
+    },
+    splitter: {
+      class: "splitter",
+      style: {
+        position: "absolute",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "none",
+        zIndex: 9999,
+      },
+      focused: {
+        class: "active",
+        style: { background: "blue" },
+      },
+    },
+    knob: {
+      class: "knob",
+      style: {},
+      focused: {
+        class: "active",
+      },
     },
   },
 };
@@ -129,6 +166,10 @@ export default defineComponent({
 
     const options = computed(() => {
       return deepMerge(defaultOptions, props.options);
+    });
+
+    const styles: ComputedRef<BBResize.Styles> = computed(() => {
+      return deepMerge(defaultStyles, props.styles) as BBResize.Styles;
     });
 
     const onDragStart = ({ x, y, dir }: PaneEmittedData): void => {
@@ -225,7 +266,9 @@ export default defineComponent({
       onDragEnd,
       truncateInRange,
       computedStyle,
+      defaultStyles,
       options,
+      styles,
       panes,
       PaneDirections,
       Emits,
@@ -288,6 +331,7 @@ export default defineComponent({
     },
     styles: {
       type: Object as PropType<Partial<BBResize.Styles>>,
+      default: {},
     },
   },
   name: "Vue3BbResize",

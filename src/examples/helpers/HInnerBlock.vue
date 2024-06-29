@@ -2,21 +2,25 @@
   <div class="h-inner-block">
     <div
       class="h-inner-block--container"
-      :style="`background-image: url(${imagePath}); background-position: center; background-size: cover;`"
+      :style="[
+        {
+          backgroundImage: `url(${imagePath})`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+        },
+      ]"
     >
-      <h1>Vue3 Resize Bounding</h1>
-      <h3>Supports Mouse and Touch Events</h3>
-      <p>
-        is a versatile and user-friendly component for Vue 3 that enables
-        intuitive resizing of inner user components via draggable boundary
-        panes.
-      </p>
+      <div class="h-inner-block__control-panel">
+        <slot></slot>
+      </div>
+      <h1>{{ title }}</h1>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 interface Props {
+  title?: string;
   imagePath?: string;
   imageDescription?: string;
 }
@@ -44,19 +48,15 @@ withDefaults(defineProps<Props>(), {
     padding: 40px;
   }
 
-  * {
-    color: white;
+  &__control-panel {
+    position: absolute;
+    top: 20px;
   }
 
   h1 {
-    font-size: 76px;
+    font-size: 44px;
     font-weight: 600;
-  }
-
-  p {
-    font-size: 21px;
-    font-weight: 400;
-    line-height: 1.5;
+    color: white;
   }
 }
 </style>

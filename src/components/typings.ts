@@ -6,7 +6,7 @@ export namespace BBResize {
   }
 
   export enum SplitterPositions {
-    CENTER = "center",
+    CENTER = "central",
     EXTERNAL = "external",
     INTERNAL = "internal",
   }
@@ -16,6 +16,7 @@ export namespace BBResize {
   export interface PaneOptions {
     width: number;
     position: PanePosition;
+    showBorder: boolean;
     cursor: Partial<
       Record<"horizontal" | "vertical", CSSStyleDeclaration["cursor"]>
     >;
@@ -27,8 +28,25 @@ export namespace BBResize {
     pane: Partial<PaneOptions>;
   }
 
-  export type Styles = Record<
-    "container" | "pane" | "splitter" | "knob",
-    HTMLAttributes["style"]
+  export interface StylingAttributes {
+    class: string;
+    style: HTMLAttributes["style"];
+  }
+
+  export type StylingStates = "focused";
+
+  export type InteractiveElementStyles = Record<
+    "splitter" | "knob",
+    Partial<
+      Record<StylingStates, Partial<StylingAttributes>> &
+        Partial<StylingAttributes>
+    >
+  >;
+
+  export type PaneStyles = Partial<InteractiveElementStyles> &
+    Partial<StylingAttributes>;
+
+  export type Styles = Partial<
+    Record<"container", Partial<StylingAttributes>> & { pane: PaneStyles }
   >;
 }
