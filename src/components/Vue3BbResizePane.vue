@@ -1,20 +1,31 @@
 <template>
   <div
-    :class="[`${prefix}__pane`, `--${direction}`]"
+    :class="[
+      `${prefix}-${styles?.class}`,
+      `--${direction}`,
+      isFocused ? 'show' : 'hide',
+    ]"
     data-testid="bb-resize-pane"
-    :style="[styles?.pane, paneComputedStyle]"
+    :style="[paneComputedStyle, styles?.style]"
   >
     <div
       ref="refPane"
       data-testid="bb-resize-splitter"
-      :class="[`${prefix}__splitter`, isFocused ? 'show' : 'hide']"
-      :style="[styles?.splitter, splitterComputedStyle]"
+      :class="[
+        `${prefix}-${styles?.splitter?.class}`,
+        { [`${styles?.splitter?.focused?.class}`]: isFocused },
+      ]"
+      :style="[
+        styles?.splitter?.style,
+        isFocused ? styles?.splitter?.focused?.style : {},
+        splitterComputedStyle,
+      ]"
     >
       <div
         v-if="isFocused || options?.knob?.constantlyShow"
         data-testid="bb-resize-knob"
-        :class="[`${prefix}__knob`]"
-        :style="[styles?.knob, knobComputedStyle]"
+        :class="[`${prefix}-${styles?.knob?.class}`]"
+        :style="[styles?.knob?.style, knobComputedStyle]"
       ></div>
     </div>
   </div>
@@ -27,7 +38,6 @@ import {
   ref,
   type Ref,
   computed,
-  type ComputedRef,
   type HTMLAttributes,
 } from "vue";
 
@@ -47,7 +57,7 @@ const emits = defineEmits<{
 const refPane: Ref<HTMLDivElement | null> = ref(null);
 
 const paneComputedStyle = computed(() => {
-  const _width = props.options?.width ?? 4;
+  const _width = props.options?.width ?? 1;
 
   if (refPane.value && _width) {
     const _styles = paneBaseStyles(_width);
@@ -58,13 +68,12 @@ const paneComputedStyle = computed(() => {
 });
 
 const splitterComputedStyle = computed(() => {
-  console.log(props.options);
   const _width = props.options?.width;
 
   if (refPane.value && _width) {
     const _styles = splitterBaseStyles(
       _width,
-      props.options?.position ?? "center",
+      props.options?.position ?? BBResize.SplitterPositions.CENTER,
     );
     const value: HTMLAttributes["style"] =
       _styles[props.direction as PaneDirections];
@@ -211,7 +220,7 @@ export interface Props {
   prefix: string;
   direction?: PaneDirectionKey;
   options?: Partial<BBResize.PaneOptions>;
-  styles?: Partial<BBResize.Styles>;
+  styles?: Partial<BBResize.PaneStyles>;
 }
 
 export enum PaneDirectionAliases {
@@ -260,7 +269,7 @@ export const splitterBaseStyles = (
 ): Record<PaneDirections, HTMLAttributes["style"]> => {
   const _size = `${size}px`;
 
-  let _offset: string = BBResize.SplitterPositions.CENTER;
+  let _offset: string = "0px";
 
   switch (position) {
     case BBResize.SplitterPositions.CENTER:
@@ -287,63 +296,64 @@ export const splitterBaseStyles = (
 $__show-color: blue;
 $__pressed-color: #3655e171;
 
-.bb-resize {
-  &__pane {
-    position: absolute;
-    display: block;
-    z-index: 9999;
+// .bb-resize {
+//   &-pane {
+//     position: absolute;
+//     display: block;
+//     z-index: 9999;
 
-    // &.--l {
+//     // &.--l {
 
-    //   .bb-resize__pane__splitter {
-    //   }
-    // }
+//     //   .bb-resize__pane__splitter {
+//     //   }
+//     // }
 
-    // &.--r {
+//     // &.--r {
 
-    //   .bb-resize__pane__splitter {
-    //   }
-    // }
+//     //   .bb-resize__pane__splitter {
+//     //   }
+//     // }
 
-    // &.--b {
+//     // &.--b {
 
-    //   .bb-resize__pane__splitter {
-    //   }
-    // }
+//     //   .bb-resize__pane__splitter {
+//     //   }
+//     // }
 
-    // &.--t {
+//     // &.--t {
 
-    //   .bb-resize__pane__splitter {
-    //   }
-    // }
-  }
+//     //   .bb-resize__pane__splitter {
+//     //   }
+//     // }
+//   }
 
-  &__splitter {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-  }
+//   &-splitter {
+//     // display: flex;
+//     // align-items: center;
+//     // justify-content: center;
+//     // z-index: 9999;
+//     // background-color: none;
+//   }
 
-  &__splitter {
-    position: absolute;
+//   &-splitter {
+//     position: absolute;
 
-    &.show {
-      background-color: $__show-color;
-    }
+//     &.show {
+//       background-color: $__show-color;
+//     }
 
-    &.pressed {
-      background-color: $__pressed-color;
-    }
-  }
+//     &.pressed {
+//       background-color: $__pressed-color;
+//     }
+//   }
 
-  &__knob {
-    position: absolute;
-    width: 12px;
-    height: 120px;
-    border-radius: 12px;
-    background-color: red;
-    margin: auto;
-  }
-}
+//   &-knob {
+//     position: absolute;
+//     width: 12px;
+//     height: 120px;
+//     border-radius: 12px;
+//     background-color: red;
+//     margin: auto;
+//   }
+// }
 </style>

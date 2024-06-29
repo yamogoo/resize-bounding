@@ -51,9 +51,7 @@ describe("Vue3BbResize", () => {
         },
       });
 
-      const splitterEl = wrapper.find(
-        `[data-testid="${DataTestIds.SPLITTER}"]`,
-      );
+      const splitterEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
 
       expect(splitterEl.classes("hide")).toBeTruthy();
       expect(splitterEl.classes("hide")).toMatchSnapshot();
@@ -68,14 +66,15 @@ describe("Vue3BbResize", () => {
         },
       });
 
+      const paneEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
       const splitterEl = wrapper.find(
         `[data-testid="${DataTestIds.SPLITTER}"]`,
       );
 
       await splitterEl.trigger("pointerenter");
 
-      expect(splitterEl.classes("show")).toBeTruthy();
-      expect(splitterEl.classes("show")).toMatchSnapshot();
+      expect(paneEl.classes("show")).toBeTruthy();
+      expect(paneEl.classes("show")).toMatchSnapshot();
     });
   });
 
@@ -412,9 +411,20 @@ describe("Vue3BbResize", () => {
           props: {
             prefix: DEFAULT_PREFIX,
             styles: {
-              pane: { border: "1px solid" },
-              splitter: { background: "yellow" },
-              knob: { width: "320px", background: "pink" },
+              class: "pane",
+              style: { border: "1px solid" },
+              splitter: {
+                class: "splitter",
+                style: { background: "yellow" },
+                focused: {},
+                pressed: {},
+              },
+              knob: {
+                class: "knob",
+                style: { width: "320px", background: "pink" },
+                focused: {},
+                pressed: {},
+              },
             },
           },
         });
@@ -455,7 +465,9 @@ describe("Vue3BbResize", () => {
               prefix: DEFAULT_PREFIX,
               direction,
               styles: {
-                splitter: customStyles,
+                splitter: {
+                  style: customStyles,
+                },
               },
               options: {
                 width: SPLITTER_WIDTH,

@@ -7,8 +7,7 @@
 > **Examples**
 >
 > - [Interactive Grid](./src/examples/Example.vue)
-> - [Editor Layout](./src/examples/Example.vue)
-> - [Navigator Layout](./src/examples/Example.vue)
+> - [Overriding](./src/examples/MyBBResize.vue)
 
 ---
 
@@ -87,12 +86,13 @@ app.mount("#app");
     <tr>
       <td rowspan="9"><code><b>directions</b></code></td>
       <td rowspan="9"><code>string</code></td>
-      <td rowspan="9"><code>'hv'</code></td>
+      <td rowspan="9" align="center"><code>'hv'</code></td>
     </tr>
     <tr>
       <td colspan="2">The literal <code>'hv'</code> specifies which boundaries should be enabled for resizing.<br><br>
       The order of the characters is not significant.
-      <code>'hv'</code> is equivalent to <code>'tblr'</code>
+      <br>
+      <sub><code>'hv'</code> is equivalent to <code>'tblr'</code></sub>
       </td>
     </tr>
     <th>value</th>
@@ -122,46 +122,53 @@ app.mount("#app");
       <td>vertical alias, equivalent to <code>'tb'</code></td>
     </tr>
     <tr>
-      <td><code><b>disabled</b></code></td>
+      <td ><code><b>disabled</b></code></td>
       <td><code>boolean</code></td>
-      <td><code>false</code></td>
+      <td align="center"><code>false</code></td>
       <td colspan="2">Disable border selection</td> 
     </tr>
     <tr>
       <td><code><b>width</b></code></td>
       <td><code>number | undefined</code></td>
-      <td><code>undefined</code></td>
-      <td colspan="2">Set current container width. <code>undefiend</code> Equivalent to <code>Number.POSITIVE_INFINITY</code></td>
+      <td align="center"><code>undefined</code></td>
+      <td colspan="2">Set current container width
+      </td>
     </tr>
     <tr>
       <td><code><b>minWidth</b></code></td>
       <td><code>number | undefined</code></td>
-      <td><code>0</code></td>
+      <td align="center"><code>0</code></td>
       <td colspan="2">Minimum value of the width resizing range</td>
     </tr>
     <tr>
       <td><code><b>maxWidth</b></code></td>
       <td><code>number | undefined</code></td>
-      <td><code>undefined</code></td>
-      <td colspan="2">Maximum resizing range value. <code>undefiend</code> Equivalent to <code>Number.POSITIVE_INFINITY</code></td>
+      <td align="center"><code>undefined</code></td>
+      <td colspan="2">Maximum resizing range value. <code>undefiend</code>
+        <br>
+       <sub>Equivalent to <code>Number.POSITIVE_INFINITY</code></sub>
+      </td>
     </tr>
     <tr>
       <td><code><b>height</b></code></td>
       <td><code>number | undefined</code></td>
-      <td><code>0</code></td>
+      <td align="center"><code>0</code></td>
       <td colspan="2">Set current container height</td>
     </tr>
     <tr>
       <td><code><b>minWidth</b></code></td>
       <td><code>number | undefined</code></td>
-      <td><code>0</code></td>
+      <td align="center"><code>0</code></td>
       <td colspan="2">Minimum height resizing range value</td>
     </tr>
     <tr>
       <td><code><b>maxWidth</b></code></td>
       <td><code>number | undefined</code></td>
       <td><code>undefined</code></td>
-      <td colspan="2">The maximum value of the height resizing range. <code>undefiend</code> Equivalent to <code>Number.POSITIVE_INFINITY</code></td>
+      <td colspan="2">The maximum value of the height resizing range. 
+        <br>
+       <sub>Equivalent to <code>Number.POSITIVE_INFINITY</code></sub>
+      </td>
     </tr>
     <tr>
       <th colspan="5">additional options</th>
@@ -173,7 +180,7 @@ app.mount("#app");
     </tr>
     <tr>
       <td rowspan="30"><code><b>options</b></code></td>
-      <td rowspan="30"><code>Partial &#60BBResize.Options&#62</code></td>
+      <td rowspan="30"><code>Partial &#60;BBResize.Options&#62;</code></td>
        <tr>
         <td colspan="3">
           <b><code>options.prefix</code></b>
@@ -182,8 +189,11 @@ app.mount("#app");
       <tr>
         <td colspan="2">description</td>
         <td colspan="2">Set prefix of class names
-          <br>The class name is formed as:
-          <code>`${prefix}__${className}`</code></td>
+          <sub>
+            <br>The class name is formed as:
+            <code>`${prefix}__${className}`</code>
+          </sub>
+        </td>
       </tr>
       <tr>
         <td colspan="2">type</td>
@@ -239,7 +249,9 @@ app.mount("#app");
           default value
         </td>
         <td colspan="2">
-          <code>'center'</code>
+          <code>'central'</code>
+          <br>
+          <sub>*This option is sufficient for most cases. However, there are cases when using the central position may cut off the splitter or, on the contrary, partially overlap the inside of the container. Therefore, several additional options are available to adjust the positioning of the splitter</sub>
         </td>
       </tr>
       <tr>
@@ -247,14 +259,16 @@ app.mount("#app");
       </tr>
       <tr>
         <td colspan="2">
-          <code>'center'</code><br>
-          at the center of the container border
+          <code>'central'</code><br>
+          at the center of the container border<br>
         </td>
       </tr>
       <tr>
         <td colspan="2">
           <code>'internal'</code><br>
-          inside the container border
+          inside the container border<sub>*</sub>.
+          <br>
+          <sub>*This setting can be useful if the user's outer container or root component container has the CSS property "overflow: hidden".</sub>
         </td>
       </tr>
       <tr>
@@ -321,18 +335,130 @@ app.mount("#app");
       </tr>
     </tr>
     <tr>
-      <td rowspan="3"><code><b>styles</b></code></td>
-      <td rowspan="3"><code>Partial &#60BBResize.Styles&#62</code></td>
+      <td rowspan="20"><code><b>styles</b></code></td>
+      <td rowspan="20"><code>Partial &#60;BBResize.Styles&#62;</code>
+        <br><br>
+where <code>type Styles = Record<"container", Partial  &#60;StylingAttributes&#62;&#62 & Partial &#60;InteractiveElementStyles&#62;</code>
+        <br><br>
+where <code>type InteractiveElementStyles = Record&#60; "pane" | "splitter" | "knob", Record &#60;StylingStates, Partial&#60;StylingAttributes&#62;&#62; & Partial&#60;StylingAttributes&#62;&#62;</code>
+      </td>
       <tr>
         <td colspan="3">
-        Sets custom styles for each component class:<br>
-        <code>Record<
-    "container" | "pane" | "splitter" | "knob",
-    HTMLAttributes["style"]
-  ></code>
+          <b><code>styles.container</code></b>
         </td>
       </tr>
       <tr>
+        <td colspan="2">description</td>
+        <td colspan="2">Describes custom styles the container element. Root container is the element directly in which the user content is located, forwarded through &#60;slot/&#62;.
+        <br>
+        <br>
+        <sub>Pane receives <code>show</code> and <code>hide</code> classes respectively when displayed and when hidden. By default, no styles are attached to these classes. However, this is implemented in case you want to add styles using CSS</sub>
+       </td>
+      </tr>
+      <tr>
+        <td colspan="2">type</td>
+        <td colspan="2">
+          <code>Record &#60;StylingStates, Partial&#60;StylingAttributes&#62;&#62; & Partial&#60;StylingAttributes&#62;&#62;</code>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">default value</td>
+        <td colspan="2"><pre><code>container: {
+  class: "container",
+  style: {},
+},</code></pre>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <b><code>styles.pane</code></b>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">description</td>
+        <td colspan="2">Describes custom styles the pane element. The Pane element is a container responsible for positioning the splitter. Therefore, treat this component as an empty container, since you may only need to style it in very rare cases</td>
+      </tr>
+      <tr>
+        <td colspan="2">type</td>
+        <td colspan="2"><code>{class: string, style: HTMLAttributes["style"]}</code></td>
+      </tr>
+      <tr>
+        <td colspan="2">default value</td>
+        <td colspan="2">
+          <pre><code>pane: {
+  class: "pane",
+  style: {
+    position: "absolute",
+    display: "block",
+    zIndex: 9999,
+  },
+  focused: {
+    class: "focus",
+  },
+},</code></pre>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <b><code>styles.splitter</code></b>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">description</td>
+        <td colspan="2">Describes custom styles the splitter element. Splitter is an element that displays a selected border line</td>
+      </tr>
+      <tr>
+        <td colspan="2">type</td>
+        <td colspan="2">
+          <code>Record &#60;StylingStates, Partial&#60;StylingAttributes&#62;&#62; & Partial&#60;StylingAttributes&#62;&#62;</code>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">default value</td>
+        <td colspan="2">
+          <pre><code>splitter: {
+  class: "splitter",
+  style: {
+    position: "absolute",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    background: "none",
+    zIndex: 9999,
+  },
+  focused: {
+    class: "focus",
+    style: { background: "gray" },
+  }
+},</code></pre>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <b><code>styles.knob</code></b>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">description</td>
+        <td colspan="2">Describes custom styles the knob element. Knob is a decorative element located on top of the splitter. Convenient to use with touch actions, as it increases the touch area of ​​the splitter by its own size and has a positive effect on user experience</td>
+      </tr>
+      <tr>
+        <td colspan="2">type</td>
+        <td colspan="2">
+          <code>Record &#60;StylingStates, Partial&#60;StylingAttributes&#62;&#62; & Partial&#60;StylingAttributes&#62;&#62;</code>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">default value</td>
+        <td colspan="2">
+          <pre><code>knob: {
+  class: "knob",
+  style: {},
+  focused: {
+    class: "focus",
+  }
+},</code></pre>
+        </td>
       </tr>
     </tr>
 	</tbody>
@@ -400,7 +526,7 @@ The Options object is responsible for fine-tuning the component and setting comp
       prefix: 'my-bb-resize',
       pane: {
         width: 12,
-        position: 'center', // 'center' | 'internal' | 'external'
+        position: 'internal', // 'central' | 'internal' | 'external'
         cursor: {
           horizontal: 'ew-resize',
         },
@@ -444,6 +570,8 @@ const myOptions: Partial<BBResize.Options> = {
 
 > The example shows overriding all parameters. Of course, you can only override the properties you need.
 
+---
+
 #### Custom Styling
 
 To customize styles, use the `styles` props object:
@@ -470,17 +598,54 @@ Or you may also use the inline `style` attribute to set container styles:
 </Vue3BbResize>
 ```
 
+Or you may also use the `css`/ a `preprocessor` to fully customize the component styles:
+
+> Remember that you can override class names through the styles object
+
+```sass
+// SASS/SCSS
+
+// Change `bb-resize` to your prefix if it has been changed via 'options'
+.bb-resize {
+  &-container { }
+
+   /* * * Normal state: * * */
+
+  &-pane { }
+
+  &-splitter { }
+
+  &-knob { }
+
+  /* * * Focused state: * * */
+
+  &.focus {
+    &-pane { }
+
+    &-splitter { }
+
+    &-knob { }
+  }
+}
+
+```
+
 > How you override container `styles` depends on your preferences
 
-> **Important**
->
-> It is impossible to overwrite base styles! This is done to ensure that the component always displays correctly, since these styles are based on computed properties. However, you can still fully customize these elements using the options property object. Below you can see the main styles.
+---
 
-**Base styles:**
+#### Base styles:
+
+Defining properties through a `styles` object does not overwrite the `"base styles"`. This is necessary to ensure that the component always displays correctly, since these styles are based on calculated properties. So you can still fully customize these elements using the `options` property.
+
+> **Overwriting `Base Styles`**
+> If, for some reason, it is still necessary to forcibly overwrite the `"base styles"`, use the `!important` flag when defining the Style/CSS property value.
+
+Below you can see the base styles:
 
 ```ts
 // Pane (an empty container that is responsible for positioning the splitter)
-export const paneBaseStyles = (
+const paneBaseStyles = (
   size: number
 ): Record<PaneDirections, HTMLAttributes["style"]> => {
   const _offset = `${size / 2}px`;
@@ -493,7 +658,7 @@ export const paneBaseStyles = (
 };
 
 // Splitter
-export const splitterBaseStyles = (
+const splitterBaseStyles = (
   size: number
 ): Record<PaneDirections, HTMLAttributes["style"]> => {
   const _size = `${size}px`;

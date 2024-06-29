@@ -2,13 +2,13 @@
 
 exports[`Vue3BbResize > classes > prefix > should have custom prefix (my-prefix) 1`] = `
 [
-  "my-prefix",
+  "my-prefix-container",
 ]
 `;
 
 exports[`Vue3BbResize > classes > prefix > should have default prefix (%s) 1`] = `
 [
-  "bb-resize",
+  "bb-resize-container",
 ]
 `;
 
@@ -89,31 +89,15 @@ exports[`Vue3BbResize > events > drag > should emit the "drag:start -> drag:move
 `;
 
 exports[`Vue3BbResize > slots > should render default slot 1`] = `
-"<div data-testid="bb-resize-container" class="bb-resize" style="position: relative;">
+"<div data-testid="bb-resize-container" class="bb-resize-container" style="position: relative;">
   <p>Inner Container</p>
-  <div class="bb-resize__pane --l" data-testid="bb-resize-pane">
-    <div data-testid="bb-resize-splitter" class="bb-resize__splitter hide">
-      <div data-testid="bb-resize-knob" class="bb-resize__knob" style="transform: rotate(0deg);"></div>
-    </div>
-  </div>
-  <div class="bb-resize__pane --r" data-testid="bb-resize-pane">
-    <div data-testid="bb-resize-splitter" class="bb-resize__splitter hide">
-      <div data-testid="bb-resize-knob" class="bb-resize__knob" style="transform: rotate(0deg);"></div>
-    </div>
-  </div>
-  <div class="bb-resize__pane --b" data-testid="bb-resize-pane">
-    <div data-testid="bb-resize-splitter" class="bb-resize__splitter hide">
-      <div data-testid="bb-resize-knob" class="bb-resize__knob" style="transform: rotate(90deg);"></div>
-    </div>
-  </div>
-  <div class="bb-resize__pane --t" data-testid="bb-resize-pane">
-    <div data-testid="bb-resize-splitter" class="bb-resize__splitter hide">
-      <div data-testid="bb-resize-knob" class="bb-resize__knob" style="transform: rotate(90deg);"></div>
-    </div>
-  </div>
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
 </div>"
 `;
 
-exports[`Vue3BbResize > styles > container > should apply custom styles ({ background: 'red' }) 1`] = `"position: relative; background: red;"`;
+exports[`Vue3BbResize > styles > container > should apply custom styles ({ background: 'red' }) 1`] = `"position: relative; width: 320px; min-width: 320px; height: 400px; min-height: 400px; background: red;"`;
 
 exports[`Vue3BbResize > styles > container > should apply inline styles ({ background: 'blue', display: 'flex' }) 1`] = `"background: blue; display: flex; position: relative;"`;
