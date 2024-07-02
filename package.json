@@ -1,68 +1,16 @@
 {
-  "name": "vue3-bb-resize",
+  "name": "vue3-boundarize-monorepo",
   "description": "Intuitive resizing of inner user components via draggable boundary panes for Vue3",
   "private": true,
-  "version": "0.0.1",
-  "license": "MIT",
   "author": {
     "name": "yamogoo",
     "email": "grebennikovmisha@gmail.com"
   },
-  "repository": "git@github.com:yamogoo/vue3-bb-resize.git",
-  "keywords": [
-    "vue3",
-    "resize",
-    "bounding box",
-    "resize bounding",
-    "resizable element"
-  ],
-  "main": "./dist/vue3-bb-resize.umd.cjs",
-  "module": "./dist/vue3-bb-resize.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/vue3-bb-resize.js"
-    }
-  },
-  "files": [
-    "dist",
-    "src"
-  ],
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "build:types": "vue-tsc -b --emitDeclarationOnly",
-    "preview": "vite preview",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "test:unit": "vitest",
-    "test:unit:update": "vitest -u",
-    "test:ui": "vitest --ui",
-    "type-check": "vue-tsc --build --force",
-    "typecheck:app": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
-  },
-  "dependencies": {
-    "vue": "^3.4.29"
-  },
-  "devDependencies": {
-    "@rushstack/eslint-patch": "^1.10.3",
-    "@tsconfig/node20": "^20.1.4",
-    "@types/jsdom": "^21.1.7",
-    "@types/node": "^20.14.8",
-    "@vitejs/plugin-vue": "^5.0.5",
-    "@vitest/ui": "^1.6.0",
-    "@vue/eslint-config-prettier": "^9.0.0",
-    "@vue/eslint-config-typescript": "^13.0.0",
-    "@vue/test-utils": "^2.4.6",
-    "@vue/tsconfig": "^0.5.1",
-    "eslint": "^9.5.0",
-    "jsdom": "^24.1.0",
-    "sass": "^1.77.6",
-    "terser": "^5.31.1",
-    "typescript": "^5.2.2",
-    "vite": "^5.3.1",
-    "vite-plugin-dts": "^3.9.1",
-    "vitest": "^1.6.0",
-    "vue-tsc": "^2.0.21"
+    "vite:dev": "pnpm --filter vite-app dev",
+    "build": "pnpm --filter vue3-boundarize build",
+    "test:unit": "pnpm --filter vue3-boundarize test:unit",
+    "test:ui": "pnpm --filter vue3-boundarize test:ui",
+    "playground:vite": "pnpm --filter vite-app dev"
   }
 }

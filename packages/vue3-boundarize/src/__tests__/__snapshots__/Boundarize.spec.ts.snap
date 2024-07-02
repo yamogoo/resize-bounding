@@ -1,0 +1,91 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Vue3BbResize > classes > should have "--l" class 1`] = `true`;
+
+exports[`Vue3BbResize > components > Should not display any selected borders when set to "disabled" (--b) 1`] = `0`;
+
+exports[`Vue3BbResize > components > Should not display any selected borders when set to "disabled" (--h) 1`] = `0`;
+
+exports[`Vue3BbResize > components > Should not display any selected borders when set to "disabled" (--l) 1`] = `0`;
+
+exports[`Vue3BbResize > components > Should not display any selected borders when set to "disabled" (--r) 1`] = `0`;
+
+exports[`Vue3BbResize > components > Should not display any selected borders when set to "disabled" (--t) 1`] = `0`;
+
+exports[`Vue3BbResize > components > Should not display any selected borders when set to "disabled" (--v) 1`] = `0`;
+
+exports[`Vue3BbResize > components > should not render any pane element 1`] = `0`;
+
+exports[`Vue3BbResize > components > should not render any pane element 2`] = `0`;
+
+exports[`Vue3BbResize > components > should not render any pane element 3`] = `0`;
+
+exports[`Vue3BbResize > components > should render bl panes (panes computed value) 1`] = `2`;
+
+exports[`Vue3BbResize > components > should render bltr panes (panes computed value) 1`] = `4`;
+
+exports[`Vue3BbResize > components > should render ltrb panes (panes computed value) 1`] = `4`;
+
+exports[`Vue3BbResize > components > should render rl panes (panes computed value) 1`] = `2`;
+
+exports[`Vue3BbResize > components > should render tr panes (panes computed value) 1`] = `2`;
+
+exports[`Vue3BbResize > events > drag > check aliases: should emit "drag:start" with direction argument "{ alias: 'h', directions: [ 'r', 'l' ] }" 1`] = `
+[
+  "r",
+  "l",
+]
+`;
+
+exports[`Vue3BbResize > events > drag > check aliases: should emit "drag:start" with direction argument "{ alias: 'v', directions: [ 't', 'b' ] }" 1`] = `
+[
+  "t",
+  "b",
+]
+`;
+
+exports[`Vue3BbResize > events > drag > should emit the "drag:start -> drag:move -> drag:end" event, which takes a direction argument "b" 1`] = `
+[
+  "b",
+  "b",
+  "b",
+]
+`;
+
+exports[`Vue3BbResize > events > drag > should emit the "drag:start -> drag:move -> drag:end" event, which takes a direction argument "l" 1`] = `
+[
+  "l",
+  "l",
+  "l",
+]
+`;
+
+exports[`Vue3BbResize > events > drag > should emit the "drag:start -> drag:move -> drag:end" event, which takes a direction argument "r" 1`] = `
+[
+  "r",
+  "r",
+  "r",
+]
+`;
+
+exports[`Vue3BbResize > events > drag > should emit the "drag:start -> drag:move -> drag:end" event, which takes a direction argument "t" 1`] = `
+[
+  "t",
+  "t",
+  "t",
+]
+`;
+
+exports[`Vue3BbResize > slots > should render default slot 1`] = `
+"<div data-testid="boundarize-container" class="boundarize-container" style="position: relative;">
+  <p>Inner Container</p>
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+</div>"
+`;
+
+exports[`Vue3BbResize > styles > container > should apply custom styles ({ background: 'red' }) 1`] = `"position: relative; width: 320px; min-width: 320px; height: 400px; min-height: 400px; background: red;"`;
+
+exports[`Vue3BbResize > styles > container > should apply inline styles ({ background: 'blue', display: 'flex' }) 1`] = `"background: blue; display: flex; position: relative;"`;
