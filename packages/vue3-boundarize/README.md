@@ -32,7 +32,8 @@ yarn add vue3-boundarize
 The most common use case is to register the component globally.
 
 ```ts
-// main.js
+// @filename: main.js
+
 import App from "@/App";
 import { createApp } from "vue";
 
@@ -44,6 +45,8 @@ app.mount("#app");
 ### Usage
 
 ```html
+<!-- @filename: MyComponent.vue -->
+
 <template>
   <bb-resize
     v-if="layout.dataNavigator.show"
@@ -517,7 +520,8 @@ where <code>type InteractiveElementStyles = Record&#60; "pane" | "splitter" | "k
 The Options object is responsible for fine-tuning the component and setting computed parameters.
 
 ```html
-<!-- MyResizeBoundingComponent.vue -->
+<!-- @filename: MyResizeBoundingComponent.vue -->
+
 <template>
   <Vue3BbResize
     v-bind="$attrs"
@@ -541,7 +545,8 @@ The Options object is responsible for fine-tuning the component and setting comp
 Using typescript:
 
 ```html
-<!-- MyResizeBoundingComponent.vue -->
+<!-- @filename: MyResizeBoundingComponent.vue -->
+
 <template>
   <Vue3BbResize v-bind="$attrs" :directions="'hv'" :options>
     <slot></slot>
@@ -550,7 +555,8 @@ Using typescript:
 ```
 
 ```ts
-// MyResizeBoundingComponent.vue
+// @filename: MyResizeBoundingComponent.vue
+
 <script setup lang="ts">
 import type { BBResize } from 'vue3-boundarize';
 
