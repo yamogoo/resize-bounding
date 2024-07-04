@@ -1,0 +1,35 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "author": {
+    "name": "yamogoo",
+    "email": "grebennikovmisha@gmail.com"
+  },
+  "keywords": [],
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "test:unit": "vitest",
+    "test:ui": "vitest --ui"
+  },
+  "dependencies": {
+    "@nuxt/content": "^2.13.0",
+    "core-styles": "workspace:^",
+    "nuxt": "^3.12.3",
+    "vitest": "^1.6.0",
+    "vue": "latest",
+    "vue3-boundarize": "workspace:^"
+  },
+  "devDependencies": {
+    "@nuxt/image": "^1.7.0",
+    "@nuxt/test-utils": "^3.13.1",
+    "@vitest/ui": "^1.6.0",
+    "@vue/test-utils": "^2.4.6",
+    "pinia": "^2.1.7"
+  }
+}

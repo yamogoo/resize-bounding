@@ -11,7 +11,7 @@ import { fileURLToPath } from "node:url";
 export default defineConfig({
   plugins: [vue(), dts()],
   server: {
-    port: 9090,
+    port: 9092,
   },
   build: {
     outDir: "dist",
@@ -21,13 +21,14 @@ export default defineConfig({
     terserOptions,
     lib: {
       entry: resolve(__dirname, "./src/index.ts"),
-      name: "vue3Boundarize",
-      formats: ["es", "cjs", "umd"],
-      fileName: (format) => `vue3-boundarize.${format}.js`,
+      name: "ui",
+      formats: ["es", "cjs"],
+      fileName: (format) => `ui.${format}.js`,
     },
     rollupOptions: {
       external: ["vue"],
       output: {
+        exports: "named",
         globals: {
           vue: "Vue",
         },
@@ -42,7 +43,10 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: ``,
+        additionalData: `
+          @import 'core-styles';
+          @import './src/styles/_mixins.scss';
+        `,
       },
     },
   },

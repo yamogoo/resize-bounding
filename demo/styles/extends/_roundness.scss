@@ -1,0 +1,11 @@
+%border-radius {
+  /* * * Sizes * * */
+
+  &--lg {
+    @include use-border-radius(--lg);
+  }
+
+  &--md {
+    @include use-border-radius(--md);
+  }
+}

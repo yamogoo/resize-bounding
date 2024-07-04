@@ -1,0 +1,25 @@
+{
+  "name": "core-styles",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Common mixins, extends and abstracts",
+  "author": {
+    "name": "yamogoo",
+    "email": "grebennikovmisha@gmail.com"
+  },
+  "keywords": [
+    "mixins",
+    "extends",
+    "styles",
+    "scss helpers"
+  ],
+  "exports": {
+    ".": "./src/_index.scss",
+    "./core": "./src/_core.scss",
+    "./abstracts": "./src/_abstracts.scss",
+    "./reset-styles": "./src/_reset-styles.scss"
+  },
+  "files": [
+    "src/*"
+  ]
+}

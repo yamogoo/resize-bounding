@@ -16,7 +16,7 @@
         >
           <UIInnerBlock
             :title="layout.a.title"
-            :image-path="'/bb-resize-cover.svg'"
+            :image-path="'/boundarize-cover.svg'"
           >
             <UISizeField
               :height="layout.a.height"
@@ -46,7 +46,7 @@
           >
             <UIInnerBlock
               :title="layout.b.title"
-              :image-path="'/bb-resize-cover.svg'"
+              :image-path="'/boundarize-cover.svg'"
             >
               <UISizeField
                 :width="layout.b.width"
@@ -60,7 +60,7 @@
           </Boundarize>
           <UIInnerBlock
             :title="layout.c.title"
-            :image-path="'/bb-resize-cover.svg'"
+            :image-path="'/boundarize-cover.svg'"
           >
             <UISizeField />
           </UIInnerBlock>
@@ -78,7 +78,7 @@
           >
             <UIInnerBlock
               :title="layout.d.title"
-              :image-path="'/bb-resize-cover.svg'"
+              :image-path="'/boundarize-cover.svg'"
             >
               <UISizeField
                 :width="layout.d.width"
@@ -121,7 +121,7 @@
           >
             <UIInnerBlock
               :title="layout.e.title"
-              :image-path="'/bb-resize-cover.svg'"
+              :image-path="'/boundarize-cover.svg'"
             >
               <UISizeField
                 :width="layout.e.width"
@@ -145,7 +145,7 @@
           >
             <UIInnerBlock
               :title="layout.f.title"
-              :image-path="'/bb-resize-cover.svg'"
+              :image-path="'/boundarize-cover.svg'"
             >
               <UISizeField
                 :height="layout.e.height"

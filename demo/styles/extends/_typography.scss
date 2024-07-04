@@ -1,0 +1,59 @@
+%base-font {
+  font-family: "Caros", sans-serif;
+  line-height: 1.5;
+  letter-spacing: 0.025em;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+}
+
+%text {
+  &--sm {
+    @extend %base-font;
+    font-weight: 400;
+    @include use-font-size(--sm);
+  }
+
+  &--md {
+    @extend %base-font;
+    font-weight: 400;
+    @include use-font-size(--md);
+  }
+
+  &--lg {
+    @extend %base-font;
+    font-weight: 400;
+    @include use-font-size(--lg);
+  }
+
+  &--xl {
+    @extend %base-font;
+    font-weight: 300;
+    @include use-font-size(--xs, title);
+  }
+}
+
+%title {
+  &--sm {
+    @extend %base-font;
+    font-weight: 600;
+    @include use-font-size(--sm, title);
+  }
+
+  &--md {
+    @extend %base-font;
+    font-weight: 600;
+    @include use-font-size(--md, title);
+  }
+
+  &--lg {
+    @extend %base-font;
+    font-weight: 600;
+    @include use-font-size(--lg, title);
+  }
+
+  &--xl {
+    @extend %base-font;
+    font-weight: 600;
+    @include use-font-size(--xl, title);
+  }
+}

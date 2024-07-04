@@ -1,0 +1,89 @@
+$app-config: (
+  typography: (
+    text: (
+      --xs: (
+        xs: 13px,
+        sm: 13px,
+        md: 13px,
+        lg: 13px,
+        xl: 13px,
+      ),
+      --sm: (
+        xs: 16px,
+        sm: 16px,
+        md: 16px,
+        lg: 16px,
+        xl: 16px,
+      ),
+      --md: (
+        xs: 18px,
+        sm: 18px,
+        md: 18px,
+        lg: 18px,
+        xl: 18px,
+      ),
+      --lg: (
+        xs: 21px,
+        sm: 21px,
+        md: 21px,
+        lg: 21px,
+        xl: 21px,
+      ),
+    ),
+    title: (
+      --xs: (
+        xs: 21px,
+        sm: 21px,
+        md: 21px,
+        lg: 28px,
+        xl: 28px,
+      ),
+      --sm: (
+        xs: 28px,
+        sm: 28px,
+        md: 28px,
+        lg: 36px,
+        xl: 36px,
+      ),
+      --md: (
+        xs: 36px,
+        sm: 36px,
+        md: 36px,
+        lg: 44px,
+        xl: 44px,
+      ),
+      --lg: (
+        xs: 44px,
+        sm: 44px,
+        md: 44px,
+        lg: 54px,
+        xl: 54px,
+      ),
+      --xl: (
+        xs: 54px,
+        sm: 54px,
+        md: 54px,
+        lg: 64px,
+        xl: 64px,
+      ),
+    ),
+  ),
+  border: (
+    radius: (
+      --md: (
+        xs: 4px,
+        sm: 4px,
+        md: 4px,
+        lg: 8px,
+        xl: 8px,
+      ),
+      --lg: (
+        xs: 8px,
+        sm: 8px,
+        md: 12px,
+        lg: 16px,
+        xl: 16px,
+      ),
+    ),
+  ),
+);

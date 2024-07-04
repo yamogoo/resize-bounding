@@ -1,0 +1,33 @@
+$app-themes: (
+  dark: (
+    background: (
+      primary: #303030,
+      primary--invert: #ffffff,
+      secondary: #1f1f1f,
+      secondary--active: #aeaeae,
+    ),
+    text: (
+      primary: #d8d8d8,
+      primary--invert: #232323,
+      secondary: #bfbfbf,
+      secondary--invert: #939393,
+    ),
+  ),
+
+  light: (
+    background: (
+      primary: #ffffff,
+      primary--invert: #000000,
+      secondary: #ebebeb,
+      secondary--active: #aeaeae,
+      secondary--disabled: #535353,
+      secondary--invert: #ffffff,
+    ),
+    text: (
+      primary: #000000,
+      primary--invert: #f2f2f2,
+      secondary: #656565,
+      secondary--invert: #bfbfbf,
+    ),
+  ),
+);

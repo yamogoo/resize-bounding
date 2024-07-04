@@ -1,0 +1,6 @@
+@mixin all-bounds($offset: 0) {
+  top: $offset;
+  left: $offset;
+  right: $offset;
+  bottom: $offset;
+}
