@@ -1,0 +1,21 @@
+@mixin __use-border-radius($s, $b) {
+  border-radius: get("border.radius.#{$s}.#{$b}", $app-config);
+}
+
+@mixin use-border-radius($s: --md) {
+  @include respond-above(lg) {
+    @include __use-border-radius($s, xl);
+  }
+
+  @include respond-between(md, lg) {
+    @include __use-border-radius($s, lg);
+  }
+
+  @include respond-between(sm, md) {
+    @include __use-border-radius($s, md);
+  }
+
+  @include respond-below(sm) {
+    @include __use-border-radius($s, sm);
+  }
+}

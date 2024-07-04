@@ -11,6 +11,7 @@
     "typecheck:app": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
   },
   "dependencies": {
+    "core-styles": "workspace:^",
     "ui": "workspace:^",
     "vue": "^3.4.29",
     "vue3-boundarize": "workspace:^"

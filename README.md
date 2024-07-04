@@ -1,13 +1,15 @@
-![image](./public/bb-resize.svg)
+![image](./packages/playground/vite-app/public/boundarize.svg)
 
 # Vue3 Resize Bounding ![Version](https://img.shields.io/badge/version-0.0.1-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Vue3 Resize Bounding** is a highly-customizable, versatile and user-friendly component for Vue 3 that enables intuitive resizing of inner user components via draggable boundary panes. With resizable panes on the top, left, right, and bottom, users can seamlessly adjust the dimensions of the content within the default slot, providing a flexible and dynamic user experience. Ideal for applications requiring custom layout adjustments, this component enhances interactivity and control with ease.
+**Vue3 Resize Bounding** is a customizable, versatile and user-friendly component for Vue 3 that enables intuitive resizing of inner user components via draggable boundary panes. With resizable panes on the top, left, right, and bottom, users can seamlessly adjust the dimensions of the content within the default slot, providing a flexible and dynamic user experience. Ideal for applications requiring custom layout adjustments, this component enhances interactivity and control with ease.
 
 > **Examples**
 >
-> - [Interactive Grid](./src/examples/Example.vue)
-> - [Overriding](./src/examples/MyBBResize.vue)
+> Vite:
+>
+> - [Interactive Grid](./packages/playground/vite-app/src/components/InteractiveGrid.vue)
+> - [Overriding](./packages/playground/vite-app/src/components/MyBoundarize.vue)
 
 ---
 

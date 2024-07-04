@@ -1,0 +1,29 @@
+@mixin __use-font-size($s, $b, $t: text) {
+  font-size: get("typography.#{$t}.#{$s}.#{$b}", $app-config);
+}
+
+@mixin use-font-size($s: --md, $t: text) {
+  @include respond-above(lg) {
+    @include __use-font-size($s, xl, $t);
+  }
+
+  @include respond-between(md, lg) {
+    @include __use-font-size($s, lg, $t);
+  }
+
+  @include respond-between(sm, md) {
+    @include __use-font-size($s, md, $t);
+  }
+
+  @include respond-below(sm) {
+    @include __use-font-size($s, sm, $t);
+  }
+}
+
+@mixin use-paragraph($s: --md) {
+  @include use-font-size($s, text);
+}
+
+@mixin use-title($s: --md) {
+  @include use-font-size($s, title);
+}
