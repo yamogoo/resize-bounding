@@ -1,14 +1,14 @@
 import { describe, expect, test } from "vitest";
 import { mount } from "@vue/test-utils";
 
-import UIGroup from "./UIGroup.vue";
+import ContentGroup from "./ContentGroup.vue";
 
-describe("UIGroup", () => {
-  test('should have "--h" postfix in class name by default', (direction) => {
-    const wrapper = mount(UIGroup);
+describe("ContentGroup", () => {
+  test('should have "--h" postfix in class name by default', () => {
+    const wrapper = mount(ContentGroup);
 
     const classes = wrapper
-      .find('[data-testid="ui-group"]')
+      .find('[data-testid="ui-content-group"]')
       .classes()
       .toString();
     expect(classes).toContain(`--h`);
@@ -18,14 +18,14 @@ describe("UIGroup", () => {
   test.each(["h", "v"])(
     "should contain %s postfix in class name",
     (direction) => {
-      const wrapper = mount(UIGroup, {
+      const wrapper = mount(ContentGroup, {
         props: {
-          direction,
+          direction: direction as "h" | "v",
         },
       });
 
       const classes = wrapper
-        .find('[data-testid="ui-group"]')
+        .find('[data-testid="ui-content-group"]')
         .classes()
         .toString();
       expect(classes).toContain(`--${direction}`);
@@ -36,7 +36,7 @@ describe("UIGroup", () => {
   test.each(['<p data-testid="default-content">Default Slot Content</p>'])(
     "should render default slot with content (%s)",
     (defaultSlot) => {
-      const wrapper = mount(UIGroup, {
+      const wrapper = mount(ContentGroup, {
         slots: {
           default: defaultSlot,
         },

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="ui-main-cover"
+    class="ui-main-intro"
     :style="[
       {
         backgroundImage: `url(${imagePath})`,
@@ -9,32 +9,41 @@
       },
     ]"
   >
-    <div class="ui-main-cover--body">
-      <h1 class="ui-main-cover__title" v-if="title">{{ title }}</h1>
-      <p class="ui-main-cover__description" v-if="description">
+    <div class="ui-main-intro--body">
+      <h2 class="ui-main-intro__title" v-if="title">{{ title }}</h2>
+      <p class="ui-main-intro__description" v-if="description">
         {{ description }}
       </p>
     </div>
-    <div class="ui-main-cover--footer">
-      <UIGroup direction="h">
-        <img
-          class="ui-main-cover__logo"
-          src="/vue-logo--invert.svg"
-          alt="vue logo"
-        />
-        <img
-          class="ui-main-cover__logo"
-          src="/figma-logo--invert.svg"
-          alt="figma logo"
-        />
-      </UIGroup>
+    <div class="ui-main-intro--footer">
+      <AtomsGroupsContentGroup direction="h" alignment="start">
+        <!-- <NuxtLink to="/">
+          <img
+            class="ui-main-intro__logo"
+            src="/nuxt-logo--invert.svg"
+            alt="nuxt logo"
+          />
+        </NuxtLink> -->
+        <NuxtLink to="/">
+          <img
+            class="ui-main-intro__logo"
+            src="/vue-logo--invert.svg"
+            alt="vue logo"
+          />
+        </NuxtLink>
+        <NuxtLink to="/">
+          <img
+            class="ui-main-intro__logo"
+            src="/figma-logo--invert.svg"
+            alt="figma logo"
+          />
+        </NuxtLink>
+      </AtomsGroupsContentGroup>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import UIGroup from "@/components/atoms/base/groups/UIGroup.vue";
-
 interface Props {
   title?: string;
   description?: string;
@@ -42,10 +51,16 @@ interface Props {
 }
 
 defineProps<Props>();
+
+const isMounted = ref(false);
+
+onMounted(() => {
+  isMounted.value = true;
+});
 </script>
 
 <style lang="scss">
-.ui-main-cover {
+.ui-main-intro {
   display: grid;
   grid-template-rows: 1fr auto;
   @include box(100%);

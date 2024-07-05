@@ -6,6 +6,14 @@
   margin-block-end: 0.5em;
 }
 
+%code-font {
+  font-family: "Fira Mono", sans-serif;
+  line-height: 1.36;
+  letter-spacing: 0.025em;
+  margin-block-start: 0.25em;
+  margin-block-end: 0.25em;
+}
+
 %text {
   &--sm {
     @extend %base-font;
@@ -33,6 +41,12 @@
 }
 
 %title {
+  &--xs {
+    @extend %base-font;
+    font-weight: 500;
+    @include use-font-size(--xs, title);
+  }
+
   &--sm {
     @extend %base-font;
     font-weight: 600;
