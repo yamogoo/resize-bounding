@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ContentGroup > should contain h postfix in class name 1`] = `"ui-content-group,--h,--start"`;
+
+exports[`ContentGroup > should contain v postfix in class name 1`] = `"ui-content-group,--v,--start"`;
+
+exports[`ContentGroup > should have "--h" postfix in class name by default 1`] = `"ui-content-group,--h,--start"`;
+
+exports[`ContentGroup > should render default slot with content (<p data-testid="default-content">Default Slot Content</p>) 1`] = `"<p data-testid="default-content">Default Slot Content</p>"`;

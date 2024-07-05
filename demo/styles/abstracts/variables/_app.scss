@@ -1,6 +1,13 @@
 $app-config: (
   typography: (
     text: (
+      --xxs: (
+        xs: 11px,
+        sm: 11px,
+        md: 11px,
+        lg: 11px,
+        xl: 11px,
+      ),
       --xs: (
         xs: 13px,
         sm: 13px,
@@ -35,8 +42,8 @@ $app-config: (
         xs: 21px,
         sm: 21px,
         md: 21px,
-        lg: 28px,
-        xl: 28px,
+        lg: 26px,
+        xl: 26px,
       ),
       --sm: (
         xs: 28px,
@@ -70,6 +77,13 @@ $app-config: (
   ),
   border: (
     radius: (
+      --sm: (
+        xs: 4px,
+        sm: 4px,
+        md: 4px,
+        lg: 4px,
+        xl: 4px,
+      ),
       --md: (
         xs: 4px,
         sm: 4px,

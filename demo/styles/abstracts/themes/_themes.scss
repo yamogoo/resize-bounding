@@ -1,0 +1,39 @@
+$app-themes: (
+  dark: (
+    colors: (
+      accent: $c-accent,
+    ),
+    background: (
+      primary: $c-black,
+      primary--invert: $c-white,
+      secondary: $c-dark-gray,
+      secondary--active: $c-light-gray,
+    ),
+    text: (
+      primary: $c-white,
+      primary--invert: $c-black,
+      secondary: #bfbfbf,
+      secondary--invert: #939393,
+    ),
+  ),
+
+  light: (
+    colors: (
+      accent: $c-accent,
+    ),
+    background: (
+      primary: $c-white,
+      primary--invert: $c-black,
+      secondary: #ebebeb,
+      secondary--active: #aeaeae,
+      secondary--disabled: #535353,
+      secondary--invert: $c-white,
+    ),
+    text: (
+      primary: $c-black,
+      primary--invert: $c-white,
+      secondary: #656565,
+      secondary--invert: #bfbfbf,
+    ),
+  ),
+);

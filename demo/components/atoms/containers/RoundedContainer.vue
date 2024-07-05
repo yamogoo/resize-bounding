@@ -37,6 +37,7 @@ withDefaults(defineProps<Props>(), {
   position: relative;
   @include box(100%);
   padding: 12px;
+  overflow: hidden;
 
   &--container {
     display: flex;

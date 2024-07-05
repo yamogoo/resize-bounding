@@ -3,7 +3,7 @@
     <div class="app--container">
       <div class="app__layout">
         <ClientOnly>
-          <UIBoundarize
+          <Boundarize
             :height="layout.header.height"
             :min-height="layout.header.minHeight"
             :max-height="layout.header.maxHeight"
@@ -15,13 +15,13 @@
               }
             "
           >
-            <UIRoundedContainer> </UIRoundedContainer>
-          </UIBoundarize>
-          <UIBoundarize
+            <AtomsContainersRoundedContainer> </AtomsContainersRoundedContainer>
+          </Boundarize>
+          <Boundarize
             :directions="''"
             :style="[{ display: 'flex', height: '100%' }]"
           >
-            <UIBoundarize
+            <Boundarize
               :width="layout.cover.width"
               :min-width="layout.cover.minWidth"
               :max-width="layout.cover.maxWidth"
@@ -33,9 +33,9 @@
                 }
               "
             >
-              <UIRoundedContainer>
+              <AtomsContainersRoundedContainer>
                 <template #header>
-                  <UISizeField
+                  <AtomsInputsSizeField
                     :width="layout.cover.width"
                     @update:width="
                       (width) => {
@@ -44,20 +44,24 @@
                     "
                   />
                 </template>
-                <h3>Supports Mouse & Touch Events</h3>
-              </UIRoundedContainer>
-            </UIBoundarize>
 
-            <UIRoundedContainer>
-              <UIMainCover
+                <AtomsCoversMainCover
+                  title="Supports Mouse & Touch Events"
+                  :version="'1.0.0'"
+                />
+              </AtomsContainersRoundedContainer>
+            </Boundarize>
+
+            <AtomsContainersRoundedContainer>
+              <AtomsCoversMainIntro
                 :title="layout.description.title"
                 description="The versatile and user-friendly Vue 3 component that enables
                   intuitive resizing of inner user components via draggable
                   boundary panes."
                 :image-path="'/boundarize-cover.svg'"
               />
-            </UIRoundedContainer>
-            <UIBoundarize
+            </AtomsContainersRoundedContainer>
+            <Boundarize
               :width="layout.setupGuide.width"
               :min-width="layout.setupGuide.minWidth"
               :max-width="layout.setupGuide.maxWidth"
@@ -74,9 +78,9 @@
                 }
               "
             >
-              <UIRoundedContainer>
+              <AtomsContainersRoundedContainer>
                 <template #header>
-                  <UISizeField
+                  <AtomsInputsSizeField
                     :width="layout.setupGuide.width"
                     @update:width="
                       (width) => {
@@ -85,13 +89,17 @@
                     "
                   />
                 </template>
-                <h3>{{ layout.setupGuide.title }}</h3>
-                <UIBoxedLink :src="'/'">npm i vue3-bb-resize</UIBoxedLink>
-                <UIBoxedLink :src="'/'">yarn add vue3-bb-resize</UIBoxedLink>
-              </UIRoundedContainer>
-              <UIRoundedContainer>
+                <AtomsCoversMainGuide
+                  :links="[
+                    { name: 'npm i vue3-resize-bounding' },
+                    { name: 'yarn add vue3-resize-bounding' },
+                  ]"
+                />
+                <!-- <h3>{{ layout.setupGuide.title }}</h3> -->
+              </AtomsContainersRoundedContainer>
+              <AtomsContainersRoundedContainer>
                 <template #header>
-                  <UISizeField
+                  <AtomsInputsSizeField
                     :width="layout.setupGuide.width"
                     @update:width="
                       (width) => {
@@ -100,12 +108,11 @@
                     "
                   />
                 </template>
-                <h3>{{ layout.setupGuide.title }}</h3>
-                <UIBoxedLink />
-              </UIRoundedContainer>
-            </UIBoundarize>
-          </UIBoundarize>
-          <UIBoundarize
+                <AtomsCoversMainAdditionGuide />
+              </AtomsContainersRoundedContainer>
+            </Boundarize>
+          </Boundarize>
+          <Boundarize
             :height="layout.info.height"
             :min-height="layout.info.minHeight"
             :max-height="layout.info.maxHeight"
@@ -119,7 +126,7 @@
               }
             "
           >
-            <UIBoundarize
+            <Boundarize
               :width="layout.info.width"
               :min-width="layout.info.minWidth"
               :max-width="layout.info.maxWidth"
@@ -133,9 +140,9 @@
                 }
               "
             >
-              <UIRoundedContainer>
+              <AtomsContainersRoundedContainer>
                 <template #header>
-                  <UISizeField
+                  <AtomsInputsSizeField
                     :width="layout.info.width"
                     :height="layout.info.height"
                     @update:width="
@@ -150,16 +157,16 @@
                     "
                   />
                 </template>
-                <h1>{{ layout.info.title }}</h1>
-              </UIRoundedContainer>
-            </UIBoundarize>
-            <UIBoundarize
+                <AtomsCoversMainInfo />
+              </AtomsContainersRoundedContainer>
+            </Boundarize>
+            <Boundarize
               :directions="''"
               :style="[{ display: 'flex', width: '100%' }]"
             >
-              <UIRoundedContainer>
+              <AtomsContainersRoundedContainer>
                 <template #header>
-                  <UISizeField
+                  <AtomsInputsSizeField
                     :height="layout.info.height"
                     @update:height="
                       (height) => {
@@ -169,9 +176,9 @@
                   />
                 </template>
                 <h1>{{ layout.documentation.title }}</h1>
-              </UIRoundedContainer>
-            </UIBoundarize>
-          </UIBoundarize>
+              </AtomsContainersRoundedContainer>
+            </Boundarize>
+          </Boundarize>
         </ClientOnly>
       </div>
     </div>
@@ -181,11 +188,19 @@
 <script setup lang="ts">
 import { ref, type Ref } from "vue";
 
-import UIBoundarize from "@/components/atoms/UIBoundarize.vue";
-import UIRoundedContainer from "@/components/atoms/UIRoundedContainer.vue";
-import UISizeField from "@/components/atoms/UISizeField.vue";
-import UIBoxedLink from "@/components/atoms/UIBoxedLink.vue";
-import UIMainCover from "@/components/atoms/covers/UIMainCover.vue";
+import Boundarize from "@/components/atoms/resizers/Boundarize.vue";
+
+const runtimeConfig = useRuntimeConfig();
+
+useHead({
+  title: runtimeConfig.public.appName,
+  meta: [
+    {
+      name: "description",
+      content: runtimeConfig.public.appDescription,
+    },
+  ],
+});
 
 interface ContainerSize {
   width: number;
@@ -215,8 +230,8 @@ const layout: Ref<
   },
   cover: {
     width: 480,
-    minWidth: 240,
-    maxWidth: 480,
+    minWidth: 360,
+    maxWidth: 640,
     title: "Cover",
   },
   description: {
@@ -224,23 +239,29 @@ const layout: Ref<
     title: "Resize Bounding",
   },
   setupGuide: {
-    width: 360,
+    width: 420,
     minWidth: 360,
-    maxWidth: 480,
+    maxWidth: 640,
     title: "Installation",
   },
   info: {
     height: 360,
-    minHeight: 240,
+    minHeight: 280,
     maxHeight: 400,
     width: 640,
-    minWidth: 240,
+    minWidth: 480,
     maxWidth: 640,
     title: "Info",
   },
   documentation: {
     title: "Documentation",
   },
+});
+
+const isMounted = ref(false);
+
+onMounted(() => {
+  isMounted.value = true;
 });
 </script>
 
