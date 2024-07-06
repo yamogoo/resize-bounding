@@ -1,9 +1,9 @@
 <template>
   <main class="app">
     <div class="app--container">
-      <div class="app__layout">
+      <div class="app__layout" ref="refLayout">
         <ClientOnly>
-          <Boundarize
+          <!-- <Boundarize
             :height="layout.header.height"
             :min-height="layout.header.minHeight"
             :max-height="layout.header.maxHeight"
@@ -16,7 +16,7 @@
             "
           >
             <AtomsContainersRoundedContainer> </AtomsContainersRoundedContainer>
-          </Boundarize>
+          </Boundarize> -->
           <Boundarize
             :directions="''"
             :style="[{ display: 'flex', height: '100%' }]"
@@ -46,7 +46,7 @@
                 </template>
 
                 <AtomsCoversMainCover
-                  title="Supports Mouse & Touch Events"
+                  title="Resize Bounding"
                   :version="'1.0.0'"
                 />
               </AtomsContainersRoundedContainer>
@@ -54,8 +54,8 @@
 
             <AtomsContainersRoundedContainer>
               <AtomsCoversMainIntro
-                :title="layout.description.title"
-                description="The versatile and user-friendly Vue 3 component that enables
+                :title="'Supports Mouse & Touch Events'"
+                description="The versatile and user-friendly Vue3 component that enables
                   intuitive resizing of inner user components via draggable
                   boundary panes."
                 :image-path="'/boundarize-cover.svg'"
@@ -95,9 +95,8 @@
                     { name: 'yarn add vue3-resize-bounding' },
                   ]"
                 />
-                <!-- <h3>{{ layout.setupGuide.title }}</h3> -->
               </AtomsContainersRoundedContainer>
-              <AtomsContainersRoundedContainer>
+              <!-- <AtomsContainersRoundedContainer>
                 <template #header>
                   <AtomsInputsSizeField
                     :width="layout.setupGuide.width"
@@ -109,7 +108,7 @@
                   />
                 </template>
                 <AtomsCoversMainAdditionGuide />
-              </AtomsContainersRoundedContainer>
+              </AtomsContainersRoundedContainer> -->
             </Boundarize>
           </Boundarize>
           <Boundarize
@@ -175,7 +174,8 @@
                     "
                   />
                 </template>
-                <h1>{{ layout.documentation.title }}</h1>
+                <!-- <h1>{{ layout.documentation.title }}</h1> -->
+                <AtomsDocumentationSetupGuide />
               </AtomsContainersRoundedContainer>
             </Boundarize>
           </Boundarize>
@@ -211,6 +211,10 @@ interface ContainerSize {
   maxHeight: number;
 }
 
+const isMounted = ref(false);
+
+const refLayout = ref<HTMLDivElement | null>(null);
+
 const layout: Ref<
   Record<
     | "header"
@@ -226,13 +230,11 @@ const layout: Ref<
     height: 86,
     minHeight: 86,
     maxHeight: 86,
-    title: "Header",
   },
   cover: {
     width: 480,
     minWidth: 360,
-    maxWidth: 640,
-    title: "Cover",
+    maxWidth: 960,
   },
   description: {
     width: 360,
@@ -241,16 +243,15 @@ const layout: Ref<
   setupGuide: {
     width: 420,
     minWidth: 360,
-    maxWidth: 640,
-    title: "Installation",
+    maxWidth: 960,
   },
   info: {
     height: 360,
     minHeight: 280,
-    maxHeight: 400,
-    width: 640,
+    maxHeight: 640,
+    width: 800,
     minWidth: 480,
-    maxWidth: 640,
+    maxWidth: 960,
     title: "Info",
   },
   documentation: {
@@ -258,10 +259,46 @@ const layout: Ref<
   },
 });
 
-const isMounted = ref(false);
+const layoutSize = ref({
+  width: 0,
+  height: 0,
+});
+
+const onSetLayout = (): void => {
+  if (refLayout.value) {
+    layoutSize.value = {
+      width: refLayout.value.clientWidth,
+      height: refLayout.value.clientHeight,
+    };
+
+    const hFactor = layoutSize.value.width > 1024 ? 4 : 3;
+
+    // resize layout:
+    layout.value.cover.width = Math.round(layoutSize.value.width / hFactor);
+    layout.value.setupGuide.width = Math.round(
+      layoutSize.value.width / hFactor,
+    );
+    layout.value.info.width = Math.round(layoutSize.value.width / 2);
+    layout.value.info.height = Math.round(layoutSize.value.height / 2.5);
+  }
+};
+
+watch(
+  refLayout,
+  () => {
+    if (refLayout.value) onSetLayout();
+  },
+  { immediate: true },
+);
 
 onMounted(() => {
   isMounted.value = true;
+  window.addEventListener("resize", onSetLayout);
+});
+
+onUnmounted(() => {
+  isMounted.value = false;
+  window.removeEventListener("resize", onSetLayout);
 });
 </script>
 
