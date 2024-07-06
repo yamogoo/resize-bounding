@@ -9,12 +9,12 @@
   &-link {
     text-decoration: none;
     @include themify($app-themes) {
-      color: themed("text", "primary");
+      color: themed("colors", "accent");
     }
 
     &:hover {
       @include themify($app-themes) {
-        color: themed("colors", "accent") !important;
+        color: themed("text", "primary") !important;
       }
     }
   }

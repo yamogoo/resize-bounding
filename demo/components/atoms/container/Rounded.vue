@@ -36,7 +36,7 @@ withDefaults(defineProps<Props>(), {
 .ui-rounded-container {
   position: relative;
   @include box(100%);
-  padding: 12px;
+  padding: 8px;
   overflow: hidden;
 
   &--container {
@@ -44,7 +44,10 @@ withDefaults(defineProps<Props>(), {
     @include flex-col(center);
     @include box(100%);
     @extend %border-radius--lg;
-    background-color: white;
+    @include themify($app-themes) {
+      background: themed("background", "primary");
+    }
+    @include use-themed-border(all, "secondary");
     overflow: hidden;
   }
 

@@ -1,19 +1,35 @@
 $app-themes: (
   dark: (
     colors: (
-      accent: $c-accent,
+      accent: lighten($c-accent, 1%),
     ),
     background: (
       primary: $c-black,
       primary--invert: $c-white,
-      secondary: $c-dark-gray,
-      secondary--active: $c-light-gray,
+      secondary: $c-app--dark,
+      inactive: $c-deep-gray,
     ),
     text: (
       primary: $c-white,
       primary--invert: $c-black,
       secondary: #bfbfbf,
       secondary--invert: #939393,
+    ),
+    border: (
+      primary: darken($c-gray, 8%),
+      secondary: darken($c-gray, 3%),
+    ),
+    scrollbar: (
+      thumb: $c-white,
+    ),
+    code: (
+      text: $c-light-gray,
+      keyword: lighten($c-accent, 9%),
+      punctuation: #a9afb1,
+      comment: #686c71,
+      operator: #a67f59,
+      row: rgba(255, 255, 255, 0.025),
+      background: $c-deep-gray,
     ),
   ),
 
@@ -24,16 +40,30 @@ $app-themes: (
     background: (
       primary: $c-white,
       primary--invert: $c-black,
-      secondary: #ebebeb,
-      secondary--active: #aeaeae,
-      secondary--disabled: #535353,
-      secondary--invert: $c-white,
+      secondary: $c-app--light,
+      inactive: $c-app--light,
     ),
     text: (
       primary: $c-black,
       primary--invert: $c-white,
       secondary: #656565,
       secondary--invert: #bfbfbf,
+    ),
+    border: (
+      primary: lighten($c-fade-gray, 3%),
+      secondary: lighten($c-fade-gray, 3%),
+    ),
+    scrollbar: (
+      thumb: $c-black,
+    ),
+    code: (
+      text: $c-black,
+      keyword: darken($c-accent, 9%),
+      punctuation: #5f6364,
+      comment: #7d8b99,
+      operator: #a67f59,
+      row: rgba(0, 0, 0, 0.025),
+      background: #f1f1f1,
     ),
   ),
 );

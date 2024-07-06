@@ -1,5 +1,5 @@
 <template>
-  <AtomsBadgesBaseBadge label="version" :value="version" />
+  <AtomsBadgeBase label="version" :value="version" />
 </template>
 
 <script setup lang="ts">

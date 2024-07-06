@@ -1,7 +1,7 @@
 <template>
   <div class="ui-main-addition-guide">
     <h3 class="ui-main-addition-guide__title">{{ title }}</h3>
-    <AtomsLinksLink
+    <AtomsLinkBasic
       :size="'lg'"
       :icon-name="'figma-logo'"
       :to="'/'"

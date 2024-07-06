@@ -35,7 +35,9 @@
     "@types/prismjs": "^1.26.4",
     "@vitest/ui": "^1.6.0",
     "@vue/test-utils": "^2.4.6",
+    "dart-sass": "^1.25.0",
     "gsap": "^3.12.5",
-    "pinia": "^2.1.7"
+    "pinia": "^2.1.7",
+    "sass": "^1.77.6"
   }
 }

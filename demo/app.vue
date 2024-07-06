@@ -1,6 +1,8 @@
 <template>
-  <main :class="['app', { 'theme-light': true }]">
-    <NuxtPage />
+  <main id="app" :class="[{ 'theme-dark': true }]">
+    <div id="app--container">
+      <NuxtPage />
+    </div>
   </main>
 </template>
 
@@ -18,6 +20,27 @@ body,
 
   * {
     box-sizing: border-box;
+  }
+}
+
+#app--container {
+  @include box(100%);
+
+  * {
+    ::-webkit-scrollbar {
+      width: 3px;
+
+      &-track {
+        border-radius: 1px;
+      }
+
+      &-thumb {
+        border-radius: 1px;
+        @include themify($app-themes) {
+          background: themed("scrollbar", "thumb");
+        }
+      }
+    }
   }
 }
 </style>

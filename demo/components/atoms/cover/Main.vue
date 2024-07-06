@@ -1,7 +1,7 @@
 <template>
   <div class="ui-main-cover">
     <div class="ui-main-cover--body">
-      <AtomsTransitionGTransitionProvider
+      <AtomsTransitionGProvider
         :show="isMounted"
         :before-enter="{ opacity: 0, scale: 0.5, y: 80 }"
         :enter="{
@@ -19,8 +19,8 @@
             alt="vue logo"
           />
         </NuxtLink>
-      </AtomsTransitionGTransitionProvider>
-      <AtomsTransitionGTransitionProvider
+      </AtomsTransitionGProvider>
+      <AtomsTransitionGProvider
         :show="isMounted"
         :beforeEnter="{ opacity: 0, y: 80 }"
         :enter="{
@@ -38,8 +38,8 @@
         >
           {{ title }}
         </h1>
-      </AtomsTransitionGTransitionProvider>
-      <AtomsTransitionGTransitionProvider
+      </AtomsTransitionGProvider>
+      <AtomsTransitionGProvider
         :show="isMounted"
         :beforeEnter="{ opacity: 0, y: 40 }"
         :enter="{
@@ -56,19 +56,19 @@
         >
           {{ description }}
         </p>
-      </AtomsTransitionGTransitionProvider>
+      </AtomsTransitionGProvider>
     </div>
-    <AtomsGroupsContentGroup
+    <AtomsGroupContent
       class="ui-main-cover--footer"
       direction="h"
       alignment="center"
       data-testid="ui-main-cover-footer"
     >
-      <AtomsGroupsContentGroup direction="v" alignment="center">
-        <AtomsBadgesVersionBadge :version />
+      <AtomsGroupContent direction="v" alignment="center">
+        <AtomsBadgeVersion :version />
         <span class="ui-main-cover__date">2024</span>
-      </AtomsGroupsContentGroup>
-    </AtomsGroupsContentGroup>
+      </AtomsGroupContent>
+    </AtomsGroupContent>
   </div>
 </template>
 
@@ -126,7 +126,7 @@ onUnmounted(() => {
   }
 
   &__description {
-    @extend %text--xl;
+    @extend %text--lg;
   }
 
   &__title,
@@ -160,6 +160,9 @@ onUnmounted(() => {
 
   &__date {
     @include use-font-size(--xs);
+    @include themify($app-themes) {
+      color: themed("text", "secondary");
+    }
   }
 }
 </style>

@@ -1,26 +1,24 @@
 <template>
   <div class="ui-main-info">
-    <AtomsLinksLink
+    <AtomsLinkBasic
       :size="'lg'"
       :icon-name="'git'"
       :to="'https://github.com/yamogoo/vue3-resize-bounding'"
-      :name="'~/yamogoo/vue3-resize-bounding'"
+      :name="'https://github.com/yamogoo/vue3-boundarize'"
     />
-    <AtomsGroupsContentGroup :direction="'v'" :alignment="'center'">
+    <AtomsGroupContent :direction="'v'" :alignment="'center'">
       <p class="">
         This project is licensed under the terms of the
-        <AtomsLinksBaseLink
+        <AtomsLinkBase
           to="https://github.com/yamogoo/vue3-boundarize/blob/main/packages/vue3-boundarize/LICENSE"
-          ><b>MIT license</b></AtomsLinksBaseLink
-        >
+          >MIT license
+        </AtomsLinkBase>
       </p>
-      <!-- <p>
+      <p>
         Author:
-        <AtomsLinksBaseLink to="https://github.com/yamogoo"
-          ><b>yamogoo</b></AtomsLinksBaseLink
-        >
-      </p> -->
-    </AtomsGroupsContentGroup>
+        <AtomsLinkBase to="https://github.com/yamogoo">yamogoo </AtomsLinkBase>
+      </p>
+    </AtomsGroupContent>
   </div>
 </template>
 
@@ -31,6 +29,7 @@
   &-main-info {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 32px;
 
     .ui-content-group {
@@ -38,7 +37,10 @@
 
       p {
         letter-spacing: 0.025em;
-        @include use-font-size(--sm);
+        @include use-font-size(--xs);
+        @include themify($app-themes) {
+          color: themed("text", "secondary");
+        }
         margin: 0;
         text-align: center;
       }

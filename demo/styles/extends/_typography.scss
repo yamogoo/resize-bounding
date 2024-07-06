@@ -36,7 +36,7 @@
   &--xl {
     @extend %base-font;
     font-weight: 300;
-    @include use-font-size(--xs, title);
+    @include use-font-size(--xl);
   }
 }
 

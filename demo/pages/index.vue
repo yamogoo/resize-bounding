@@ -1,42 +1,45 @@
 <template>
-  <main class="app">
-    <div class="app--container">
-      <div class="app__layout" ref="refLayout">
+  <main class="intro">
+    <div class="intro--container">
+      <div class="intro__layout" ref="refLayout">
         <ClientOnly>
-          <!-- <Boundarize
+          <!-- <AtomsContainerBoundarize
             :height="layout.header.height"
             :min-height="layout.header.minHeight"
             :max-height="layout.header.maxHeight"
+            disabled
             :directions="'b'"
-            :style="{ borderBottom: '1px solid gray' }"
+            class="ui--border --b"
             @update:height="
               (height) => {
                 layout.header.height = height;
               }
             "
           >
-            <AtomsContainersRoundedContainer> </AtomsContainersRoundedContainer>
-          </Boundarize> -->
-          <Boundarize
+            <AtomsContainerRounded> </AtomsContainerRounded>
+          </AtomsContainerBoundarize> -->
+          <AtomsContainerBoundarize
             :directions="''"
             :style="[{ display: 'flex', height: '100%' }]"
           >
-            <Boundarize
+            <AtomsContainerBoundarize
               :width="layout.cover.width"
               :min-width="layout.cover.minWidth"
               :max-width="layout.cover.maxWidth"
               :directions="'r'"
-              :style="[{ display: 'flex', borderRight: '1px solid gray' }]"
+              class="ui--border --r"
+              :style="[{ display: 'flex' }]"
               @update:width="
                 (width) => {
                   layout.cover.width = width;
                 }
               "
             >
-              <AtomsContainersRoundedContainer>
+              <AtomsContainerRounded>
                 <template #header>
-                  <AtomsInputsSizeField
+                  <AtomsInputSizeField
                     :width="layout.cover.width"
+                    :height="layoutSize.height - (layout.info.height ?? 0)"
                     @update:width="
                       (width) => {
                         layout.cover.width = width;
@@ -45,32 +48,29 @@
                   />
                 </template>
 
-                <AtomsCoversMainCover
-                  title="Resize Bounding"
-                  :version="'1.0.0'"
-                />
-              </AtomsContainersRoundedContainer>
-            </Boundarize>
+                <AtomsCoverMain title="Resize Bounding" :version="'1.0.0'" />
+              </AtomsContainerRounded>
+            </AtomsContainerBoundarize>
 
-            <AtomsContainersRoundedContainer>
-              <AtomsCoversMainIntro
+            <AtomsContainerRounded>
+              <AtomsCoverIntro
                 :title="'Supports Mouse & Touch Events'"
                 description="The versatile and user-friendly Vue3 component that enables
                   intuitive resizing of inner user components via draggable
                   boundary panes."
                 :image-path="'/boundarize-cover.svg'"
               />
-            </AtomsContainersRoundedContainer>
-            <Boundarize
+            </AtomsContainerRounded>
+            <AtomsContainerBoundarize
               :width="layout.setupGuide.width"
               :min-width="layout.setupGuide.minWidth"
               :max-width="layout.setupGuide.maxWidth"
               :directions="'l'"
+              class="ui--border --l"
               :style="{
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '0px',
-                borderLeft: '1px solid gray',
               }"
               @update:width="
                 (width) => {
@@ -78,10 +78,11 @@
                 }
               "
             >
-              <AtomsContainersRoundedContainer>
+              <AtomsContainerRounded>
                 <template #header>
-                  <AtomsInputsSizeField
+                  <AtomsInputSizeField
                     :width="layout.setupGuide.width"
+                    :height="layoutSize.height - (layout.info.height ?? 0)"
                     @update:width="
                       (width) => {
                         layout.setupGuide.width = width;
@@ -89,16 +90,16 @@
                     "
                   />
                 </template>
-                <AtomsCoversMainGuide
+                <AtomsCoverGuide
                   :links="[
                     { name: 'npm i vue3-resize-bounding' },
                     { name: 'yarn add vue3-resize-bounding' },
                   ]"
                 />
-              </AtomsContainersRoundedContainer>
-              <!-- <AtomsContainersRoundedContainer>
+              </AtomsContainerRounded>
+              <!-- <AtomsContainerRounded>
                 <template #header>
-                  <AtomsInputsSizeField
+                  <AtomsInputSizeField
                     :width="layout.setupGuide.width"
                     @update:width="
                       (width) => {
@@ -108,40 +109,37 @@
                   />
                 </template>
                 <AtomsCoversMainAdditionGuide />
-              </AtomsContainersRoundedContainer> -->
-            </Boundarize>
-          </Boundarize>
-          <Boundarize
+              </AtomsContainerRounded> -->
+            </AtomsContainerBoundarize>
+          </AtomsContainerBoundarize>
+          <AtomsContainerBoundarize
             :height="layout.info.height"
             :min-height="layout.info.minHeight"
             :max-height="layout.info.maxHeight"
             :directions="'t'"
-            :style="[
-              { display: 'flex', width: '100%', borderTop: '1px solid gray' },
-            ]"
+            class="ui--border --t"
+            :style="[{ display: 'flex', width: '100%' }]"
             @update:height="
               (height) => {
                 layout.info.height = height;
               }
             "
           >
-            <Boundarize
+            <AtomsContainerBoundarize
               :width="layout.info.width"
               :min-width="layout.info.minWidth"
               :max-width="layout.info.maxWidth"
               :directions="'r'"
-              :style="{
-                borderRight: '1px solid gray',
-              }"
+              class="ui--border --r"
               @update:width="
                 (width) => {
                   layout.info.width = width;
                 }
               "
             >
-              <AtomsContainersRoundedContainer>
+              <AtomsContainerRounded>
                 <template #header>
-                  <AtomsInputsSizeField
+                  <AtomsInputSizeField
                     :width="layout.info.width"
                     :height="layout.info.height"
                     @update:width="
@@ -156,16 +154,17 @@
                     "
                   />
                 </template>
-                <AtomsCoversMainInfo />
-              </AtomsContainersRoundedContainer>
-            </Boundarize>
-            <Boundarize
+                <AtomsCoverInfo />
+              </AtomsContainerRounded>
+            </AtomsContainerBoundarize>
+            <AtomsContainerBoundarize
               :directions="''"
               :style="[{ display: 'flex', width: '100%' }]"
             >
-              <AtomsContainersRoundedContainer>
+              <AtomsContainerRounded>
                 <template #header>
-                  <AtomsInputsSizeField
+                  <AtomsInputSizeField
+                    :width="layoutSize.width - (layout.info.width ?? 0)"
                     :height="layout.info.height"
                     @update:height="
                       (height) => {
@@ -174,11 +173,10 @@
                     "
                   />
                 </template>
-                <!-- <h1>{{ layout.documentation.title }}</h1> -->
                 <AtomsDocumentationSetupGuide />
-              </AtomsContainersRoundedContainer>
-            </Boundarize>
-          </Boundarize>
+              </AtomsContainerRounded>
+            </AtomsContainerBoundarize>
+          </AtomsContainerBoundarize>
         </ClientOnly>
       </div>
     </div>
@@ -187,8 +185,6 @@
 
 <script setup lang="ts">
 import { ref, type Ref } from "vue";
-
-import Boundarize from "@/components/atoms/resizers/Boundarize.vue";
 
 const runtimeConfig = useRuntimeConfig();
 
@@ -217,13 +213,8 @@ const refLayout = ref<HTMLDivElement | null>(null);
 
 const layout: Ref<
   Record<
-    | "header"
-    | "description"
-    | "info"
-    | "cover"
-    | "setupGuide"
-    | "documentation",
-    Partial<ContainerSize & { title: string }>
+    "header" | "description" | "info" | "cover" | "setupGuide",
+    Partial<ContainerSize>
   >
 > = ref({
   header: {
@@ -238,11 +229,10 @@ const layout: Ref<
   },
   description: {
     width: 360,
-    title: "Resize Bounding",
   },
   setupGuide: {
-    width: 420,
-    minWidth: 360,
+    width: 480,
+    minWidth: 440,
     maxWidth: 960,
   },
   info: {
@@ -250,12 +240,8 @@ const layout: Ref<
     minHeight: 280,
     maxHeight: 640,
     width: 800,
-    minWidth: 480,
+    minWidth: 580,
     maxWidth: 960,
-    title: "Info",
-  },
-  documentation: {
-    title: "Documentation",
   },
 });
 
@@ -271,15 +257,15 @@ const onSetLayout = (): void => {
       height: refLayout.value.clientHeight,
     };
 
-    const hFactor = layoutSize.value.width > 1024 ? 4 : 3;
+    const hFactor = layoutSize.value.width > 1024 ? 3 : 2;
 
     // resize layout:
     layout.value.cover.width = Math.round(layoutSize.value.width / hFactor);
     layout.value.setupGuide.width = Math.round(
       layoutSize.value.width / hFactor,
     );
-    layout.value.info.width = Math.round(layoutSize.value.width / 2);
-    layout.value.info.height = Math.round(layoutSize.value.height / 2.5);
+    layout.value.info.width = Math.round(layoutSize.value.width / 2.5);
+    layout.value.info.height = Math.round(layoutSize.value.height / 3);
   }
 };
 
@@ -303,16 +289,16 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss">
-$__border-color: gray;
-$__background--primary: #e8ebec;
-
 %container--normal {
-  background: $__background--primary;
+  @include themify($app-themes) {
+    background: themed("background", "secondary");
+  }
 }
 
-.app {
+.intro {
   display: flex;
   @include box(100%);
+  @extend %container--normal;
 
   * {
     user-select: none;
@@ -320,7 +306,7 @@ $__background--primary: #e8ebec;
 
   &--container {
     @include box(100%);
-    padding: 20px;
+    padding: 6px;
     box-sizing: border-box;
   }
 
@@ -329,9 +315,29 @@ $__background--primary: #e8ebec;
     flex-direction: column;
     @include box(100%);
     @extend %container--normal;
-    border: 1px solid $__border-color;
-    border-radius: 24px;
+    @include use-themed-border(all);
+    @include use-border-radius(--xl);
     overflow: hidden;
+  }
+}
+
+.ui {
+  &--border {
+    &.--l {
+      @include use-themed-border(left);
+    }
+
+    &.--r {
+      @include use-themed-border(right);
+    }
+
+    &.--t {
+      @include use-themed-border(top);
+    }
+
+    &.--b {
+      @include use-themed-border(bottom);
+    }
   }
 }
 </style>

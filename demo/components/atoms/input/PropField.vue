@@ -28,7 +28,6 @@ withDefaults(defineProps<Props>(), {
   &-prop-field {
     display: flex;
     flex-direction: row;
-    // gap: 3px;
     padding: 0px 12px;
     color: inherit;
 
@@ -56,11 +55,6 @@ withDefaults(defineProps<Props>(), {
     span {
       height: max-content;
     }
-
-    // &__label,
-    // &__unit {
-    //   opacity: 0.5;
-    // }
 
     &.disabled {
       opacity: 0.5;

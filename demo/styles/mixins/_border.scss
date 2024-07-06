@@ -1,0 +1,14 @@
+@mixin use-border($p: all, $c: $c-fade-gray) {
+  @if $p == all {
+    border: 1px solid $c;
+  } @else {
+    border-#{$p}: 1px solid $c;
+  }
+}
+
+@mixin use-themed-border($p: all, $_c: "primary") {
+  @include themify($app-themes) {
+    $c: themed("border", $_c);
+    @include use-border($p, $c);
+  }
+}
