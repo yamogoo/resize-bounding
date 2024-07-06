@@ -18,7 +18,6 @@ export default defineConfig({
       scss: {
         additionalData: `
           @import 'core-styles';
-          @import './src/styles/_mixins.scss';
         `,
       },
     },

@@ -24,6 +24,7 @@
     "npm": "^10.8.1",
     "nuxt": "^3.12.3",
     "nuxt-icons": "^3.2.1",
+    "prismjs": "^1.29.0",
     "vitest": "^1.6.0",
     "vue": "latest",
     "vue3-boundarize": "workspace:^"
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@nuxt/image": "^1.7.0",
     "@nuxt/test-utils": "^3.13.1",
+    "@types/prismjs": "^1.26.4",
     "@vitest/ui": "^1.6.0",
     "@vue/test-utils": "^2.4.6",
     "gsap": "^3.12.5",

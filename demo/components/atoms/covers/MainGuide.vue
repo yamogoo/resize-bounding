@@ -6,7 +6,8 @@
       :key="idx"
       :src="url"
       @copy="onCopy(name)"
-      >{{ name }}
+    >
+      {{ name }}
     </AtomsLinksBoxedLink>
   </div>
 </template>

@@ -10,7 +10,7 @@
     ]"
   >
     <div class="ui-main-intro--body">
-      <h2 class="ui-main-intro__title" v-if="title">{{ title }}</h2>
+      <!-- <h2 class="ui-main-intro__title" v-if="title">{{ title }}</h2> -->
       <p class="ui-main-intro__description" v-if="description">
         {{ description }}
       </p>
@@ -31,13 +31,13 @@
             alt="vue logo"
           />
         </NuxtLink>
-        <NuxtLink to="/">
+        <!-- <NuxtLink to="/">
           <img
             class="ui-main-intro__logo"
             src="/figma-logo--invert.svg"
             alt="figma logo"
           />
-        </NuxtLink>
+        </NuxtLink> -->
       </AtomsGroupsContentGroup>
     </div>
   </div>
@@ -81,6 +81,8 @@ onMounted(() => {
     display: flex;
     @include flex-col(center);
     @include box(100%, auto);
+    max-width: 640px;
+    margin: auto;
   }
 
   &--footer {
@@ -91,7 +93,7 @@ onMounted(() => {
   }
 
   &__title {
-    @extend %title--lg;
+    @extend %title--sm;
   }
 
   &__description {

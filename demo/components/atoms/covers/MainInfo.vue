@@ -14,12 +14,12 @@
           ><b>MIT license</b></AtomsLinksBaseLink
         >
       </p>
-      <p>
+      <!-- <p>
         Author:
         <AtomsLinksBaseLink to="https://github.com/yamogoo"
           ><b>yamogoo</b></AtomsLinksBaseLink
         >
-      </p>
+      </p> -->
     </AtomsGroupsContentGroup>
   </div>
 </template>
@@ -38,7 +38,7 @@
 
       p {
         letter-spacing: 0.025em;
-        @include use-font-size(--xs);
+        @include use-font-size(--sm);
         margin: 0;
         text-align: center;
       }
