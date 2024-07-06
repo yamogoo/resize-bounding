@@ -36,7 +36,7 @@ export interface Props {
     &__value {
       display: block;
       padding: 6px 16px;
-      @include use-font-size(--sm);
+      @include use-font-size(--xs);
     }
 
     &__label {
@@ -47,7 +47,7 @@ export interface Props {
 
     &__value {
       @include themify($app-themes) {
-        color: themed("text", "primary--invert");
+        color: $c-white;
         background: themed("colors", "accent");
       }
     }

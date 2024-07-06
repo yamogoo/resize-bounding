@@ -1,8 +1,8 @@
 <template>
-  <AtomsLinksBaseLink :to :class="[`--${size}`]">
+  <AtomsLinkBase :to :class="[`--${size}`]">
     <NuxtIcon v-if="iconName" class="ui-link__icon" :name="iconName" :filled />
     <span class="ui-link__name">{{ name }}</span>
-  </AtomsLinksBaseLink>
+  </AtomsLinkBase>
 </template>
 
 <script setup lang="ts">
@@ -22,6 +22,8 @@ withDefaults(defineProps<Props>(), {
 
 <style lang="scss">
 [class^="ui-link"] {
+  width: max-content;
+
   .ui-link__icon {
   }
 
@@ -55,7 +57,7 @@ withDefaults(defineProps<Props>(), {
       }
 
       .ui-link__name {
-        @include use-font-size(--lg);
+        @include use-font-size(--md);
       }
     }
   }

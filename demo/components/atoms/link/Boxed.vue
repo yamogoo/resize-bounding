@@ -27,10 +27,14 @@ const emits = defineEmits<{
     text-align: center;
 
     &:not(:last-child) {
-      border-bottom: 1px solid lightgray;
+      @include use-themed-border(bottom);
     }
 
-    // &--container {}
+    &--container {
+      @include themify($app-themes) {
+        color: themed("text", "secondary");
+      }
+    }
 
     &__icon {
       position: absolute;

@@ -1,15 +1,15 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, test } from "vitest";
 
-import VersionBadge from "./VersionBadge.vue";
+import Version from "./Version.vue";
 
 const DEFAULT_PROPS = {
   version: "0.0.1",
 };
 
-describe("VersionBadge", () => {
+describe("Version", () => {
   test(`should display "version" (${DEFAULT_PROPS.version})`, () => {
-    const wrapper = mount(VersionBadge, {
+    const wrapper = mount(Version, {
       props: {
         ...DEFAULT_PROPS,
       },

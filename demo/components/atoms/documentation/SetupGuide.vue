@@ -1,7 +1,7 @@
 <template>
   <div class="ui-setup-guide">
     <div class="ui-setup-guide--header">
-      <AtomsMenuTabbarMenu
+      <AtomsMenuTabbar
         :sid
         :items="menuItems"
         @select="(item: TabbarItem<string>) => (sid = item.id)"
@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import type { TabbarItem } from "@/components/atoms/menu/TabbarMenu.vue";
+import type { TabbarItem } from "@/components/atoms/menu/Tabbar.vue";
 import { __DOC__ } from "@/components/docs.js";
 
 const menuItems: Array<TabbarItem<string>> = [
@@ -72,4 +72,3 @@ const sid = ref(0);
   }
 }
 </style>
-../../docs

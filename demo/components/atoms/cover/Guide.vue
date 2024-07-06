@@ -1,14 +1,14 @@
 <template>
   <div class="ui-main-guide">
     <h3 class="ui-main-guide__title">{{ title }}</h3>
-    <AtomsLinksBoxedLink
+    <AtomsLinkBoxed
       v-for="({ url, name }, idx) in links"
       :key="idx"
       :src="url"
       @copy="onCopy(name)"
     >
       {{ name }}
-    </AtomsLinksBoxedLink>
+    </AtomsLinkBoxed>
   </div>
 </template>
 
@@ -46,6 +46,10 @@ export interface LinkData {
       @extend %title--xs;
       margin: 0;
       text-align: center;
+
+      @include themify($app-themes) {
+        color: themed("text", "primary");
+      }
     }
 
     .ui-boxed-link {

@@ -57,7 +57,7 @@ watch(
 
     pre {
       line-height: 0;
-      border: 1px solid #e7ecf4;
+      @include use-themed-border("secondary");
       @include use-border-radius(--md);
     }
 
@@ -68,10 +68,12 @@ watch(
     code[class*="language-"],
     pre[class*="language-"] {
       width: 100%;
-      color: $c-black;
       background: none;
       font-family: "Fira Mono", Monaco, "Andale Mono", "Ubuntu Mono", monospace;
       @include use-font-size(--xs);
+      @include themify($app-themes) {
+        color: themed("code", "text");
+      }
 
       text-align: left;
       white-space: break-spaces;
@@ -92,11 +94,19 @@ watch(
     /* Code blocks */
     pre[class*="language-"] {
       position: relative;
-      background-color: #ffffff;
+      @include themify($app-themes) {
+        background: themed("code", "background");
+        // background-image: linear-gradient(
+        //   transparent 50%,
+        //   themed("code", "row") 50%
+        // );
+      }
+
       background-image: linear-gradient(
         transparent 50%,
-        rgba(0, 0, 0, 0.025) 50%
+        rgba(255, 255, 255, 0.125) 50%
       );
+
       background-size: 3em calc($line-height * 2);
       background-origin: content-box;
       background-attachment: local;
@@ -114,7 +124,7 @@ watch(
       padding: 0.2em;
       border-radius: 0.3em;
       color: $c-red;
-      border: 1px solid rgba(0, 0, 0, 0.1);
+      // border: 1px solid rgba(0, 0, 0, 0.1);
       display: inline;
       white-space: normal;
       background-color: #fdfdfd;
@@ -129,11 +139,15 @@ watch(
       &.prolog,
       &.doctype,
       &.cdata {
-        color: #7d8b99;
+        @include themify($app-themes) {
+          color: themed("code", "comment");
+        }
       }
 
       &.punctuation {
-        color: #5f6364;
+        @include themify($app-themes) {
+          color: themed("code", "punctuation");
+        }
       }
 
       &.property,
@@ -161,20 +175,23 @@ watch(
       &.entity,
       &.url,
       &.variable {
-        color: #a67f59;
-        background: rgba(255, 255, 255, 0.5);
+        @include themify($app-themes) {
+          color: themed("code", "operator");
+        }
       }
 
       &.atrule,
       &.attr-value,
       &.keyword,
       &.class-name {
-        color: darken($c-accent, 9%);
+        @include themify($app-themes) {
+          color: themed("code", "keyword");
+        }
       }
 
       &.regex,
       &.important {
-        color: #e90;
+        color: $c-orange;
       }
 
       &.important {

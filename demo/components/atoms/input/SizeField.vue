@@ -28,21 +28,21 @@ defineProps<Props>();
 </script>
 
 <style lang="scss">
-$__background--primary: #e8ebec;
-
 .ui {
   &-size-field {
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: 32px;
-    // background-color: $__background--primary;
-    border: 1px solid $__background--primary;
+    // @include use-themed-border(all);
     @include use-border-radius(--lg);
-    color: black;
+    @include themify($app-themes) {
+      color: themed("text", "primary");
+      background: themed("background", "inactive");
+    }
 
     .ui-prop-field {
       &:not(:last-child) {
-        border-right: 1px solid $__background--primary;
+        @include use-themed-border(right);
       }
     }
   }

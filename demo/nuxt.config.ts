@@ -52,8 +52,8 @@ export default defineNuxtConfig({
           additionalData: `
             @import 'core-styles';
             // @import 'core-styles/reset-styles';
-            @import '@/styles/_fonts.scss';
-            @import '@/styles/_index.scss';
+            @import '@/styles/fonts.scss';
+            @import '@/styles/index.scss';
           `,
         },
       },

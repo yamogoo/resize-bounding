@@ -14,9 +14,12 @@
       <p class="ui-main-intro__description" v-if="description">
         {{ description }}
       </p>
+      <p class="ui-main-intro__description--sm">
+        Supports Mouse & Touch Events
+      </p>
     </div>
     <div class="ui-main-intro--footer">
-      <AtomsGroupsContentGroup direction="h" alignment="start">
+      <AtomsGroupContent direction="h" alignment="start">
         <!-- <NuxtLink to="/">
           <img
             class="ui-main-intro__logo"
@@ -38,7 +41,7 @@
             alt="figma logo"
           />
         </NuxtLink> -->
-      </AtomsGroupsContentGroup>
+      </AtomsGroupContent>
     </div>
   </div>
 </template>
@@ -97,15 +100,20 @@ onMounted(() => {
   }
 
   &__description {
-    @extend %text--xl;
+    @extend %text--lg;
+
+    &--sm {
+      @extend %text--sm;
+    }
   }
 
   &__title,
-  &__description {
+  &__description,
+  &__description--sm {
     text-align: center;
 
     @include themify($app-themes) {
-      color: themed("text", "primary--invert");
+      color: $c-white;
     }
   }
 

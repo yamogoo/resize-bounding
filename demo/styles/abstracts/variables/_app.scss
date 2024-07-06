@@ -36,6 +36,13 @@ $app-config: (
         lg: 21px,
         xl: 21px,
       ),
+      --xl: (
+        xs: 24px,
+        sm: 24px,
+        md: 24px,
+        lg: 28px,
+        xl: 28px,
+      ),
     ),
     title: (
       --xs: (
@@ -97,6 +104,13 @@ $app-config: (
         md: 12px,
         lg: 16px,
         xl: 16px,
+      ),
+      --xl: (
+        xs: 16px,
+        sm: 16px,
+        md: 18px,
+        lg: 24px,
+        xl: 24px,
       ),
     ),
   ),

@@ -18,7 +18,6 @@ const usage: CodeBlock = {
   lang: "html",
   code: `<template>
   <resize-bounding
-    v-if="layout.dataNavigator.show"
     :width="container.width"
     :height="container.height"
     :min-width="240"

@@ -1,16 +1,16 @@
 import { shallowMount } from "@vue/test-utils";
 import { describe, expect, test } from "vitest";
 
-import BaseBadge from "./BaseBadge.vue";
+import Base from "./Base.vue";
 
 const DEFAULT_PROPS = {
   label: "Label",
   value: "Value",
 };
 
-describe("BaseBadge", () => {
+describe("Base", () => {
   test(`should display "label" (${DEFAULT_PROPS.label}), "value" (${DEFAULT_PROPS.value})`, () => {
-    const wrapper = shallowMount(BaseBadge, {
+    const wrapper = shallowMount(Base, {
       props: {
         ...DEFAULT_PROPS,
       },
