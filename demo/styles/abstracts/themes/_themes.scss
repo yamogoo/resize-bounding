@@ -1,5 +1,5 @@
 $app-themes: (
-  dark: (
+  theme-dark: (
     colors: (
       accent: lighten($c-accent, 1%),
     ),
@@ -14,6 +14,7 @@ $app-themes: (
       primary--invert: $c-black,
       secondary: #bfbfbf,
       secondary--invert: #939393,
+      inactive: #656565,
     ),
     border: (
       primary: darken($c-gray, 8%),
@@ -31,9 +32,12 @@ $app-themes: (
       row: rgba(255, 255, 255, 0.025),
       background: $c-deep-gray,
     ),
+    switch: (
+      track: #5f6364,
+    ),
   ),
 
-  light: (
+  theme-light: (
     colors: (
       accent: $c-accent,
     ),
@@ -48,6 +52,7 @@ $app-themes: (
       primary--invert: $c-white,
       secondary: #656565,
       secondary--invert: #bfbfbf,
+      inactive: #656565,
     ),
     border: (
       primary: lighten($c-fade-gray, 3%),
@@ -64,6 +69,9 @@ $app-themes: (
       operator: #a67f59,
       row: rgba(0, 0, 0, 0.025),
       background: #f1f1f1,
+    ),
+    switch: (
+      track: #5f6364,
     ),
   ),
 );

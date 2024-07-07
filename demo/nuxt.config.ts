@@ -33,11 +33,20 @@ export default defineNuxtConfig({
 
   compatibilityDate: "2024-07-03",
   modules: [
+    "@nuxtjs/color-mode",
     "@nuxt/content",
     "@nuxt/image",
     "@nuxt/test-utils/module",
     "nuxt-icons",
   ],
+
+  colorMode: {
+    preference: "system",
+    fallback: "dark",
+    classPrefix: "theme-",
+    classSuffix: "",
+    storageKey: "theme",
+  },
 
   vite: {
     build: {
@@ -51,7 +60,6 @@ export default defineNuxtConfig({
         scss: {
           additionalData: `
             @import 'core-styles';
-            // @import 'core-styles/reset-styles';
             @import '@/styles/fonts.scss';
             @import '@/styles/index.scss';
           `,

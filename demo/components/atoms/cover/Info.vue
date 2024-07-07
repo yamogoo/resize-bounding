@@ -4,13 +4,13 @@
       :size="'lg'"
       :icon-name="'git'"
       :to="'https://github.com/yamogoo/vue3-resize-bounding'"
-      :name="'https://github.com/yamogoo/vue3-boundarize'"
+      :name="'https://github.com/yamogoo/vue3-resize-bounding'"
     />
     <AtomsGroupContent :direction="'v'" :alignment="'center'">
       <p class="">
         This project is licensed under the terms of the
         <AtomsLinkBase
-          to="https://github.com/yamogoo/vue3-boundarize/blob/main/packages/vue3-boundarize/LICENSE"
+          to="https://github.com/yamogoo/vue3-resize-bounding/blob/main/packages/vue3-resize-bounding/LICENSE"
           >MIT license
         </AtomsLinkBase>
       </p>

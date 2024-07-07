@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Switch > should add class attribute "active" to container DOM if "state" prop equals true 1`] = `true`;
+
+exports[`Switch > should add class attribute "normal" to container DOM if "state" prop equals false 1`] = `true`;
+
+exports[`Switch > should emit "update:state" when clicking on the wrapper 1`] = `
+[
+  [
+    true,
+  ],
+]
+`;

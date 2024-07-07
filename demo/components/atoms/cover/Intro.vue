@@ -10,23 +10,25 @@
     ]"
   >
     <div class="ui-main-intro--body">
-      <!-- <h2 class="ui-main-intro__title" v-if="title">{{ title }}</h2> -->
       <p class="ui-main-intro__description" v-if="description">
         {{ description }}
       </p>
-      <p class="ui-main-intro__description--sm">
-        Supports Mouse & Touch Events
-      </p>
+      <AtomsGroupContent
+        class="ui-main-intro__info"
+        :direction="'v'"
+        :alignment="'center'"
+      >
+        <p class="ui-main-intro__description--sm">
+          Supports Mouse & Touch Events
+        </p>
+        <div class="ui-main-intro__event-icons">
+          <NuxtIcon :name="'mouse'" alt="mouse events" />
+          <NuxtIcon :name="'touch'" alt="touch events" />
+        </div>
+      </AtomsGroupContent>
     </div>
     <div class="ui-main-intro--footer">
       <AtomsGroupContent direction="h" alignment="start">
-        <!-- <NuxtLink to="/">
-          <img
-            class="ui-main-intro__logo"
-            src="/nuxt-logo--invert.svg"
-            alt="nuxt logo"
-          />
-        </NuxtLink> -->
         <NuxtLink to="/">
           <img
             class="ui-main-intro__logo"
@@ -34,13 +36,6 @@
             alt="vue logo"
           />
         </NuxtLink>
-        <!-- <NuxtLink to="/">
-          <img
-            class="ui-main-intro__logo"
-            src="/figma-logo--invert.svg"
-            alt="figma logo"
-          />
-        </NuxtLink> -->
       </AtomsGroupContent>
     </div>
   </div>
@@ -64,6 +59,7 @@ onMounted(() => {
 
 <style lang="scss">
 .ui-main-intro {
+  position: relative;
   display: grid;
   grid-template-rows: 1fr auto;
   @include box(100%);
@@ -83,16 +79,22 @@ onMounted(() => {
   &--body {
     display: flex;
     @include flex-col(center);
+    gap: 32px;
     @include box(100%, auto);
     max-width: 640px;
     margin: auto;
   }
 
   &--footer {
+    position: absolute;
     display: flex;
+    bottom: 0;
+    right: 0;
     width: 100%;
     flex-direction: row-reverse;
     gap: 20px;
+    @include padding-h(20px);
+    @include padding-v(20px);
   }
 
   &__title {
@@ -103,7 +105,10 @@ onMounted(() => {
     @extend %text--lg;
 
     &--sm {
-      @extend %text--sm;
+      // @extend %text--sm;
+      @include use-font-size(--xxs);
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
     }
   }
 
@@ -114,6 +119,24 @@ onMounted(() => {
 
     @include themify($app-themes) {
       color: $c-white;
+    }
+  }
+
+  &__info {
+    opacity: 0.75;
+  }
+
+  &__event-icons {
+    display: flex;
+    gap: 12px;
+    color: $c-white;
+
+    .nuxt-icon {
+      @include box(40px);
+
+      svg {
+        @include box(100%);
+      }
     }
   }
 

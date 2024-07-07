@@ -1,12 +1,19 @@
 <template>
   <div class="ui-code">
-    <span v-if="fileName" class="file-name">{{ fileName }}</span>
-    <pre v-if="block">
-    <code ref="refCode" :lang :class="`language-${lang}`">{{ code }}<slot></slot></code>
-  </pre>
-    <code v-else ref="refCode" :lang :class="`language-${lang}`"
-      >{{ code }}<slot></slot
-    ></code>
+    <span v-if="fileName" class="ui-code__file-name">{{ fileName }}</span>
+    <div class="ui-code--container">
+      <pre v-if="block">
+      <code ref="refCode" :lang :class="`language-${lang}`">{{ code }}<slot></slot></code>
+    </pre>
+      <code v-else ref="refCode" :lang :class="`language-${lang}`"
+        >{{ code }}<slot></slot
+      ></code>
+      <AtomsButtonCopy
+        class="ui-code__icon"
+        :show-label="true"
+        @click="() => onCopy(code)"
+      />
+    </div>
   </div>
 </template>
 
@@ -39,20 +46,40 @@ watch(
   },
   { flush: "post", immediate: true },
 );
+
+const onCopy = (code: string | undefined) => {
+  navigator.clipboard.writeText(code ?? "");
+};
 </script>
 
 <style lang="scss">
 .ui {
   &-code {
+    position: relative;
     width: 100%;
 
     $line-height: 2em;
     $tab-size: 4;
 
-    .file-name {
-      color: #9f9f9f;
-      padding: 0 1em;
-      @include use-font-size(--sm);
+    &--container {
+      position: relative;
+      width: 100%;
+    }
+
+    &__file-name {
+      // padding: 0 1em;
+      @include use-font-size(--xs);
+      @include themify($app-themes) {
+        color: themed("code", "comment");
+      }
+    }
+
+    &__icon {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      cursor: pointer;
+      z-index: 1;
     }
 
     pre {

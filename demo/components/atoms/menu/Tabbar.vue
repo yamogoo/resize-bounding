@@ -37,8 +37,6 @@ export interface TabbarItem<T> {
 <style lang="scss">
 .ui {
   &-tabbar-menu {
-    // padding: 10px 0px;
-
     &--list {
       display: flex;
       gap: 20px;
@@ -54,7 +52,12 @@ export interface TabbarItem<T> {
 
       &:not(.active) {
         opacity: 0.35;
+
+        &:hover {
+          opacity: 0.5 !important;
+        }
       }
+
       &.active {
         opacity: 1;
       }
