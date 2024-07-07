@@ -6,7 +6,7 @@ import { DataTestIds, DEFAULT_PREFIX } from "./setup";
 
 import deepmerge from "deepmerge";
 
-import BoundarizePane, {
+import ResizeBoundingPane, {
   Emits,
   PaneDirectionAliases,
   PaneDirections,
@@ -14,15 +14,17 @@ import BoundarizePane, {
   splitterBaseStyles,
   type PaneEmittedData,
   type Props,
-} from "../components/BoundarizePane.vue";
-import { BBResize } from "../shared/typings";
+} from "../components/ResizeBoundingPane.vue";
+import { ResizeBounding } from "../shared/typings";
 
-import { defaultOptions, defaultStyles } from "../components/Boundarize.vue";
-// import { deepmerge } from "../utils";
+import { defaultOptions } from "../components/ResizeBounding.vue";
+import { getClassNames } from "../components/ResizeBounding.classNames.js";
+
+const classNames = getClassNames({});
 
 const requiredProps = {
-  styles: defaultStyles.pane,
-  options: defaultOptions.pane,
+  options: defaultOptions,
+  classNames,
 };
 
 describe("Boundarize", () => {
@@ -35,11 +37,8 @@ describe("Boundarize", () => {
     test.each(["my-prefix"])(
       "each element should have custom prefix (%s)",
       (prefix) => {
-        const wrapper = shallowMount(BoundarizePane, {
-          props: {
-            prefix,
-            ...requiredProps,
-          },
+        const wrapper = shallowMount(ResizeBoundingPane, {
+          props: { prefix, ...requiredProps },
         });
 
         const paneEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
@@ -55,8 +54,8 @@ describe("Boundarize", () => {
       },
     );
 
-    test('should have "hide class by default"', () => {
-      const wrapper = shallowMount(BoundarizePane, {
+    test('should have "normal" class by default', () => {
+      const wrapper = shallowMount(ResizeBoundingPane, {
         props: {
           prefix: DEFAULT_PREFIX,
           ...requiredProps,
@@ -65,14 +64,14 @@ describe("Boundarize", () => {
 
       const splitterEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
 
-      expect(splitterEl.classes("hide")).toBeTruthy();
-      expect(splitterEl.classes("hide")).toMatchSnapshot();
+      expect(splitterEl.classes("normal")).toBeTruthy();
+      expect(splitterEl.classes("normal")).toMatchSnapshot();
     });
   });
 
   describe("classes", () => {
-    test('should have "show class"', async () => {
-      const wrapper = shallowMount(BoundarizePane, {
+    test('should have "focused" class', async () => {
+      const wrapper = shallowMount(ResizeBoundingPane, {
         props: {
           prefix: DEFAULT_PREFIX,
           ...requiredProps,
@@ -86,14 +85,14 @@ describe("Boundarize", () => {
 
       await splitterEl.trigger("pointerenter");
 
-      expect(paneEl.classes("show")).toBeTruthy();
-      expect(paneEl.classes("show")).toMatchSnapshot();
+      expect(paneEl.classes("focused")).toBeTruthy();
+      expect(paneEl.classes("focused")).toMatchSnapshot();
     });
   });
 
   describe("events", () => {
     describe("focus", async () => {
-      const wrapper = shallowMount(BoundarizePane, {
+      const wrapper = shallowMount(ResizeBoundingPane, {
         props: {
           prefix: DEFAULT_PREFIX,
           direction: PaneDirections.RIGHT,
@@ -123,7 +122,7 @@ describe("Boundarize", () => {
     });
 
     describe("drag", () => {
-      const wrapper = shallowMount(BoundarizePane, {
+      const wrapper = shallowMount(ResizeBoundingPane, {
         props: {
           prefix: DEFAULT_PREFIX,
           direction: PaneDirections.RIGHT,
@@ -191,11 +190,12 @@ describe("Boundarize", () => {
   describe("options", () => {
     describe("knob", () => {
       test("should always show knob", () => {
-        const wrapper = shallowMount(BoundarizePane, {
+        const wrapper = shallowMount(ResizeBoundingPane, {
           props: {
             prefix: DEFAULT_PREFIX,
-            styles: defaultStyles.pane,
-            options: deepmerge(defaultOptions.pane, {
+            classNames,
+            styles: {},
+            options: deepmerge(defaultOptions, {
               knob: {
                 show: true,
                 constantlyShow: true,
@@ -216,12 +216,13 @@ describe("Boundarize", () => {
         [PaneDirections.TOP, 0],
         [PaneDirections.BOTTOM, 0],
       ])("pane (--%s) should rotated to (%s deg)", (direction, deg) => {
-        const wrapper = shallowMount(BoundarizePane, {
+        const wrapper = shallowMount(ResizeBoundingPane, {
           props: {
             prefix: DEFAULT_PREFIX,
             direction,
-            styles: defaultStyles.pane,
-            options: deepmerge(defaultOptions.pane, {
+            styles: {},
+            classNames,
+            options: deepmerge(defaultOptions, {
               knob: {
                 show: true,
                 constantlyShow: true,
@@ -230,7 +231,9 @@ describe("Boundarize", () => {
           },
         });
 
-        const knobEl = wrapper.find(`[data-testid="${DataTestIds.KNOB}"]`);
+        const knobEl = wrapper.find(
+          `[data-testid="${DataTestIds.SPLITTER_CONTAINER}"]`,
+        );
         const styles = knobEl.attributes("style");
 
         expect(styles).toContain(`(${deg}deg)`);
@@ -242,7 +245,7 @@ describe("Boundarize", () => {
   describe("styles", () => {
     describe("cursor", () => {
       test('default cursor style should be "auto"', async () => {
-        const wrapper = shallowMount(BoundarizePane, {
+        const wrapper = shallowMount(ResizeBoundingPane, {
           props: {
             prefix: DEFAULT_PREFIX,
             ...requiredProps,
@@ -289,7 +292,7 @@ describe("Boundarize", () => {
           ])(
             'default cursor style should be "col-resize" (--%s)',
             async (direction) => {
-              const wrapper = shallowMount(BoundarizePane, {
+              const wrapper = shallowMount(ResizeBoundingPane, {
                 props: {
                   prefix: DEFAULT_PREFIX,
                   ...requiredProps,
@@ -307,7 +310,7 @@ describe("Boundarize", () => {
           ])(
             'default cursor style should be "row-resize" (--%s)',
             async (direction) => {
-              const wrapper = shallowMount(BoundarizePane, {
+              const wrapper = shallowMount(ResizeBoundingPane, {
                 props: {
                   prefix: DEFAULT_PREFIX,
                   ...requiredProps,
@@ -325,7 +328,7 @@ describe("Boundarize", () => {
           test.each([...Object.values(PaneDirections)])(
             `custom cursor style should be "${CUSTOM_ACTIVE_CURSOR}" (--%s)`,
             async (direction) => {
-              const wrapper = shallowMount(BoundarizePane, {
+              const wrapper = shallowMount(ResizeBoundingPane, {
                 props: {
                   prefix: DEFAULT_PREFIX,
                   ...requiredProps,
@@ -342,9 +345,9 @@ describe("Boundarize", () => {
                       horizontal: CUSTOM_ACTIVE_CURSOR,
                     },
                     width: 0,
-                    position: "",
-                    showBorder: false,
+                    position: "central",
                     knob: undefined,
+                    prefix: "",
                   },
                 },
                 CUSTOM_ACTIVE_CURSOR,
@@ -356,7 +359,7 @@ describe("Boundarize", () => {
           const paneMap = paneBaseStyles(SIZE);
           const splitterMap = splitterBaseStyles(
             SIZE,
-            BBResize.SplitterPositions.CENTER,
+            ResizeBounding.SplitterPositions.CENTER,
           );
 
           test.each([
@@ -367,12 +370,12 @@ describe("Boundarize", () => {
           ])(
             `the pane (--%s) should have "%s" styles`,
             async (direction, styles) => {
-              const wrapper = shallowMount(BoundarizePane, {
+              const wrapper = shallowMount(ResizeBoundingPane, {
                 props: {
                   prefix: DEFAULT_PREFIX,
                   direction,
-                  styles: defaultStyles.pane,
-                  options: { ...defaultOptions.pane, width: SIZE },
+                  classNames,
+                  options: { ...defaultOptions, width: SIZE },
                 },
               });
 
@@ -401,12 +404,12 @@ describe("Boundarize", () => {
           ])(
             `the pane splitter (--%s) should have "%s" styles`,
             async (direction, styles) => {
-              const wrapper = shallowMount(BoundarizePane, {
+              const wrapper = shallowMount(ResizeBoundingPane, {
                 props: {
                   prefix: DEFAULT_PREFIX,
                   direction,
-                  styles: defaultStyles.pane,
-                  options: { ...defaultOptions.pane, width: SIZE },
+                  classNames,
+                  options: { ...defaultOptions, width: SIZE },
                 },
               });
 
@@ -431,77 +434,24 @@ describe("Boundarize", () => {
     });
 
     describe("custom styles", () => {
-      test('should apply custom styles for "pane", "splitter" and "knob" elements', async () => {
-        const wrapper = shallowMount(BoundarizePane, {
-          props: {
-            prefix: DEFAULT_PREFIX,
-            options: {
-              ...defaultOptions.pane,
-              knob: {
-                show: true,
-                constantlyShow: true,
-              },
-            },
-            styles: deepmerge(defaultStyles.pane, {
-              class: "pane",
-              style: { border: "1px solid" },
-              splitter: {
-                class: "splitter",
-                style: { background: "yellow" },
-                focused: {},
-                pressed: {},
-              },
-              knob: {
-                class: "knob",
-                style: { width: "320px", background: "pink" },
-                focused: {},
-                pressed: {},
-              },
-            }),
-          },
-        });
-
-        const splitterEl = wrapper.find(
-          `[data-testid="${DataTestIds.SPLITTER}"]`,
-        );
-
-        await splitterEl.trigger("pointerenter");
-        const splitterStyles = splitterEl.attributes("style");
-
-        const paneEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
-        const paneStyles = paneEl.attributes("style");
-
-        const knobEl = wrapper.find(`[data-testid="${DataTestIds.KNOB}"]`);
-        const knobStyles = knobEl.attributes("style");
-
-        expect(paneStyles).toContain("border: 1px solid");
-        // expect(splitterStyles).toContain("background: yellow"); // @!FIX
-        expect(knobStyles).toContain("width: 320px");
-        // expect(knobStyles).toContain("background: pink"); // @!FIX
-      });
-
       test.each([
         [{ left: "70px", right: "70px", width: "70px" }, PaneDirections.RIGHT],
       ])(
         "inner styles of splitter should not have to overrided by customStyles",
-        async (customStyles, direction) => {
+        async (_customStyles, direction) => {
           const SPLITTER_WIDTH = 12;
 
           const styles = splitterBaseStyles(
             SPLITTER_WIDTH,
-            BBResize.SplitterPositions.CENTER,
+            ResizeBounding.SplitterPositions.CENTER,
           )[direction];
 
-          const wrapper = shallowMount(BoundarizePane, {
+          const wrapper = shallowMount(ResizeBoundingPane, {
             props: {
               prefix: DEFAULT_PREFIX,
               direction,
-              styles: deepmerge(defaultStyles.pane, {
-                splitter: {
-                  style: customStyles,
-                },
-              }),
-              options: { ...defaultOptions.pane, width: SPLITTER_WIDTH },
+              classNames,
+              options: { ...defaultOptions, width: SPLITTER_WIDTH },
             },
           });
 
@@ -525,6 +475,35 @@ describe("Boundarize", () => {
           }
         },
       );
+    });
+  });
+
+  describe("slots", () => {
+    test.each(["<p>knob</p>"])("should render knob slot (%s)>", (knobSlot) => {
+      const wrapper = shallowMount(ResizeBoundingPane, {
+        props: {
+          prefix: DEFAULT_PREFIX,
+          direction: "r",
+          classNames,
+          options: {
+            knob: {
+              show: true,
+              constantlyShow: true,
+            },
+            width: 3,
+            position: "",
+            cursor: undefined,
+            prefix: "",
+          },
+        },
+        slots: {
+          default: knobSlot,
+        },
+      });
+
+      const text = wrapper.find(`[data-testid="${DataTestIds.KNOB}"]`).text();
+      expect(text).toBe("knob");
+      expect(text).toMatchSnapshot();
     });
   });
 });

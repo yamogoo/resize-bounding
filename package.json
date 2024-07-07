@@ -7,10 +7,11 @@
     "email": "grebennikovmisha@gmail.com"
   },
   "scripts": {
-    "vite:dev": "pnpm --filter vite-app dev",
-    "build": "pnpm --filter vue3-boundarize build",
-    "test:unit": "pnpm --filter vue3-boundarize test:unit",
-    "test:ui": "pnpm --filter vue3-boundarize test:ui",
+    "preview:demo": "pnpm --filter resize-bounding-demo run dev",
+    "preview:example": "pnpm --filter vite-app dev",
+    "build": "pnpm --filter vue3-resize-bounding build",
+    "test:unit": "pnpm --filter vue3-resize-bounding test:unit",
+    "test:ui": "pnpm --filter vue3-resize-bounding test:ui",
     "playground:vite": "pnpm --filter vite-app dev"
   }
 }

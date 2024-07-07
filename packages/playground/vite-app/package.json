@@ -14,7 +14,7 @@
     "core-styles": "workspace:^",
     "ui": "workspace:^",
     "vue": "^3.4.29",
-    "vue3-boundarize": "workspace:^"
+    "vue3-resize-bounding": "workspace:^"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",

@@ -15,7 +15,7 @@
         <NuxtLink to="/">
           <img
             class="ui-main-cover__logo"
-            src="/boundarize.svg"
+            src="/resize-bounding.svg"
             alt="vue logo"
           />
         </NuxtLink>
@@ -58,17 +58,29 @@
         </p>
       </AtomsTransitionGProvider>
     </div>
-    <AtomsGroupContent
-      class="ui-main-cover--footer"
-      direction="h"
-      alignment="center"
-      data-testid="ui-main-cover-footer"
+    <AtomsTransitionGProvider
+      :show="isMounted"
+      :before-enter="{ opacity: 0, y: 80 }"
+      :enter="{
+        opacity: 1,
+        y: 0,
+        ease: 'power4.out',
+        duration: 0.5,
+        delay: 0.35,
+      }"
     >
-      <AtomsGroupContent direction="v" alignment="center">
-        <AtomsBadgeVersion :version />
-        <span class="ui-main-cover__date">2024</span>
+      <AtomsGroupContent
+        class="ui-main-cover--footer"
+        direction="h"
+        alignment="center"
+        data-testid="ui-main-cover-footer"
+      >
+        <AtomsGroupContent direction="v" alignment="center">
+          <AtomsBadgeVersion :version />
+          <span class="ui-main-cover__date">2024</span>
+        </AtomsGroupContent>
       </AtomsGroupContent>
-    </AtomsGroupContent>
+    </AtomsTransitionGProvider>
   </div>
 </template>
 

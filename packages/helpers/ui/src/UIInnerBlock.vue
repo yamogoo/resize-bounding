@@ -56,7 +56,7 @@ withDefaults(defineProps<Props>(), {
   h1 {
     font-size: 44px;
     font-weight: 600;
-    color: white;
+    color: black;
   }
 }
 </style>

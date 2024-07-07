@@ -1,15 +1,17 @@
-![image](./packages/playground/vite-app/public/boundarize.svg)
+![image](./packages/playground/vite-app/public/resize-bounding.svg)
 
-# Vue3 Resize Bounding ![Version](https://img.shields.io/badge/version-0.0.1-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# Vue3 Resize Bounding ![Version](https://img.shields.io/badge/version-1.0.0-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Vue3 Resize Bounding** is a customizable, versatile and user-friendly component for Vue 3 that enables intuitive resizing of inner user components via draggable boundary panes. With resizable panes on the top, left, right, and bottom, users can seamlessly adjust the dimensions of the content within the default slot, providing a flexible and dynamic user experience. Ideal for applications requiring custom layout adjustments, this component enhances interactivity and control with ease.
+
+### [Preview](https://vue3-resize-bounding.netlify.app/)
 
 > **Examples**
 >
 > Vite:
 >
 > - [Interactive Grid](./packages/playground/vite-app/src/components/InteractiveGrid.vue)
-> - [Overriding](./packages/playground/vite-app/src/components/MyBoundarize.vue)
+> - [Overriding](./packages/playground/vite-app/src/components/MyResizeBounding.vue)
 
 ---
 
@@ -20,13 +22,13 @@
 Using npm:
 
 ```bash
-npm i vue3-boundarize
+npm i vue3-resize-bounding
 ```
 
 Using yarn:
 
 ```bash
-yarn add vue3-boundarize
+yarn add vue3-resize-bounding
 ```
 
 ### Setup
@@ -38,8 +40,10 @@ The most common use case is to register the component globally.
 import App from "@/App";
 import { createApp } from "vue";
 
+import Vue3ResizeBounding from "vue3-resize-bounding";
+
 const app = createApp(App);
-app.use(Vue3BbResize, { name: "bb-resize" });
+app.use(Vue3ResizeBounding, { name: "resize-bounding" });
 app.mount("#app");
 ```
 
@@ -47,8 +51,7 @@ app.mount("#app");
 
 ```html
 <template>
-  <bb-resize
-    v-if="layout.dataNavigator.show"
+  <resize-bounding
     :width="container.width"
     :height="container.height"
     :min-width="240"
@@ -60,7 +63,7 @@ app.mount("#app");
     <!-- YOUR COMPONENT START -->
     <div style="width="100%; height: 100%;>My Container</div>
     <!-- YOUR COMPONENT END -->
-  </bb-resize>
+  </resize-bounding>
 </template>
 
 <script>
@@ -206,7 +209,7 @@ app.mount("#app");
           default value
         </td>
         <td colspan="2">
-          <code>'bb-resize'</code>
+          <code>'resize-bounding'</code>
         </td>
       </tr>
       <!-- options.pane.width -->
@@ -326,143 +329,6 @@ app.mount("#app");
         <td colspan="2">default value</td>
         <td colspan="2"><code>'col-resize'</code></td>
       </tr>
-      <tr>
-        <td colspan="3">
-          <b><code>options.knob</code></b>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">description</td>
-        <td colspan="2">...</td>
-      </tr>
-    </tr>
-    <tr>
-      <td rowspan="20"><code><b>styles</b></code></td>
-      <td rowspan="20"><code>Partial &#60;BBResize.Styles&#62;</code>
-        <br><br>
-where <code>type Styles = Record<"container", Partial  &#60;StylingAttributes&#62;&#62 & Partial &#60;InteractiveElementStyles&#62;</code>
-        <br><br>
-where <code>type InteractiveElementStyles = Record&#60; "pane" | "splitter" | "knob", Record &#60;StylingStates, Partial&#60;StylingAttributes&#62;&#62; & Partial&#60;StylingAttributes&#62;&#62;</code>
-      </td>
-      <tr>
-        <td colspan="3">
-          <b><code>styles.container</code></b>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">description</td>
-        <td colspan="2">Describes custom styles the container element. Root container is the element directly in which the user content is located, forwarded through &#60;slot/&#62;.
-        <br>
-        <br>
-        <sub>Pane receives <code>show</code> and <code>hide</code> classes respectively when displayed and when hidden. By default, no styles are attached to these classes. However, this is implemented in case you want to add styles using CSS</sub>
-       </td>
-      </tr>
-      <tr>
-        <td colspan="2">type</td>
-        <td colspan="2">
-          <code>Record &#60;StylingStates, Partial&#60;StylingAttributes&#62;&#62; & Partial&#60;StylingAttributes&#62;&#62;</code>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">default value</td>
-        <td colspan="2"><pre><code>container: {
-  class: "container",
-  style: {},
-},</code></pre>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3">
-          <b><code>styles.pane</code></b>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">description</td>
-        <td colspan="2">Describes custom styles the pane element. The Pane element is a container responsible for positioning the splitter. Therefore, treat this component as an empty container, since you may only need to style it in very rare cases</td>
-      </tr>
-      <tr>
-        <td colspan="2">type</td>
-        <td colspan="2"><code>{class: string, style: HTMLAttributes["style"]}</code></td>
-      </tr>
-      <tr>
-        <td colspan="2">default value</td>
-        <td colspan="2">
-          <pre><code>pane: {
-  class: "pane",
-  style: {
-    position: "absolute",
-    display: "block",
-    zIndex: 9999,
-  },
-  focused: {
-    class: "focus",
-  },
-},</code></pre>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3">
-          <b><code>styles.splitter</code></b>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">description</td>
-        <td colspan="2">Describes custom styles the splitter element. Splitter is an element that displays a selected border line</td>
-      </tr>
-      <tr>
-        <td colspan="2">type</td>
-        <td colspan="2">
-          <code>Record &#60;StylingStates, Partial&#60;StylingAttributes&#62;&#62; & Partial&#60;StylingAttributes&#62;&#62;</code>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">default value</td>
-        <td colspan="2">
-          <pre><code>splitter: {
-  class: "splitter",
-  style: {
-    position: "absolute",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    background: "none",
-    zIndex: 9999,
-  },
-  focused: {
-    class: "focus",
-    style: { background: "gray" },
-  }
-},</code></pre>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="3">
-          <b><code>styles.knob</code></b>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">description</td>
-        <td colspan="2">Describes custom styles the knob element. Knob is a decorative element located on top of the splitter. Convenient to use with touch actions, as it increases the touch area of ​​the splitter by its own size and has a positive effect on user experience</td>
-      </tr>
-      <tr>
-        <td colspan="2">type</td>
-        <td colspan="2">
-          <code>Record &#60;StylingStates, Partial&#60;StylingAttributes&#62;&#62; & Partial&#60;StylingAttributes&#62;&#62;</code>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">default value</td>
-        <td colspan="2">
-          <pre><code>knob: {
-  class: "knob",
-  style: {},
-  focused: {
-    class: "focus",
-  }
-},</code></pre>
-        </td>
-      </tr>
-    </tr>
 	</tbody>
 </table>
 
@@ -521,22 +387,24 @@ The Options object is responsible for fine-tuning the component and setting comp
 ```html
 <!-- MyResizeBoundingComponent.vue -->
 <template>
-  <Vue3BbResize
+  <Vue3ResizeBounding
     v-bind="$attrs"
     :directions="'hv'"
     :options="{
-      prefix: 'my-bb-resize',
-      pane: {
-        width: 12,
-        position: 'internal', // 'central' | 'internal' | 'external'
-        cursor: {
-          horizontal: 'ew-resize',
-        },
+      prefix: 'my-resize-bounding',
+      width: 12,
+      position: 'internal', // 'central' | 'internal' | 'external'
+      cursor: {
+        horizontal: 'ew-resize',
       },
+      knob: {
+        render: true,
+        normalHidden: true
+      }
     }"
   >
     <slot></slot>
-  </Vue3BbResize>
+  </Vue3ResizeBounding>
 </template>
 ```
 
@@ -545,20 +413,20 @@ Using typescript:
 ```html
 <!-- MyResizeBoundingComponent.vue -->
 <template>
-  <Vue3BbResize v-bind="$attrs" :directions="'hv'" :options>
+  <Vue3ResizeBounding v-bind="$attrs" :directions="'hv'" :options>
     <slot></slot>
-  </Vue3BbResize>
+  </Vue3ResizeBounding>
 </template>
 ```
 
 ```ts
 // MyResizeBoundingComponent.vue
 <script setup lang="ts">
-import type { BBResize } from 'vue3-boundarize';
+import type { BBResize } from 'vue3-resize-bounding';
 
 const myOptions: Partial<BBResize.Options> = {
   pane: {
-    prefix: 'my-bb-resize',
+    prefix: 'my-resize-bounding',
     width: 12,
     knob: {
       constantlyShow: true
@@ -589,7 +457,7 @@ const styles = {
 Or you may also use the inline `style` attribute to set container styles:
 
 ```html
-<Vue3BbResize
+<Vue3ResizeBounding
   :directions="'hv'"
   :style="{ display: flex }"
   :styles="{
@@ -597,7 +465,7 @@ Or you may also use the inline `style` attribute to set container styles:
     knob: { width: '12px', height: '120px' }
   }"
 >
-</Vue3BbResize>
+</Vue3ResizeBounding>
 ```
 
 Or you may also use the `css`/ a `preprocessor` to fully customize the component styles:
@@ -607,8 +475,8 @@ Or you may also use the `css`/ a `preprocessor` to fully customize the component
 ```sass
 // SASS/SCSS
 
-// Change `bb-resize` to your prefix if it has been changed via 'options'
-.bb-resize {
+// Change `resize-bounding` to your prefix if it has been changed via 'options'
+.resize-bounding {
   &-container { }
 
    /* * * Normal state: * * */

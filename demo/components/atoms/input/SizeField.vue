@@ -1,5 +1,5 @@
 <template>
-  <div class="ui-size-field">
+  <div :class="['ui-size-field', transparent ? 'transparent' : 'filled']">
     <PropField
       label="w:"
       :value="width"
@@ -22,9 +22,12 @@ interface Props {
   width?: number;
   height?: number;
   label?: string;
+  transparent?: boolean;
 }
 
-defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+  transparent: false,
+});
 </script>
 
 <style lang="scss">
@@ -35,14 +38,32 @@ defineProps<Props>();
     height: 32px;
     // @include use-themed-border(all);
     @include use-border-radius(--lg);
-    @include themify($app-themes) {
-      color: transparentize(themed("text", "secondary"), 0.25);
-      background: themed("background", "inactive");
+    @extend %transition;
+
+    &.filled {
+      @include themify($app-themes) {
+        color: transparentize(themed("text", "secondary"), 0.25);
+        background: themed("background", "inactive");
+      }
+
+      .ui-prop-field {
+        &:not(:last-child) {
+          @include use-themed-border(right);
+        }
+      }
     }
 
-    .ui-prop-field {
-      &:not(:last-child) {
-        @include use-themed-border(right);
+    &.transparent {
+      @include themify($app-themes) {
+        color: transparentize($c-white, 0.2);
+        background: transparentize(themed("background", "inactive"), 0.7);
+        backdrop-filter: blur(12px);
+      }
+
+      .ui-prop-field {
+        &:not(:last-child) {
+          @include use-border(right, transparentize($c-white, 0.85));
+        }
       }
     }
   }

@@ -49,11 +49,13 @@ withDefaults(defineProps<Props>(), {
     }
     @include use-themed-border(all, "secondary");
     overflow: hidden;
+    @extend %transition;
   }
 
   &__control-panel {
     position: absolute;
     top: 20px;
+    z-index: 1;
   }
 }
 </style>

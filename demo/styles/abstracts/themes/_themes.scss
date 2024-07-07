@@ -35,6 +35,9 @@ $app-themes: (
     switch: (
       track: #5f6364,
     ),
+    resizer: (
+      knob: #5f6364,
+    ),
   ),
 
   theme-light: (
@@ -72,6 +75,9 @@ $app-themes: (
     ),
     switch: (
       track: #5f6364,
+    ),
+    resizer: (
+      knob: #939696,
     ),
   ),
 );

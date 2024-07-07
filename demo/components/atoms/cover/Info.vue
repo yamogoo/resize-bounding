@@ -8,7 +8,7 @@
     />
     <AtomsGroupContent :direction="'v'" :alignment="'center'">
       <p class="">
-        This project is licensed under the terms of the
+        current version supports only mouse events
         <AtomsLinkBase
           to="https://github.com/yamogoo/vue3-resize-bounding/blob/main/packages/vue3-resize-bounding/LICENSE"
           >MIT license
@@ -17,6 +17,7 @@
       <p>
         Author:
         <AtomsLinkBase to="https://github.com/yamogoo">yamogoo </AtomsLinkBase>
+        /Mikhail Grebennikov/
       </p>
     </AtomsGroupContent>
   </div>

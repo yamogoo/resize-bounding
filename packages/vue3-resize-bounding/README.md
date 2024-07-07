@@ -1,13 +1,13 @@
-![image](./public/bb-resize.svg)
+![image](../../demo/public/resize-bounding.svg)
 
-# Vue3 Resize Bounding ![Version](https://img.shields.io/badge/version-0.0.1-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# Vue3 Resize Bounding ![Version](https://img.shields.io/badge/version-1.0.0-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Vue3 Resize Bounding** is a highly-customizable, versatile and user-friendly component for Vue 3 that enables intuitive resizing of inner user components via draggable boundary panes. With resizable panes on the top, left, right, and bottom, users can seamlessly adjust the dimensions of the content within the default slot, providing a flexible and dynamic user experience. Ideal for applications requiring custom layout adjustments, this component enhances interactivity and control with ease.
+**Vue3 Resize Bounding** is a customizable, versatile and user-friendly component for Vue 3 that enables intuitive resizing of inner user components via draggable boundary panes. With resizable panes on the top, left, right, and bottom, users can seamlessly adjust the dimensions of the content within the default slot, providing a flexible and dynamic user experience. Ideal for applications requiring custom layout adjustments, this component enhances interactivity and control with ease.
 
 > **Examples**
 >
 > - [Interactive Grid](./src/examples/Example.vue)
-> - [Overriding](./src/examples/MyBBResize.vue)
+> - [Overriding](./src/examples/MyResizeBounding.vue)
 
 ---
 
@@ -18,13 +18,13 @@
 Using npm:
 
 ```bash
-npm i vue3-boundarize
+npm i vue3-resize-bounding
 ```
 
 Using yarn:
 
 ```bash
-yarn add vue3-boundarize
+yarn add vue3-resize-bounding
 ```
 
 ### Setup
@@ -183,7 +183,7 @@ app.mount("#app");
     </tr>
     <tr>
       <td rowspan="30"><code><b>options</b></code></td>
-      <td rowspan="30"><code>Partial &#60;BBResize.Options&#62;</code></td>
+      <td rowspan="30"><code>Partial &#60;ResizeBounding.Options&#62;</code></td>
        <tr>
         <td colspan="3">
           <b><code>options.prefix</code></b>
@@ -339,7 +339,7 @@ app.mount("#app");
     </tr>
     <tr>
       <td rowspan="20"><code><b>styles</b></code></td>
-      <td rowspan="20"><code>Partial &#60;BBResize.Styles&#62;</code>
+      <td rowspan="20"><code>Partial &#60;ResizeBounding.Styles&#62;</code>
         <br><br>
 where <code>type Styles = Record<"container", Partial  &#60;StylingAttributes&#62;&#62 & Partial &#60;InteractiveElementStyles&#62;</code>
         <br><br>
@@ -558,9 +558,9 @@ Using typescript:
 // @filename: MyResizeBoundingComponent.vue
 
 <script setup lang="ts">
-import type { BBResize } from 'vue3-boundarize';
+import type { ResizeBounding } from 'vue3-resize-bounding';
 
-const myOptions: Partial<BBResize.Options> = {
+const myOptions: Partial<ResizeBounding.Options> = {
   pane: {
     prefix: 'my-bb-resize',
     width: 12,

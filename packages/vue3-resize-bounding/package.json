@@ -1,7 +1,7 @@
 {
-  "name": "vue3-boundarize",
+  "name": "vue3-resize-bounding",
   "description": "Intuitive resizing of inner user components via draggable boundary panes for Vue3",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "license": "MIT",
   "author": {
     "name": "yamogoo",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:yamogoo/vue3-boundarize.git"
+    "url": "git@github.com:yamogoo/vue3-resize-bounding.git"
   },
   "type": "module",
   "keywords": [
@@ -19,14 +19,14 @@
     "resize bounding",
     "resizable element"
   ],
-  "main": "dist/vue3-boundarize.umd.js",
-  "module": "dist/vue3-boundarize.es.js",
+  "main": "dist/vue3-resize-bounding.umd.js",
+  "module": "dist/vue3-resize-bounding.es.js",
   "types": "dist/src/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/vue3-boundarize.es.js",
+      "import": "./dist/vue3-resize-bounding.es.js",
       "types": "./dist/src/index.d.ts",
-      "require": "./dist/vue3-boundarize.cjs.js"
+      "require": "./dist/vue3-resize-bounding.cjs.js"
     }
   },
   "files": [
@@ -48,6 +48,7 @@
     "deepmerge": "^4.3.1"
   },
   "devDependencies": {
+    "@fluentui/merge-styles": "^8.6.12",
     "@tsconfig/node20": "^20.1.4",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^20.14.8",

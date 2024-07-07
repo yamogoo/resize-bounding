@@ -1,39 +1,34 @@
 <template>
   <div
     :class="[
-      `${prefix}-${styles?.class}`,
+      `${prefix}pane`,
+      classNames.pane,
       `--${direction}`,
-      isFocused ? 'show' : 'hide',
+      isFocused ? 'focused' : 'normal',
     ]"
-    data-testid="boundarize-pane"
-    :style="[styles?.style, paneComputedStyle]"
+    data-testid="resize-bounding-pane"
+    :style="[paneComputedStyle]"
   >
     <div
       ref="refPane"
-      data-testid="boundarize-splitter"
-      :class="[
-        `${prefix}-${styles.splitter.class}`,
-        { [`${styles?.splitter?.focused?.class}`]: isFocused },
-      ]"
-      :style="[
-        styles?.splitter?.style,
-        isFocused ? styles.splitter.focused?.style : {},
-        splitterComputedStyle,
-      ]"
+      data-testid="resize-bounding-splitter"
+      :class="[`${prefix}splitter`, classNames.splitter]"
+      :style="[splitterComputedStyle]"
     >
       <div
         v-if="
-          (isFocused || options?.knob?.constantlyShow) && options?.knob?.show
+          (isFocused || !options?.knob?.normalHidden) && options?.knob?.show
         "
-        data-testid="boundarize-knob"
-        :class="[`${prefix}-${styles?.knob?.class}`]"
-        :style="[
-          styles?.knob?.style,
-          isFocused ? styles?.knob?.focused?.style : {},
-          knobComputedStyle,
-        ]"
+        data-testid="resize-bounding-splitter-container"
+        :class="[`${prefix}splitter--container`, classNames.splitterContainer]"
+        :style="[knobComputedStyle]"
       >
-        <slot v-if="$slots"></slot>
+        <div
+          data-testid="resize-bounding-knob"
+          :class="[`${prefix}knob`, classNames.knob]"
+        >
+          <slot v-if="$slots.default"></slot>
+        </div>
       </div>
     </div>
   </div>
@@ -49,7 +44,7 @@ import {
   type HTMLAttributes,
 } from "vue";
 
-import { BBResize } from "../shared/typings";
+import { ResizeBounding } from "../shared/typings.js";
 
 const props = withDefaults(defineProps<Props>(), {
   direction: PaneDirections.RIGHT,
@@ -83,7 +78,7 @@ const splitterComputedStyle = computed(() => {
   if (refPane.value && _width) {
     const _styles = splitterBaseStyles(
       _width,
-      props.options?.position ?? BBResize.SplitterPositions.CENTER,
+      props.options?.position ?? ResizeBounding.SplitterPositions.CENTER,
     );
     const value: HTMLAttributes["style"] =
       _styles[props.direction as PaneDirections];
@@ -229,8 +224,9 @@ defineExpose({ refPane });
 export interface Props {
   prefix: string;
   direction: PaneDirectionKey;
-  options: BBResize.PaneOptions;
-  styles: BBResize.PaneStyles;
+  options: ResizeBounding.Options;
+  classNames: ResizeBounding.IResizeBoundingClassNames;
+  styles?: Partial<ResizeBounding.IStyles>;
 }
 
 export enum PaneDirectionAliases {
@@ -275,20 +271,20 @@ export const paneBaseStyles = (
 
 export const splitterBaseStyles = (
   size: number,
-  position: BBResize.PanePosition,
+  position: ResizeBounding.PanePosition,
 ): Record<PaneDirections, HTMLAttributes["style"]> => {
   const _size = `${size}px`;
 
   let _offset: string = "0px";
 
   switch (position) {
-    case BBResize.SplitterPositions.CENTER:
+    case ResizeBounding.SplitterPositions.CENTER:
       _offset = `0px`;
       break;
-    case BBResize.SplitterPositions.EXTERNAL:
+    case ResizeBounding.SplitterPositions.EXTERNAL:
       _offset = `${size / 2}px`;
       break;
-    case BBResize.SplitterPositions.INTERNAL:
+    case ResizeBounding.SplitterPositions.INTERNAL:
       _offset = `-${size / 2}px`;
       break;
   }
@@ -301,69 +297,3 @@ export const splitterBaseStyles = (
   };
 };
 </script>
-
-<!-- <style lang="scss">
-$__show-color: blue;
-$__pressed-color: #3655e171;
-
-// .boundarize {
-//   &-pane {
-//     position: absolute;
-//     display: block;
-//     z-index: 9999;
-
-//     // &.--l {
-
-//     //   .boundarize__pane__splitter {
-//     //   }
-//     // }
-
-//     // &.--r {
-
-//     //   .boundarize__pane__splitter {
-//     //   }
-//     // }
-
-//     // &.--b {
-
-//     //   .boundarize__pane__splitter {
-//     //   }
-//     // }
-
-//     // &.--t {
-
-//     //   .boundarize__pane__splitter {
-//     //   }
-//     // }
-//   }
-
-//   &-splitter {
-//     // display: flex;
-//     // align-items: center;
-//     // justify-content: center;
-//     // z-index: 9999;
-//     // background-color: none;
-//   }
-
-//   &-splitter {
-//     position: absolute;
-
-//     &.show {
-//       background-color: $__show-color;
-//     }
-
-//     &.pressed {
-//       background-color: $__pressed-color;
-//     }
-//   }
-
-//   &-knob {
-//     position: absolute;
-//     width: 12px;
-//     height: 120px;
-//     border-radius: 12px;
-//     background-color: red;
-//     margin: auto;
-//   }
-// }
-</style> -->

@@ -4,6 +4,8 @@
 
 <script setup lang="ts">
 import InteractiveGrid from "@/components/InteractiveGrid.vue";
+// import MyResizeBounding from "@/components/MyResizeBounding.vue";
+// import StylizedKnob from "@/components/StylizedKnob.vue";
 </script>
 
 <style lang="scss">

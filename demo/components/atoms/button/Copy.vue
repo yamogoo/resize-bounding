@@ -52,6 +52,12 @@ useClickOutside(refIcon, () => {
       @include box(21px);
     }
 
+    &:hover {
+      @include themify($app-themes) {
+        color: themed("text", "primary");
+      }
+    }
+
     &.active {
       @include themify($app-themes) {
         color: themed("colors", "accent");

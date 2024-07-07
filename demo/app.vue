@@ -4,8 +4,6 @@
   </main>
 </template>
 
-<script lang="ts"></script>
-
 <style lang="scss">
 #app,
 body,
@@ -13,7 +11,7 @@ body,
   @include box(100vw, 100vh);
   margin: 0;
   padding: 0;
-  font-family: "Roboto";
+  font-family: "Roboto", sans-serif;
   overflow: hidden;
 
   * {

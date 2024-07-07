@@ -8,6 +8,9 @@ const setup: CodeBlock = {
   lang: "ts",
   code: `import App from "@/App";
 import { createApp } from "vue";
+
+import Vue3ResizeBounding from "vue3-resize-bounding";
+
 const app = createApp(App);
 app.use(Vue3ResizeBounding, { name: "resize-bounding" });
 app.mount("#app");`,
@@ -32,17 +35,54 @@ const usage: CodeBlock = {
   <resize-bounding>
 </template>
 
-<script>
+<script lang="ts">
   import { ref } from "vue";
   const container = ref({ width: 320, height: 480 });
 </script>`,
   fileName: "MyComponent.vue",
 };
 
+const styling: CodeBlock = {
+  lang: "html",
+  code: `<template>
+  <resize-bounding :options />
+</template>
+
+<script lang="ts">
+  const options = ref({ prefix: 'ui-resizer__', css: true });
+</script>`,
+  fileName: "MyComponent.vue",
+};
+
+const styling2: CodeBlock = {
+  lang: "scss",
+  code: `<style lang="scss">
+$prefix: "ui-resizer__";
+
+.#{$prefix} {
+  &container { }
+  &splitter { background: none !important; }
+
+  &pane {
+    &.normal {
+      .#{$prefix}splitter {}
+    }
+
+    &.focused {
+      .#{$prefix}splitter {
+        background: red !important;
+      }
+    }
+  }
+}
+</style>`,
+};
+
 export const __DOC__: Record<
   "setup" | "install" | "usage" | string,
-  CodeBlock
+  Array<CodeBlock>
 > = {
-  setup,
-  usage,
+  setup: [setup],
+  usage: [usage],
+  styling: [styling, styling2],
 };

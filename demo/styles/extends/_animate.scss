@@ -1,0 +1,7 @@
+%transition {
+  @include transition(
+    color background background-color fill stroke border border-color,
+    35ms,
+    ease-out
+  );
+}
