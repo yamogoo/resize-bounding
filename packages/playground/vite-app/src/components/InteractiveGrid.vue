@@ -2,7 +2,7 @@
   <main class="boundarize-app">
     <div class="boundarize-app--container">
       <div class="boundarize-app__layout">
-        <Boundarize
+        <ResizeBounding
           :height="layout.a.height"
           :min-height="layout.a.minHeight"
           :max-height="layout.a.maxHeight"
@@ -14,10 +14,7 @@
             }
           "
         >
-          <UIInnerBlock
-            :title="layout.a.title"
-            :image-path="'/boundarize-cover.svg'"
-          >
+          <UIInnerBlock :title="layout.a.title">
             <UISizeField
               :height="layout.a.height"
               @update:height="
@@ -27,12 +24,12 @@
               "
             />
           </UIInnerBlock>
-        </Boundarize>
-        <Boundarize
+        </ResizeBounding>
+        <ResizeBounding
           :directions="''"
           :style="[{ display: 'flex', height: '100%' }]"
         >
-          <Boundarize
+          <ResizeBounding
             :width="layout.b.width"
             :min-width="layout.b.minWidth"
             :max-width="layout.b.maxWidth"
@@ -44,10 +41,7 @@
               }
             "
           >
-            <UIInnerBlock
-              :title="layout.b.title"
-              :image-path="'/boundarize-cover.svg'"
-            >
+            <UIInnerBlock :title="layout.b.title">
               <UISizeField
                 :width="layout.b.width"
                 @update:width="
@@ -57,14 +51,11 @@
                 "
               />
             </UIInnerBlock>
-          </Boundarize>
-          <UIInnerBlock
-            :title="layout.c.title"
-            :image-path="'/boundarize-cover.svg'"
-          >
+          </ResizeBounding>
+          <UIInnerBlock :title="layout.c.title">
             <UISizeField />
           </UIInnerBlock>
-          <Boundarize
+          <ResizeBounding
             :width="layout.d.width"
             :min-width="layout.d.minWidth"
             :max-width="layout.d.maxWidth"
@@ -76,10 +67,7 @@
               }
             "
           >
-            <UIInnerBlock
-              :title="layout.d.title"
-              :image-path="'/boundarize-cover.svg'"
-            >
+            <UIInnerBlock :title="layout.d.title">
               <UISizeField
                 :width="layout.d.width"
                 @update:width="
@@ -89,9 +77,9 @@
                 "
               />
             </UIInnerBlock>
-          </Boundarize>
-        </Boundarize>
-        <Boundarize
+          </ResizeBounding>
+        </ResizeBounding>
+        <ResizeBounding
           :height="layout.e.height"
           :min-height="layout.e.minHeight"
           :max-height="layout.e.maxHeight"
@@ -105,7 +93,7 @@
             }
           "
         >
-          <Boundarize
+          <ResizeBounding
             :width="layout.e.width"
             :min-width="layout.e.minWidth"
             :max-width="layout.e.maxWidth"
@@ -119,10 +107,7 @@
               }
             "
           >
-            <UIInnerBlock
-              :title="layout.e.title"
-              :image-path="'/boundarize-cover.svg'"
-            >
+            <UIInnerBlock :title="layout.e.title">
               <UISizeField
                 :width="layout.e.width"
                 :height="layout.e.height"
@@ -138,15 +123,12 @@
                 "
               />
             </UIInnerBlock>
-          </Boundarize>
-          <Boundarize
+          </ResizeBounding>
+          <ResizeBounding
             :directions="''"
             :style="[{ display: 'flex', width: '100%' }]"
           >
-            <UIInnerBlock
-              :title="layout.f.title"
-              :image-path="'/boundarize-cover.svg'"
-            >
+            <UIInnerBlock :title="layout.f.title">
               <UISizeField
                 :height="layout.e.height"
                 @update:height="
@@ -156,8 +138,8 @@
                 "
               />
             </UIInnerBlock>
-          </Boundarize>
-        </Boundarize>
+          </ResizeBounding>
+        </ResizeBounding>
       </div>
     </div>
   </main>
@@ -169,7 +151,7 @@ import { ref, type Ref } from "vue";
 import { UIInnerBlock, UISizeField } from "ui";
 import "ui/style.css";
 
-import Boundarize from "@/components/MyBoundarize.vue";
+import ResizeBounding from "@/components/MyResizeBounding.vue";
 
 interface ContainerSize {
   width: number;

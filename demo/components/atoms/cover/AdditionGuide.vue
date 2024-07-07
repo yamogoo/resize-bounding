@@ -5,7 +5,7 @@
       :size="'lg'"
       :icon-name="'figma-logo'"
       :to="'/'"
-      :name="'Boundarize'"
+      :name="'figma'"
       filled
     />
   </div>

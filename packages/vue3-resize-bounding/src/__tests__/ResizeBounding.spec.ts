@@ -3,19 +3,19 @@ import { mount, shallowMount, VueWrapper } from "@vue/test-utils";
 
 import { DataTestIds } from "./setup";
 
-import Vue3BbResize, { Emits } from "../components/Boundarize.vue";
+import ResizeBounding, { Emits } from "../components/ResizeBounding.vue";
 import {
   PaneDirectionAliases,
   PaneDirections,
   type PaneEmittedData,
-} from "../components/BoundarizePane.vue";
+} from "../components/ResizeBoundingPane.vue";
 
-import Vue3BbResizePane from "../components/BoundarizePane.vue";
+import Vue3BbResizePane from "../components/ResizeBoundingPane.vue";
 import type { HTMLAttributes } from "vue";
 
-// const DEFAULT_PREFIX = "boundarize";
+const DEFAULT_PREFIX = "resize-bounding";
 
-describe("Vue3BbResize", () => {
+describe("ResizeBounding", () => {
   beforeEach(() => {
     Element.prototype.setPointerCapture = vi.fn();
     Element.prototype.releasePointerCapture = vi.fn();
@@ -28,7 +28,7 @@ describe("Vue3BbResize", () => {
     ])(
       `Should not display any selected borders when set to "disabled" (--%s)`,
       (direction) => {
-        const wrapper = mount(Vue3BbResize, {
+        const wrapper = mount(ResizeBounding, {
           props: {
             directions: direction,
             disabled: true,
@@ -45,7 +45,7 @@ describe("Vue3BbResize", () => {
     test.each(["rl", "ltrb", "bltr", "bl", "tr"])(
       "should render %s panes (panes computed value)",
       (directions) => {
-        const wrapper = mount(Vue3BbResize, {
+        const wrapper = mount(ResizeBounding, {
           props: {
             directions,
           },
@@ -60,7 +60,7 @@ describe("Vue3BbResize", () => {
     test.each(["sd", "wo", ""])(
       "should not render any pane element",
       (directions) => {
-        const wrapper = mount(Vue3BbResize, {
+        const wrapper = mount(ResizeBounding, {
           props: {
             directions,
           },
@@ -77,7 +77,7 @@ describe("Vue3BbResize", () => {
     test.each(["<p>Inner Container</p>"])(
       "should render default slot",
       (slot) => {
-        const wrapper = mount(Vue3BbResize, {
+        const wrapper = mount(ResizeBounding, {
           props: {
             directions: "",
           },
@@ -91,41 +91,62 @@ describe("Vue3BbResize", () => {
         expect(html).toMatchSnapshot();
       },
     );
+
+    test.each(["<p>knob</p>"])("should render default slot", (slot) => {
+      const wrapper = mount(ResizeBounding, {
+        props: {
+          directions: "r",
+          options: {
+            knob: {
+              show: true,
+              constantlyShow: true,
+            },
+          },
+        },
+        slots: {
+          knob: slot,
+        },
+      });
+
+      const text = wrapper.find(`[data-testid="${DataTestIds.KNOB}"]`).text();
+      expect(text).toBe("knob");
+      expect(text).toMatchSnapshot();
+    });
   });
 
   describe("classes", () => {
-    // describe("prefix", () => {
-    //   test.each(["my-prefix"])("should have custom prefix (%s)", (prefix) => {
-    //     const wrapper = shallowMount(Vue3BbResize, {
-    //       props: {
-    //         options: {
-    //           prefix,
-    //         },
-    //       },
-    //     });
+    describe("prefix", () => {
+      test.each(["my-prefix"])("should have custom prefix (%s)", (prefix) => {
+        const wrapper = shallowMount(ResizeBounding, {
+          props: {
+            options: {
+              prefix,
+            },
+          },
+        });
 
-    //     const rootEl = wrapper.find(`[data-testid="${DataTestIds.ROOT}"]`);
-    //     const classes = rootEl.classes();
+        const rootEl = wrapper.find(`[data-testid="${DataTestIds.ROOT}"]`);
+        const classes = rootEl.classes();
 
-    //     expect(classes.toString()).toContain(prefix);
-    //     expect(classes).toMatchSnapshot();
-    //   });
+        expect(classes.toString()).toContain(prefix);
+        expect(classes).toMatchSnapshot();
+      });
 
-    //   test("should have default prefix (%s)", () => {
-    //     const wrapper = shallowMount(Vue3BbResize);
+      test("should have default prefix (%s)", () => {
+        const wrapper = shallowMount(ResizeBounding);
 
-    //     const rootEl = wrapper.find(`[data-testid="${DataTestIds.ROOT}"]`);
-    //     const classes = rootEl.classes();
+        const rootEl = wrapper.find(`[data-testid="${DataTestIds.ROOT}"]`);
+        const classes = rootEl.classes();
 
-    //     expect(classes.toString()).toContain(DEFAULT_PREFIX);
-    //     expect(classes).toMatchSnapshot();
-    //   });
-    // });
+        expect(classes.toString()).toContain(DEFAULT_PREFIX);
+        expect(classes).toMatchSnapshot();
+      });
+    });
 
     test.each([Object.values(PaneDirections)])(
       'should have "--%s" class',
       (direction) => {
-        const wrapper = mount(Vue3BbResize, {
+        const wrapper = mount(ResizeBounding, {
           props: {
             directions: direction,
           },
@@ -155,7 +176,7 @@ describe("Vue3BbResize", () => {
       test.each(Object.values(PaneDirections))(
         `should emit the "${Emits.DRAG_START} -> ${Emits.DRAG_MOVE} -> ${Emits.DRAG_END}" event, which takes a direction argument "%s"`,
         async (direction) => {
-          const wrapper = mount(Vue3BbResize, {
+          const wrapper = mount(ResizeBounding, {
             props: {
               directions: direction,
             },
@@ -218,7 +239,7 @@ describe("Vue3BbResize", () => {
       ])(
         `check aliases: should emit "${Emits.DRAG_START}" with direction argument "%o"`,
         async ({ alias, directions }) => {
-          const wrapper = mount(Vue3BbResize, {
+          const wrapper = mount(ResizeBounding, {
             props: {
               directions: alias,
             },
@@ -253,7 +274,7 @@ describe("Vue3BbResize", () => {
       test.each([{ background: "red" }])(
         "should apply custom styles (%s)",
         (container: HTMLAttributes["style"]) => {
-          const wrapper = mount(Vue3BbResize, {
+          const wrapper = mount(ResizeBounding, {
             props: {
               width: 320,
               height: 400,
@@ -267,8 +288,6 @@ describe("Vue3BbResize", () => {
             `[data-testid="${DataTestIds.ROOT}"]`,
           );
           const styles = containerEl.attributes("style");
-
-          // expect(styles).toContain("background: red");
           expect(styles).toMatchSnapshot();
         },
       );
@@ -276,7 +295,7 @@ describe("Vue3BbResize", () => {
       test.each([{ background: "blue", display: "flex" }])(
         "should apply inline styles (%s)",
         (container: HTMLAttributes["style"]) => {
-          const wrapper = shallowMount(Vue3BbResize, {
+          const wrapper = shallowMount(ResizeBounding, {
             props: {
               style: container,
             },

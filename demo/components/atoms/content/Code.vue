@@ -22,6 +22,7 @@ import { ref } from "vue";
 
 import Prism from "prismjs";
 import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-scss.js";
 
 interface Props {
   lang: string;
@@ -67,11 +68,11 @@ const onCopy = (code: string | undefined) => {
     }
 
     &__file-name {
-      // padding: 0 1em;
       @include use-font-size(--xs);
       @include themify($app-themes) {
         color: themed("code", "comment");
       }
+      @extend %transition;
     }
 
     &__icon {
@@ -116,6 +117,8 @@ const onCopy = (code: string | undefined) => {
       -moz-hyphens: none;
       -ms-hyphens: none;
       hyphens: none;
+
+      @extend %transition;
     }
 
     /* Code blocks */
@@ -158,6 +161,10 @@ const onCopy = (code: string | undefined) => {
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box;
+    }
+
+    .token {
+      @extend %transition;
     }
 
     .token {

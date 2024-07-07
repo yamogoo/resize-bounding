@@ -9,24 +9,36 @@
       },
     ]"
   >
-    <div class="ui-main-intro--body">
-      <p class="ui-main-intro__description" v-if="description">
-        {{ description }}
-      </p>
-      <AtomsGroupContent
-        class="ui-main-intro__info"
-        :direction="'v'"
-        :alignment="'center'"
-      >
-        <p class="ui-main-intro__description--sm">
-          Supports Mouse & Touch Events
+    <AtomsTransitionGProvider
+      :show="isMounted"
+      :before-enter="{ opacity: 0, scale: 1.25 }"
+      :enter="{
+        opacity: 1,
+        scale: 1,
+        ease: 'power4.out',
+        duration: 0.5,
+        delay: 0.75,
+      }"
+    >
+      <div class="ui-main-intro--body">
+        <p class="ui-main-intro__description" v-if="description">
+          {{ description }}
         </p>
-        <div class="ui-main-intro__event-icons">
-          <NuxtIcon :name="'mouse'" alt="mouse events" />
-          <NuxtIcon :name="'touch'" alt="touch events" />
-        </div>
-      </AtomsGroupContent>
-    </div>
+        <AtomsGroupContent
+          class="ui-main-intro__info"
+          :direction="'v'"
+          :alignment="'center'"
+        >
+          <p class="ui-main-intro__description--sm">
+            current version supports only mouse events
+          </p>
+          <div class="ui-main-intro__event-icons">
+            <NuxtIcon :name="'mouse'" alt="mouse events" />
+            <!-- <NuxtIcon :name="'touch'" alt="touch events" /> -->
+          </div>
+        </AtomsGroupContent>
+      </div>
+    </AtomsTransitionGProvider>
     <div class="ui-main-intro--footer">
       <AtomsGroupContent direction="h" alignment="start">
         <NuxtLink to="/">
@@ -54,6 +66,10 @@ const isMounted = ref(false);
 
 onMounted(() => {
   isMounted.value = true;
+});
+
+onUnmounted(() => {
+  isMounted.value = false;
 });
 </script>
 

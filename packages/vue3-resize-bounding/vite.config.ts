@@ -21,9 +21,9 @@ export default defineConfig({
     terserOptions,
     lib: {
       entry: resolve(__dirname, "./src/index.ts"),
-      name: "vue3Boundarize",
+      name: "vue3ResizeBounding",
       formats: ["es", "cjs", "umd"],
-      fileName: (format) => `vue3-boundarize.${format}.js`,
+      fileName: (format) => `vue3-resize-bounding.${format}.js`,
     },
     rollupOptions: {
       external: ["vue"],

@@ -1,4 +1,4 @@
-@mixin transition($prop, $time, $easing: $ease1, $delay: 0s) {
+@mixin transition($prop, $time, $easing: $ease1, $delay: 0s, $i: "") {
   $transition: ();
   @for $i from 1 through length($prop) {
     @for $j from 0 to (length($prop)) - (length($time)) {

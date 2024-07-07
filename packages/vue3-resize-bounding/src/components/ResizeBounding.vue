@@ -2,18 +2,19 @@
   <div
     v-bind="$attrs"
     ref="refRoot"
-    data-testid="boundarize-container"
-    :class="[`${options.prefix}-${styles.container?.class}`]"
-    :style="[computedStyle, styles?.container?.style]"
+    data-testid="resize-bounding-container"
+    :class="[`${options.prefix}container`, classNames.container]"
+    :style="[computedStyle]"
   >
-    <slot :width :height></slot>
+    <slot></slot>
     <template v-for="({ show, direction }, idx) in panes" :key="idx">
-      <BoundarizePane
+      <ResizeBoundingPane
         v-if="!disabled && show"
         :prefix="options.prefix ?? ''"
         :direction="direction"
-        :options="options.pane"
-        :styles="defaultStyles.pane"
+        :options="options"
+        :styles
+        :classNames
         @focus="
           (isFocused) => {
             $emit(Emits.FOCUS, { state: isFocused, direction });
@@ -26,7 +27,7 @@
         <template #default>
           <slot name="knob"></slot>
         </template>
-      </BoundarizePane>
+      </ResizeBoundingPane>
     </template>
   </div>
 </template>
@@ -43,14 +44,14 @@ import {
 
 import deepmerge from "deepmerge";
 
-import type { BBResize } from "../shared/typings";
+import type { ResizeBounding } from "../shared/typings.js";
 
-import BoundarizePane, {
+import ResizeBoundingPane, {
   PaneDirectionAliases,
   PaneDirections,
   type PaneDirectionKey,
   type PaneEmittedData,
-} from "./BoundarizePane.vue";
+} from "./ResizeBoundingPane.vue";
 
 export enum Emits {
   FOCUS = "focus",
@@ -61,72 +62,27 @@ export enum Emits {
   DRAG_END = "drag:end",
 }
 
-export const defaultOptions: BBResize.Options = {
-  prefix: "boundarize",
-  pane: {
-    width: 4,
-    position: "central",
-    knob: {
-      show: false,
-      constantlyShow: false,
-    },
-    showBorder: false,
-    cursor: {
-      horizontal: "col-resize",
-      vertical: "row-resize",
-    },
-  },
-};
+import { getClassNames } from "./ResizeBounding.classNames";
 
-export const defaultStyles: BBResize.Styles = {
-  container: {
-    class: "container",
-    style: undefined,
+export const defaultOptions: ResizeBounding.Options = {
+  prefix: "resize-bounding-",
+  width: 4,
+  position: "central",
+  knob: {
+    show: false,
+    normalHidden: false,
   },
-  pane: {
-    class: "pane",
-    style: {
-      position: "absolute",
-      display: "block",
-      zIndex: 9999,
-    },
-    splitter: {
-      class: "splitter",
-      style: {
-        position: "absolute",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "none",
-        transition: `background, height 125ms ease-out`,
-        zIndex: 9999,
-      },
-      focused: {
-        class: "active",
-        style: { background: "blue" },
-      },
-    },
-    knob: {
-      class: "knob",
-      style: {
-        width: "64px",
-        minWidth: "64px",
-        height: "6px",
-        background: "gray",
-        borderRadius: "8px",
-        transition: `background, height 125ms ease-out`,
-      },
-      focused: {
-        class: "active",
-        style: { background: "none" },
-      },
-    },
+  cursor: {
+    horizontal: "col-resize",
+    vertical: "row-resize",
   },
 };
 
 export default defineComponent({
   setup(props, { emit }) {
     const refRoot = ref<HTMLDivElement | null>(null);
+
+    const classNames = getClassNames(props.styles);
 
     let { width: newWidth, height: newHeight } = props;
     let prevWidth = newWidth,
@@ -144,7 +100,6 @@ export default defineComponent({
       };
 
       return {
-        position: "relative",
         ...(props.width && _width),
         ...(props.height && _height),
       };
@@ -185,10 +140,6 @@ export default defineComponent({
 
     const options = computed(() => {
       return deepmerge(defaultOptions, props.options);
-    });
-
-    const styles: ComputedRef<BBResize.Styles> = computed(() => {
-      return deepmerge(defaultStyles, props.styles) as BBResize.Styles;
     });
 
     const onDragStart = ({ x, y, dir }: PaneEmittedData): void => {
@@ -285,9 +236,8 @@ export default defineComponent({
       onDragEnd,
       truncateInRange,
       computedStyle,
-      defaultStyles,
+      classNames,
       options,
-      styles,
       panes,
       PaneDirections,
       Emits,
@@ -339,15 +289,15 @@ export default defineComponent({
       default: false,
     },
     options: {
-      type: Object as PropType<Partial<BBResize.Options>>,
+      type: Object as PropType<Partial<ResizeBounding.Options>>,
       default: {},
     },
     styles: {
-      type: Object as PropType<Partial<BBResize.Styles>>,
+      type: Object as PropType<Partial<ResizeBounding.IStyles>>,
       default: {},
     },
   },
-  name: "Boundarize",
-  components: { BoundarizePane },
+  name: "ResizeBounding",
+  components: { ResizeBoundingPane },
 });
 </script>

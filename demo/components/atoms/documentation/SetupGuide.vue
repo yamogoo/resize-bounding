@@ -10,13 +10,15 @@
     <div class="ui-setup-guide--body">
       <div class="ui-setup-guide--body--content">
         <template v-for="({ id, value }, idx) in menuItems" :key="idx">
-          <AtomsContentCode
-            v-if="sid === id"
-            :lang="__DOC__[value].lang"
-            :code="__DOC__[value].code"
-            :file-name="__DOC__[value].fileName"
-            block
-          />
+          <template v-for="(item, hidx) in __DOC__[value]" :key="idx">
+            <AtomsContentCode
+              v-if="sid === id"
+              :lang="__DOC__[value][hidx].lang"
+              :code="__DOC__[value][hidx].code"
+              :file-name="__DOC__[value][hidx].fileName"
+              block
+            />
+          </template>
         </template>
       </div>
     </div>
@@ -37,6 +39,11 @@ const menuItems: Array<TabbarItem<string>> = [
     id: 1,
     label: "usage",
     value: "usage",
+  },
+  {
+    id: 2,
+    label: "styling",
+    value: "styling",
   },
 ];
 

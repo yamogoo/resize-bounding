@@ -3,26 +3,11 @@
     <div class="intro--container">
       <div class="intro__layout" ref="refLayout">
         <ClientOnly>
-          <!-- <AtomsContainerBoundarize
-            :height="layout.header.height"
-            :min-height="layout.header.minHeight"
-            :max-height="layout.header.maxHeight"
-            disabled
-            :directions="'b'"
-            class="ui--border --b"
-            @update:height="
-              (height) => {
-                layout.header.height = height;
-              }
-            "
-          >
-            <AtomsContainerRounded> </AtomsContainerRounded>
-          </AtomsContainerBoundarize> -->
-          <AtomsContainerBoundarize
+          <AtomsContainerResizeBounding
             :directions="''"
             :style="[{ display: 'flex', height: '100%' }]"
           >
-            <AtomsContainerBoundarize
+            <AtomsContainerResizeBounding
               :width="layout.cover.width"
               :min-width="layout.cover.minWidth"
               :max-width="layout.cover.maxWidth"
@@ -40,28 +25,30 @@
                   <AtomsInputSizeField
                     :width="layout.cover.width"
                     :height="layoutSize.height - (layout.info.height ?? 0)"
-                    @update:width="
-                      (width) => {
-                        layout.cover.width = width;
-                      }
-                    "
                   />
                 </template>
-
                 <AtomsCoverMain title="Resize Bounding" :version="'1.0.0'" />
               </AtomsContainerRounded>
-            </AtomsContainerBoundarize>
+            </AtomsContainerResizeBounding>
 
             <AtomsContainerRounded>
+              <template #header>
+                <AtomsInputSizeField
+                  :width="introWidth"
+                  :height="layoutSize.height - (layout.info.height ?? 0)"
+                  transparent
+                />
+              </template>
+              <!-- introWidth -->
               <AtomsCoverIntro
                 :title="'Supports Mouse & Touch Events'"
                 description="The versatile and user-friendly Vue3 component that enables
                   intuitive resizing of inner user components via draggable
                   boundary panes."
-                :image-path="'/boundarize-cover.svg'"
+                :image-path="'/resize-bounding-cover.svg'"
               />
             </AtomsContainerRounded>
-            <AtomsContainerBoundarize
+            <AtomsContainerResizeBounding
               :width="layout.setupGuide.width"
               :min-width="layout.setupGuide.minWidth"
               :max-width="layout.setupGuide.maxWidth"
@@ -83,11 +70,6 @@
                   <AtomsInputSizeField
                     :width="layout.setupGuide.width"
                     :height="layoutSize.height - (layout.info.height ?? 0)"
-                    @update:width="
-                      (width) => {
-                        layout.setupGuide.width = width;
-                      }
-                    "
                   />
                 </template>
                 <AtomsCoverGuide
@@ -97,22 +79,9 @@
                   ]"
                 />
               </AtomsContainerRounded>
-              <!-- <AtomsContainerRounded>
-                <template #header>
-                  <AtomsInputSizeField
-                    :width="layout.setupGuide.width"
-                    @update:width="
-                      (width) => {
-                        layout.setupGuide.width = width;
-                      }
-                    "
-                  />
-                </template>
-                <AtomsCoversMainAdditionGuide />
-              </AtomsContainerRounded> -->
-            </AtomsContainerBoundarize>
-          </AtomsContainerBoundarize>
-          <AtomsContainerBoundarize
+            </AtomsContainerResizeBounding>
+          </AtomsContainerResizeBounding>
+          <AtomsContainerResizeBounding
             :height="layout.info.height"
             :min-height="layout.info.minHeight"
             :max-height="layout.info.maxHeight"
@@ -125,7 +94,7 @@
               }
             "
           >
-            <AtomsContainerBoundarize
+            <AtomsContainerResizeBounding
               :width="layout.info.width"
               :min-width="layout.info.minWidth"
               :max-width="layout.info.maxWidth"
@@ -142,22 +111,12 @@
                   <AtomsInputSizeField
                     :width="layout.info.width"
                     :height="layout.info.height"
-                    @update:width="
-                      (width) => {
-                        layout.info.width = width;
-                      }
-                    "
-                    @update:height="
-                      (height) => {
-                        layout.info.height = height;
-                      }
-                    "
                   />
                 </template>
                 <AtomsCoverInfo />
               </AtomsContainerRounded>
-            </AtomsContainerBoundarize>
-            <AtomsContainerBoundarize
+            </AtomsContainerResizeBounding>
+            <AtomsContainerResizeBounding
               :directions="''"
               :style="[{ display: 'flex', width: '100%' }]"
             >
@@ -166,17 +125,12 @@
                   <AtomsInputSizeField
                     :width="layoutSize.width - (layout.info.width ?? 0)"
                     :height="layout.info.height"
-                    @update:height="
-                      (height) => {
-                        layout.info.height = height;
-                      }
-                    "
                   />
                 </template>
                 <AtomsDocumentationSetupGuide />
               </AtomsContainerRounded>
-            </AtomsContainerBoundarize>
-          </AtomsContainerBoundarize>
+            </AtomsContainerResizeBounding>
+          </AtomsContainerResizeBounding>
         </ClientOnly>
       </div>
     </div>
@@ -212,23 +166,12 @@ const isMounted = ref(false);
 const refLayout = ref<HTMLDivElement | null>(null);
 
 const layout: Ref<
-  Record<
-    "header" | "description" | "info" | "cover" | "setupGuide",
-    Partial<ContainerSize>
-  >
+  Record<"info" | "cover" | "setupGuide", Partial<ContainerSize>>
 > = ref({
-  header: {
-    height: 86,
-    minHeight: 86,
-    maxHeight: 86,
-  },
   cover: {
     width: 480,
     minWidth: 360,
     maxWidth: 960,
-  },
-  description: {
-    width: 360,
   },
   setupGuide: {
     width: 480,
@@ -237,7 +180,7 @@ const layout: Ref<
   },
   info: {
     height: 360,
-    minHeight: 280,
+    minHeight: 0,
     maxHeight: 640,
     width: 800,
     minWidth: 580,
@@ -248,6 +191,14 @@ const layout: Ref<
 const layoutSize = ref({
   width: 0,
   height: 0,
+});
+
+const introWidth = computed(() => {
+  return (
+    layoutSize.value.width -
+    (layout.value.cover.width ?? 0) -
+    (layout.value.setupGuide.width ?? 0)
+  );
 });
 
 const onSetLayout = (): void => {
@@ -261,6 +212,7 @@ const onSetLayout = (): void => {
 
     // resize layout:
     layout.value.cover.width = Math.round(layoutSize.value.width / hFactor);
+
     layout.value.setupGuide.width = Math.round(
       layoutSize.value.width / hFactor,
     );

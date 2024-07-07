@@ -1,8 +1,8 @@
 {
   "name": "resize-bounding-demo",
-  "description": "Boundarize",
+  "description": "Vue3 Resize Bounding",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "author": {
     "name": "yamogoo",
@@ -16,7 +16,9 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "test:unit": "vitest",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "deploy:dev": "vitest run && netlify build && netlify deploy",
+    "deploy:prod": "vitest run && netlify build && netlify deploy --prod"
   },
   "dependencies": {
     "@nuxt/content": "^2.13.0",
@@ -27,7 +29,7 @@
     "prismjs": "^1.29.0",
     "vitest": "^1.6.0",
     "vue": "latest",
-    "vue3-boundarize": "workspace:^"
+    "vue3-resize-bounding": "workspace:^"
   },
   "devDependencies": {
     "@nuxt/image": "^1.7.0",
@@ -36,9 +38,10 @@
     "@types/prismjs": "^1.26.4",
     "@vitest/ui": "^1.6.0",
     "@vue/test-utils": "^2.4.6",
-    "dart-sass": "^1.25.0",
     "gsap": "^3.12.5",
+    "lightningcss": "^1.25.1",
     "pinia": "^2.1.7",
-    "sass": "^1.77.6"
+    "sass": "^1.77.6",
+    "terser": "^5.31.1"
   }
 }
