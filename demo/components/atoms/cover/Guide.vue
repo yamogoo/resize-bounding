@@ -1,5 +1,11 @@
 <template>
   <div class="ui-main-guide">
+    <div class="ui-theme-switch">
+      <AtomsSwitchBase
+        :state="colorMode.value === 'light'"
+        @update:state="onChangeTheme"
+      />
+    </div>
     <h3 class="ui-main-guide__title">{{ title }}</h3>
     <AtomsLinkBoxed
       v-for="({ url, name }, idx) in links"
@@ -24,6 +30,12 @@ withDefaults(defineProps<Props>(), {
 
 const onCopy = (name: string | undefined): void => {
   if (name) navigator.clipboard.writeText(name);
+};
+
+const colorMode = useColorMode();
+
+const onChangeTheme = () => {
+  colorMode.value = colorMode.value === "light" ? "dark" : "light";
 };
 </script>
 
@@ -56,6 +68,12 @@ export interface LinkData {
       @extend %code-font;
       @include use-font-size(--sm);
     }
+  }
+
+  &-theme-switch {
+    position: absolute;
+    top: 20px;
+    right: 20px;
   }
 }
 </style>

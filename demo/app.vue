@@ -1,8 +1,6 @@
 <template>
-  <main id="app" :class="[{ 'theme-dark': true }]">
-    <div id="app--container">
-      <NuxtPage />
-    </div>
+  <main id="app">
+    <NuxtPage />
   </main>
 </template>
 
@@ -21,10 +19,6 @@ body,
   * {
     box-sizing: border-box;
   }
-}
-
-#app--container {
-  @include box(100%);
 
   * {
     ::-webkit-scrollbar {

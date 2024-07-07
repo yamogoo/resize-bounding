@@ -36,7 +36,7 @@ defineProps<Props>();
     // @include use-themed-border(all);
     @include use-border-radius(--lg);
     @include themify($app-themes) {
-      color: themed("text", "primary");
+      color: transparentize(themed("text", "secondary"), 0.25);
       background: themed("background", "inactive");
     }
 

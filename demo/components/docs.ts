@@ -11,7 +11,7 @@ import { createApp } from "vue";
 const app = createApp(App);
 app.use(Vue3ResizeBounding, { name: "resize-bounding" });
 app.mount("#app");`,
-  // fileName: "~/main.ts",
+  fileName: "main.ts",
 };
 
 const usage: CodeBlock = {
@@ -36,6 +36,7 @@ const usage: CodeBlock = {
   import { ref } from "vue";
   const container = ref({ width: 320, height: 480 });
 </script>`,
+  fileName: "MyComponent.vue",
 };
 
 export const __DOC__: Record<

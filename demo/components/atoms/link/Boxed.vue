@@ -1,11 +1,7 @@
 <template>
   <div class="ui-boxed-link">
     <div class="ui-boxed-link--container"><slot></slot></div>
-    <NuxtIcon
-      class="ui-boxed-link__icon"
-      name="doc"
-      @click="() => emits('copy')"
-    />
+    <AtomsButtonCopy class="ui-boxed-link__icon" @click="() => emits('copy')" />
   </div>
 </template>
 
@@ -41,14 +37,6 @@ const emits = defineEmits<{
       right: 20px;
       cursor: pointer;
       z-index: 1;
-
-      @include themify($app-themes) {
-        color: themed("colors", "accent");
-      }
-
-      svg {
-        @include box(21px);
-      }
     }
   }
 }

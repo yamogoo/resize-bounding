@@ -9,10 +9,10 @@ $c-fade-gray: #c9c8c8;
 
 $c-app--light: #e8ebec;
 $c-container--light: #dbdede;
-$c-app--dark: #191a1a;
+$c-app--dark: darken($c-black, 6%);
 $c-container--dark: #212222;
 
-$c-accent: #776aff; // #7d6af6;
+$c-accent: #776aff;
 
 $c-green: #1dc136;
 $c-red: #e23939;
