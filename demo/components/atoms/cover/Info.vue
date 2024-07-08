@@ -8,7 +8,7 @@
     />
     <AtomsGroupContent :direction="'v'" :alignment="'center'">
       <p class="">
-        current version supports only mouse events
+        This project is licensed under the terms of the
         <AtomsLinkBase
           to="https://github.com/yamogoo/vue3-resize-bounding/blob/main/packages/vue3-resize-bounding/LICENSE"
           >MIT license
