@@ -41,7 +41,7 @@ export default defineNuxtConfig({
     public: {
       appName: packageJson.name,
       appDescription: packageJson.description,
-      productVersion: packageJson.dependencies["vue3-resize-bounding"],
+      productVersion: packageJson.productVersion,
     },
   },
 
