@@ -23,6 +23,7 @@ export namespace ResizeBounding {
     >;
     knob: Partial<Knob>;
     addStateClasses: boolean;
+    touchActions: boolean;
   }
 
   export type ResizeBoundingClassNames =

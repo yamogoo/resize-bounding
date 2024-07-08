@@ -30,11 +30,11 @@
           :alignment="'center'"
         >
           <p class="ui-main-intro__description--sm">
-            current version supports only mouse events
+            supports mouse & touch events
           </p>
           <div class="ui-main-intro__event-icons">
             <NuxtIcon :name="'mouse'" alt="mouse events" />
-            <!-- <NuxtIcon :name="'touch'" alt="touch events" /> -->
+            <NuxtIcon :name="'touch'" alt="touch events" />
           </div>
         </AtomsGroupContent>
       </div>

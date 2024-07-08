@@ -7,6 +7,7 @@
         show: true,
       },
       addStateClasses: true,
+      touchActions: false,
     }"
     :styles="{
       knob: [
