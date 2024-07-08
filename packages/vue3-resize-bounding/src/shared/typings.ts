@@ -22,6 +22,7 @@ export namespace ResizeBounding {
       Record<"horizontal" | "vertical", CSSStyleDeclaration["cursor"]>
     >;
     knob: Partial<Knob>;
+    addStateClasses: boolean;
   }
 
   export type ResizeBoundingClassNames =

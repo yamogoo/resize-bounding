@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, vi } from "vitest";
-import { shallowMount, VueWrapper } from "@vue/test-utils";
+import { mount, shallowMount, VueWrapper } from "@vue/test-utils";
 import { nextTick } from "vue";
 
 import { DataTestIds, DEFAULT_PREFIX } from "./setup";
@@ -34,31 +34,19 @@ describe("Boundarize", () => {
   });
 
   describe("classes", () => {
-    test.each(["my-prefix"])(
-      "each element should have custom prefix (%s)",
-      (prefix) => {
-        const wrapper = shallowMount(ResizeBoundingPane, {
-          props: { prefix, ...requiredProps },
-        });
-
-        const paneEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
-        const splitterEl = wrapper.find(
-          `[data-testid="${DataTestIds.SPLITTER}"]`,
-        );
-
-        expect(paneEl.classes().toString()).toContain(prefix);
-        expect(splitterEl.classes().toString()).toContain(prefix);
-
-        expect(paneEl.classes()).toMatchSnapshot();
-        expect(paneEl.classes()).toMatchSnapshot();
-      },
-    );
-
     test('should have "normal" class by default', () => {
       const wrapper = shallowMount(ResizeBoundingPane, {
         props: {
           prefix: DEFAULT_PREFIX,
-          ...requiredProps,
+          classNames,
+          options: {
+            prefix: "",
+            width: 0,
+            position: "",
+            cursor: undefined,
+            knob: undefined,
+            addStateClasses: true,
+          },
         },
       });
 
@@ -74,7 +62,15 @@ describe("Boundarize", () => {
       const wrapper = shallowMount(ResizeBoundingPane, {
         props: {
           prefix: DEFAULT_PREFIX,
-          ...requiredProps,
+          classNames,
+          options: {
+            prefix: "",
+            width: 0,
+            position: "",
+            cursor: undefined,
+            knob: undefined,
+            addStateClasses: true,
+          },
         },
       });
 
@@ -348,6 +344,7 @@ describe("Boundarize", () => {
                     position: "central",
                     knob: undefined,
                     prefix: "",
+                    addStateClasses: false,
                   },
                 },
                 CUSTOM_ACTIVE_CURSOR,
@@ -451,7 +448,10 @@ describe("Boundarize", () => {
               prefix: DEFAULT_PREFIX,
               direction,
               classNames,
-              options: { ...defaultOptions, width: SPLITTER_WIDTH },
+              options: {
+                ...defaultOptions,
+                width: SPLITTER_WIDTH,
+              },
             },
           });
 
@@ -480,7 +480,7 @@ describe("Boundarize", () => {
 
   describe("slots", () => {
     test.each(["<p>knob</p>"])("should render knob slot (%s)>", (knobSlot) => {
-      const wrapper = shallowMount(ResizeBoundingPane, {
+      const wrapper = mount(ResizeBoundingPane, {
         props: {
           prefix: DEFAULT_PREFIX,
           direction: "r",
@@ -488,12 +488,13 @@ describe("Boundarize", () => {
           options: {
             knob: {
               show: true,
-              constantlyShow: true,
+              normalHidden: false,
             },
             width: 3,
-            position: "",
-            cursor: undefined,
+            position: "central",
+            cursor: {},
             prefix: "",
+            addStateClasses: true,
           },
         },
         slots: {

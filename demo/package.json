@@ -1,6 +1,6 @@
 {
   "name": "resize-bounding-demo",
-  "description": "Vue3 Resize Bounding",
+  "description": "Simple Vue 3 component for resizing nested components",
   "private": true,
   "version": "1.0.0",
   "type": "module",

@@ -3,7 +3,7 @@
     v-bind="$attrs"
     ref="refRoot"
     data-testid="resize-bounding-container"
-    :class="[`${options.prefix}container`, classNames.container]"
+    :class="[classNames.container]"
     :style="[computedStyle]"
   >
     <slot></slot>
@@ -62,10 +62,10 @@ export enum Emits {
   DRAG_END = "drag:end",
 }
 
-import { getClassNames } from "./ResizeBounding.classNames";
+import { getClassNames, PREFIX } from "./ResizeBounding.classNames";
 
 export const defaultOptions: ResizeBounding.Options = {
-  prefix: "resize-bounding-",
+  prefix: PREFIX,
   width: 4,
   position: "central",
   knob: {
@@ -76,13 +76,21 @@ export const defaultOptions: ResizeBounding.Options = {
     horizontal: "col-resize",
     vertical: "row-resize",
   },
+  addStateClasses: false,
 };
 
 export default defineComponent({
   setup(props, { emit }) {
     const refRoot = ref<HTMLDivElement | null>(null);
 
-    const classNames = getClassNames(props.styles);
+    const options = computed(() => {
+      return deepmerge(defaultOptions, props.options);
+    });
+
+    const classNames = getClassNames(
+      props.styles,
+      options.value.prefix ?? PREFIX,
+    );
 
     let { width: newWidth, height: newHeight } = props;
     let prevWidth = newWidth,
@@ -137,10 +145,6 @@ export default defineComponent({
 
     let startX = 0,
       startY = 0;
-
-    const options = computed(() => {
-      return deepmerge(defaultOptions, props.options);
-    });
 
     const onDragStart = ({ x, y, dir }: PaneEmittedData): void => {
       startWidth = props.width ?? 0;
