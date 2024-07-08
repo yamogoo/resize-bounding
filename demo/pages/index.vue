@@ -27,7 +27,10 @@
                     :height="layoutSize.height - (layout.info.height ?? 0)"
                   />
                 </template>
-                <AtomsCoverMain title="Resize Bounding" :version="'1.0.0'" />
+                <AtomsCoverMain
+                  title="Resize Bounding"
+                  :version="runtimeConfig.public.productVersion"
+                />
               </AtomsContainerRounded>
             </AtomsContainerResizeBounding>
 
