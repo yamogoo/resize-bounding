@@ -136,6 +136,8 @@ const onDragStart = (e: PointerEvent): void => {
   e.preventDefault();
   e.stopImmediatePropagation();
 
+  if (e.pointerType === "touch") return;
+
   isResizing = true;
   isPressed.value = true;
 
