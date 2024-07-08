@@ -77,6 +77,7 @@ export const defaultOptions: ResizeBounding.Options = {
     vertical: "row-resize",
   },
   addStateClasses: false,
+  touchActions: true,
 };
 
 export default defineComponent({

@@ -344,6 +344,23 @@ app.mount("#app");
       </tr>
       <tr>
         <td colspan="3">
+          <code><b>options.touchActions</b></code>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">description</td>
+        <td colspan="2">Enable touch actions</td>
+      </tr>
+      <tr>
+        <td colspan="2">type</td>
+        <td colspan="2"><code>boolean</code></td>
+      </tr>
+      <tr>
+        <td colspan="2">default value</td>
+        <td colspan="2"><code>true</code></td>
+      </tr>
+      <tr>
+        <td colspan="3">
           <code><b>options.knob.show</b></code>
         </td>
       </tr>
@@ -490,6 +507,7 @@ app.mount("#app");
     position: "absolute",
     display: "block",
     zIndex: 9999,
+    touchAction: "none",
   },
 ],</code></pre>
         </td>
@@ -703,6 +721,7 @@ app.mount("#app");
       vertical: "row-resize",
     },
     addStateClasses: false,
+    touchActions: true,
   };
 
   const styles = {
@@ -717,6 +736,7 @@ app.mount("#app");
         position: "absolute",
         display: "block",
         zIndex: 9999,
+        touchAction: "none",
       },
     ],
     splitter: [

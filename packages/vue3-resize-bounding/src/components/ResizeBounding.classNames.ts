@@ -23,6 +23,7 @@ export const defaultStyles = (prefix: string): ResizeBounding.IStyles => ({
       position: "absolute",
       display: "block",
       zIndex: 9999,
+      touchAction: "none",
     },
   ],
   splitter: [

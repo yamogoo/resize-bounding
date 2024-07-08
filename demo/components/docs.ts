@@ -97,6 +97,7 @@ const defaultStyles: Array<CodeBlock> = [
           position: 'absolute',
           display: 'block',
           zIndex: 9999,
+          touchAction: "none",
         }
       ],
 
