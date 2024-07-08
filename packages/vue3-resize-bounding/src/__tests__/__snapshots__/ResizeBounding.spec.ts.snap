@@ -3,14 +3,14 @@
 exports[`ResizeBounding > classes > prefix > should have custom prefix (my-prefix) 1`] = `
 [
   "my-prefixcontainer",
-  "container-0",
+  "my-prefixcontainer-5",
 ]
 `;
 
 exports[`ResizeBounding > classes > prefix > should have default prefix (%s) 1`] = `
 [
   "resize-bounding-container",
-  "container-0",
+  "resize-bounding-container-0",
 ]
 `;
 
@@ -91,7 +91,7 @@ exports[`ResizeBounding > events > drag > should emit the "drag:start -> drag:mo
 `;
 
 exports[`ResizeBounding > slots > should render default slot 1`] = `
-"<div data-testid="resize-bounding-container" class="resize-bounding-container container-0">
+"<div data-testid="resize-bounding-container" class="resize-bounding-container resize-bounding-container-0">
   <p>Inner Container</p>
   <!--v-if-->
   <!--v-if-->

@@ -1,19 +1,34 @@
 import { mergeStyleSets } from "@fluentui/merge-styles";
 import { ResizeBounding } from "../shared/typings.js";
 
-export const defaultStyles = {
-  container: { position: "relative" },
+export const PREFIX = "resize-bounding-";
+
+export const globalClassNames = (prefix = PREFIX) => ({
+  container: `${prefix}container`,
+  pane: `${prefix}pane`,
+  splitter: `${prefix}splitter`,
+  splitterContainer: `${prefix}splitter--container`,
+  knob: `${prefix}knob`,
+});
+
+export const defaultStyles = (prefix: string): ResizeBounding.IStyles => ({
+  container: [
+    globalClassNames(prefix).container,
+    { displayName: globalClassNames(prefix).container, position: "relative" },
+  ],
   pane: [
-    "pane",
+    globalClassNames(prefix).pane,
     {
+      displayName: globalClassNames(prefix).pane,
       position: "absolute",
       display: "block",
       zIndex: 9999,
     },
   ],
   splitter: [
-    "splitter",
+    globalClassNames(prefix).splitter,
     {
+      displayName: globalClassNames(prefix).splitter,
       position: "absolute",
       zIndex: 9999,
       transition: "background 125ms ease-out",
@@ -23,8 +38,9 @@ export const defaultStyles = {
     },
   ],
   splitterContainer: [
-    "splitterContainer",
+    globalClassNames(prefix).splitterContainer,
     {
+      displayName: globalClassNames(prefix).splitterContainer,
       position: "relative",
       display: "flex",
       alignItems: "center",
@@ -36,23 +52,25 @@ export const defaultStyles = {
     },
   ],
   knob: [
-    "knob",
+    globalClassNames(prefix).knob,
     {
+      displayName: globalClassNames(prefix).knob,
       position: "absolute",
       width: "64px",
       height: "8px",
       background: "gray",
-      borderRadius: "8px",
+      borderRadius: "4px",
       transition: "background 125ms ease-out",
-      [`.pane :hover &`]: {
+      [`.${globalClassNames(prefix).pane} :hover &`]: {
         background: "cornflowerblue",
       },
     },
   ],
-};
+});
 
 export const getClassNames = (
   args: Partial<ResizeBounding.IStyles>,
+  prefix = PREFIX,
 ): ResizeBounding.IResizeBoundingClassNames => {
-  return mergeStyleSets(defaultStyles, args);
+  return mergeStyleSets(defaultStyles(prefix), args);
 };

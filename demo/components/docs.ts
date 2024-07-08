@@ -4,23 +4,26 @@ interface CodeBlock {
   fileName?: string;
 }
 
-const setup: CodeBlock = {
-  lang: "ts",
-  code: `import App from "@/App";
+const setup: Array<CodeBlock> = [
+  {
+    lang: "ts",
+    code: `import App from "@/App";
 import { createApp } from "vue";
 
 import Vue3ResizeBounding from "vue3-resize-bounding";
 
 const app = createApp(App);
-app.use(Vue3ResizeBounding, { name: "resize-bounding" });
+app.use(Vue3ResizeBounding, { name: "resizer" });
 app.mount("#app");`,
-  fileName: "main.ts",
-};
+    fileName: "main.ts",
+  },
+];
 
-const usage: CodeBlock = {
-  lang: "html",
-  code: `<template>
-  <resize-bounding
+const usage: Array<CodeBlock> = [
+  {
+    lang: "html",
+    code: `<template>
+  <resizer
     :width="container.width"
     :height="container.height"
     :min-width="240"
@@ -29,9 +32,15 @@ const usage: CodeBlock = {
     @update:width="(width) => (container.width = width)"
     @update:height="(height) => (container.height = height)"
   >
-    <!-- YOUR COMPONENT START -->
+    <!-- CONTENT START -->
     <div style="width="100%; height: 100%;>My Container</div>
-    <!-- YOUR COMPONENT END -->
+    <!-- CONTENT END -->
+
+    <!-- KNOB INNER CONTENT START -->
+    <template #knob>
+      <div class="some-icon"></div>
+    </template>
+    <!-- KNOB INNER CONTENT END -->
   <resize-bounding>
 </template>
 
@@ -39,50 +48,164 @@ const usage: CodeBlock = {
   import { ref } from "vue";
   const container = ref({ width: 320, height: 480 });
 </script>`,
-  fileName: "MyComponent.vue",
-};
+    fileName: "MyComponent.vue",
+  },
+];
 
-const styling: CodeBlock = {
-  lang: "html",
-  code: `<template>
-  <resize-bounding :options />
+const defaultStyles: Array<CodeBlock> = [
+  {
+    lang: "html",
+    code: `<template>
+    <resizer :options :styles>
+      <!-- CONTENT START -->
+      <div style="width="100%; height: 100%;>My Container</div>
+      <!-- CONTENT END -->
+
+      <!-- KNOB INNER CONTENT START -->
+      <template #knob>
+        <div class="some-icon"></div>
+      </template>
+      <!-- KNOB INNER CONTENT END -->
+    </resizer>
+  </template>
+  
+  <script lang="ts">
+    import Resizer, { PREFIX } from "vue3-resize-bounding";
+
+    /* * * Default styles and classes * * */
+
+    const options = {
+      knob: {
+        show: true,
+      }
+    };
+
+    const styles = {
+      // "container" is element that wraps the content
+      container: {
+        displayName: \`\${PREFIX}container\`,
+        position: 'relative'
+      },
+
+      // "pane" is element used to position the separator.
+      // Consider it a supporting element. In rare cases,
+      // stylization is possible
+      pane: [
+        \`\${PREFIX}pane\`,
+        {
+          displayName: \`\${PREFIX}pane\`,
+          position: 'absolute',
+          display: 'block',
+          zIndex: 9999,
+        }
+      ],
+
+      // "splitter" is visible container border
+      splitter: [
+        \`\${PREFIX}splitter\`,
+        {
+          displayName: \`\${PREFIX}splitter\`,
+          position: 'absolute',
+          zIndex: 9999,
+          transition: 'background 125ms ease-out',
+          ':hover': {
+            background: 'cornflowerblue',
+          },
+        },
+      ],
+
+      // "splitterContainer" is empty element used
+      // to rotating the knob
+      splitterContainer: [
+        \`\${PREFIX}splitter--container\`,
+        {
+          displayName: \`\${PREFIX}splitter--container\`,
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          top: '50%',
+          left: '50%',
+          width: '0px',
+          height: '0px',
+        }
+      ],
+
+      // knob container
+      knob: [
+        \`\${PREFIX}knob\`,
+        {
+          displayName: \`\${PREFIX}knob\`,
+          position: 'absolute',
+          width: '64px',
+          height: '8px',
+          background: 'gray',
+          borderRadius: '8px',
+          transition: 'background 125ms ease-out',
+          [\`.\${PREFIX}pane :hover &\`]: {
+            background: 'cornflowerblue',
+          },
+        },
+      ],
+    };
+    
+  </script>`,
+    fileName: "MyComponent.vue",
+  },
+];
+
+const cssStyling: Array<CodeBlock> = [
+  {
+    lang: "html",
+    code: `<template>
+  <resizer :options />
 </template>
 
 <script lang="ts">
-  const options = ref({ prefix: 'ui-resizer__', css: true });
+  const options = ref({ prefix: 'ui-resizer__' });
 </script>`,
-  fileName: "MyComponent.vue",
-};
-
-const styling2: CodeBlock = {
-  lang: "scss",
-  code: `<style lang="scss">
+    fileName: "MyComponent.vue",
+  },
+  {
+    lang: "scss",
+    code: `<style lang="scss">
 $prefix: "ui-resizer__";
 
 .#{$prefix} {
-  &container { }
-  &splitter { background: none !important; }
-
   &pane {
-    &.normal {
-      .#{$prefix}splitter {}
+
+    // normal state:
+    .#{$prefix}splitter {
+      background: $accent;
     }
 
+    .#{$prefix}knob {
+      background: $knob-color;
+      border: 1px solid $secondary;
+    }
+
+    // selected state:
     &.focused {
       .#{$prefix}splitter {
-        background: red !important;
+        background: transparentize(accent, 0);
       }
     }
   }
+
+  &splitter {
+    transition: background 125ms ease-out;
+  }
 }
 </style>`,
-};
+  },
+];
 
 export const __DOC__: Record<
   "setup" | "install" | "usage" | string,
   Array<CodeBlock>
 > = {
-  setup: [setup],
-  usage: [usage],
-  styling: [styling, styling2],
+  setup,
+  usage,
+  defaultStyles,
+  cssStyling,
 };

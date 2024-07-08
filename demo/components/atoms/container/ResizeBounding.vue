@@ -1,28 +1,37 @@
 <template>
-  <ResizeBounding
+  <Resizer
     :options="{
-      prefix: 'ui-resizer__',
+      prefix: PREFIX,
       width: 4,
       knob: {
         show: true,
-        normalHidden: false,
       },
+      addStateClasses: true,
     }"
     :styles="{
       knob: [
-        'knob',
+        globalClassNames(PREFIX).knob,
         {
-          height: '6px',
+          position: 'absolute',
+          width: '64px',
+          height: '8px',
+          borderRadius: '4px',
+          transition: 'background 75ms ease-out',
+          ['.pane :hover &']: {
+            background: 'cornflowerblue',
+          },
         },
       ],
     }"
   >
     <slot></slot>
-  </ResizeBounding>
+  </Resizer>
 </template>
 
 <script setup lang="ts">
-import ResizeBounding from "vue3-resize-bounding";
+import Resizer, { globalClassNames } from "vue3-resize-bounding";
+
+const PREFIX = "ui-resizer__";
 </script>
 
 <style lang="scss">
@@ -31,7 +40,6 @@ $prefix: "ui-resizer__";
 .#{$prefix} {
   &pane {
     // normal state:
-
     .#{$prefix}splitter {
       @include themify($app-themes) {
         background: transparentize(themed("colors", "accent"), 1);
@@ -50,12 +58,6 @@ $prefix: "ui-resizer__";
       .#{$prefix}splitter {
         @include themify($app-themes) {
           background: transparentize(themed("colors", "accent"), 0);
-        }
-      }
-
-      .#{$prefix}knob {
-        @include themify($app-themes) {
-          // background: transparentize(themed("colors", "accent"), 1);
         }
       }
     }

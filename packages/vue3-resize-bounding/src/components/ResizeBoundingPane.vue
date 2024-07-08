@@ -1,10 +1,13 @@
 <template>
   <div
     :class="[
-      `${prefix}pane`,
       classNames.pane,
       `--${direction}`,
-      isFocused ? 'focused' : 'normal',
+      options.addStateClasses && {
+        normal: !isPressed && !isFocused,
+        focused: isFocused,
+        pressed: isPressed,
+      },
     ]"
     data-testid="resize-bounding-pane"
     :style="[paneComputedStyle]"
@@ -12,7 +15,7 @@
     <div
       ref="refPane"
       data-testid="resize-bounding-splitter"
-      :class="[`${prefix}splitter`, classNames.splitter]"
+      :class="[classNames.splitter]"
       :style="[splitterComputedStyle]"
     >
       <div
@@ -20,13 +23,10 @@
           (isFocused || !options?.knob?.normalHidden) && options?.knob?.show
         "
         data-testid="resize-bounding-splitter-container"
-        :class="[`${prefix}splitter--container`, classNames.splitterContainer]"
+        :class="[classNames.splitterContainer]"
         :style="[knobComputedStyle]"
       >
-        <div
-          data-testid="resize-bounding-knob"
-          :class="[`${prefix}knob`, classNames.knob]"
-        >
+        <div data-testid="resize-bounding-knob" :class="[classNames.knob]">
           <slot v-if="$slots.default"></slot>
         </div>
       </div>
@@ -87,6 +87,8 @@ const splitterComputedStyle = computed(() => {
 });
 
 const isFocused = ref(false);
+const isPressed = ref(false);
+
 let isResizing = false;
 
 const knobComputedStyle = computed(() => {
@@ -135,6 +137,8 @@ const onDragStart = (e: PointerEvent): void => {
   e.stopImmediatePropagation();
 
   isResizing = true;
+  isPressed.value = true;
+
   onSelected(isResizing);
 
   const el = e.currentTarget as HTMLDivElement;
@@ -156,8 +160,8 @@ const onDragStart = (e: PointerEvent): void => {
 
   const onDragEnd = (e: PointerEvent): void => {
     isResizing = false;
+    isPressed.value = false;
 
-    onSelected(isResizing);
     updateCursor(isResizing);
 
     const el = e.currentTarget as HTMLDivElement;

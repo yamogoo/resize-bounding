@@ -10,7 +10,7 @@
     <div class="ui-setup-guide--body">
       <div class="ui-setup-guide--body--content">
         <template v-for="({ id, value }, idx) in menuItems" :key="idx">
-          <template v-for="(item, hidx) in __DOC__[value]" :key="idx">
+          <template v-for="(item, hidx) in __DOC__[value]" :key="hidx">
             <AtomsContentCode
               v-if="sid === id"
               :lang="__DOC__[value][hidx].lang"
@@ -42,8 +42,8 @@ const menuItems: Array<TabbarItem<string>> = [
   },
   {
     id: 2,
-    label: "styling",
-    value: "styling",
+    label: "default styles",
+    value: "defaultStyles",
   },
 ];
 
