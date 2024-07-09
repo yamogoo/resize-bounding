@@ -1,7 +1,7 @@
 {
   "name": "vue3-resize-bounding",
   "description": "Simple Vue 3 component for resizing nested components",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "author": {
     "name": "yamogoo",
@@ -30,7 +30,9 @@
     }
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    "resize-bounding.gif",
+    "resize-bounding.svg"
   ],
   "engines": {
     "node": ">=12"

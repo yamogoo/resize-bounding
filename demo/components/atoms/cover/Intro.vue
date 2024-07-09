@@ -48,6 +48,13 @@
             alt="vue logo"
           />
         </NuxtLink>
+        <NuxtLink to="/">
+          <img
+            class="ui-main-intro__logo"
+            src="/figma-logo--invert.svg"
+            alt="figma logo"
+          />
+        </NuxtLink>
       </AtomsGroupContent>
     </div>
   </div>

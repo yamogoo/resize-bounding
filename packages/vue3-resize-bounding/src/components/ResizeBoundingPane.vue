@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="refPane"
     :class="[
       classNames.pane,
       `--${direction}`,
@@ -13,7 +14,6 @@
     :style="[paneComputedStyle]"
   >
     <div
-      ref="refPane"
       data-testid="resize-bounding-splitter"
       :class="[classNames.splitter]"
       :style="[splitterComputedStyle]"
@@ -63,7 +63,12 @@ const paneComputedStyle = computed(() => {
   const _width = props.options?.width ?? 1;
 
   if (refPane.value && _width) {
-    const _styles = paneBaseStyles(_width);
+    const _areaWidth = props.options.activeAreaWidth ?? props.options.width;
+    const _styles = paneBaseStyles(
+      _width,
+      _areaWidth,
+      props.options?.position ?? ResizeBounding.SplitterPositions.CENTER,
+    );
     const value: HTMLAttributes["style"] =
       _styles[props.direction as PaneDirections];
     return value;
@@ -76,10 +81,9 @@ const splitterComputedStyle = computed(() => {
   const _width = props.options?.width;
 
   if (refPane.value && _width) {
-    const _styles = splitterBaseStyles(
-      _width,
-      props.options?.position ?? ResizeBounding.SplitterPositions.CENTER,
-    );
+    const _areaWidth = props.options.activeAreaWidth ?? props.options.width;
+
+    const _styles = splitterBaseStyles(_width, _areaWidth);
     const value: HTMLAttributes["style"] =
       _styles[props.direction as PaneDirections];
     return value;
@@ -264,36 +268,43 @@ export interface PaneEmittedData {
 
 export const paneBaseStyles = (
   size: number,
+  areaWidth: number,
+  position: ResizeBounding.PanePosition,
 ): Record<PaneDirections, HTMLAttributes["style"]> => {
-  const _offset = `${size / 2}px`;
+  let _offset: string = "0px";
+
+  switch (position) {
+    case ResizeBounding.SplitterPositions.CENTER:
+      _offset = `-${areaWidth / 2}px`;
+      break;
+    case ResizeBounding.SplitterPositions.EXTERNAL:
+      _offset = `-${(areaWidth + size) / 2}px`;
+      break;
+    case ResizeBounding.SplitterPositions.INTERNAL:
+      _offset = `-${(areaWidth - size) / 2}px`;
+      break;
+  }
 
   return {
-    l: { top: "0px", left: _offset, width: "0px", height: "100%" },
-    r: { top: "0px", right: _offset, width: "0px", height: "100%" },
-    t: { left: "0px", top: _offset, width: "100%", height: "0px" },
-    b: { left: "0px", bottom: _offset, width: "100%", height: "0px" },
+    l: { top: "0px", left: _offset, width: `${areaWidth}px`, height: "100%" },
+    r: { top: "0px", right: _offset, width: `${areaWidth}px`, height: "100%" },
+    t: { left: "0px", top: _offset, width: "100%", height: `${areaWidth}px` },
+    b: {
+      left: "0px",
+      bottom: _offset,
+      width: "100%",
+      height: `${areaWidth}px`,
+    },
   };
 };
 
 export const splitterBaseStyles = (
   size: number,
-  position: ResizeBounding.PanePosition,
+  areaWidth: number,
 ): Record<PaneDirections, HTMLAttributes["style"]> => {
   const _size = `${size}px`;
 
-  let _offset: string = "0px";
-
-  switch (position) {
-    case ResizeBounding.SplitterPositions.CENTER:
-      _offset = `0px`;
-      break;
-    case ResizeBounding.SplitterPositions.EXTERNAL:
-      _offset = `${size / 2}px`;
-      break;
-    case ResizeBounding.SplitterPositions.INTERNAL:
-      _offset = `-${size / 2}px`;
-      break;
-  }
+  const _offset: string = `${(areaWidth - size) / 2}px`;
 
   return {
     l: { right: _offset, width: _size, height: "100%" },

@@ -15,6 +15,15 @@
     >
       {{ name }}
     </AtomsLinkBoxed>
+    <!-- <AtomsLinkBoxed>
+      <AtomsLinkBasic
+        :size="'lg'"
+        :icon-name="'figma-logo'"
+        :to="'/'"
+        :name="'Vue3ResizeBounding'"
+        filled
+      />
+    </AtomsLinkBoxed> -->
   </div>
 </template>
 

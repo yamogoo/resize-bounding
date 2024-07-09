@@ -1,12 +1,12 @@
 ![image](./resize-bounding.svg)
 
-# Vue3 Resize Bounding ![Version](https://img.shields.io/badge/version-1.0.1-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# Vue3 Resize Bounding ![Version](https://img.shields.io/badge/version-1.0.2-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Vue3 Resize Bounding** is a simple, custom component for Vue 3 that allows you to intuitively resize nested components using draggable border panels. It easily increases interactivity and control.
 
 ![image](./resize-bounding.gif)
 
-### [Demo](https://vue3-resize-bounding.netlify.app/)
+[Demo](https://vue3-resize-bounding.netlify.app/)
 
 > **Examples**
 >
@@ -107,8 +107,10 @@ app.mount("#app");
 </script>
 ```
 
+> **Touch Area**
+> To increase the touch area, set the value to `options.activeAreaWidth` or use increased height of the `knob`
+
 > **Styling/Overriding**
->
 > Descriptions and examples of advanced overriding `options` and customization `styles` are described at the end of this documentation.
 
 ### Properties
@@ -211,7 +213,7 @@ app.mount("#app");
       </tr>
       <tr>
         <td>
-          <code><b>minWidth</b></code>
+          <code><b>minHeight</b></code>
         </td>
         <td><code>number | undefined</code></td>
         <td align="center"><code>0</code></td>
@@ -219,7 +221,7 @@ app.mount("#app");
       </tr>
       <tr>
         <td>
-          <code><b>maxWidth</b></code>
+          <code><b>maxHeight</b></code>
         </td>
         <td><code>number | undefined</code></td>
         <td><code>undefined</code></td>
@@ -238,10 +240,10 @@ app.mount("#app");
         <th colspan="3">value</th>
       </tr>
       <tr>
-        <td rowspan="37">
+        <td rowspan="45">
           <code><b>options</b></code>
         </td>
-        <td rowspan="37">
+        <td rowspan="45">
           <code>Partial &#60;ResizeBounding.Options&#62;</code>
         </td>
       </tr>
@@ -282,6 +284,25 @@ app.mount("#app");
         <td colspan="2">default value</td>
         <td colspan="2">
           <code>4</code>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <b><code>options.activeAreaWidth</code></b>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">description</td>
+        <td colspan="2">Sets the width of the active space within which the border (splitter) selection will be activated</td>
+      </tr>
+      <tr>
+        <td colspan="2">type</td>
+        <td colspan="2"><code>number | undefined</code></td>
+      </tr>
+      <tr>
+        <td colspan="2">default value</td>
+        <td colspan="2">
+          <code>undefined</code>
         </td>
       </tr>
       <!-- options.pane.position -->
@@ -341,6 +362,23 @@ app.mount("#app");
       <tr>
         <td colspan="2">default value</td>
         <td colspan="2"><code>false</code></td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <code><b>options.touchActions</b></code>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">description</td>
+        <td colspan="2">Enable touch actions</td>
+      </tr>
+      <tr>
+        <td colspan="2">type</td>
+        <td colspan="2"><code>boolean</code></td>
+      </tr>
+      <tr>
+        <td colspan="2">default value</td>
+        <td colspan="2"><code>true</code></td>
       </tr>
       <tr>
         <td colspan="3">
@@ -470,7 +508,7 @@ app.mount("#app");
           it in very rare cases.
           <sub
             >Pane receives <code>normal</code>, <code>focused</code> and
-            <code>pressed</code> classes ()
+            <code>pressed</code> classes
           </sub>
         </td>
       </tr>
@@ -490,6 +528,7 @@ app.mount("#app");
     position: "absolute",
     display: "block",
     zIndex: 9999,
+    touchAction: "none",
   },
 ],</code></pre>
         </td>
@@ -693,6 +732,7 @@ app.mount("#app");
 
   const options = {
     width: 4,
+    activeAreaWidth: undefined,
     position: "central", // 'central' | 'internal' | 'external'
     knob: {
       show: true,
@@ -703,6 +743,7 @@ app.mount("#app");
       vertical: "row-resize",
     },
     addStateClasses: false,
+    touchActions: true,
   };
 
   const styles = {
@@ -717,6 +758,7 @@ app.mount("#app");
         position: "absolute",
         display: "block",
         zIndex: 9999,
+        touchAction: "none",
       },
     ],
     splitter: [
@@ -766,7 +808,9 @@ app.mount("#app");
 
 ---
 
-Using `css` (preprocessors):
+Using `css` (preprocessors)
+
+> Specify `:options="{ addStateClasses: true }"` to add state classes to the `pane` element
 
 ```html
 <template>
@@ -803,7 +847,6 @@ $prefix: "resize-bounding-";
 .#{$prefix} {
   &-container {}
   &-pane {
-    .#{$prefix}splitter {}
     .#{$prefix}splitter {
       &--container {}
     }
@@ -812,7 +855,6 @@ $prefix: "resize-bounding-";
     /* * * States: * * */
 
     &.normal {
-      .#{$prefix}splitter {}
       .#{$prefix}splitter {
         &--container {}
       }
@@ -820,7 +862,6 @@ $prefix: "resize-bounding-";
     }
 
     &.focused {
-      .#{$prefix}splitter {}
       .#{$prefix}splitter {
         &--container {}
       }
@@ -828,7 +869,6 @@ $prefix: "resize-bounding-";
     }
 
     &.pressed {
-      .#{$prefix}splitter {}
       .#{$prefix}splitter {
         &--container {}
       }
@@ -841,40 +881,12 @@ $prefix: "resize-bounding-";
 
 ---
 
-#### Base styles:
-
-Below are the calculated styles (based on options):
-
-```ts
-const paneBaseStyles = (
-  size: number
-): Record<PaneDirections, HTMLAttributes["style"]> => {
-  const _offset = `${size / 2}px`;
-  return {
-    l: { top: "0px", left: _offset, width: "0px", height: "100%" },
-    r: { top: "0px", right: _offset, width: "0px", height: "100%" },
-    t: { left: "0px", top: _offset, width: "100%", height: "0px" },
-    b: { left: "0px", bottom: _offset, width: "100%", height: "0px" },
-  };
-};
-
-const splitterBaseStyles = (
-  size: number
-): Record<PaneDirections, HTMLAttributes["style"]> => {
-  const _size = `${size}px`;
-  return {
-    l: { right: "0px", width: _size, height: "100%" },
-    r: { left: "0px", width: _size, height: "100%" },
-    t: { bottom: "0px", height: _size, width: "100%" },
-    b: { top: "0px", height: _size, width: "100%" },
-  };
-};
-```
-
----
-
 ## Author
 
 **Mikhail Grebennikov** - [yamogoo](https://github.com/yamogoo)
 
 This project is licensed under the terms of the [MIT license](./LICENSE).
+
+```
+
+```

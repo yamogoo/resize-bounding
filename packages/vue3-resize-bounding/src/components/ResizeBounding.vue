@@ -67,6 +67,7 @@ import { getClassNames, PREFIX } from "./ResizeBounding.classNames";
 export const defaultOptions: ResizeBounding.Options = {
   prefix: PREFIX,
   width: 4,
+  activeAreaWidth: undefined,
   position: "central",
   knob: {
     show: false,
