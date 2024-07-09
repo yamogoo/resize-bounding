@@ -3,11 +3,13 @@
     :options="{
       prefix: PREFIX,
       width: 4,
+      activeAreaWidth: undefined,
+      position: 'central',
       knob: {
         show: true,
       },
       addStateClasses: true,
-      touchActions: false,
+      touchActions: true,
     }"
     :styles="{
       knob: [

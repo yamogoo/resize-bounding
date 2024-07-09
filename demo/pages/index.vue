@@ -42,7 +42,6 @@
                   transparent
                 />
               </template>
-              <!-- introWidth -->
               <AtomsCoverIntro
                 :title="'Supports Mouse & Touch Events'"
                 description="The versatile and user-friendly Vue3 component that enables

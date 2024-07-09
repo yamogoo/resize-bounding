@@ -46,6 +46,7 @@ describe("Boundarize", () => {
             cursor: undefined,
             knob: undefined,
             addStateClasses: true,
+            touchActions: false,
           },
         },
       });
@@ -70,16 +71,14 @@ describe("Boundarize", () => {
             cursor: undefined,
             knob: undefined,
             addStateClasses: true,
+            touchActions: false,
           },
         },
       });
 
       const paneEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
-      const splitterEl = wrapper.find(
-        `[data-testid="${DataTestIds.SPLITTER}"]`,
-      );
 
-      await splitterEl.trigger("pointerenter");
+      await paneEl.trigger("pointerenter");
 
       expect(paneEl.classes("focused")).toBeTruthy();
       expect(paneEl.classes("focused")).toMatchSnapshot();
@@ -96,7 +95,7 @@ describe("Boundarize", () => {
         },
       });
 
-      const rootEl = wrapper.find(`[data-testid="${DataTestIds.SPLITTER}"]`);
+      const rootEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
 
       test(`should emit "${Emits.FOCUS}" with state (true)`, async () => {
         await rootEl.trigger("pointerenter");
@@ -252,7 +251,7 @@ describe("Boundarize", () => {
           prefix: DEFAULT_PREFIX,
         });
 
-        const rootEl = wrapper.find(`[data-testid="${DataTestIds.SPLITTER}"]`);
+        const rootEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
 
         await rootEl.trigger("pointerenter");
         await rootEl.trigger("pointerleave");
@@ -270,7 +269,7 @@ describe("Boundarize", () => {
       ): Promise<void> => {
         await wrapper.setProps(props);
 
-        const rootEl = wrapper.find(`[data-testid="${DataTestIds.SPLITTER}"]`);
+        const rootEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
         await rootEl.trigger("pointerenter");
 
         const cursorStyle = rootEl.attributes("style");
@@ -345,6 +344,7 @@ describe("Boundarize", () => {
                     knob: undefined,
                     prefix: "",
                     addStateClasses: false,
+                    touchActions: false,
                   },
                 },
                 CUSTOM_ACTIVE_CURSOR,
@@ -353,11 +353,12 @@ describe("Boundarize", () => {
           );
 
           const SIZE = 12;
-          const paneMap = paneBaseStyles(SIZE);
-          const splitterMap = splitterBaseStyles(
+          const paneMap = paneBaseStyles(
+            SIZE,
             SIZE,
             ResizeBounding.SplitterPositions.CENTER,
           );
+          const splitterMap = splitterBaseStyles(SIZE, SIZE);
 
           test.each([
             [PaneDirections.LEFT, paneMap.l],
@@ -438,10 +439,9 @@ describe("Boundarize", () => {
         async (_customStyles, direction) => {
           const SPLITTER_WIDTH = 12;
 
-          const styles = splitterBaseStyles(
-            SPLITTER_WIDTH,
-            ResizeBounding.SplitterPositions.CENTER,
-          )[direction];
+          const styles = splitterBaseStyles(SPLITTER_WIDTH, SPLITTER_WIDTH)[
+            direction
+          ];
 
           const wrapper = shallowMount(ResizeBoundingPane, {
             props: {
@@ -495,6 +495,7 @@ describe("Boundarize", () => {
             cursor: {},
             prefix: "",
             addStateClasses: true,
+            touchActions: false,
           },
         },
         slots: {

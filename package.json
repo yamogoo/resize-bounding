@@ -1,6 +1,6 @@
 {
   "name": "vue3-boundarize-monorepo",
-  "description": "Intuitive resizing of inner user components via draggable boundary panes for Vue3",
+  "description": "Simple Vue 3 component for resizing nested components",
   "private": true,
   "author": {
     "name": "yamogoo",

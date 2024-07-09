@@ -17,6 +17,7 @@ export namespace ResizeBounding {
   export interface Options {
     prefix: string;
     width: number;
+    activeAreaWidth?: number;
     position: PanePosition;
     cursor: Partial<
       Record<"horizontal" | "vertical", CSSStyleDeclaration["cursor"]>
