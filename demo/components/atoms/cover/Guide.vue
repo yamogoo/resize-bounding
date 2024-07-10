@@ -15,15 +15,15 @@
     >
       {{ name }}
     </AtomsLinkBoxed>
-    <!-- <AtomsLinkBoxed>
+    <AtomsLinkBoxed @copy="onCopy(figmaUrl)">
       <AtomsLinkBasic
         :size="'lg'"
         :icon-name="'figma-logo'"
-        :to="'/'"
-        :name="'Vue3ResizeBounding'"
+        :to="figmaUrl"
+        :name="'ResizeBounding'"
         filled
       />
-    </AtomsLinkBoxed> -->
+    </AtomsLinkBoxed>
   </div>
 </template>
 
@@ -40,6 +40,9 @@ withDefaults(defineProps<Props>(), {
 const onCopy = (name: string | undefined): void => {
   if (name) navigator.clipboard.writeText(name);
 };
+
+const figmaUrl =
+  "https://www.figma.com/community/file/1392603830584852243/resize-bounding";
 
 const colorMode = useColorMode();
 

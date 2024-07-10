@@ -3,7 +3,7 @@
   "description": "Simple Vue 3 component for resizing nested components",
   "private": true,
   "version": "1.0.0",
-  "productVersion": "1.0.2",
+  "productVersion": "1.0.3",
   "type": "module",
   "author": {
     "name": "yamogoo",
