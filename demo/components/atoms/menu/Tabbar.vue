@@ -45,21 +45,25 @@ export interface TabbarItem<T> {
 
     &__item {
       @include use-font-size(--sm);
-      @include themify($app-themes) {
-        color: themed("text", "primary");
-      }
       cursor: pointer;
 
       &:not(.active) {
-        opacity: 0.35;
+        @include themify($app-themes) {
+          color: themed("text", "primary");
+        }
 
         &:hover {
-          opacity: 0.5 !important;
+          @include themify($app-themes) {
+            color: themed("colors", "accent");
+          }
         }
       }
 
       &.active {
         opacity: 1;
+        @include themify($app-themes) {
+          color: themed("colors", "accent");
+        }
       }
     }
   }

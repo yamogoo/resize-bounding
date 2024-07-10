@@ -6,7 +6,8 @@ $app-themes: (
     background: (
       primary: $c-black,
       primary--invert: $c-white,
-      secondary: $c-app--dark,
+      secondary: #181818,
+      //$c-app--dark,
       inactive: $c-deep-gray,
     ),
     text: (
@@ -17,8 +18,8 @@ $app-themes: (
       inactive: #656565,
     ),
     border: (
-      primary: darken($c-gray, 8%),
-      secondary: darken($c-gray, 3%),
+      primary: darken($c-gray, 12%),
+      secondary: darken($c-gray, 12%),
     ),
     scrollbar: (
       thumb: $c-white,
@@ -58,8 +59,8 @@ $app-themes: (
       inactive: #656565,
     ),
     border: (
-      primary: lighten($c-fade-gray, 3%),
-      secondary: lighten($c-fade-gray, 3%),
+      primary: lighten($c-fade-gray, 6%),
+      secondary: lighten($c-fade-gray, 6%),
     ),
     scrollbar: (
       thumb: $c-black,

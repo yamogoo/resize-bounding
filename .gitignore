@@ -27,3 +27,5 @@ dist-ssr
 tests-report
 # Local Netlify folder
 .netlify
+
+*-e
