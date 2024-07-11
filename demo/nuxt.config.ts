@@ -50,6 +50,10 @@ export default defineNuxtConfig({
     },
   },
 
+  robots: {
+    disallow: [],
+  },
+
   devtools: { enabled: true },
 
   nitro: {
@@ -61,6 +65,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       appName: packageJson.name,
+      appTitle: packageJson.title,
       appDescription: packageJson.description,
       productVersion: packageJson.productVersion,
     },
@@ -78,6 +83,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxt/test-utils/module",
     "nuxt-icons",
+    "nuxt-simple-robots",
   ],
 
   colorMode: {

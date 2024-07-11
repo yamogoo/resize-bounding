@@ -1,10 +1,10 @@
-![image](https://raw.githubusercontent.com/yamogoo/vue3-resize-bounding/v1.0.3/images/resize-bounding.svg)
+![image](https://raw.githubusercontent.com/yamogoo/vue3-resize-bounding/v1.0.4/images/resize-bounding.svg)
 
-# Vue3 Resize Bounding ![Version](https://img.shields.io/badge/version-1.0.3-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# Vue3 Resize Bounding ![Version](https://img.shields.io/badge/version-1.0.4-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Vue3 Resize Bounding** is a simple, custom component for Vue 3 that allows you to intuitively resize nested components using draggable border panels. It easily increases interactivity and control.
 
-![image](https://github.com/yamogoo/vue3-resize-bounding/blob/v1.0.3/images/resize-bounding.gif)
+![image](https://github.com/yamogoo/vue3-resize-bounding/blob/v1.0.4/images/resize-bounding.gif)
 
 [Demo](https://vue3-resize-bounding.netlify.app/)
 
@@ -210,7 +210,7 @@ app.mount("#app");
           <code><b>height</b></code>
         </td>
         <td><code>number | undefined</code></td>
-        <td align="center"><code>0</code></td>
+        <td align="center"><code>undefined</code></td>
         <td colspan="2">Set current container height</td>
       </tr>
       <tr>
@@ -595,9 +595,6 @@ app.mount("#app");
   {
     displayName: globalClassNames(prefix).splitterContainer,
     position: "relative",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
     top: "50%",
     left: "50%",
     width: `0px`,
@@ -629,14 +626,16 @@ app.mount("#app");
       <tr>
         <td colspan="2">default value</td>
         <td colspan="2">
-          <pre><code>knob: [ globalClassNames(prefix).knob,
+          <pre><code>knob: [
+  globalClassNames(prefix).knob,
   {
     displayName: globalClassNames(prefix).knob,
-    position: "absolute",
+    position: "relative",
     width: "64px",
     height: "8px",
     background: "gray",
     borderRadius: "4px",
+    transform: "translate(-50%, -50%)",
     transition: "background 125ms ease-out",
     [`.${globalClassNames(prefix).pane} :hover &`]: {
       background: "cornflowerblue",
@@ -776,30 +775,28 @@ app.mount("#app");
       },
     ],
     splitterContainer: [
-      `${PREFIX}splitter--container`,
+      globalClassNames(prefix).splitterContainer,
       {
-        displayName: `${PREFIX}splitter--container`,
+        displayName: globalClassNames(prefix).splitterContainer,
         position: "relative",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
         top: "50%",
         left: "50%",
-        width: "0px",
-        height: "0px",
+        width: `0px`,
+        height: `0px`,
       },
     ],
     knob: [
-      `${PREFIX}knob`,
+      globalClassNames(prefix).knob,
       {
-        displayName: `${PREFIX}knob`,
-        position: "absolute",
+        displayName: globalClassNames(prefix).knob,
+        position: "relative",
         width: "64px",
         height: "8px",
         background: "gray",
-        borderRadius: "8px",
+        borderRadius: "4px",
+        transform: "translate(-50%, -50%)",
         transition: "background 125ms ease-out",
-        [`.${PREFIX}pane :hover &`]: {
+        [`.${globalClassNames(prefix).pane} :hover &`]: {
           background: "cornflowerblue",
         },
       },

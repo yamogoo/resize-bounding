@@ -43,9 +43,6 @@ export const defaultStyles = (prefix: string): ResizeBounding.IStyles => ({
     {
       displayName: globalClassNames(prefix).splitterContainer,
       position: "relative",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
       top: "50%",
       left: "50%",
       width: `0px`,
@@ -56,11 +53,12 @@ export const defaultStyles = (prefix: string): ResizeBounding.IStyles => ({
     globalClassNames(prefix).knob,
     {
       displayName: globalClassNames(prefix).knob,
-      position: "absolute",
+      position: "relative",
       width: "64px",
       height: "8px",
       background: "gray",
       borderRadius: "4px",
+      transform: "translate(-50%, -50%)",
       transition: "background 125ms ease-out",
       [`.${globalClassNames(prefix).pane} :hover &`]: {
         background: "cornflowerblue",

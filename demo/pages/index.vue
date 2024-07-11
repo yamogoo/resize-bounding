@@ -145,7 +145,7 @@ import { ref, type Ref } from "vue";
 const runtimeConfig = useRuntimeConfig();
 
 useHead({
-  title: runtimeConfig.public.appName,
+  title: runtimeConfig.public.appTitle,
   meta: [
     {
       name: "description",

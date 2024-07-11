@@ -28,4 +28,4 @@ tests-report
 # Local Netlify folder
 .netlify
 
-*-e
+*.back
