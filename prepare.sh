@@ -1,9 +1,10 @@
 #!/bin/bash
 
-ICON=resize-bounding.svg
+LOGO=resize-bounding.svg
+LOGO_WITH_DESCRIPTOR=resize-bounding-w-descriptor.svg
 PREVIEW=resize-bounding.gif
 README=README.md
-IMAGES_PATH=images
+IMAGES_PATH=shared/images
 LIB_PATH=packages/vue3-resize-bounding
 DEMO_PATH=demo
 DEMO_PUBLIC_PATH=$DEMO_PATH/public
@@ -41,9 +42,11 @@ get_description $MONOREPO_PACKAGE_JSON
 cp $MONOREPO_LICENSE $LIB_LICENSE
 
 # copy assets:
-cp $IMAGES_PATH/$ICON $LIB_PATH
-cp $IMAGES_PATH/$ICON $DEMO_PUBLIC_PATH
+cp $IMAGES_PATH/$LOGO $LIB_PATH
+cp $IMAGES_PATH/$LOGO_WITH_DESCRIPTOR $LIB_PATH
 cp $IMAGES_PATH/$PREVIEW $LIB_PATH
+
+cp $IMAGES_PATH/$LOGO $DEMO_PUBLIC_PATH
 cp $IMAGES_PATH/$PREVIEW $DEMO_PUBLIC_PATH
 
 # change and copy README:
@@ -53,5 +56,6 @@ cp $README $LIB_PATH/$README
 # change PKG files:
 change_pkg productVersion $VERSION $DEMO_PACKAGE_JSON
 change_pkg description "$DESCRIPTION" $DEMO_PACKAGE_JSON
+
 change_pkg version $VERSION $LIB_PACKAGE_JSON
 change_pkg description "$DESCRIPTION" $LIB_PACKAGE_JSON
