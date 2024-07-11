@@ -15,9 +15,8 @@
       knob: [
         globalClassNames(PREFIX).knob,
         {
-          position: 'absolute',
           width: '64px',
-          height: '8px',
+          height: '6px',
           borderRadius: '4px',
           transition: 'background 75ms ease-out',
           ['.pane :hover &']: {

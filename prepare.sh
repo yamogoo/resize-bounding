@@ -3,7 +3,7 @@
 ICON=resize-bounding.svg
 PREVIEW=resize-bounding.gif
 README=README.md
-IMAGES_PATH=images
+IMAGES_PATH=shared/images
 LIB_PATH=packages/vue3-resize-bounding
 DEMO_PATH=demo
 DEMO_PUBLIC_PATH=$DEMO_PATH/public
@@ -21,16 +21,21 @@ function get_version {
     VERSION=$(grep version $1 | sed "s/.*\"version\": \"\($VERSION_PATTERN\)\".*/\1/")
 }
 
-function change_readme_version () {
-    sed -i -e "s/version-$VERSION_PATTERN-blue/version-$1-blue/g" $2
-    sed -i -e "s@/v$VERSION_PATTERN@/v$1@g" $2
+function get_description {
+    DESCRIPTION=$(grep description $1 | sed "s/.*\"description\": \"\(.*\)\".*/\1/")
 }
 
-function change_pkg_version {
-    sed -i -e "s@\(.*\"$1\"\): \"\(.*\)\"@\1: ""\"$VERSION\"@" $2
+function change_readme_version () {
+    sed -i .back "s/version-$VERSION_PATTERN-blue/version-$1-blue/g" $2
+    sed -i .back "s@/v$VERSION_PATTERN@/v$1@g" $2
+}
+
+function change_pkg {
+     sed -i .back "s@\(.*\"$1\"\): \"\(.*\)\"@\1: ""\"$2\"@" $3
 }
 
 get_version $MONOREPO_PACKAGE_JSON
+get_description $MONOREPO_PACKAGE_JSON
 
 # update LICENSE:
 cp $MONOREPO_LICENSE $LIB_LICENSE
@@ -46,5 +51,7 @@ change_readme_version $VERSION $README
 cp $README $LIB_PATH/$README
 
 # change PKG files:
-change_pkg_version productVersion $DEMO_PACKAGE_JSON
-change_pkg_version version $LIB_PACKAGE_JSON
+change_pkg productVersion $VERSION $DEMO_PACKAGE_JSON
+change_pkg description "$DESCRIPTION" $DEMO_PACKAGE_JSON
+change_pkg version $VERSION $LIB_PACKAGE_JSON
+change_pkg description "$DESCRIPTION" $LIB_PACKAGE_JSON

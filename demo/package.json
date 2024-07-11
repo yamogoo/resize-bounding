@@ -1,9 +1,10 @@
 {
   "name": "resize-bounding-demo",
-  "description": "Simple Vue 3 component for resizing nested components",
+  "title": "Vue3 resize bounding (vue3 resizer)",
+  "description": "Simple Vue3 component for resizing nested content",
   "private": true,
-  "version": "1.0.0",
-  "productVersion": "1.0.3",
+  "version": "1.0.1",
+  "productVersion": "1.0.4",
   "type": "module",
   "author": {
     "name": "yamogoo",
@@ -41,6 +42,7 @@
     "@vue/test-utils": "^2.4.6",
     "gsap": "^3.12.5",
     "lightningcss": "^1.25.1",
+    "nuxt-simple-robots": "4.0.0-rc.20",
     "pinia": "^2.1.7",
     "sass": "^1.77.6",
     "terser": "^5.31.1"

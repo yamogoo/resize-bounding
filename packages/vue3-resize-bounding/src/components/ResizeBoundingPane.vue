@@ -24,7 +24,7 @@
         "
         data-testid="resize-bounding-splitter-container"
         :class="[classNames.splitterContainer]"
-        :style="[knobComputedStyle]"
+        :style="[containerComputedStyles]"
       >
         <div data-testid="resize-bounding-knob" :class="[classNames.knob]">
           <slot v-if="$slots.default"></slot>
@@ -95,7 +95,7 @@ const isPressed = ref(false);
 
 let isResizing = false;
 
-const knobComputedStyle = computed(() => {
+const containerComputedStyles = computed(() => {
   const isHorizontal = checkIsHorizontal();
   return { transform: `rotate(${isHorizontal ? 90 : 0}deg)` };
 });
