@@ -3,7 +3,7 @@
 ICON=resize-bounding.svg
 PREVIEW=resize-bounding.gif
 README=README.md
-IMAGES_PATH=shared/images
+IMAGES_PATH=images
 LIB_PATH=packages/vue3-resize-bounding
 DEMO_PATH=demo
 DEMO_PUBLIC_PATH=$DEMO_PATH/public
