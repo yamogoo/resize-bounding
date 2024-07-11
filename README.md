@@ -1,10 +1,10 @@
-![image](https://raw.githubusercontent.com/yamogoo/vue3-resize-bounding/v1.0.4/images/resize-bounding.svg)
+![image](https://raw.githubusercontent.com/yamogoo/vue3-resize-bounding/v1.0.5/shared/images/resize-bounding-w-descriptor.svg)
 
-# Vue3 Resize Bounding ![Version](https://img.shields.io/badge/version-1.0.4-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Version](https://img.shields.io/badge/version-1.0.5-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Vue3 Resize Bounding** is a simple, custom component for Vue 3 that allows you to intuitively resize nested components using draggable border panels. It easily increases interactivity and control.
 
-![image](https://github.com/yamogoo/vue3-resize-bounding/blob/v1.0.4/images/resize-bounding.gif)
+![image](https://github.com/yamogoo/vue3-resize-bounding/blob/v1.0.5/shared/images/resize-bounding.gif)
 
 [Demo](https://vue3-resize-bounding.netlify.app/)
 

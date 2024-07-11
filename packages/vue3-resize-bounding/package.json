@@ -1,7 +1,7 @@
 {
   "name": "vue3-resize-bounding",
   "description": "Simple Vue3 component for resizing nested content",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "license": "MIT",
   "author": {
     "name": "yamogoo",

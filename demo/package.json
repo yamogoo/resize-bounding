@@ -4,7 +4,7 @@
   "description": "Simple Vue3 component for resizing nested content",
   "private": true,
   "version": "1.0.1",
-  "productVersion": "1.0.4",
+  "productVersion": "1.0.5",
   "type": "module",
   "author": {
     "name": "yamogoo",
