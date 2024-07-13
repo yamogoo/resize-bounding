@@ -1,0 +1,31 @@
+$__border-color: gray;
+$__background--primary: #e8ebec;
+
+%container--normal {
+  background: $__background--primary;
+}
+
+.boundarize-app {
+  display: flex;
+  @include box(100%);
+
+  * {
+    user-select: none;
+  }
+
+  &--container {
+    @include box(100%);
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  &__layout {
+    display: flex;
+    flex-direction: column;
+    @include box(100%);
+    @extend %container--normal;
+    border: 1px solid $__border-color;
+    border-radius: 24px;
+    overflow: hidden;
+  }
+}

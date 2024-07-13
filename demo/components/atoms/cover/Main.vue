@@ -76,7 +76,10 @@
         data-testid="ui-main-cover-footer"
       >
         <AtomsGroupContent direction="v" alignment="center">
-          <AtomsBadgeVersion :version />
+          <AtomsBadgeVersion
+            label="version"
+            :version="`${vueVersion} / ${reactVersion}`"
+          />
           <span class="ui-main-cover__date">2024</span>
         </AtomsGroupContent>
       </AtomsGroupContent>
@@ -88,7 +91,8 @@
 interface Props {
   title?: string;
   description?: string;
-  version?: string;
+  vueVersion?: string;
+  reactVersion?: string;
   imagePath?: string;
 }
 

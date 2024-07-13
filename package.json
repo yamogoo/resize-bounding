@@ -1,6 +1,6 @@
 {
   "name": "vue3-boundarize-monorepo",
-  "description": "Simple Vue3 component for resizing nested content",
+  "description": "component for resizing nested content",
   "keywords": [
     "vue3",
     "resizer",
@@ -11,8 +11,9 @@
     "resize container",
     "draggable container"
   ],
-  "version": "1.0.5",
-  "private": true,
+  "vueVersion": "2.0.1",
+  "reactVersion": "1.0.1",
+  "private": false,
   "author": {
     "name": "yamogoo",
     "email": "grebennikovmisha@gmail.com"

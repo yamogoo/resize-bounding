@@ -19,7 +19,6 @@ export default defineNuxtConfig({
         {
           rel: "preconnect",
           href: "https://fonts.gstatic.com",
-          // crossorigin,
         },
         {
           rel: "stylesheet",
@@ -67,7 +66,8 @@ export default defineNuxtConfig({
       appName: packageJson.name,
       appTitle: packageJson.title,
       appDescription: packageJson.description,
-      productVersion: packageJson.productVersion,
+      productVueVersion: packageJson.productVueVersion,
+      productReactVersion: packageJson.productReactVersion,
     },
   },
 

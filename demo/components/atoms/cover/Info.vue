@@ -38,12 +38,13 @@
 
       p {
         letter-spacing: 0.025em;
+        margin: 0;
+        text-align: center;
+
         @include use-font-size(--xs);
         @include themify($app-themes) {
           color: themed("text", "secondary");
         }
-        margin: 0;
-        text-align: center;
       }
     }
   }

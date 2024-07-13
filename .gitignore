@@ -29,3 +29,4 @@ tests-report
 .netlify
 
 *.back
+.pnpm-lock.yaml

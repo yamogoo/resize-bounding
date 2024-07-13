@@ -51,6 +51,13 @@
         <NuxtLink to="/">
           <img
             class="ui-main-intro__logo"
+            src="/react-logo--invert.svg"
+            alt="react logo"
+          />
+        </NuxtLink>
+        <NuxtLink to="/">
+          <img
+            class="ui-main-intro__logo"
             src="/figma-logo--invert.svg"
             alt="figma logo"
           />
@@ -85,18 +92,21 @@ onUnmounted(() => {
   position: relative;
   display: grid;
   grid-template-rows: 1fr auto;
-  @include box(100%);
 
-  @include respond-above(lg) {
-    padding: 40px;
-  }
+  & {
+    @include box(100%);
 
-  @include respond-between(md, lg) {
-    padding: 32px;
-  }
+    @include respond-above(lg) {
+      padding: 40px;
+    }
 
-  @include respond-below(md) {
-    padding: 20px;
+    @include respond-between(md, lg) {
+      padding: 32px;
+    }
+
+    @include respond-below(md) {
+      padding: 20px;
+    }
   }
 
   &--body {
@@ -116,6 +126,7 @@ onUnmounted(() => {
     width: 100%;
     flex-direction: row-reverse;
     gap: 20px;
+
     @include padding-h(20px);
     @include padding-v(20px);
   }
@@ -129,9 +140,9 @@ onUnmounted(() => {
 
     &--sm {
       // @extend %text--sm;
-      @include use-font-size(--xxs);
       text-transform: uppercase;
       letter-spacing: 1.3px;
+      @include use-font-size(--xxs);
     }
   }
 

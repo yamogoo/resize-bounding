@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "ESNext",
+        "target": "ESNext",
+        "moduleResolution": "Node",
+        "strict": true,
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "allowSyntheticDefaultImports": true,
+        "lib": ["ES2020", "ESNext", "DOM", "DOM.Iterable"],
+        "types": ["vite/client"],
+        "rootDir": "./lib",
+        "baseUrl": "./lib",
+        "outDir": "dist",
+        "useDefineForClassFields": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": false,
+        "forceConsistentCasingInFileNames": true,
+    },
+    "include": ["lib/**/*", "*.d.ts"],
+    "exclude": ["src/**/__tests__", "src/tests-report"],
+}

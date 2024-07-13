@@ -41,15 +41,15 @@ withDefaults(defineProps<Props>(), {
 
   &--container {
     display: flex;
+    overflow: hidden;
+    @extend %border-radius--lg;
+    @extend %transition;
     @include flex-col(center);
     @include box(100%);
-    @extend %border-radius--lg;
     @include themify($app-themes) {
       background: themed("background", "primary");
     }
     @include use-themed-border(all, "secondary");
-    overflow: hidden;
-    @extend %transition;
   }
 
   &__control-panel {

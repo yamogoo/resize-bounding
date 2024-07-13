@@ -1,10 +1,11 @@
 {
   "name": "resize-bounding-demo",
   "title": "Vue3 resize bounding (vue3 resizer)",
-  "description": "Simple Vue3 component for resizing nested content",
+  "description": "component for resizing nested content",
   "private": true,
   "version": "1.0.1",
-  "productVersion": "1.0.5",
+  "productVueVersion": "2.0.1",
+  "productReactVersion": "1.0.1",
   "type": "module",
   "author": {
     "name": "yamogoo",
@@ -25,11 +26,8 @@
   "dependencies": {
     "@nuxt/content": "^2.13.0",
     "core-styles": "workspace:^",
-    "npm": "^10.8.1",
     "nuxt": "^3.12.3",
-    "nuxt-icons": "^3.2.1",
     "prismjs": "^1.29.0",
-    "vitest": "^1.6.0",
     "vue": "latest",
     "vue3-resize-bounding": "workspace:^"
   },
@@ -38,13 +36,17 @@
     "@nuxt/test-utils": "^3.13.1",
     "@nuxtjs/color-mode": "^3.4.2",
     "@types/prismjs": "^1.26.4",
-    "@vitest/ui": "^1.6.0",
+    "@vitest/ui": "^2.0.2",
     "@vue/test-utils": "^2.4.6",
+    "deepmerge": "^4.3.1",
+    "eslint": "^9.7.0",
     "gsap": "^3.12.5",
     "lightningcss": "^1.25.1",
+    "nuxt-icons": "^3.2.1",
     "nuxt-simple-robots": "4.0.0-rc.20",
     "pinia": "^2.1.7",
-    "sass": "^1.77.6",
-    "terser": "^5.31.1"
+    "sass": "^1.77.8",
+    "terser": "^5.31.2",
+    "vitest": "^2.0.2"
   }
 }
