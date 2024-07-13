@@ -8,11 +8,11 @@
 #app,
 body,
 #__nuxt {
-  @include box(100vw, 100vh);
   margin: 0;
   padding: 0;
   font-family: "Roboto", sans-serif;
   overflow: hidden;
+  @include box(100vw, 100vh);
 
   * {
     box-sizing: border-box;

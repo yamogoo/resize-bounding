@@ -1,0 +1,34 @@
+.ui {
+  &-input {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    padding: 0px 12px;
+    color: inherit;
+
+    &__label,
+    input,
+    span {
+      font-size: 14px;
+      letter-spacing: 0.3px;
+      align-self: center;
+      color: inherit;
+    }
+
+    input,
+    span {
+      @include box(100%);
+      background: none;
+      border: none;
+      outline: none;
+    }
+
+    span {
+      height: max-content;
+    }
+
+    &.disabled {
+      opacity: 0.5;
+    }
+  }
+}

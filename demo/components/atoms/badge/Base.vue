@@ -25,8 +25,8 @@ export interface Props {
   &-badge {
     display: flex;
     flex-direction: row;
-    @include use-border-radius(--sm);
     overflow: hidden;
+    @include use-border-radius(--sm);
 
     @include themify($app-themes) {
       border: 1px solid themed("colors", "accent");

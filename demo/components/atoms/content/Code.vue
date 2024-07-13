@@ -98,11 +98,6 @@ const onCopy = (code: string | undefined) => {
       width: 100%;
       background: none;
       font-family: "Fira Mono", Monaco, "Andale Mono", "Ubuntu Mono", monospace;
-      @include use-font-size(--xs);
-      @include themify($app-themes) {
-        color: themed("code", "text");
-      }
-
       text-align: left;
       white-space: break-spaces;
       word-spacing: normal;
@@ -119,29 +114,29 @@ const onCopy = (code: string | undefined) => {
       hyphens: none;
 
       @extend %transition;
+      @include use-font-size(--xs);
+      @include themify($app-themes) {
+        color: themed("code", "text");
+      }
     }
 
     /* Code blocks */
     pre[class*="language-"] {
       position: relative;
-      @include themify($app-themes) {
-        background: themed("code", "background");
-        // background-image: linear-gradient(
-        //   transparent 50%,
-        //   themed("code", "row") 50%
-        // );
-      }
+      background-size: 3em calc($line-height * 2);
+      background-origin: content-box;
+      background-attachment: local;
+      margin: 0.5em 0;
+      padding: 0 1em;
 
       background-image: linear-gradient(
         transparent 50%,
         rgba(255, 255, 255, 0.125) 50%
       );
 
-      background-size: 3em calc($line-height * 2);
-      background-origin: content-box;
-      background-attachment: local;
-      margin: 0.5em 0;
-      padding: 0 1em;
+      @include themify($app-themes) {
+        background: themed("code", "background");
+      }
     }
 
     pre[class*="language-"] > code {

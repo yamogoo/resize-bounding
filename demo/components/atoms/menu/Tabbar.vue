@@ -44,8 +44,8 @@ export interface TabbarItem<T> {
     }
 
     &__item {
-      @include use-font-size(--sm);
       cursor: pointer;
+      @include use-font-size(--sm);
 
       &:not(.active) {
         @include themify($app-themes) {

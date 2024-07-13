@@ -1,0 +1,11 @@
+{
+    "exclude": [],
+    "compilerOptions": {
+        "composite": true,
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "lib": [],
+        "types": ["node", "jsdom"]
+    },
+    "include": ["vitest.config.ts"]
+}

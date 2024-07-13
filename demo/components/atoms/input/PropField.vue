@@ -24,41 +24,45 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <style lang="scss">
-.ui {
-  &-prop-field {
-    display: flex;
-    flex-direction: row;
-    padding: 0px 12px;
+.ui-prop-field {
+  display: flex;
+  flex-direction: row;
+  padding: 0px 12px;
+  color: inherit;
+
+  &__label {
+    margin-right: 3px;
+  }
+
+  &__label,
+  &__value,
+  &__unit,
+  span {
+    letter-spacing: 0.3px;
+    align-self: center;
     color: inherit;
 
-    &__label {
-      margin-right: 3px;
-    }
-
-    &__label,
-    &__value,
-    &__unit,
-    span {
+    & {
       @include use-font-size(--xxs);
-      letter-spacing: 0.3px;
-      align-self: center;
-      color: inherit;
     }
+  }
 
-    span {
-      @include box(100%);
+  span {
+    @include box(100%);
+
+    & {
       background: none;
       border: none;
       outline: none;
     }
+  }
 
-    span {
-      height: max-content;
-    }
+  span {
+    height: max-content;
+  }
 
-    &.disabled {
-      opacity: 0.5;
-    }
+  &.disabled {
+    opacity: 0.5;
   }
 }
 </style>

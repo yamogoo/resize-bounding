@@ -1,4 +1,7 @@
 packages:
   - "demo"
   - "packages/**"
-  - "packages/playground"
+  - "packages/vue"
+  - "packages/vue/playground"
+  - "packages/react"
+  - "packages/react/playground"

@@ -29,7 +29,8 @@
                 </template>
                 <AtomsCoverMain
                   title="Resize Bounding"
-                  :version="runtimeConfig.public.productVersion"
+                  :vue-version="runtimeConfig.public.productVueVersion"
+                  :react-version="runtimeConfig.public.productReactVersion"
                 />
               </AtomsContainerRounded>
             </AtomsContainerResizeBounding>
@@ -44,9 +45,7 @@
               </template>
               <AtomsCoverIntro
                 :title="'Supports Mouse & Touch Events'"
-                description="The versatile and user-friendly Vue3 component that enables
-                  intuitive resizing of inner user components via draggable
-                  boundary panes."
+                description="A simple Vue3/React component that allows you to intuitively resize internal custom components using draggable border panels."
                 :image-path="'/resize-bounding-cover.svg'"
               />
             </AtomsContainerRounded>
@@ -77,7 +76,7 @@
                 <AtomsCoverGuide
                   :links="[
                     { name: 'npm i vue3-resize-bounding' },
-                    { name: 'yarn add vue3-resize-bounding' },
+                    { name: 'npm i react-resize-bounding' },
                   ]"
                 />
               </AtomsContainerRounded>
@@ -269,9 +268,10 @@ onUnmounted(() => {
     flex-direction: column;
     @include box(100%);
     @extend %container--normal;
+    overflow: hidden;
+
     @include use-themed-border(all);
     @include use-border-radius(--xl);
-    overflow: hidden;
   }
 }
 

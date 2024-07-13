@@ -44,8 +44,8 @@ useClickOutside(refIcon, () => {
     }
 
     &__label {
-      @include use-font-size(--xs);
       margin: 0 6px;
+      @include use-font-size(--xs);
     }
 
     svg {
