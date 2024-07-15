@@ -18,7 +18,7 @@
 
 ```html
 <!-- @filename: MyComponent.vue -->
-<script>
+<script setup lang="ts">
   import { ref } from "vue";
   import ResizeBounding from "vue3-resize-bounding";
 
@@ -26,20 +26,32 @@
 </script>
 
 <template>
-  <resize-bounding
+  <ResizeBounding
     :width="container.width"
     :height="container.height"
     :min-width="240"
     :max-width="480"
     :min-height="120"
-    :style="{ border: "1px solid gray" }"
+    :directions="'hv'"
+    :options="{
+        knob: {
+          show: true
+        }
+    }"
+    :style="{ border: '1px solid gray' }"
     @update:width="(width) => (container.width = width)"
     @update:height="(height) => (container.height = height)"
   >
     <!-- CONTENT START -->
-    <div :style="{ width:'100%'; height: '100%' }">My Container</div>
+    <div :style="{ width: '100%', height: '100%' }">My Container</div>
     <!-- CONTENT END -->
-  </resize-bounding>
+
+    <!-- KNOB INNER CONTENT START -->
+    <template #knob>
+      <div class="some-icon"></div>
+    </template>
+    <!-- KNOB INNER CONTENT END -->
+  </ResizeBounding>
 </template>
 ```
 
@@ -50,22 +62,28 @@
 import { useState } from "react";
 import ResizeBounding from "react-resize-bounding";
 
-export default function MyComponent() {
+export default function App() {
   const [width, setWidth] = useState(320);
   const [height, setHeight] = useState(480);
 
   return (
-    <resize-bounding
+    <ResizeBounding
       width={width}
       height={height}
+      directions="hv"
       updateWidth={(width) => setWidth(width)}
       updateHeight={(height) => setHeight(height)}
       style={{ border: "1px solid gray" }}
+      options={{
+        knob: {
+          show: true,
+        },
+      }}
     >
       {/* CONTENT START */}
       <div style={{ width: "100%", height: "100%" }}>My Container</div>
       {/* CONTENT END */}
-    </resize-bounding>
+    </ResizeBounding>
   );
 }
 ```

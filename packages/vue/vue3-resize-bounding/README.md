@@ -23,7 +23,7 @@ Usage
 
 ```html
 <!-- @filename: MyComponent.vue -->
-<script>
+<script setup lang="ts">
   import { ref } from "vue";
   import ResizeBounding from "vue3-resize-bounding";
 
@@ -31,19 +31,24 @@ Usage
 </script>
 
 <template>
-  <resize-bounding
+  <ResizeBounding
     :width="container.width"
     :height="container.height"
     :min-width="240"
     :max-width="480"
     :min-height="120"
-    :options="{ knob: { show: true } }"
-    :style="{ border: "1px solid gray" }"
+    :directions="'hv'"
+    :options="{
+        knob: {
+          show: true
+        }
+    }"
+    :style="{ border: '1px solid gray' }"
     @update:width="(width) => (container.width = width)"
     @update:height="(height) => (container.height = height)"
   >
     <!-- CONTENT START -->
-    <div style="{width: '100%', height: '100%'}">My Container</div>
+    <div :style="{ width: '100%', height: '100%' }">My Container</div>
     <!-- CONTENT END -->
 
     <!-- KNOB INNER CONTENT START -->
@@ -51,7 +56,7 @@ Usage
       <div class="some-icon"></div>
     </template>
     <!-- KNOB INNER CONTENT END -->
-  </resize-bounding>
+  </ResizeBounding>
 </template>
 ```
 
@@ -85,7 +90,7 @@ app.mount("#app");
           <code><b>directions</b></code>
         </td>
         <td rowspan="9"><code>string</code></td>
-        <td rowspan="9" align="center"><code>'hv'</code></td>
+        <td rowspan="9" align="center"><code>''</code></td>
       </tr>
       <tr>
         <td colspan="2">
@@ -699,19 +704,28 @@ Using `css` (preprocessors)
 Use the included `:options="{ addStateClasses: true }"` flag to style the `.selected` and `.pressed` states separately.
 
 ```html
+<script setup lang="ts">
+  import { ref } from "vue";
+  import ResizeBounding from "vue3-resize-bounding";
+
+  const container = ref({ width: 320, height: 480 });
+</script>
+
 <template>
-  <resize-bounding
+  <ResizeBounding
     :width="container.width"
     :height="container.height"
     :min-width="240"
     :max-width="480"
     :min-height="120"
+    :directions="'hv'"
     :options="{ addStateClasses: true, knob: { show: true } }"
+    :style="{ border: '1px solid gray' }"
     @update:width="(width) => (container.width = width)"
     @update:height="(height) => (container.height = height)"
   >
     <!-- CONTENT START -->
-    <div style="{width: '100%', height: '100%'}">My Container</div>
+    <div :style="{ width: '100%', height: '100%' }">My Container</div>
     <!-- CONTENT END -->
 
     <!-- KNOB INNER CONTENT START -->
@@ -719,13 +733,8 @@ Use the included `:options="{ addStateClasses: true }"` flag to style the `.sele
       <div class="some-icon"></div>
     </template>
     <!-- KNOB INNER CONTENT END -->
-  </resize-bounding>
+  </ResizeBounding>
 </template>
-
-<script>
-  import { ref } from "vue";
-  const container = ref({ width: 320, height: 480 });
-</script>
 
 <style lang="scss">
   $prefix: "resize-bounding-";

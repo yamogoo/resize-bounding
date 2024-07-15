@@ -26,7 +26,7 @@ Usage
 import { useState } from "react";
 import ResizeBounding from "react-resize-bounding";
 
-export default function MyComponent() {
+export default function App() {
   const [width, setWidth] = useState(320);
   const [height, setHeight] = useState(480);
 
@@ -34,10 +34,11 @@ export default function MyComponent() {
     <ResizeBounding
       width={width}
       height={height}
+      directions="hv"
       updateWidth={(width) => setWidth(width)}
       updateHeight={(height) => setHeight(height)}
-      options={{ knob: { show: true } }}
       style={{ border: "1px solid gray" }}
+      options={{ knob: { show: true } }}
       // KNOB INNER CONTENT START
       knob={<div className="some-icon"></div>}
       // KNOB INNER CONTENT END
@@ -67,7 +68,7 @@ export default function MyComponent() {
           <code><b>directions</b></code>
         </td>
         <td rowspan="9"><code>string</code></td>
-        <td rowspan="9" align="center"><code>'hv'</code></td>
+        <td rowspan="9" align="center"><code>''</code></td>
       </tr>
       <tr>
         <td colspan="2">
@@ -679,7 +680,7 @@ Use the included `:options="{ addStateClasses: true }"` flag to style the `.sele
 import { useState } from "react";
 import ResizeBounding from "react-resize-bounding";
 
-export default function MyComponent() {
+export default function App() {
   const [width, setWidth] = useState(320);
   const [height, setHeight] = useState(480);
 
@@ -687,10 +688,11 @@ export default function MyComponent() {
     <ResizeBounding
       width={width}
       height={height}
+      directions="hv"
       updateWidth={(width) => setWidth(width)}
       updateHeight={(height) => setHeight(height)}
-      options={{ addStateClasses: true, knob: { show: true } }}
       style={{ border: "1px solid gray" }}
+      options={{ addStateClasses: true, knob: { show: true } }}
       // KNOB INNER CONTENT START
       knob={<div className="some-icon"></div>}
       // KNOB INNER CONTENT END
