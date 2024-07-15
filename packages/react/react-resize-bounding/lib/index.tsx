@@ -1,4 +1,4 @@
-import ResizeBounding from "./components/ResizeBounding";
+import ResizeBounding, { type Props } from "./components/ResizeBounding";
 
 export {
   PaneDirections,
@@ -19,4 +19,5 @@ export {
   getClassNames,
 } from "./components/ResizeBounding.classNames";
 
+export { type Props };
 export default ResizeBounding;

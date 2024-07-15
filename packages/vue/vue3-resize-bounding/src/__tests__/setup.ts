@@ -1,4 +1,4 @@
-export const DEFAULT_PREFIX = "resize-bounding";
+export { PREFIX } from "../../lib/components/ResizeBounding.classNames";
 
 export enum DataTestIds {
   ROOT = "resize-bounding-container",

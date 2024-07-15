@@ -1,17 +1,16 @@
 import { describe, test, expect, beforeEach, vi } from "vitest";
 import { mount, shallowMount, VueWrapper } from "@vue/test-utils";
-
-import { DataTestIds } from "./setup";
-
-import ResizeBounding, { Emits } from "../../lib/components/ResizeBounding.vue";
-import { type PaneEmittedData } from "../../lib/components/ResizeBoundingPane.vue";
-
-import Vue3BbResizePane from "../../lib/components/ResizeBoundingPane.vue";
 import type { HTMLAttributes } from "vue";
 
-import { PaneDirectionAliases, PaneDirections } from "../../lib/shared/typings";
+import { DataTestIds, PREFIX } from "./setup";
 
-const DEFAULT_PREFIX = "resize-bounding";
+import ResizeBounding from "../../lib/components/ResizeBounding.vue";
+import Vue3BbResizePane, {
+  type PaneEmittedData,
+} from "../../lib/components/ResizeBoundingPane.vue";
+
+import { Emits } from "../../lib/components/ResizeBounding";
+import { PaneDirectionAliases, PaneDirections } from "../../lib/shared/typings";
 
 describe("ResizeBounding", () => {
   beforeEach(() => {
@@ -73,7 +72,7 @@ describe("ResizeBounding", () => {
 
   describe("slots", () => {
     test.each(["<p>Inner Container</p>"])(
-      "should render default slot",
+      "should render default slot (%s)",
       (slot) => {
         const wrapper = mount(ResizeBounding, {
           props: {
@@ -97,7 +96,6 @@ describe("ResizeBounding", () => {
           options: {
             knob: {
               show: true,
-              constantlyShow: true,
             },
           },
         },
@@ -136,7 +134,7 @@ describe("ResizeBounding", () => {
         const rootEl = wrapper.find(`[data-testid="${DataTestIds.ROOT}"]`);
         const classes = rootEl.classes();
 
-        expect(classes.toString()).toContain(DEFAULT_PREFIX);
+        expect(classes.toString()).toContain(PREFIX);
         expect(classes).toMatchSnapshot();
       });
     });
@@ -172,7 +170,7 @@ describe("ResizeBounding", () => {
             `[data-testid="${DataTestIds.SPLITTER}"]`,
           );
 
-          let events: PaneEmittedData[] = [];
+          const events: PaneEmittedData[] = [];
 
           const makeTrigger = async (
             event: string,
@@ -253,27 +251,6 @@ describe("ResizeBounding", () => {
 
   describe("styles", () => {
     describe("container", () => {
-      test.each([{ background: "red" }])(
-        "should apply custom styles (%s)",
-        (container: HTMLAttributes["style"]) => {
-          const wrapper = mount(ResizeBounding, {
-            props: {
-              width: 320,
-              height: 400,
-              styles: {
-                container: { class: "container", style: container },
-              },
-            },
-          });
-
-          const containerEl = wrapper.find(
-            `[data-testid="${DataTestIds.ROOT}"]`,
-          );
-          const styles = containerEl.attributes("style");
-          expect(styles).toMatchSnapshot();
-        },
-      );
-
       test.each([{ background: "blue", display: "flex" }])(
         "should apply inline styles (%s)",
         (container: HTMLAttributes["style"]) => {

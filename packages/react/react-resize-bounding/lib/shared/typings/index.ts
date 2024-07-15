@@ -17,6 +17,7 @@ export interface Options {
   prefix: string;
   width: number;
   activeAreaWidth?: number;
+  addStateClasses?: boolean;
   position: PanePosition;
   cursor: Partial<
     Record<"horizontal" | "vertical", CSSStyleDeclaration["cursor"]>

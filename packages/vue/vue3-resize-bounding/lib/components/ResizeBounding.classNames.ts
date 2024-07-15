@@ -53,10 +53,15 @@ export const defaultStyles = (prefix: string): IStyles => ({
       position: "absolute",
       zIndex: 9999,
       transition: "background 125ms ease-out",
-      [`.${globalClassNames(prefix).pane}.focused &, .${globalClassNames(prefix).pane}.pressed &`]:
-        {
-          background: "cornflowerblue",
-        },
+      [`.${globalClassNames(prefix).pane}.active &`]: {
+        background: "cornflowerblue",
+      },
+      /* 
+      Focused state:
+      [`.${globalClassNames(prefix).pane}.focused &]: {}
+      Pressed state:
+      [`.${globalClassNames(prefix).pane}.pressed &]: {}
+      */
     },
   ],
   splitterContainer: [
@@ -76,15 +81,20 @@ export const defaultStyles = (prefix: string): IStyles => ({
       displayName: globalClassNames(prefix).knob,
       position: "relative",
       width: "64px",
-      height: "8px",
+      height: "6px",
       background: "gray",
-      borderRadius: "4px",
+      borderRadius: "3px",
       transform: "translate(-50%, -50%)",
       transition: "background 125ms ease-out",
-      [`.${globalClassNames(prefix).pane}.focused &,
-        .${globalClassNames(prefix).pane}.pressed &`]: {
+      [`.${globalClassNames(prefix).pane}.active &`]: {
         background: "cornflowerblue",
       },
+      /* 
+      Focused state:
+      [`.${globalClassNames(prefix).pane}.focused &]: {}
+      Pressed state:
+      [`.${globalClassNames(prefix).pane}.pressed &]: {}
+      */
     },
   ],
 });

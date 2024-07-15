@@ -1,15 +1,15 @@
-![image](resize-bounding-w-descriptor.svg)
+![image](https://raw.githubusercontent.com/yamogoo/vue3-resize-bounding/v2.0.1/shared/images/resize-bounding-w-descriptor.svg)
 ![Version](https://img.shields.io/badge/version-2.0.1-green) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-**Vue3 Resize Bounding** is a simple component for Vue3 that allows you to intuitively resize nested content using draggable border panels.
+**Vue3 Resize Bounding** is a simple, highly customizable Vue3 component that allows you to intuitively resize nested content using draggable border panels.
 
-[Demo](https://vue3-resize-bounding.netlify.app/)
-![image](resize-bounding.gif)
+[Demo](https://resize-bounding.netlify.app/)
+
+![image](https://raw.githubusercontent.com/yamogoo/resize-bounding/v2.0.1/shared/images/resize-bounding.gif)
 
 Examples:
 
-- [Interactive Grid](https://github.com/yamogoo/vue3-resize-bounding/blob/main/packages/playground/vite-app/src/components/InteractiveGrid.vue)
-- [Overriding](https://github.com/yamogoo/vue3-resize-bounding/blob/main/packages/playground/vite-app/src/components/StylizedKnob.vue)
+- [Interactive Grid](https://github.com/yamogoo/resize-bounding/blob/v2.0.1/packages/vue/playground/vite-app/src/components/InteractiveGrid.vue)
 
 Installation
 
@@ -37,13 +37,20 @@ Usage
     :min-width="240"
     :max-width="480"
     :min-height="120"
+    :options="{ knob: { show: true } }"
     :style="{ border: "1px solid gray" }"
     @update:width="(width) => (container.width = width)"
     @update:height="(height) => (container.height = height)"
   >
     <!-- CONTENT START -->
-    <div :style="{ width:'100%'; height: '100%' }">My Container</div>
+    <div style="{width: '100%', height: '100%'}">My Container</div>
     <!-- CONTENT END -->
+
+    <!-- KNOB INNER CONTENT START -->
+    <template #knob>
+      <div class="some-icon"></div>
+    </template>
+    <!-- KNOB INNER CONTENT END -->
   </resize-bounding>
 </template>
 ```
@@ -188,10 +195,10 @@ app.mount("#app");
         <th colspan="3">value</th>
       </tr>
       <tr>
-        <td rowspan="41">
+        <td rowspan="45">
           <code><b>options</b></code>
         </td>
-        <td rowspan="41">
+        <td rowspan="45">
           <code>Partial &#60;Options&#62;</code>
         </td>
       </tr>
@@ -313,6 +320,23 @@ app.mount("#app");
       </tr>
       <tr>
         <td colspan="3">
+          <code><b>options.addStateClasses</b></code>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">description</td>
+        <td colspan="2">Adds state classes to a pane element (.normal, .selected, .pressed)</td>
+      </tr>
+      <tr>
+        <td colspan="2">type</td>
+        <td colspan="2"><code>boolean</code></td>
+      </tr>
+      <tr>
+        <td colspan="2">default value</td>
+        <td colspan="2"><code>false</code></td>
+      </tr>
+      <tr>
+        <td colspan="3">
           <code><b>options.knob.show</b></code>
         </td>
       </tr>
@@ -410,7 +434,7 @@ app.mount("#app");
       <tr>
         <td colspan="2">type</td>
         <td colspan="2">
-          <code>type IStyle = fluentui.IStyle</code>
+          <code>IStyle</code>
         </td>
       </tr>
       <tr>
@@ -434,7 +458,7 @@ app.mount("#app");
       <tr>
         <td colspan="2">type</td>
         <td colspan="2">
-          <code>type IStyle = fluentui.IStyle</code>
+          <code>IStyle</code>
         </td>
       </tr>
       <tr>
@@ -452,7 +476,7 @@ app.mount("#app");
       <tr>
         <td colspan="2">type</td>
         <td colspan="2">
-          <code>type IStyle = fluentui.IStyle</code>
+          <code>IStyle</code>
         </td>
       </tr>
       <tr>
@@ -469,7 +493,7 @@ app.mount("#app");
       <tr>
         <td colspan="2">type</td>
         <td colspan="2">
-          <code>type IStyle = fluentui.IStyle</code>
+          <code>IStyle</code>
         </td>
       </tr>
       <tr>
@@ -489,7 +513,7 @@ app.mount("#app");
       <tr>
         <td colspan="2">type</td>
         <td colspan="2">
-          <code>type IStyle = fluentui.IStyle</code>
+          <code>IStyle</code>
         </td>
       </tr>
 </tbody>
@@ -561,17 +585,209 @@ app.mount("#app");
   </tbody>
 </table>
 
+### Slots
+
+<table class="table-fonts">
+  <thead>
+    <tr>
+      <th>name</th>
+      <th >description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code><b>default</b></code>
+      </td>
+      <td>Content</td>
+    </tr>
+    <tr>
+      <td>
+        <code><b>knob</b></code>
+      </td>
+      <td>Knob inner content (icon)</td>
+    </tr>
+  </tbody>
+</table>
+
 ---
 
 ### Customization
 
+**Overriding:**
+
 ```html
-<!-- MyResizeBoundingComponent.vue -->
 <template>
-  <resize-bounding :directions="'h'" :options :styles>
-    <slot></slot>
+  <div class="my-class">
+    <ResizeBounding v-bind="$attrs"
+      options={{
+        knob: {
+          show: true,
+        },
+      }}>
+      <slot />
+      <template #knob>
+        <slot name="knob">
+      </template>
+    </ResizeBounding>
+  </div>
+</template>
+
+<script setup lang="ts">
+  import ResizeBounding, { type Props } from "vue3-resize-bounding";
+  defineProps<Props>();
+</script>
+```
+
+> **Touch Area**
+> To increase the touch area, set the value to `options.activeAreaWidth` or use increased height of the `knob`
+> Default value is undefined
+
+**States styling**:
+
+By default, to style the active state (both `.focused` or `.pressed`), the `.actvie` class is used;
+So the style definition looks like this:
+
+```ts
+const styles = {
+  // Active (focused/pressed) state:
+  splitter: {
+    [`.${globalClassNames(prefix).pane}.active &`]: {
+      background: "cornflowerblue",
+    },
+  },
+  knob: {
+    [`.${globalClassNames(prefix).pane}.active &`]: {
+      background: "cornflowerblue",
+    },
+  },
+};
+```
+
+To separately configure the focused state or the pressed state of a splitter/knob, use the included `:options="{ addStateClasses: true }"` flag and the generated state classes:
+
+```ts
+const styles = {
+  splitter: {
+    // Focused state:
+    [`.${prefix}-pane.focused &`]: {
+      backgroundColor: "blue",
+    },
+    // Pressed state:
+    [`.${prefix}-pane.pressed &`]: {
+      backgroundColor: "red",
+    },
+  },
+
+  knob: {
+    // Focused state:
+    [`.${prefix}-pane.focused &`]: {
+      backgroundColor: "blue",
+    },
+    // Pressed state:
+    [`.${prefix}-pane.pressed &`]: {
+      backgroundColor: "red",
+    },
+  },
+};
+```
+
+---
+
+Using `css` (preprocessors)
+
+Use the included `:options="{ addStateClasses: true }"` flag to style the `.selected` and `.pressed` states separately.
+
+```html
+<template>
+  <resize-bounding
+    :width="container.width"
+    :height="container.height"
+    :min-width="240"
+    :max-width="480"
+    :min-height="120"
+    :options="{ addStateClasses: true, knob: { show: true } }"
+    @update:width="(width) => (container.width = width)"
+    @update:height="(height) => (container.height = height)"
+  >
+    <!-- CONTENT START -->
+    <div style="{width: '100%', height: '100%'}">My Container</div>
+    <!-- CONTENT END -->
+
+    <!-- KNOB INNER CONTENT START -->
+    <template #knob>
+      <div class="some-icon"></div>
+    </template>
+    <!-- KNOB INNER CONTENT END -->
   </resize-bounding>
 </template>
+
+<script>
+  import { ref } from "vue";
+  const container = ref({ width: 320, height: 480 });
+</script>
+
+<style lang="scss">
+  $prefix: "resize-bounding-";
+
+  .#{$prefix} {
+    &-container {
+    }
+    &-pane {
+      /* Normal state */
+      .#{$prefix}splitter {
+        &--container {
+        }
+      }
+      .#{$prefix}knob {
+      }
+
+      /* * * Default `options` settings * * */
+
+      /* Both selected and pressed states */
+      &.active {
+        .#{$prefix}splitter {
+        }
+        .#{$prefix}knob {
+        }
+      }
+
+      /* * * Separate states ({ addStateClasses: true }) * * */
+
+      /* Normal state */
+      &.normal {
+        .#{$prefix}splitter {
+        }
+        .#{$prefix}knob {
+        }
+      }
+
+      /* Focused state */
+      &.focused {
+        .#{$prefix}splitter {
+        }
+        .#{$prefix}knob {
+        }
+      }
+
+      /* Pressed state */
+      &.pressed {
+        .#{$prefix}splitter {
+        }
+        .#{$prefix}knob {
+        }
+      }
+    }
+  }
+</style>
+```
+
+---
+
+### Default settings (options/styles)
+
+```html
+<!-- @filename: MyResizeBoundingComponent.vue -->
 
 <script lang="ts">
   import ResizeBounding, { PREFIX } from "vue3-resize-bounding";
@@ -592,8 +808,8 @@ app.mount("#app");
     touchActions: true,
   };
 
-  // Ниже приведены все дефолтные стили сугубо для демонстрации
-  // В действительности можно переопределять только необходимые свойства
+  // Below are all the default styles purely for demonstration purposes
+  // In reality, you can only override the necessary properties
   const styles = (prefix: string): IStyles => ({
     container: [
       globalClassNames(prefix).container,
@@ -616,11 +832,15 @@ app.mount("#app");
         position: "absolute",
         zIndex: 9999,
         transition: "background 125ms ease-out",
-        // splitter focused/pressed state:
-        [`.${globalClassNames(prefix).pane}.focused &,
-          .${globalClassNames(prefix).pane}.pressed &`]: {
+        [`.${globalClassNames(prefix).pane}.active &`]: {
           background: "cornflowerblue",
         },
+        /* 
+        Focused state:
+        [`.${globalClassNames(prefix).pane}.focused &`]: {},
+        Pressed state:
+        [`.${globalClassNames(prefix).pane}.pressed &`]: {}
+        */
       },
     ],
     splitterContainer: [
@@ -640,95 +860,24 @@ app.mount("#app");
         displayName: globalClassNames(prefix).knob,
         position: "relative",
         width: "64px",
-        height: "8px",
+        height: "6px",
         background: "gray",
-        borderRadius: "4px",
+        borderRadius: "3px",
         transform: "translate(-50%, -50%)",
         transition: "background 125ms ease-out",
-        // knob focused/pressed state:
-        [`.${globalClassNames(prefix).pane}.focused &,
-          .${globalClassNames(prefix).pane}.pressed &`]: {
+        [`.${globalClassNames(prefix).pane}.active &`]: {
           background: "cornflowerblue",
         },
+        /* 
+        Focused state:
+        [`.${globalClassNames(prefix).pane}.focused &`]: {},
+        Pressed state:
+        [`.${globalClassNames(prefix).pane}.pressed &`]: {}
+        */
       },
     ],
   });
 </script>
-```
-
-> **Touch Area**
-> To increase the touch area, set the value to `options.activeAreaWidth` or use increased height of the `knob`
-> Default value is undefined
-
----
-
-Using `css` (preprocessors)
-
-```html
-<template>
-  <resize-bounding
-    :width="container.width"
-    :height="container.height"
-    :min-width="240"
-    :max-width="480"
-    :min-height="120"
-    :options="{ knob: { show: true } }"
-    @update:width="(width) => (container.width = width)"
-    @update:height="(height) => (container.height = height)"
-  >
-    <!-- CONTENT START -->
-    <div style="width="100%; height: 100%;>My Container</div>
-    <!-- CONTENT END -->
-
-    <!-- KNOB INNER CONTENT START -->
-    <template #knob>
-      <div class="some-icon"></div>
-    </template>
-    <!-- KNOB INNER CONTENT END -->
-  </resize-bounding>
-</template>
-
-<script>
-  import { ref } from "vue";
-  const container = ref({ width: 320, height: 480 });
-</script>
-
-<style lang="scss">
-$prefix: "resize-bounding-";
-
-.#{$prefix} {
-  &-container {}
-  &-pane {
-    .#{$prefix}splitter {
-      /* &--container {} */
-    }
-    .#{$prefix}knob {}
-
-    /* * * States: * * */
-
-    &.normal {
-      .#{$prefix}splitter {
-        /* &--container {} */
-      }
-      .#{$prefix}knob {}
-    }
-
-    &.focused {
-      .#{$prefix}splitter {
-        /* &--container {} */
-      }
-      .#{$prefix}knob {}
-    }
-
-    &.pressed {
-      .#{$prefix}splitter {
-        /* &--container {} */
-      }
-      .#{$prefix}knob {}
-    }
-  }
-}
-</style>
 ```
 
 ---

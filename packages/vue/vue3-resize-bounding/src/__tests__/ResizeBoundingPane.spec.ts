@@ -2,7 +2,7 @@ import { describe, test, expect, beforeEach, vi } from "vitest";
 import { mount, shallowMount, VueWrapper } from "@vue/test-utils";
 import { nextTick } from "vue";
 
-import { DataTestIds, DEFAULT_PREFIX } from "./setup";
+import { DataTestIds, PREFIX } from "./setup";
 
 import deepmerge from "deepmerge";
 
@@ -30,74 +30,85 @@ import {
 const classNames = getClassNames({});
 
 const requiredProps = {
+  prefix: PREFIX,
+  direction: PaneDirectionAliases.HORIZONTAL,
   options: defaultOptions,
   classNames,
 };
 
-describe("Boundarize", () => {
+describe("ResizeBoundingPane", () => {
   beforeEach(() => {
     Element.prototype.setPointerCapture = vi.fn();
     Element.prototype.releasePointerCapture = vi.fn();
   });
 
   describe("classes", () => {
-    test('should have "normal" class by default', () => {
-      const wrapper = shallowMount(ResizeBoundingPane, {
-        props: {
-          prefix: DEFAULT_PREFIX,
-          classNames,
-          options: {
-            prefix: "",
-            width: 0,
-            position: "",
-            cursor: {},
-            knob: {},
-            touchActions: false,
-          },
-        },
+    describe("states", async () => {
+      test(`should have ."active" class name`, async () => {
+        const wrapper = shallowMount(ResizeBoundingPane, {
+          props: requiredProps,
+        });
+
+        const paneEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
+        const stateInit = paneEl.classes("active");
+
+        expect(stateInit).toBe(false);
+
+        await paneEl.trigger("pointerenter");
+        const state = paneEl.classes("active");
+
+        expect(state).toBe(true);
+        expect(state).toMatchSnapshot();
       });
 
-      const splitterEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
+      test('should not have ".normal" class name by default', async () => {
+        const wrapper = shallowMount(ResizeBoundingPane, {
+          props: requiredProps,
+        });
 
-      expect(splitterEl.classes("normal")).toBeTruthy();
-      expect(splitterEl.classes("normal")).toMatchSnapshot();
-    });
-  });
+        const splitterEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
 
-  describe("classes", () => {
-    test('should have "focused" class', async () => {
-      const wrapper = shallowMount(ResizeBoundingPane, {
-        props: {
-          prefix: DEFAULT_PREFIX,
-          classNames,
-          options: {
-            prefix: "",
-            width: 0,
-            position: "",
-            cursor: {},
-            knob: {},
-            touchActions: false,
-          },
-        },
+        expect(splitterEl.classes("normal")).toBeFalsy();
+        expect(splitterEl.classes("normal")).toMatchSnapshot();
       });
 
-      const paneEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
+      const props: Props = deepmerge(requiredProps, {
+        options: { addStateClasses: true },
+      });
 
-      await paneEl.trigger("pointerenter");
+      const wrapper = shallowMount(ResizeBoundingPane, { props });
 
-      expect(paneEl.classes("focused")).toBeTruthy();
-      expect(paneEl.classes("focused")).toMatchSnapshot();
+      test('should have ".normal" class name by default (if addStateClasses)', () => {
+        const splitterEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
+
+        expect(splitterEl.classes("normal")).toBeTruthy();
+        expect(splitterEl.classes("normal")).toMatchSnapshot();
+      });
+
+      test('should have ".focused" class name (if addStateClasses)', async () => {
+        const paneEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
+
+        await paneEl.trigger("pointerenter");
+
+        expect(paneEl.classes("focused")).toBeTruthy();
+        expect(paneEl.classes("focused")).toMatchSnapshot();
+      });
+
+      test('should have ".pressed" class name (if addStateClasses)', async () => {
+        const paneEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
+
+        await paneEl.trigger("pointerdown");
+
+        expect(paneEl.classes("pressed")).toBeTruthy();
+        expect(paneEl.classes("pressed")).toMatchSnapshot();
+      });
     });
   });
 
   describe("events", () => {
     describe("focus", async () => {
       const wrapper = shallowMount(ResizeBoundingPane, {
-        props: {
-          prefix: DEFAULT_PREFIX,
-          direction: PaneDirections.RIGHT,
-          ...requiredProps,
-        },
+        props: deepmerge(requiredProps, { direction: PaneDirections.RIGHT }),
       });
 
       const rootEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
@@ -123,11 +134,7 @@ describe("Boundarize", () => {
 
     describe("drag", () => {
       const wrapper = shallowMount(ResizeBoundingPane, {
-        props: {
-          prefix: DEFAULT_PREFIX,
-          direction: PaneDirections.RIGHT,
-          ...requiredProps,
-        },
+        props: deepmerge(requiredProps, { direction: PaneDirections.RIGHT }),
       });
 
       const rootEl = wrapper.find(`[data-testid="${DataTestIds.SPLITTER}"]`);
@@ -153,7 +160,7 @@ describe("Boundarize", () => {
           return data;
         };
 
-        let events: PaneEmittedData[] = [];
+        const events: PaneEmittedData[] = [];
 
         const makeTrigger = async (
           event: string,
@@ -190,24 +197,30 @@ describe("Boundarize", () => {
   describe("options", () => {
     describe("knob", () => {
       test("should always show knob", () => {
-        const wrapper = shallowMount(ResizeBoundingPane, {
-          props: {
-            prefix: DEFAULT_PREFIX,
-            classNames,
-            styles: {},
-            options: deepmerge(defaultOptions, {
-              knob: {
-                show: true,
-                constantlyShow: true,
-              },
-            }),
-          },
+        const props: Props = deepmerge(requiredProps, {
+          options: { knob: { show: true } },
         });
+
+        const wrapper = shallowMount(ResizeBoundingPane, { props });
 
         const knobEl = wrapper.find(`[data-testid="${DataTestIds.KNOB}"]`);
 
         expect(knobEl.exists()).toBeTruthy();
         expect(knobEl.attributes("data-testid")).toMatchSnapshot();
+      });
+
+      test("should not render the knob if { normalHidden: true }", () => {
+        const wrapper = shallowMount(ResizeBoundingPane, {
+          props: deepmerge(requiredProps, {
+            options: { knob: { show: true, normalHidden: true } },
+          }),
+        });
+
+        const knobEl = wrapper.find(`[data-testid="${DataTestIds.KNOB}"]`);
+        const isKnobExists = knobEl.exists();
+
+        expect(isKnobExists).toBeFalsy();
+        expect(isKnobExists).toMatchSnapshot();
       });
 
       test.each([
@@ -216,20 +229,12 @@ describe("Boundarize", () => {
         [PaneDirections.TOP, 0],
         [PaneDirections.BOTTOM, 0],
       ])("pane (--%s) should rotated to (%s deg)", (direction, deg) => {
-        const wrapper = shallowMount(ResizeBoundingPane, {
-          props: {
-            prefix: DEFAULT_PREFIX,
-            direction,
-            styles: {},
-            classNames,
-            options: deepmerge(defaultOptions, {
-              knob: {
-                show: true,
-                constantlyShow: true,
-              },
-            }),
-          },
+        const props: Props = deepmerge(requiredProps, {
+          direction,
+          options: { knob: { show: true } },
         });
+
+        const wrapper = shallowMount(ResizeBoundingPane, { props });
 
         const knobEl = wrapper.find(
           `[data-testid="${DataTestIds.SPLITTER_CONTAINER}"]`,
@@ -245,16 +250,10 @@ describe("Boundarize", () => {
   describe("styles", () => {
     describe("cursor", () => {
       test('default cursor style should be "auto"', async () => {
-        const wrapper = shallowMount(ResizeBoundingPane, {
-          props: {
-            prefix: DEFAULT_PREFIX,
-            ...requiredProps,
-          },
-        });
-        await wrapper.setProps({
-          direction: PaneDirections.RIGHT,
-          prefix: DEFAULT_PREFIX,
-        });
+        const props: Props = requiredProps;
+
+        const wrapper = shallowMount(ResizeBoundingPane, { props });
+        await wrapper.setProps({ direction: PaneDirections.RIGHT });
 
         const rootEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
 
@@ -293,10 +292,7 @@ describe("Boundarize", () => {
             'default cursor style should be "col-resize" (--%s)',
             async (direction) => {
               const wrapper = shallowMount(ResizeBoundingPane, {
-                props: {
-                  prefix: DEFAULT_PREFIX,
-                  ...requiredProps,
-                },
+                props: requiredProps,
               });
 
               checkCursorActive(wrapper, { direction }, "col-resize");
@@ -311,10 +307,7 @@ describe("Boundarize", () => {
             'default cursor style should be "row-resize" (--%s)',
             async (direction) => {
               const wrapper = shallowMount(ResizeBoundingPane, {
-                props: {
-                  prefix: DEFAULT_PREFIX,
-                  ...requiredProps,
-                },
+                props: requiredProps,
               });
 
               checkCursorActive(wrapper, { direction }, "row-resize");
@@ -329,10 +322,7 @@ describe("Boundarize", () => {
             `custom cursor style should be "${CUSTOM_ACTIVE_CURSOR}" (--%s)`,
             async (direction) => {
               const wrapper = shallowMount(ResizeBoundingPane, {
-                props: {
-                  prefix: DEFAULT_PREFIX,
-                  ...requiredProps,
-                },
+                props: requiredProps,
               });
 
               checkCursorActive(
@@ -369,12 +359,10 @@ describe("Boundarize", () => {
             `the pane (--%s) should have "%s" styles`,
             async (direction, styles) => {
               const wrapper = shallowMount(ResizeBoundingPane, {
-                props: {
-                  prefix: DEFAULT_PREFIX,
+                props: deepmerge(requiredProps, {
                   direction,
-                  classNames,
-                  options: { ...defaultOptions, width: SIZE },
-                },
+                  options: { width: SIZE },
+                }),
               });
 
               await nextTick();
@@ -403,12 +391,10 @@ describe("Boundarize", () => {
             `the pane splitter (--%s) should have "%s" styles`,
             async (direction, styles) => {
               const wrapper = shallowMount(ResizeBoundingPane, {
-                props: {
-                  prefix: DEFAULT_PREFIX,
+                props: deepmerge(requiredProps, {
                   direction,
-                  classNames,
-                  options: { ...defaultOptions, width: SIZE },
-                },
+                  options: { width: SIZE },
+                }),
               });
 
               await nextTick();
@@ -444,15 +430,9 @@ describe("Boundarize", () => {
           ];
 
           const wrapper = shallowMount(ResizeBoundingPane, {
-            props: {
-              prefix: DEFAULT_PREFIX,
-              direction,
-              classNames,
-              options: {
-                ...defaultOptions,
-                width: SPLITTER_WIDTH,
-              },
-            },
+            props: deepmerge(requiredProps, {
+              options: { width: SPLITTER_WIDTH },
+            }),
           });
 
           const splitterEl = wrapper.find(
@@ -481,22 +461,14 @@ describe("Boundarize", () => {
   describe("slots", () => {
     test.each(["<p>knob</p>"])("should render knob slot (%s)>", (knobSlot) => {
       const wrapper = mount(ResizeBoundingPane, {
-        props: {
-          prefix: DEFAULT_PREFIX,
+        props: deepmerge(requiredProps, {
           direction: "r",
-          classNames,
           options: {
             knob: {
               show: true,
-              normalHidden: false,
             },
-            width: 3,
-            position: "central",
-            cursor: {},
-            prefix: "",
-            touchActions: false,
           },
-        },
+        }),
         slots: {
           default: knobSlot,
         },

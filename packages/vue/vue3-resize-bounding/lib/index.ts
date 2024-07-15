@@ -1,5 +1,7 @@
 import ResizeBounding from "./components/ResizeBounding.vue";
 
+export { type Props } from "./components/ResizeBounding";
+
 export {
   PaneDirections,
   PaneDirectionAliases,

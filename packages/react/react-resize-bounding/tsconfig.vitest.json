@@ -5,7 +5,7 @@
         "module": "NodeNext",
         "moduleResolution": "NodeNext",
         "lib": [],
-        "types": ["node", "jsdom"]
+        "types": ["node", "jsdom", "vitest/globals", "@testing-library/jest-dom"],
     },
     "include": ["vitest.config.ts"]
 }

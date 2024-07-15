@@ -4,7 +4,8 @@
     data-testid="resize-bounding-pane"
     :class="[
       classNames.pane,
-      {
+      { active: isFocused || isPressed },
+      options.addStateClasses && {
         normal: !isPressed && !isFocused,
         focused: isFocused,
         pressed: isPressed,
@@ -231,8 +232,7 @@ defineExpose({ refPane });
 </script>
 
 <script lang="ts">
-import { PaneDirections } from "../shared/typings";
-export type PaneDirectionKey = PaneDirections | PaneDirections | string;
+import { PaneDirections, type PaneDirectionKey } from "../shared/typings";
 
 export interface Props {
   prefix: string;
@@ -264,4 +264,3 @@ const checkIsVertical = (direction: string): boolean =>
     `[${PaneDirections.TOP} | ${PaneDirections.BOTTOM} | ${PaneDirectionAliases.VERTICAL}]`,
   ).test(direction);
 </script>
-./ResizeBoundingPane.styles.js../shared/typings.js
