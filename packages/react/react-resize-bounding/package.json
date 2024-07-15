@@ -1,6 +1,6 @@
 {
   "name": "react-resize-bounding",
-  "description": "React component for resizing nested content",
+  "description": "React highly customizable component for resizing nested content",
   "version": "1.0.1",
   "license": "MIT",
   "private": false,
@@ -55,8 +55,10 @@
   "devDependencies": {
     "@fluentui/merge-styles": "^8.6.12",
     "@testing-library/dom": "^10.3.1",
+    "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/react": "^16.0.0",
     "@tsconfig/node20": "^20.1.4",
+    "@types/jest": "^29.5.12",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^20.14.10",
     "@types/react": "^18.3.3",

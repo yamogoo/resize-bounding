@@ -1,17 +1,17 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`ResizeBounding > classes > prefix > should have custom prefix (my-prefix) 1`] = `
-[
-  "my-prefixcontainer",
-  "my-prefixcontainer-5",
-]
+DOMTokenList {
+  "0": "my-prefixcontainer",
+  "1": "my-prefixcontainer-5",
+}
 `;
 
 exports[`ResizeBounding > classes > prefix > should have default prefix (%s) 1`] = `
-[
-  "resize-bounding-container",
-  "resize-bounding-container-0",
-]
+DOMTokenList {
+  "0": "resize-bounding-container",
+  "1": "resize-bounding-container-0",
+}
 `;
 
 exports[`ResizeBounding > components > Should not display any selected borders when set to "disabled" (--b) 1`] = `0`;
@@ -42,61 +42,15 @@ exports[`ResizeBounding > components > should render rl panes (panes computed va
 
 exports[`ResizeBounding > components > should render tr panes (panes computed value) 1`] = `2`;
 
-exports[`ResizeBounding > events > drag > check aliases: should emit "drag:start" with direction argument "{ alias: 'h', directions: [ 'r', 'l' ] }" 1`] = `
-[
-  "r",
-  "l",
-]
-`;
+exports[`ResizeBounding > events > drag > should emit the "dragStart -> dragMove -> dragEnd" event, which takes a direction argument "b" 1`] = `Promise {}`;
 
-exports[`ResizeBounding > events > drag > check aliases: should emit "drag:start" with direction argument "{ alias: 'v', directions: [ 't', 'b' ] }" 1`] = `
-[
-  "t",
-  "b",
-]
-`;
+exports[`ResizeBounding > events > drag > should emit the "dragStart -> dragMove -> dragEnd" event, which takes a direction argument "l" 1`] = `Promise {}`;
 
-exports[`ResizeBounding > events > drag > should emit the "drag:start -> drag:move -> drag:end" event, which takes a direction argument "b" 1`] = `
-[
-  "b",
-  "b",
-  "b",
-]
-`;
+exports[`ResizeBounding > events > drag > should emit the "dragStart -> dragMove -> dragEnd" event, which takes a direction argument "r" 1`] = `Promise {}`;
 
-exports[`ResizeBounding > events > drag > should emit the "drag:start -> drag:move -> drag:end" event, which takes a direction argument "l" 1`] = `
-[
-  "l",
-  "l",
-  "l",
-]
-`;
+exports[`ResizeBounding > events > drag > should emit the "dragStart -> dragMove -> dragEnd" event, which takes a direction argument "t" 1`] = `Promise {}`;
 
-exports[`ResizeBounding > events > drag > should emit the "drag:start -> drag:move -> drag:end" event, which takes a direction argument "r" 1`] = `
-[
-  "r",
-  "r",
-  "r",
-]
-`;
-
-exports[`ResizeBounding > events > drag > should emit the "drag:start -> drag:move -> drag:end" event, which takes a direction argument "t" 1`] = `
-[
-  "t",
-  "t",
-  "t",
-]
-`;
-
-exports[`ResizeBounding > slots > should render default slot (<p>Inner Container</p>) 1`] = `
-"<div data-testid="resize-bounding-container" class="resize-bounding-container resize-bounding-container-0">
-  <p>Inner Container</p>
-  <!--v-if-->
-  <!--v-if-->
-  <!--v-if-->
-  <!--v-if-->
-</div>"
-`;
+exports[`ResizeBounding > slots > should render default slot "Inner Container" 1`] = `"Inner Container"`;
 
 exports[`ResizeBounding > slots > should render default slot 1`] = `"knob"`;
 

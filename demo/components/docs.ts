@@ -4,6 +4,74 @@ interface CodeBlock {
   fileName?: string;
 }
 
+const vue3: Array<CodeBlock> = [
+  {
+    lang: "html",
+    code: `<script>
+  import { ref } from "vue";
+  import ResizeBounding from "vue3-resize-bounding";
+  const container = ref({ width: 320, height: 480 });
+</script>
+
+<template>
+  <resize-bounding
+    :width="container.width"
+    :height="container.height"
+    :min-width="240"
+    :max-width="480"
+    :min-height="120"
+    :options="{ knob: { show: true } }"
+    :style="{ border: "1px solid gray" }"
+    @update:width="(width) => (container.width = width)"
+    @update:height="(height) => (container.height = height)"
+  >
+    <!-- CONTENT START -->
+    <div style="{width: '100%', height: '100%'}">My Container</div>
+    <!-- CONTENT END -->
+
+    <!-- KNOB INNER CONTENT START -->
+    <template #knob>
+      <div class="some-icon"></div>
+    </template>
+    <!-- KNOB INNER CONTENT END -->
+  </resize-bounding>
+</template>`,
+    fileName: "App.vue",
+  },
+];
+
+const react: Array<CodeBlock> = [
+  {
+    lang: "ts",
+    code: `import { useState } from "react";
+import ResizeBounding from "react-resize-bounding";
+
+export default function MyComponent() {
+  const [width, setWidth] = useState(320);
+  const [height, setHeight] = useState(480);
+
+  return (
+    <ResizeBounding
+      width={width}
+      height={height}
+      updateWidth={(width) => setWidth(width)}
+      updateHeight={(height) => setHeight(height)}
+      options={{ knob: { show: true } }}
+      style={{ border: "1px solid gray" }}
+      // KNOB INNER CONTENT START
+      knob={<div className="some-icon"></div>}
+      // KNOB INNER CONTENT END
+    >
+      {/* CONTENT START */}
+      <div style={{ width: "100%", height: "100%" }}>My Container</div>
+      {/* CONTENT END */}
+    </ResizeBounding>
+  );
+}`,
+    fileName: "App.tsx",
+  },
+];
+
 const setup: Array<CodeBlock> = [
   {
     lang: "ts",
@@ -203,8 +271,10 @@ export const __DOC__: Record<
   "setup" | "install" | "usage" | string,
   Array<CodeBlock>
 > = {
-  setup,
-  usage,
-  defaultStyles,
-  cssStyling,
+  vue3,
+  react,
+  // vue3Setup,
+  // vue3Usage,
+  // defaultStyles,
+  // cssStyling,
 };

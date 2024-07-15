@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 
-import ResizeBounding from "react-resize-bounding";
+import ResizeBounding from "./ResizeBounding";
 import deepmerge from "deepmerge";
 
 import "./InteractiveGrid.scss";

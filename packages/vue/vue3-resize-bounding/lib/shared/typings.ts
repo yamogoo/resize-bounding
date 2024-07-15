@@ -17,6 +17,7 @@ export interface Options {
   prefix: string;
   width: number;
   activeAreaWidth?: number;
+  addStateClasses?: boolean;
   position: PanePosition;
   cursor: Partial<
     Record<"horizontal" | "vertical", CSSStyleDeclaration["cursor"]>
@@ -45,6 +46,8 @@ export type IStyle = fluentui.IStyle;
 export type IStyleSet = fluentui.IStyleSet;
 
 /* * * Pane * * */
+
+export type PaneDirectionKey = PaneDirections | PaneDirections | string;
 
 export enum PaneDirectionAliases {
   HORIZONTAL = "h",

@@ -1,38 +1,106 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ResizeBoundingPane > classes > states > should have ".focused" class name (if addStateClasses) 1`] = `true`;
+exports[`ResizeBoundingPane > classes > states > should have ".active" class name 1`] = `"active"`;
 
-exports[`ResizeBoundingPane > classes > states > should have ".normal" class name by default (if addStateClasses) 1`] = `true`;
+exports[`ResizeBoundingPane > classes > states > should have ".focused" class name (if addStateClasses) 1`] = `"focused"`;
 
-exports[`ResizeBoundingPane > classes > states > should have ".pressed" class name (if addStateClasses) 1`] = `true`;
+exports[`ResizeBoundingPane > classes > states > should have ".normal" class name by default (if addStateClasses) 1`] = `"normal"`;
 
-exports[`ResizeBoundingPane > classes > states > should have ."active" class name 1`] = `true`;
+exports[`ResizeBoundingPane > classes > states > should have ".pressed" class name (if addStateClasses) 1`] = `"pressed"`;
 
-exports[`ResizeBoundingPane > classes > states > should not have ".normal" class name by default 1`] = `false`;
+exports[`ResizeBoundingPane > classes > states > should not have ".normal" class name by default 1`] = `undefined`;
 
-exports[`ResizeBoundingPane > events > drag > should emit "drag:start -> drag:move -> drag:end" with {x, y, dir} 1`] = `
-[
-  {
-    "dir": "r",
-    "x": 1,
-    "y": 1,
-  },
-  {
-    "dir": "r",
-    "x": 2,
-    "y": 2,
-  },
-  {
-    "dir": "r",
-    "x": 3,
-    "y": 3,
-  },
-]
+exports[`ResizeBoundingPane > events > drag > should emit "dragStart -> dragMove -> dragEnd" with {x, y, dir} 1`] = `
+[MockFunction spy] {
+  "calls": [
+    [
+      {
+        "dir": "r",
+        "x": 1,
+        "y": 1,
+      },
+    ],
+  ],
+  "results": [
+    {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
 `;
 
-exports[`ResizeBoundingPane > events > focus > should emit "focus" with state (false) 1`] = `false`;
+exports[`ResizeBoundingPane > events > drag > should emit "dragStart -> dragMove -> dragEnd" with {x, y, dir} 2`] = `
+[MockFunction spy] {
+  "calls": [
+    [
+      {
+        "dir": "r",
+        "x": 2,
+        "y": 2,
+      },
+    ],
+  ],
+  "results": [
+    {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;
 
-exports[`ResizeBoundingPane > events > focus > should emit "focus" with state (true) 1`] = `true`;
+exports[`ResizeBoundingPane > events > drag > should emit "dragStart -> dragMove -> dragEnd" with {x, y, dir} 3`] = `
+[MockFunction spy] {
+  "calls": [
+    [
+      {
+        "dir": "r",
+        "x": 3,
+        "y": 3,
+      },
+    ],
+  ],
+  "results": [
+    {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;
+
+exports[`ResizeBoundingPane > events > focus > should emit "focus" event with state (true) 1`] = `
+[MockFunction spy] {
+  "calls": [
+    [
+      true,
+    ],
+  ],
+  "results": [
+    {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;
+
+exports[`ResizeBoundingPane > events > focus > should emit "focus" with state (false) 1`] = `
+[MockFunction spy] {
+  "calls": [
+    [
+      false,
+    ],
+  ],
+  "results": [
+    {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;
 
 exports[`ResizeBoundingPane > options > knob > pane (--b) should rotated to (0 deg) 1`] = `"transform: rotate(0deg);"`;
 
@@ -42,11 +110,16 @@ exports[`ResizeBoundingPane > options > knob > pane (--r) should rotated to (90 
 
 exports[`ResizeBoundingPane > options > knob > pane (--t) should rotated to (0 deg) 1`] = `"transform: rotate(0deg);"`;
 
-exports[`ResizeBoundingPane > options > knob > should always show knob 1`] = `"resize-bounding-knob"`;
+exports[`ResizeBoundingPane > options > knob > should always show knob 1`] = `
+<div
+  class="resize-bounding-knob resize-bounding-knob-4"
+  data-testid="resize-bounding-knob"
+/>
+`;
 
-exports[`ResizeBoundingPane > options > knob > should not render the knob if { normalHidden: true } 1`] = `false`;
+exports[`ResizeBoundingPane > options > knob > should not render the knob if { normalHidden: true } 1`] = `null`;
 
-exports[`ResizeBoundingPane > slots > should render knob slot (<p>knob</p>)> 1`] = `"knob"`;
+exports[`ResizeBoundingPane > slots > should render knob slot (<p>knob</p>) 1`] = `"knob"`;
 
 exports[`ResizeBoundingPane > styles > cursor > active > custom styles (options) > custom cursor style should be "ew-resize" (--b) 1`] = `"cursor: ew-resize;"`;
 
@@ -85,3 +158,17 @@ exports[`ResizeBoundingPane > styles > cursor > active > default styles > defaul
 exports[`ResizeBoundingPane > styles > cursor > active > default styles > default cursor style should be "row-resize" (--v) 1`] = `"cursor: row-resize;"`;
 
 exports[`ResizeBoundingPane > styles > cursor > default cursor style should be "auto" 1`] = `"top: 0px; right: -2px; width: 4px; height: 100%; cursor: auto;"`;
+
+exports[`ResizeBoundingPane > styles > custom styles > inner styles of splitter should not have to overrided by customStyles 1`] = `"left: 0px"`;
+
+exports[`ResizeBoundingPane > styles > custom styles > inner styles of splitter should not have to overrided by customStyles 2`] = `"left: 0px; width: 12px; height: 100%;"`;
+
+exports[`ResizeBoundingPane > styles > custom styles > inner styles of splitter should not have to overrided by customStyles 3`] = `"width: 12px"`;
+
+exports[`ResizeBoundingPane > styles > custom styles > inner styles of splitter should not have to overrided by customStyles 4`] = `"left: 0px; width: 12px; height: 100%;"`;
+
+exports[`ResizeBoundingPane > styles > custom styles > inner styles of splitter should not have to overrided by customStyles 5`] = `"height: 100%"`;
+
+exports[`ResizeBoundingPane > styles > custom styles > inner styles of splitter should not have to overrided by customStyles 6`] = `"left: 0px; width: 12px; height: 100%;"`;
+
+exports[`ResizeBoundingPane > styles > custom styles > inner styles of splitter should not have to overrided by customStyles 7`] = `"left: 0px; width: 12px; height: 100%;"`;

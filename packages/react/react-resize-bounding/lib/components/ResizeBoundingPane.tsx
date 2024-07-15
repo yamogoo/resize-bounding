@@ -30,7 +30,7 @@ export interface PaneEmittedData {
   dir: string;
 }
 
-interface Props extends PropsWithChildren {
+export interface Props extends PropsWithChildren {
   prefix: string;
   direction: PaneDirectionKey;
   options: Options;
@@ -233,7 +233,7 @@ const ResizeBoundingPane = ({
     <div
       ref={refPane}
       data-testid="resize-bounding-pane"
-      className={`${classNames.pane} ${isPressed ? "pressed" : isFocused ? "focused" : "normal"}`}
+      className={`${classNames.pane}${isPressed || isFocused ? " active" : ""}${options.addStateClasses ? ` ${isPressed ? "pressed" : isFocused ? "focused" : "normal"}` : ""}`}
       style={paneComputedStyle}
     >
       <div

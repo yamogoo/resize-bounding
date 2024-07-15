@@ -32,18 +32,13 @@ import { __DOC__ } from "@/components/docs.js";
 const menuItems: Array<TabbarItem<string>> = [
   {
     id: 0,
-    label: "setup",
-    value: "setup",
+    label: "Vue3",
+    value: "vue3",
   },
   {
     id: 1,
-    label: "usage",
-    value: "usage",
-  },
-  {
-    id: 2,
-    label: "default styles",
-    value: "defaultStyles",
+    label: "React",
+    value: "react",
   },
 ];
 

@@ -3,14 +3,14 @@
     <AtomsLinkBasic
       :size="'lg'"
       :icon-name="'git'"
-      :to="'https://github.com/yamogoo/vue3-resize-bounding'"
-      :name="'https://github.com/yamogoo/vue3-resize-bounding'"
+      :to="'https://github.com/yamogoo/resize-bounding'"
+      :name="'https://github.com/yamogoo/resize-bounding'"
     />
     <AtomsGroupContent :direction="'v'" :alignment="'center'">
       <p class="">
         This project is licensed under the terms of the
         <AtomsLinkBase
-          to="https://github.com/yamogoo/vue3-resize-bounding/blob/main/packages/vue3-resize-bounding/LICENSE"
+          :to="`https://github.com/yamogoo/vue3-resize-bounding/blob/v${assetsVersion}/LICENSE`"
           >MIT license
         </AtomsLinkBase>
       </p>
@@ -23,7 +23,9 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const assetsVersion = useRuntimeConfig().public.productVueVersion;
+</script>
 
 <style lang="scss">
 .ui {

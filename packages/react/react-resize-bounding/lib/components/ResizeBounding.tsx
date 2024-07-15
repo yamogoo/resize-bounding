@@ -1,9 +1,9 @@
 import {
   CSSProperties,
-  MutableRefObject,
   useMemo,
   useRef,
   type PropsWithChildren,
+  type ReactNode,
 } from "react";
 import deepmerge from "deepmerge";
 
@@ -24,38 +24,43 @@ import ResizeBoundingPane, {
   type PaneDirectionKey,
 } from "./ResizeBoundingPane";
 
-interface Props extends PropsWithChildren {
-  width: number;
-  height: number;
-  minWidth: number;
-  maxWidth: number;
-  minHeight: number;
-  maxHeight: number;
-  disabled: boolean;
-  directions: PaneDirectionKey;
-  alwaysShowKnob: boolean;
-  options: Partial<Options>;
-  style: CSSProperties;
-  styles: Partial<IStyles>;
-  updateWidth: (width: number) => void;
-  updateHeight: (height: number) => void;
-  dragStart: (dir: string) => void;
-  dragMove: (dir: string) => void;
-  dragEnd: (dir: string) => void;
-  focus: (data: { state: boolean; direction: string }) => void;
-}
+export interface Props
+  extends PropsWithChildren,
+    Partial<{
+      width: number;
+      height: number;
+      minWidth: number;
+      maxWidth: number;
+      minHeight: number;
+      maxHeight: number;
+      disabled: boolean;
+      directions: PaneDirectionKey;
+      alwaysShowKnob: boolean;
+      options: Partial<Options>;
+      style: CSSProperties;
+      styles: Partial<IStyles>;
+      knob: ReactNode;
+      updateWidth: (width: number) => void;
+      updateHeight: (height: number) => void;
+      dragStart: (dir: string) => void;
+      dragMove: (dir: string) => void;
+      dragEnd: (dir: string) => void;
+      focus: (data: { state: boolean; direction: string }) => void;
+    }> {}
 
 const ResizeBounding = (props: Partial<Props>) => {
   const {
     width,
     minWidth = 0,
-    maxWidth = Number.POSITIVE_INFINITY,
+    maxWidth,
     height,
     minHeight = 0,
-    maxHeight = Number.POSITIVE_INFINITY,
+    maxHeight,
     styles,
     children,
     style,
+    disabled,
+    knob,
     updateWidth,
     updateHeight,
     dragStart,
@@ -66,7 +71,7 @@ const ResizeBounding = (props: Partial<Props>) => {
 
   let { width: newWidth, height: newHeight } = props;
 
-  const refRoot: MutableRefObject<HTMLDivElement | null> = useRef(null);
+  const refRoot = useRef<HTMLDivElement | null>(null);
 
   let prevWidth = newWidth,
     prevHeight = newHeight;
@@ -96,6 +101,7 @@ const ResizeBounding = (props: Partial<Props>) => {
 
   const panes = useMemo(() => {
     const directions = props.directions ?? "";
+
     return {
       left: {
         show:
@@ -208,6 +214,7 @@ const ResizeBounding = (props: Partial<Props>) => {
       {children}
       {Object.values(panes).map(({ show, direction }) => {
         return (
+          !disabled &&
           show && (
             <ResizeBoundingPane
               key={direction}
@@ -225,7 +232,7 @@ const ResizeBounding = (props: Partial<Props>) => {
                 typeof dragEnd === "function" && dragEnd(dir)
               }
             >
-              {direction}
+              {knob}
             </ResizeBoundingPane>
           )
         );

@@ -1,6 +1,6 @@
 {
   "name": "vue3-boundarize-monorepo",
-  "description": "component for resizing nested content",
+  "description": "highly customizable component for resizing nested content",
   "keywords": [
     "vue3",
     "resizer",

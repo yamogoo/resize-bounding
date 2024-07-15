@@ -1,7 +1,7 @@
 {
   "name": "resize-bounding-demo",
   "title": "Vue3 resize bounding (vue3 resizer)",
-  "description": "component for resizing nested content",
+  "description": "highly customizable component for resizing nested content",
   "private": true,
   "version": "1.0.1",
   "productVueVersion": "2.0.1",

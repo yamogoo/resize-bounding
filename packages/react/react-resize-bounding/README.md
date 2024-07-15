@@ -1,15 +1,15 @@
-![image](resize-bounding-w-descriptor.svg)
+![image](https://raw.githubusercontent.com/yamogoo/resize-bounding/v2.0.1/shared/images/resize-bounding-w-descriptor.svg)
 ![Version](https://img.shields.io/badge/version-1.0.1-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-**React Resize Bounding** is a simple component that allows you to intuitively resize nested content using draggable border panels.
+**React Resize Bounding** is a simple, highly customizable React component that allows you to intuitively resize nested content using draggable border panels.
 
 [Demo](https://resize-bounding.netlify.app/)
-![image](resize-bounding.gif)
+
+![image](https://raw.githubusercontent.com/yamogoo/resize-bounding/v2.0.1/shared/images/resize-bounding.gif)
 
 Examples:
 
-- [Interactive Grid](https://github.com/yamogoo/resize-bounding/blob/main/packages/playground/vite-app/src/components/InteractiveGrid.tsx)
-- [Overriding](https://github.com/yamogoo/resize-bounding/blob/main/packages/playground/vite-app/src/components/StylizedKnob.tsx)
+- [Interactive Grid](https://github.com/yamogoo/resize-bounding/blob/v2.0.1/packages/react/playground/vite-app/src/components/InteractiveGrid.tsx)
 
 Installation
 
@@ -31,17 +31,21 @@ export default function MyComponent() {
   const [height, setHeight] = useState(480);
 
   return (
-    <resize-bounding
+    <ResizeBounding
       width={width}
       height={height}
       updateWidth={(width) => setWidth(width)}
       updateHeight={(height) => setHeight(height)}
+      options={{ knob: { show: true } }}
       style={{ border: "1px solid gray" }}
+      // KNOB INNER CONTENT START
+      knob={<div className="some-icon"></div>}
+      // KNOB INNER CONTENT END
     >
       {/* CONTENT START */}
       <div style={{ width: "100%", height: "100%" }}>My Container</div>
       {/* CONTENT END */}
-    </resize-bounding>
+    </ResizeBounding>
   );
 }
 ```
@@ -165,6 +169,26 @@ export default function MyComponent() {
         </td>
       </tr>
       <tr>
+        <td>
+          <code><b>children</b></code>
+        </td>
+        <td><code>ReactNode</code></td>
+        <td><code>undefined</code></td>
+        <td colspan="2">
+          default slot: Content
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code><b>knob</b></code>
+        </td>
+        <td><code>ReactNode</code></td>
+        <td><code>undefined</code></td>
+        <td colspan="2">
+          slot: Knob inner content (icon)
+        </td>
+      </tr>
+      <tr>
         <th colspan="5">additional options</th>
       </tr>
       <tr>
@@ -173,10 +197,10 @@ export default function MyComponent() {
         <th colspan="3">value</th>
       </tr>
       <tr>
-        <td rowspan="41">
+        <td rowspan="45">
           <code><b>options</b></code>
         </td>
-        <td rowspan="41">
+        <td rowspan="45">
           <code>Partial &#60;Options&#62;</code>
         </td>
       </tr>
@@ -298,6 +322,23 @@ export default function MyComponent() {
       </tr>
       <tr>
         <td colspan="3">
+          <code><b>options.addStateClasses</b></code>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">description</td>
+        <td colspan="2">Adds state classes to a pane element (.normal, .selected, .pressed)</td>
+      </tr>
+      <tr>
+        <td colspan="2">type</td>
+        <td colspan="2"><code>boolean</code></td>
+      </tr>
+      <tr>
+        <td colspan="2">default value</td>
+        <td colspan="2"><code>false</code></td>
+      </tr>
+      <tr>
+        <td colspan="3">
           <code><b>options.knob.show</b></code>
         </td>
       </tr>
@@ -395,7 +436,7 @@ export default function MyComponent() {
       <tr>
         <td colspan="2">type</td>
         <td colspan="2">
-          <code>type IStyle = fluentui.IStyle</code>
+          <code>IStyle</code>
         </td>
       </tr>
       <tr>
@@ -419,7 +460,7 @@ export default function MyComponent() {
       <tr>
         <td colspan="2">type</td>
         <td colspan="2">
-          <code>type IStyle = fluentui.IStyle</code>
+          <code>IStyle</code>
         </td>
       </tr>
       <tr>
@@ -437,7 +478,7 @@ export default function MyComponent() {
       <tr>
         <td colspan="2">type</td>
         <td colspan="2">
-          <code>type IStyle = fluentui.IStyle</code>
+          <code>IStyle</code>
         </td>
       </tr>
       <tr>
@@ -454,7 +495,7 @@ export default function MyComponent() {
       <tr>
         <td colspan="2">type</td>
         <td colspan="2">
-          <code>type IStyle = fluentui.IStyle</code>
+          <code>IStyle</code>
         </td>
       </tr>
       <tr>
@@ -474,7 +515,7 @@ export default function MyComponent() {
       <tr>
         <td colspan="2">type</td>
         <td colspan="2">
-          <code>type IStyle = fluentui.IStyle</code>
+          <code>IStyle</code>
         </td>
       </tr>
 </tbody>
@@ -550,137 +591,120 @@ export default function MyComponent() {
 
 ### Customization
 
-```html
-<!-- MyResizeBoundingComponent.vue -->
-<template>
-  <resize-bounding :directions="'h'" :options :styles>
-    <slot></slot>
-  </resize-bounding>
-</template>
+**Overriding:**
 
-<script lang="ts">
-  import ResizeBounding, { PREFIX } from "vue3-resize-bounding";
+```tsx
+// @filename: MyResizeBoundingComponent.tsx (.js)
+import ResizeBoundingComponent, { type Props } from "react-resize-bounding";
 
-  /* * * Default styles and classes * * */
-
-  const options = {
-    width: 4,
-    activeAreaWidth: undefined,
-    position: "central", // 'central' | 'internal' | 'external'
-    knob: {
-      show: true,
-      normalHidden: true,
-    },
-    cursor: {
-      horizontal: "col-resize",
-    },
-    touchActions: true,
-  };
-
-  // Ниже приведены все дефолтные стили сугубо для демонстрации
-  // В действительности можно переопределять только необходимые свойства
-  const styles = (prefix: string): IStyles => ({
-    container: [
-      globalClassNames(prefix).container,
-      { displayName: globalClassNames(prefix).container, position: "relative" },
-    ],
-    pane: [
-      globalClassNames(prefix).pane,
-      {
-        displayName: globalClassNames(prefix).pane,
-        position: "absolute",
-        display: "block",
-        zIndex: 9999,
-        touchAction: "none",
-      },
-    ],
-    splitter: [
-      globalClassNames(prefix).splitter,
-      {
-        displayName: globalClassNames(prefix).splitter,
-        position: "absolute",
-        zIndex: 9999,
-        transition: "background 125ms ease-out",
-        // splitter focused/pressed state:
-        [`.${globalClassNames(prefix).pane}.focused &,
-          .${globalClassNames(prefix).pane}.pressed &`]: {
-          background: "cornflowerblue",
+const ResizeBounding = (props: Props) => {
+  return (
+    <ResizeBoundingComponent
+      {...props}
+      options={{
+        knob: {
+          show: true,
         },
-      },
-    ],
-    splitterContainer: [
-      globalClassNames(prefix).splitterContainer,
-      {
-        displayName: globalClassNames(prefix).splitterContainer,
-        position: "relative",
-        top: "50%",
-        left: "50%",
-        width: `0px`,
-        height: `0px`,
-      },
-    ],
-    knob: [
-      globalClassNames(prefix).knob,
-      {
-        displayName: globalClassNames(prefix).knob,
-        position: "relative",
-        width: "64px",
-        height: "8px",
-        background: "gray",
-        borderRadius: "4px",
-        transform: "translate(-50%, -50%)",
-        transition: "background 125ms ease-out",
-        // knob focused/pressed state:
-        [`.${globalClassNames(prefix).pane}.focused &,
-          .${globalClassNames(prefix).pane}.pressed &`]: {
-          background: "cornflowerblue",
-        },
-      },
-    ],
-  });
-</script>
+      }}
+    >
+      {props.children}
+    </ResizeBoundingComponent>
+  );
+};
+
+export default ResizeBounding;
 ```
 
 > **Touch Area**
 > To increase the touch area, set the value to `options.activeAreaWidth` or use increased height of the `knob`
 > Default value is undefined
 
+**States styling**:
+
+By default, to style the active state (both `.focused` or `.pressed`), the `.active` class is used;
+So the style definition looks like this:
+
+```ts
+const styles = {
+  // Active (focused/pressed) state:
+  splitter: {
+    [`.${globalClassNames(prefix).pane}.active &`]: {
+      background: "cornflowerblue",
+    },
+  },
+  knob: {
+    [`.${globalClassNames(prefix).pane}.active &`]: {
+      background: "cornflowerblue",
+    },
+  },
+};
+```
+
+To separately configure the focused state or the pressed state of a splitter/knob, use the included `:options="{ addStateClasses: true }"` flag and the generated state classes:
+
+```ts
+const styles = {
+  splitter: {
+    // Focused state:
+    [`.${prefix}-pane.focused &`]: {
+      backgroundColor: "blue",
+    },
+    // Pressed state:
+    [`.${prefix}-pane.pressed &`]: {
+      backgroundColor: "red",
+    },
+  },
+
+  knob: {
+    // Focused state:
+    [`.${prefix}-pane.focused &`]: {
+      backgroundColor: "blue",
+    },
+    // Pressed state:
+    [`.${prefix}-pane.pressed &`]: {
+      backgroundColor: "red",
+    },
+  },
+};
+```
+
 ---
 
 Using `css` (preprocessors)
 
-```html
-<template>
-  <resize-bounding
-    :width="container.width"
-    :height="container.height"
-    :min-width="240"
-    :max-width="480"
-    :min-height="120"
-    :options="{ knob: { show: true } }"
-    @update:width="(width) => (container.width = width)"
-    @update:height="(height) => (container.height = height)"
-  >
-    <!-- CONTENT START -->
-    <div style="width="100%; height: 100%;>My Container</div>
-    <!-- CONTENT END -->
+Use the included `:options="{ addStateClasses: true }"` flag to style the `.selected` and `.pressed` states separately.
 
-    <!-- KNOB INNER CONTENT START -->
-    <template #knob>
-      <div class="some-icon"></div>
-    </template>
-    <!-- KNOB INNER CONTENT END -->
-  </resize-bounding>
-</template>
+```tsx
+// @filename: MyResizeBounding.tsx (.js)
+import { useState } from "react";
+import ResizeBounding from "react-resize-bounding";
 
-<script>
-  import { ref } from "vue";
-  const container = ref({ width: 320, height: 480 });
-</script>
+export default function MyComponent() {
+  const [width, setWidth] = useState(320);
+  const [height, setHeight] = useState(480);
+
+  return (
+    <ResizeBounding
+      width={width}
+      height={height}
+      updateWidth={(width) => setWidth(width)}
+      updateHeight={(height) => setHeight(height)}
+      options={{ addStateClasses: true, knob: { show: true } }}
+      style={{ border: "1px solid gray" }}
+      // KNOB INNER CONTENT START
+      knob={<div className="some-icon"></div>}
+      // KNOB INNER CONTENT END
+    >
+      {/* CONTENT START */}
+      <div style={{ width: "100%", height: "100%" }}>My Container</div>
+      {/* CONTENT END */}
+    </ResizeBounding>
+  );
+}
 ```
 
 ```scss
-// @filename: MyComponent.scss
+// @filename: MyResizeBounding.scss
 
 $prefix: "resize-bounding-";
 
@@ -688,39 +712,147 @@ $prefix: "resize-bounding-";
   &-container {
   }
   &-pane {
+    /* Normal state */
     .#{$prefix}splitter {
-      /* &--container {} */
+      &--container {
+      }
     }
     .#{$prefix}knob {
     }
 
-    /* * * States: * * */
+    /* * * Default `options` settings * * */
 
+    /* Both selected and pressed states */
+    &.active {
+      .#{$prefix}splitter {
+      }
+      .#{$prefix}knob {
+      }
+    }
+
+    /* * * Separate states ({ addStateClasses: true }) * * */
+
+    /* Normal state */
     &.normal {
       .#{$prefix}splitter {
-        /* &--container {} */
       }
       .#{$prefix}knob {
       }
     }
 
+    /* Focused state */
     &.focused {
       .#{$prefix}splitter {
-        /* &--container {} */
       }
       .#{$prefix}knob {
       }
     }
 
+    /* Pressed state */
     &.pressed {
       .#{$prefix}splitter {
-        /* &--container {} */
       }
       .#{$prefix}knob {
       }
     }
   }
 }
+```
+
+---
+
+### Default settings (options/styles)
+
+```tsx
+// @filename: MyResizeBoundingComponent.tsx (.js)
+
+import ResizeBounding, { PREFIX } from "vue3-resize-bounding";
+
+/* * * Default styles and classes * * */
+
+const options = {
+  width: 4,
+  activeAreaWidth: undefined,
+  position: "central", // 'central' | 'internal' | 'external'
+  knob: {
+    show: true,
+    normalHidden: true,
+  },
+  cursor: {
+    horizontal: "col-resize",
+  },
+  touchActions: true,
+};
+
+// Below are all the default styles purely for demonstration purposes
+// In reality, you can only override the necessary properties
+const styles = (prefix: string): IStyles => ({
+  container: [
+    globalClassNames(prefix).container,
+    { displayName: globalClassNames(prefix).container, position: "relative" },
+  ],
+  pane: [
+    globalClassNames(prefix).pane,
+    {
+      displayName: globalClassNames(prefix).pane,
+      position: "absolute",
+      display: "block",
+      zIndex: 9999,
+      touchAction: "none",
+    },
+  ],
+  splitter: [
+    globalClassNames(prefix).splitter,
+    {
+      displayName: globalClassNames(prefix).splitter,
+      position: "absolute",
+      zIndex: 9999,
+      transition: "background 125ms ease-out",
+      [`.${globalClassNames(prefix).pane}.active &`]: {
+        background: "cornflowerblue",
+      },
+      /* 
+      Focused state:
+      [`.${globalClassNames(prefix).pane}.focused &`]: {},
+      Pressed state:
+      [`.${globalClassNames(prefix).pane}.pressed &`]: {}
+      */
+    },
+  ],
+  splitterContainer: [
+    globalClassNames(prefix).splitterContainer,
+    {
+      displayName: globalClassNames(prefix).splitterContainer,
+      position: "relative",
+      top: "50%",
+      left: "50%",
+      width: `0px`,
+      height: `0px`,
+    },
+  ],
+  knob: [
+    globalClassNames(prefix).knob,
+    {
+      displayName: globalClassNames(prefix).knob,
+      position: "relative",
+      width: "64px",
+      height: "6px",
+      background: "gray",
+      borderRadius: "3px",
+      transform: "translate(-50%, -50%)",
+      transition: "background 125ms ease-out",
+      [`.${globalClassNames(prefix).pane}.active &`]: {
+        background: "cornflowerblue",
+      },
+      /* 
+      Focused state:
+      [`.${globalClassNames(prefix).pane}.focused &`]: {},
+      Pressed state:
+      [`.${globalClassNames(prefix).pane}.pressed &`]: {}
+      */
+    },
+  ],
+});
 ```
 
 ---

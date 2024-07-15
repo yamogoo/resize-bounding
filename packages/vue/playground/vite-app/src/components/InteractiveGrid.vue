@@ -151,7 +151,7 @@ import { ref, type Ref } from "vue";
 import UIInnerBlock from "@/components/helpers/UIInnerBlock.vue";
 import UISizeField from "@/components/helpers/UISizeField.vue";
 
-import ResizeBounding from "vue3-resize-bounding";
+import ResizeBounding from "./ResizeBounding.vue";
 
 interface ContainerSize {
   width: number;

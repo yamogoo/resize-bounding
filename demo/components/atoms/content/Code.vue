@@ -3,9 +3,9 @@
     <span v-if="fileName" class="ui-code__file-name">{{ fileName }}</span>
     <div class="ui-code--container">
       <pre v-if="block">
-      <code ref="refCode" :lang :class="`language-${lang}`">{{ code }}<slot></slot></code>
+      <code ref="refCode" :class="`language-${lang}`">{{ code }}<slot></slot></code>
     </pre>
-      <code v-else ref="refCode" :lang :class="`language-${lang}`"
+      <code v-else ref="refCode" :class="`language-${lang}`"
         >{{ code }}<slot></slot
       ></code>
       <AtomsButtonCopy
@@ -21,7 +21,8 @@
 import { ref } from "vue";
 
 import Prism from "prismjs";
-import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-typescript.js";
+// import "prismjs/components/prism-tsx.js";
 import "prismjs/components/prism-scss.js";
 
 interface Props {
@@ -36,7 +37,7 @@ withDefaults(defineProps<Props>(), {
   codeBlock: false,
 });
 
-const refCode = ref<HTMLPreElement | null>(null);
+const refCode = ref<Element | null>(null);
 
 watch(
   refCode,

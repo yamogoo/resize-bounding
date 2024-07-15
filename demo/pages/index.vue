@@ -45,7 +45,7 @@
               </template>
               <AtomsCoverIntro
                 :title="'Supports Mouse & Touch Events'"
-                description="A simple Vue3/React component that allows you to intuitively resize internal custom components using draggable border panels."
+                description="Resize Bounding is a simple, highly customizable Vue3 / React component that allows you to intuitively resize nested content using draggable border panels"
                 :image-path="'/resize-bounding-cover.svg'"
               />
             </AtomsContainerRounded>
