@@ -18,9 +18,6 @@
           height: '6px',
           borderRadius: '4px',
           transition: 'background 75ms ease-out',
-          ['.pane :hover &']: {
-            background: 'cornflowerblue',
-          },
         },
       ],
     }"
@@ -55,7 +52,7 @@ $prefix: "ui-resizer__";
     }
 
     // selected pane:
-    &.focused {
+    &.active {
       .#{$prefix}splitter {
         @include themify($app-themes) {
           background: transparentize(themed("colors", "accent"), 0);

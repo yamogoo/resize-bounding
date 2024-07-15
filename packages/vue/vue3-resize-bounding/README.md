@@ -7,9 +7,10 @@
 
 ![image](https://raw.githubusercontent.com/yamogoo/resize-bounding/v2.0.1/shared/images/resize-bounding.gif)
 
-Examples:
+Interactive Grid (Example):
 
-- [Interactive Grid](https://github.com/yamogoo/resize-bounding/blob/v2.0.1/packages/vue/playground/vite-app/src/components/InteractiveGrid.vue)
+- [stackblitz](https://stackblitz.com/edit/vue3-resize-bounding-example?file=src%2FApp.vue)
+- [github](https://github.com/yamogoo/resize-bounding/blob/v2.0.1/packages/vue/playground/vite-app/src/components/InteractiveGrid.vue)
 
 Installation
 
