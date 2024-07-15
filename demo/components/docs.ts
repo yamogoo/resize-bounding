@@ -7,26 +7,33 @@ interface CodeBlock {
 const vue3: Array<CodeBlock> = [
   {
     lang: "html",
-    code: `<script>
+    code: `<!-- @filename: MyComponent.vue -->
+<script setup lang="ts">
   import { ref } from "vue";
   import ResizeBounding from "vue3-resize-bounding";
+
   const container = ref({ width: 320, height: 480 });
 </script>
 
 <template>
-  <resize-bounding
+  <ResizeBounding
     :width="container.width"
     :height="container.height"
     :min-width="240"
     :max-width="480"
     :min-height="120"
-    :options="{ knob: { show: true } }"
-    :style="{ border: "1px solid gray" }"
+    :directions="'hv'"
+    :options="{
+        knob: {
+          show: true
+        }
+    }"
+    :style="{ border: '1px solid gray' }"
     @update:width="(width) => (container.width = width)"
     @update:height="(height) => (container.height = height)"
   >
     <!-- CONTENT START -->
-    <div style="{width: '100%', height: '100%'}">My Container</div>
+    <div :style="{ width: '100%', height: '100%' }">My Container</div>
     <!-- CONTENT END -->
 
     <!-- KNOB INNER CONTENT START -->
@@ -34,7 +41,7 @@ const vue3: Array<CodeBlock> = [
       <div class="some-icon"></div>
     </template>
     <!-- KNOB INNER CONTENT END -->
-  </resize-bounding>
+  </ResizeBounding>
 </template>`,
     fileName: "App.vue",
   },
@@ -46,7 +53,7 @@ const react: Array<CodeBlock> = [
     code: `import { useState } from "react";
 import ResizeBounding from "react-resize-bounding";
 
-export default function MyComponent() {
+export default function App() {
   const [width, setWidth] = useState(320);
   const [height, setHeight] = useState(480);
 
@@ -54,13 +61,15 @@ export default function MyComponent() {
     <ResizeBounding
       width={width}
       height={height}
+      directions="hv"
       updateWidth={(width) => setWidth(width)}
       updateHeight={(height) => setHeight(height)}
-      options={{ knob: { show: true } }}
       style={{ border: "1px solid gray" }}
-      // KNOB INNER CONTENT START
-      knob={<div className="some-icon"></div>}
-      // KNOB INNER CONTENT END
+      options={{
+        knob: {
+          show: true,
+        },
+      }}
     >
       {/* CONTENT START */}
       <div style={{ width: "100%", height: "100%" }}>My Container</div>
