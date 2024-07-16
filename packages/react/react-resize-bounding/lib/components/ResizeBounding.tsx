@@ -10,6 +10,7 @@ import deepmerge from "deepmerge";
 import {
   PaneDirectionAliases,
   PaneDirections,
+  type PaneDirectionKey,
   type IStyles,
   type Options,
 } from "../shared/typings";
@@ -19,11 +20,7 @@ import {
   PREFIX,
 } from "./ResizeBounding.classNames";
 
-import ResizeBoundingPane, {
-  PaneEmittedData,
-  type PaneDirectionKey,
-} from "./ResizeBoundingPane";
-
+import ResizeBoundingPane, { PaneEmittedData } from "./ResizeBoundingPane";
 export interface Props
   extends PropsWithChildren,
     Partial<{
@@ -99,35 +96,24 @@ const ResizeBounding = (props: Partial<Props>) => {
     };
   }, [width, height]);
 
+  const getDirectionAlias = (d: PaneDirections): PaneDirectionAliases => {
+    if (d === PaneDirections.LEFT || d === PaneDirections.RIGHT)
+      return PaneDirectionAliases.HORIZONTAL;
+    return PaneDirectionAliases.VERTICAL;
+  };
+
   const panes = useMemo(() => {
     const directions = props.directions ?? "";
 
-    return {
-      left: {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    return Object.entries(PaneDirections).map(([_, v]) => {
+      return {
         show:
-          RegExp(PaneDirections.LEFT).test(directions) ||
-          RegExp(PaneDirectionAliases.HORIZONTAL).test(directions),
-        direction: PaneDirections.LEFT,
-      },
-      right: {
-        show:
-          RegExp(PaneDirections.RIGHT).test(directions) ||
-          RegExp(PaneDirectionAliases.HORIZONTAL).test(directions),
-        direction: PaneDirections.RIGHT,
-      },
-      bottom: {
-        show:
-          RegExp(PaneDirections.BOTTOM).test(directions) ||
-          RegExp(PaneDirectionAliases.VERTICAL).test(directions),
-        direction: PaneDirections.BOTTOM,
-      },
-      top: {
-        show:
-          RegExp(PaneDirections.TOP).test(directions) ||
-          RegExp(PaneDirectionAliases.VERTICAL).test(directions),
-        direction: PaneDirections.TOP,
-      },
-    };
+          RegExp(v).test(directions) ||
+          RegExp(getDirectionAlias(v)).test(directions),
+        direction: v,
+      };
+    });
   }, [props.directions]);
 
   /* * * Events * * */
@@ -142,8 +128,7 @@ const ResizeBounding = (props: Partial<Props>) => {
     startWidth = props.width ?? 0;
     startHeight = props.height ?? 0;
 
-    startX = x;
-    startY = y;
+    (startX = x), (startY = y);
 
     typeof dragStart === "function" && dragStart(dir);
   };
@@ -157,7 +142,6 @@ const ResizeBounding = (props: Partial<Props>) => {
 
     if (next <= min) return min;
     else if (next >= _max) return _max;
-
     return next;
   };
 

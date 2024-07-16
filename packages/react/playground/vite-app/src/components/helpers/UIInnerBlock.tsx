@@ -7,9 +7,15 @@ interface Props extends PropsWithChildren {
   title?: string;
   imagePath?: string;
   imageDescription?: string;
+  showLogo?: boolean;
 }
 
-const HInnerBlock = ({ children, title, imagePath }: Props) => {
+const HInnerBlock = ({
+  children,
+  title,
+  imagePath,
+  showLogo = false,
+}: Props) => {
   return (
     <div className={"ui-inner-block"}>
       <div
@@ -22,6 +28,11 @@ const HInnerBlock = ({ children, title, imagePath }: Props) => {
         }}
       >
         <div className="ui-inner-block__control-panel">{children}</div>
+        {showLogo && (
+          <div style={{ position: "absolute", left: "60px" }}>
+            <img src="/resize-bounding-w-descriptor.svg" />
+          </div>
+        )}
         <h1 style={{ color: colors.foregroundPrimary }}>{title}</h1>
       </div>
     </div>

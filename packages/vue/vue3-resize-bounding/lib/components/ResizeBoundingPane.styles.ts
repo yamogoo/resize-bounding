@@ -1,26 +1,22 @@
-import { HTMLAttributes } from "vue";
+import { StyleValue } from "vue";
 
-import {
-  PaneDirections,
-  PanePosition,
-  SplitterPositions,
-} from "../shared/typings";
+import { PaneDirections, type SplitterPosition } from "../shared/typings";
 
 export const paneBaseStyles = (
   size: number,
   areaWidth: number,
-  position: PanePosition,
-): Record<PaneDirections, HTMLAttributes["style"]> => {
+  position: SplitterPosition,
+): Record<PaneDirections, StyleValue> => {
   let _offset: string = "0px";
 
   switch (position) {
-    case SplitterPositions.CENTER:
+    case "central":
       _offset = `-${areaWidth / 2}px`;
       break;
-    case SplitterPositions.EXTERNAL:
+    case "external":
       _offset = `-${(areaWidth + size) / 2}px`;
       break;
-    case SplitterPositions.INTERNAL:
+    case "internal":
       _offset = `-${(areaWidth - size) / 2}px`;
       break;
   }
@@ -41,7 +37,7 @@ export const paneBaseStyles = (
 export const splitterBaseStyles = (
   size: number,
   areaWidth: number,
-): Record<PaneDirections, HTMLAttributes["style"]> => {
+): Record<PaneDirections, StyleValue> => {
   const _size = `${size}px`;
 
   const _offset: string = `${(areaWidth - size) / 2}px`;

@@ -1,28 +1,26 @@
 import {
-  CSSProperties,
   useMemo,
   useRef,
   useState,
   MutableRefObject,
   type PropsWithChildren,
+  type CSSProperties,
   useEffect,
 } from "react";
 
 import {
-  IResizeBoundingClassNames,
-  IStyles,
-  Options,
-  PaneDirectionAliases,
   PaneDirections,
-  SplitterPositions,
+  PaneDirectionAliases,
+  type PaneDirectionKey,
+  type IResizeBoundingClassNames,
+  type IStyles,
+  type Options,
 } from "../shared/typings";
 
 import {
   paneBaseStyles,
   splitterBaseStyles,
 } from "./ResizeBoundingPane.styles";
-
-export type PaneDirectionKey = PaneDirections | PaneDirections | string;
 
 export interface PaneEmittedData {
   x: number;
@@ -77,7 +75,7 @@ const ResizeBoundingPane = ({
       const _styles = paneBaseStyles(
         _width,
         _areaWidth,
-        options?.position ?? SplitterPositions.CENTER,
+        options?.position ?? "central",
       );
       const value: CSSProperties = _styles[direction as PaneDirections];
       return value;

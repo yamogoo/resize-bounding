@@ -14,8 +14,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-
 import ResizeBounding, {
   globalClassNames,
   PREFIX,
@@ -24,7 +22,7 @@ import ResizeBounding, {
 
 import { colors } from "@/components/colors";
 
-const styles = ref<Partial<IStyles>>({
+const styles: Partial<IStyles> = {
   splitter: [
     globalClassNames(PREFIX).splitter,
     {
@@ -45,5 +43,5 @@ const styles = ref<Partial<IStyles>>({
       },
     },
   ],
-});
+};
 </script>

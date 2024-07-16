@@ -12,11 +12,7 @@ import "@testing-library/jest-dom";
 import React from "react";
 
 import { DataTestIds, PREFIX } from "./setup";
-import {
-  PaneDirectionAliases,
-  PaneDirections,
-  SplitterPositions,
-} from "../../lib/shared/typings";
+import { PaneDirectionAliases, PaneDirections } from "../../lib/shared/typings";
 
 import ResizeBoundingPane, {
   PaneEmittedData,
@@ -374,7 +370,7 @@ describe("ResizeBoundingPane", () => {
           );
 
           const SIZE = 12;
-          const paneMap = paneBaseStyles(SIZE, SIZE, SplitterPositions.CENTER);
+          const paneMap = paneBaseStyles(SIZE, SIZE, "central");
           const splitterMap = splitterBaseStyles(SIZE, SIZE);
 
           test.each([

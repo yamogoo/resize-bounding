@@ -5,20 +5,14 @@ export interface Knob {
   normalHidden: boolean;
 }
 
-export enum SplitterPositions {
-  CENTER = "central",
-  EXTERNAL = "external",
-  INTERNAL = "internal",
-}
-
-export type PanePosition = SplitterPositions | string;
+export type SplitterPosition = "central" | "external" | "internal";
 
 export interface Options {
   prefix: string;
   width: number;
   activeAreaWidth?: number;
   addStateClasses?: boolean;
-  position: PanePosition;
+  position: SplitterPosition;
   cursor: Partial<
     Record<"horizontal" | "vertical", CSSStyleDeclaration["cursor"]>
   >;
@@ -47,8 +41,6 @@ export type IStyleSet = fluentui.IStyleSet;
 
 /* * * Pane * * */
 
-export type PaneDirectionKey = PaneDirections | PaneDirections | string;
-
 export enum PaneDirectionAliases {
   HORIZONTAL = "h",
   VERTICAL = "v",
@@ -60,3 +52,5 @@ export enum PaneDirections {
   BOTTOM = "b",
   TOP = "t",
 }
+
+export type PaneDirectionKey = string;

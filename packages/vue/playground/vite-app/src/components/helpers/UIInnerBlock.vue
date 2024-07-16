@@ -14,6 +14,9 @@
       <div class="ui-inner-block__control-panel">
         <slot></slot>
       </div>
+      <div v-if="showLogo" :style="{ position: 'absolute', left: '60px' }">
+        <img src="/resize-bounding-w-descriptor.svg" />
+      </div>
       <h1 :style="{ color: colors.foregroundPrimary }">{{ title }}</h1>
     </div>
   </div>
@@ -25,9 +28,12 @@ import { colors } from "@/components/colors";
 interface Props {
   title?: string;
   imagePath?: string;
+  showLogo?: boolean;
 }
 
-defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+  showLogo: false,
+});
 </script>
 
 <style lang="scss">

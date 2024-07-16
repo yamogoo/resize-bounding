@@ -1,4 +1,4 @@
-import { IStyles, Options, type PaneDirectionKey } from "../shared/typings";
+import type { IStyles, Options, PaneDirectionKey } from "../shared/typings";
 
 export interface Props
   extends Partial<{

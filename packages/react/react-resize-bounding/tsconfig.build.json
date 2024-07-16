@@ -17,8 +17,7 @@
         "noUnusedParameters": true,
         "noImplicitReturns": false,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "react-jsx"
     },
-    "include": ["lib/**/*", "*.d.ts"],
+    "include": ["lib/**/*.ts"],
     "exclude": ["src/**/__tests__", "src/tests-report"],
 }

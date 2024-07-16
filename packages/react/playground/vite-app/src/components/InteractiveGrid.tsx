@@ -67,11 +67,11 @@ const InteractiveGrid = () => {
               dispatch({ type: ActionTypes.SET_A_HEIGHT, payload: height });
             }}
           >
-            <UIInnerBlock title={layout.a.title}>
+            <UIInnerBlock title={layout.a.title} showLogo>
               <UISizeField
                 height={layout.a.height}
                 updateHeight={(height) => {
-                  layout.a.height = height;
+                  dispatch({ type: ActionTypes.SET_A_HEIGHT, payload: height });
                 }}
               />
             </UIInnerBlock>
@@ -84,7 +84,7 @@ const InteractiveGrid = () => {
               width={layout.b.width}
               min-width={layout.b.minWidth}
               max-width={layout.b.maxWidth}
-              directions="'r'"
+              directions="r"
               style={{ display: "flex", borderRight: borderStyle }}
               updateWidth={(width) => {
                 dispatch({ type: ActionTypes.SET_B_WIDTH, payload: width });
@@ -94,7 +94,7 @@ const InteractiveGrid = () => {
                 <UISizeField
                   width={layout.b.width}
                   updateWidth={(width) => {
-                    layout.b.width = width;
+                    dispatch({ type: ActionTypes.SET_B_WIDTH, payload: width });
                   }}
                 />
               </UIInnerBlock>
@@ -116,7 +116,7 @@ const InteractiveGrid = () => {
                 <UISizeField
                   width={layout.d.width}
                   updateWidth={(width) => {
-                    layout.d.width = width;
+                    dispatch({ type: ActionTypes.SET_D_WIDTH, payload: width });
                   }}
                 />
               </UIInnerBlock>
@@ -151,10 +151,13 @@ const InteractiveGrid = () => {
                   width={layout.e.width}
                   height={layout.e.height}
                   updateWidth={(width) => {
-                    layout.e.width = width;
+                    dispatch({ type: ActionTypes.SET_E_WIDTH, payload: width });
                   }}
                   updateHeight={(height) => {
-                    layout.e.height = height;
+                    dispatch({
+                      type: ActionTypes.SET_E_HEIGHT,
+                      payload: height,
+                    });
                   }}
                 />
               </UIInnerBlock>

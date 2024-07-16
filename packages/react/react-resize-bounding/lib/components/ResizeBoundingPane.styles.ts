@@ -1,37 +1,28 @@
 import { CSSProperties } from "react";
-import {
-  PaneDirections,
-  PanePosition,
-  SplitterPositions,
-} from "../shared/typings";
+import { PaneDirections, type SplitterPosition } from "../shared/typings";
 
 export const paneBaseStyles = (
   size: number,
   areaWidth: number,
-  position: PanePosition,
+  position: SplitterPosition,
 ): Record<PaneDirections, CSSProperties> => {
   let _offset: string = "0px";
 
   switch (position) {
-    case SplitterPositions.CENTER:
+    case "central":
       _offset = `-${areaWidth / 2}px`;
       break;
-    case SplitterPositions.EXTERNAL:
+    case "external":
       _offset = `-${(areaWidth + size) / 2}px`;
       break;
-    case SplitterPositions.INTERNAL:
+    case "internal":
       _offset = `-${(areaWidth - size) / 2}px`;
       break;
   }
 
   return {
     l: { top: "0px", left: _offset, width: `${areaWidth}px`, height: "100%" },
-    r: {
-      top: "0px",
-      right: _offset,
-      width: `${areaWidth}px`,
-      height: "100%",
-    },
+    r: { top: "0px", right: _offset, width: `${areaWidth}px`, height: "100%" },
     t: { left: "0px", top: _offset, width: "100%", height: `${areaWidth}px` },
     b: {
       left: "0px",

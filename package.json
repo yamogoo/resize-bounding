@@ -2,17 +2,19 @@
   "name": "vue3-boundarize-monorepo",
   "description": "highly customizable component for resizing nested content",
   "keywords": [
-    "vue3",
     "resizer",
     "vue3 resizer",
+    "vue3 bounding",
+    "react resizer",
+    "react bounding",
     "resize",
     "bounding box",
     "resize bounding",
     "resize container",
     "draggable container"
   ],
-  "vueVersion": "2.0.3",
-  "reactVersion": "1.0.3",
+  "vueVersion": "2.0.4",
+  "reactVersion": "1.0.4",
   "private": false,
   "author": {
     "name": "yamogoo",

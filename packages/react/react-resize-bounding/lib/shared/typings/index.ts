@@ -1,24 +1,18 @@
-import type { IStyle } from "@fluentui/merge-styles";
+import fluentui from "@fluentui/merge-styles";
 
 export interface Knob {
   show: boolean;
   normalHidden: boolean;
 }
 
-export enum SplitterPositions {
-  CENTER = "central",
-  EXTERNAL = "external",
-  INTERNAL = "internal",
-}
-
-export type PanePosition = SplitterPositions | string;
+export type SplitterPosition = "central" | "external" | "internal";
 
 export interface Options {
   prefix: string;
   width: number;
   activeAreaWidth?: number;
   addStateClasses?: boolean;
-  position: PanePosition;
+  position: SplitterPosition;
   cursor: Partial<
     Record<"horizontal" | "vertical", CSSStyleDeclaration["cursor"]>
   >;
@@ -42,6 +36,8 @@ export interface IResizeBoundingClassNames {
 }
 
 export interface IStyles extends Record<ResizeBoundingClassNames, IStyle> {}
+export type IStyle = fluentui.IStyle;
+export type IStyleSet = fluentui.IStyleSet;
 
 /* * * Pane * * */
 
@@ -56,3 +52,5 @@ export enum PaneDirections {
   BOTTOM = "b",
   TOP = "t",
 }
+
+export type PaneDirectionKey = string;

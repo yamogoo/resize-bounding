@@ -6,7 +6,7 @@
     :style="[computedStyle]"
   >
     <slot></slot>
-    <template v-for="({ show, direction }, idx) in panes" :key="idx">
+    <template v-for="{ show, direction } in panes" :key="direction">
       <ResizeBoundingPane
         v-if="!disabled && show"
         :prefix="options.prefix ?? ''"
@@ -36,7 +36,7 @@ import { ref, computed, type ComputedRef, type HTMLAttributes } from "vue";
 import deepmerge from "deepmerge";
 
 import { type Props, Emits } from "./ResizeBounding";
-import { PaneDirectionAliases, PaneDirections } from "../shared/typings";
+import { PaneDirections, PaneDirectionAliases } from "../shared/typings";
 
 import ResizeBoundingPane, {
   type PaneEmittedData,
@@ -94,35 +94,24 @@ const computedStyle: ComputedRef<HTMLAttributes["style"]> = computed(() => {
   };
 });
 
+const getDirectionAlias = (d: PaneDirections): PaneDirectionAliases => {
+  if (d === PaneDirections.LEFT || d === PaneDirections.RIGHT)
+    return PaneDirectionAliases.HORIZONTAL;
+  return PaneDirectionAliases.VERTICAL;
+};
+
 const panes = computed(() => {
   const directions = props.directions ?? "";
 
-  return {
-    left: {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  return Object.entries(PaneDirections).map(([_, v]) => {
+    return {
       show:
-        RegExp(PaneDirections.LEFT).test(directions) ||
-        RegExp(PaneDirectionAliases.HORIZONTAL).test(directions),
-      direction: PaneDirections.LEFT,
-    },
-    right: {
-      show:
-        RegExp(PaneDirections.RIGHT).test(directions) ||
-        RegExp(PaneDirectionAliases.HORIZONTAL).test(directions),
-      direction: PaneDirections.RIGHT,
-    },
-    bottom: {
-      show:
-        RegExp(PaneDirections.BOTTOM).test(directions) ||
-        RegExp(PaneDirectionAliases.VERTICAL).test(directions),
-      direction: PaneDirections.BOTTOM,
-    },
-    top: {
-      show:
-        RegExp(PaneDirections.TOP).test(directions) ||
-        RegExp(PaneDirectionAliases.VERTICAL).test(directions),
-      direction: PaneDirections.TOP,
-    },
-  };
+        RegExp(v).test(directions) ||
+        RegExp(getDirectionAlias(v)).test(directions),
+      direction: v,
+    };
+  });
 });
 
 let startWidth = props.width ?? 0,
@@ -150,7 +139,6 @@ const truncateInRange = (
 
   if (next <= min) return min;
   else if (next >= _max) return _max;
-
   return next;
 };
 
@@ -161,11 +149,9 @@ const onDragMove = ({ x, y, dir }: PaneEmittedData): void => {
 
   if (dir === PaneDirections.LEFT) {
     newWidth = startWidth + (startX - x);
-
     if (prevWidth === newWidth) return;
 
     const truncated = truncateInRange(props.minWidth, props.maxWidth, newWidth);
-
     emits(Emits.UPDATE_WIDTH, truncated);
     prevWidth = truncated;
   } else if (dir === PaneDirections.RIGHT) {
@@ -174,7 +160,6 @@ const onDragMove = ({ x, y, dir }: PaneEmittedData): void => {
     if (prevWidth === newWidth) return;
 
     const truncated = truncateInRange(props.minWidth, props.maxWidth, newWidth);
-
     emits(Emits.UPDATE_WIDTH, truncated);
     prevWidth = truncated;
   } else if (dir === PaneDirections.TOP) {
@@ -206,7 +191,7 @@ const onDragMove = ({ x, y, dir }: PaneEmittedData): void => {
   }
 };
 
-const onDragEnd = ({ dir, x, y }: PaneEmittedData): void => {
+const onDragEnd = ({ dir }: PaneEmittedData): void => {
   emits(Emits.DRAG_END, dir);
 };
 </script>
