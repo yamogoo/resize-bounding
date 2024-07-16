@@ -1,16 +1,16 @@
-![image](https://raw.githubusercontent.com/yamogoo/resize-bounding/v2.0.3/shared/images/resize-bounding-w-descriptor.svg)
-![Version](https://img.shields.io/badge/version-1.0.3-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+![image](https://raw.githubusercontent.com/yamogoo/resize-bounding/v2.0.4/shared/images/resize-bounding-w-descriptor.svg)
+![Version](https://img.shields.io/badge/version-1.0.4-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 **React Resize Bounding** is a simple, highly customizable React component that allows you to intuitively resize nested content using draggable border panels.
 
 [Demo](https://resize-bounding.netlify.app/)
 
-![image](https://raw.githubusercontent.com/yamogoo/resize-bounding/v2.0.3/shared/images/resize-bounding.gif)
+![image](https://raw.githubusercontent.com/yamogoo/resize-bounding/v2.0.4/shared/images/resize-bounding.gif)
 
 Interactive Grid (Example):
 
 - [stackblitz](https://stackblitz.com/edit/react-resize-bounding-example?file=src%2FApp.tsx)
-- [github](https://github.com/yamogoo/resize-bounding/blob/v2.0.3/packages/react/playground/vite-app/src/components/InteractiveGrid.tsx)
+- [github](https://github.com/yamogoo/resize-bounding/blob/v2.0.4/packages/react/playground/vite-app/src/components/InteractiveGrid.tsx)
 
 Installation
 
@@ -279,7 +279,7 @@ export default function App() {
       </tr>
       <tr>
         <td colspan="2">type</td>
-        <td colspan="2"><code>PanePosition</code></td>
+        <td colspan="2"><code>SplitterPosition</code></td>
       </tr>
       <tr>
         <td colspan="2">default value</td>
@@ -553,7 +553,7 @@ export default function App() {
       <td>
         <code><b>dragStart</b></code>
       </td>
-      <td><code>(direction: string) => void</code></td>
+      <td><code>(direction: PaneDirections) => void</code></td>
       <td colspan="2">
         Emitted when resizing starts. The callback function accepts an
         argument of current <code>direction</code>
@@ -563,7 +563,7 @@ export default function App() {
       <td>
         <code><b>dragMove</b></code>
       </td>
-      <td><code>(direction: string) => void</code></td>
+      <td><code>(direction: PaneDirections) => void</code></td>
       <td colspan="2">
         Emitted when resizing. The callback function accepts an argument of
         current <code>direction</code>
@@ -573,7 +573,7 @@ export default function App() {
       <td>
         <code><b>dragEnd</b></code>
       </td>
-      <td><code>(direction: string) => void</code></td>
+      <td><code>(direction: PaneDirections) => void</code></td>
       <td colspan="2">
         Emitted when resizing ends. The callback function accepts an argument
         of current <code>direction</code>
@@ -583,7 +583,7 @@ export default function App() {
       <td>
         <code><b>focus</b></code>
       </td>
-      <td><code>({state: boolean, direction: string}) => void</code></td>
+      <td><code>({state: boolean, direction: PaneDirections}) => void</code></td>
       <td colspan="2">Emitted when focusing on a specific boundary pane</td>
     </tr>
   </tbody>

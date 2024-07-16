@@ -26,7 +26,7 @@ export default defineConfig({
       fileName: (format) => `react-resize-bounding.${format}.js`,
     },
     rollupOptions: {
-      external: ["react", "ReactDOM"],
+      external: ["react", "react-dom"],
       output: {
         exports: "named",
         globals: {
@@ -38,7 +38,6 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "~": fileURLToPath(new URL("./src", import.meta.url)),
       "@": fileURLToPath(new URL("./lib", import.meta.url)),
     },
   },

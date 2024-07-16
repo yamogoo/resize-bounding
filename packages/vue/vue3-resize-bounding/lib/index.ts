@@ -5,9 +5,8 @@ export { type Props } from "./components/ResizeBounding";
 export {
   PaneDirections,
   PaneDirectionAliases,
-  SplitterPositions,
+  type SplitterPosition,
   type Knob,
-  type PanePosition,
   type Options,
   type ResizeBoundingClassNames,
   type IResizeBoundingClassNames,

@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
     "composite": true,
-   "skipLibCheck": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "skipLibCheck": true,
     "module": "ESNext",
-    "moduleResolution": "Node",
-    "esModuleInterop": true,
+    "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "noEmit": false
+    "noEmit": true
   },
-  "include": ["vite.config.ts", "terser.config.ts"]
+  "include": ["vite.config.ts"]
 }

@@ -2,11 +2,12 @@ import ResizeBoundingComponent, {
   globalClassNames,
   PREFIX,
   type Props,
+  type IStyles,
 } from "react-resize-bounding";
 
 import { colors } from "./colors";
 
-const styles = {
+const styles: Partial<IStyles> = {
   splitter: [
     globalClassNames(PREFIX).splitter,
     {

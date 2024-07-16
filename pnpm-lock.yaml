@@ -131,19 +131,19 @@ importers:
 
   packages/react/react-resize-bounding:
     dependencies:
+      '@fluentui/merge-styles':
+        specifier: ^8.6.12
+        version: 8.6.12
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
       react:
         specifier: ^18.3.1
         version: 18.3.1
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
-      vue3-resize-bounding:
-        specifier: ^2.0.2
-        version: 2.0.2(vue@3.4.31(typescript@5.5.3))
     devDependencies:
-      '@fluentui/merge-styles':
-        specifier: ^8.6.12
-        version: 8.6.12
       '@testing-library/dom':
         specifier: ^10.3.1
         version: 10.3.1
@@ -180,9 +180,6 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^4.3.1
         version: 4.3.1(vite@5.3.3(@types/node@20.14.10)(lightningcss@1.25.1)(sass@1.77.8)(terser@5.31.2))
-      deepmerge:
-        specifier: ^4.3.1
-        version: 4.3.1
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
@@ -253,13 +250,16 @@ importers:
 
   packages/vue/vue3-resize-bounding:
     dependencies:
-      vue:
-        specifier: ^3.2
-        version: 3.4.31(typescript@5.5.3)
-    devDependencies:
       '@fluentui/merge-styles':
         specifier: ^8.6.12
         version: 8.6.12
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
+      vue:
+        specifier: ^3.4.31
+        version: 3.4.31(typescript@5.5.3)
+    devDependencies:
       '@tsconfig/node20':
         specifier: ^20.1.4
         version: 20.1.4
@@ -278,9 +278,6 @@ importers:
       '@vue/test-utils':
         specifier: ^2.4.6
         version: 2.4.6
-      deepmerge:
-        specifier: ^4.3.1
-        version: 4.3.1
       eslint:
         specifier: ^9.5.0
         version: 9.7.0
@@ -5578,12 +5575,6 @@ packages:
     hasBin: true
     peerDependencies:
       typescript: '>=5.0.0'
-
-  vue3-resize-bounding@2.0.2:
-    resolution: {integrity: sha512-SMvzK8WqS2CnISh1q7KmGYVSHLoUbopmMtUQs3cPgwfwOUF5xuAZ9M9Flk+shnOpIABPpYVJUhLCTzqL8ZSCVg==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      vue: ^3.2
 
   vue@3.4.31:
     resolution: {integrity: sha512-njqRrOy7W3YLAlVqSKpBebtZpDVg21FPoaq1I7f/+qqBThK9ChAIjkRWgeP6Eat+8C+iia4P3OYqpATP21BCoQ==}
@@ -12338,10 +12329,6 @@ snapshots:
       '@vue/language-core': 2.0.26(typescript@5.5.3)
       semver: 7.6.2
       typescript: 5.5.3
-
-  vue3-resize-bounding@2.0.2(vue@3.4.31(typescript@5.5.3)):
-    dependencies:
-      vue: 3.4.31(typescript@5.5.3)
 
   vue@3.4.31(typescript@5.5.3):
     dependencies:

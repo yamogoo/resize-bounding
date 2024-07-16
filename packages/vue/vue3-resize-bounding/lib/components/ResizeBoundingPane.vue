@@ -43,11 +43,10 @@ import {
   ref,
   type Ref,
   computed,
-  type HTMLAttributes,
+  type StyleValue,
 } from "vue";
 
 import {
-  SplitterPositions,
   type IStyles,
   type Options,
   type IResizeBoundingClassNames,
@@ -75,7 +74,7 @@ const refPane: Ref<HTMLDivElement | null> = ref(null);
 const isFocused = ref(false),
   isPressed = ref(false);
 
-let isResizing = false;
+const isResizing = ref(false);
 
 const paneComputedStyle = computed(() => {
   const _width = props.options?.width ?? 1;
@@ -85,10 +84,9 @@ const paneComputedStyle = computed(() => {
     const _styles = paneBaseStyles(
       _width,
       _areaWidth,
-      props.options?.position ?? SplitterPositions.CENTER,
+      props.options?.position ?? "center",
     );
-    const value: HTMLAttributes["style"] =
-      _styles[props.direction as PaneDirections];
+    const value: StyleValue = _styles[props.direction as PaneDirections];
     return value;
   }
   return;
@@ -101,8 +99,7 @@ const splitterComputedStyle = computed(() => {
     const _areaWidth = props.options.activeAreaWidth ?? props.options.width;
 
     const _styles = splitterBaseStyles(_width, _areaWidth);
-    const value: HTMLAttributes["style"] =
-      _styles[props.direction as PaneDirections];
+    const value: StyleValue = _styles[props.direction as PaneDirections];
     return value;
   }
 });
@@ -145,7 +142,7 @@ const onDragStart = (e: PointerEvent): void => {
 
   if (!props.options.touchActions && e.pointerType === "touch") return;
 
-  isResizing = true;
+  isResizing.value = true;
   isPressed.value = true;
 
   onSelected(true);
@@ -168,7 +165,7 @@ const onDragStart = (e: PointerEvent): void => {
   };
 
   const onDragEnd = (e: PointerEvent): void => {
-    isResizing = false;
+    isResizing.value = false;
     isPressed.value = false;
 
     const el = e.currentTarget as HTMLDivElement;
@@ -191,7 +188,7 @@ const onDragStart = (e: PointerEvent): void => {
 const onDragCancel = (e: PointerEvent): void => {
   const el = e.currentTarget as HTMLDivElement;
 
-  isResizing = false;
+  isResizing.value = false;
   el.releasePointerCapture(e.pointerId);
 
   emits(Emits.DRAG_END, {
@@ -232,11 +229,11 @@ defineExpose({ refPane });
 </script>
 
 <script lang="ts">
-import { PaneDirections, type PaneDirectionKey } from "../shared/typings";
+import { PaneDirections } from "../shared/typings";
 
 export interface Props {
   prefix: string;
-  direction: PaneDirectionKey;
+  direction: PaneDirections;
   options: Options;
   classNames: IResizeBoundingClassNames;
   styles?: Partial<IStyles>;
@@ -252,7 +249,7 @@ export enum Emits {
 export interface PaneEmittedData {
   x: number;
   y: number;
-  dir: string;
+  dir: PaneDirections;
 }
 
 const checkIsHorizontal = (direction: string): boolean =>

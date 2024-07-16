@@ -23,7 +23,7 @@
             }
           "
         >
-          <UIInnerBlock :title="layout.a.title">
+          <UIInnerBlock :title="layout.a.title" show-logo>
             <UISizeField
               :height="layout.a.height"
               @update:height="
