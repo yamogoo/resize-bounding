@@ -1,16 +1,16 @@
-![image](https://raw.githubusercontent.com/yamogoo/vue3-resize-bounding/v2.0.2/shared/images/resize-bounding-w-descriptor.svg)
-![Version](https://img.shields.io/badge/version-2.0.2-green) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+![image](https://raw.githubusercontent.com/yamogoo/vue3-resize-bounding/v2.0.3/shared/images/resize-bounding-w-descriptor.svg)
+![Version](https://img.shields.io/badge/version-2.0.3-green) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 **Vue3 Resize Bounding** is a simple, highly customizable Vue3 component that allows you to intuitively resize nested content using draggable border panels.
 
 [Demo](https://resize-bounding.netlify.app/)
 
-![image](https://raw.githubusercontent.com/yamogoo/resize-bounding/v2.0.2/shared/images/resize-bounding.gif)
+![image](https://raw.githubusercontent.com/yamogoo/resize-bounding/v2.0.3/shared/images/resize-bounding.gif)
 
 Interactive Grid (Example):
 
 - [stackblitz](https://stackblitz.com/edit/vue3-resize-bounding-example?file=src%2FApp.vue)
-- [github](https://github.com/yamogoo/resize-bounding/blob/v2.0.2/packages/vue/playground/vite-app/src/components/InteractiveGrid.vue)
+- [github](https://github.com/yamogoo/resize-bounding/blob/v2.0.3/packages/vue/playground/vite-app/src/components/InteractiveGrid.vue)
 
 Installation
 

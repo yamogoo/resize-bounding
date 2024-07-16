@@ -1,17 +1,13 @@
-$__background--primary: #e8ebec;
-
 .ui {
   &-size-field {
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: 36px;
-    background-color: $__background--primary;
     border-radius: 24px;
-    color: black;
 
     .ui-input {
       &:not(:last-child) {
-        border-right: 1px solid rgba(0, 0, 0, 0.2);
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
       }
     }
 

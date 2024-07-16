@@ -3,6 +3,7 @@ import { PropsWithChildren } from "react";
 import UIInput from "./UIInput";
 import "./UISizeField.scss";
 
+import { colors } from "@/components/colors";
 interface Props extends PropsWithChildren {
   width?: number;
   height?: number;
@@ -13,7 +14,13 @@ interface Props extends PropsWithChildren {
 
 const UISizeField = ({ width, height, updateWidth, updateHeight }: Props) => {
   return (
-    <div className="ui-size-field">
+    <div
+      className="ui-size-field"
+      style={{
+        backgroundColor: colors.backgroundSecondary,
+        color: colors.foregroundSecondary,
+      }}
+    >
       <UIInput
         label={"W:"}
         value={width}

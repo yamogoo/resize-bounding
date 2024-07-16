@@ -7,8 +7,7 @@ interface CodeBlock {
 const vue3: Array<CodeBlock> = [
   {
     lang: "html",
-    code: `<!-- @filename: MyComponent.vue -->
-<script setup lang="ts">
+    code: `<script setup lang="ts">
   import { ref } from "vue";
   import ResizeBounding from "vue3-resize-bounding";
 

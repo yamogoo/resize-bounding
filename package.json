@@ -11,8 +11,8 @@
     "resize container",
     "draggable container"
   ],
-  "vueVersion": "2.0.2",
-  "reactVersion": "1.0.2",
+  "vueVersion": "2.0.3",
+  "reactVersion": "1.0.3",
   "private": false,
   "author": {
     "name": "yamogoo",

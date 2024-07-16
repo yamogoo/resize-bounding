@@ -16,6 +16,10 @@ import {
   ActionTypes,
 } from "./layout.store";
 
+import { colors } from "@/components/colors";
+
+const borderStyle = `1px solid ${colors.borderNormal}`;
+
 const layoutReducer = (
   state: typeof initState,
   action: Actions,
@@ -41,15 +45,24 @@ const InteractiveGrid = () => {
   const [layout, dispatch] = useReducer(layoutReducer, initState);
 
   return (
-    <main className="boundarize-app">
+    <main
+      className="boundarize-app"
+      style={{ background: `${colors.backgroundApp}` }}
+    >
       <div className="boundarize-app--container">
-        <div className="boundarize-app__layout">
+        <div
+          className="boundarize-app__layout"
+          style={{
+            background: `${colors.backgroundSecondary}`,
+            border: `1px solid ${colors.borderNormal}`,
+          }}
+        >
           <ResizeBounding
             height={layout.a.height}
             minHeight={layout.a.minHeight}
             maxHeight={layout.a.maxHeight}
             directions="b"
-            style={{ borderBottom: "1px solid gray" }}
+            style={{ borderBottom: borderStyle }}
             updateHeight={(height) => {
               dispatch({ type: ActionTypes.SET_A_HEIGHT, payload: height });
             }}
@@ -72,7 +85,7 @@ const InteractiveGrid = () => {
               min-width={layout.b.minWidth}
               max-width={layout.b.maxWidth}
               directions="'r'"
-              style={{ display: "flex", borderRight: "1px solid gray" }}
+              style={{ display: "flex", borderRight: borderStyle }}
               updateWidth={(width) => {
                 dispatch({ type: ActionTypes.SET_B_WIDTH, payload: width });
               }}
@@ -94,7 +107,7 @@ const InteractiveGrid = () => {
               min-width={layout.d.minWidth}
               max-width={layout.d.maxWidth}
               directions="'l'"
-              style={{ borderLeft: "1px solid gray" }}
+              style={{ borderLeft: borderStyle }}
               updateWidth={(width) => {
                 dispatch({ type: ActionTypes.SET_D_WIDTH, payload: width });
               }}
@@ -117,7 +130,7 @@ const InteractiveGrid = () => {
             style={{
               display: "flex",
               width: "100%",
-              borderTop: "1px solid gray",
+              borderTop: borderStyle,
             }}
             updateHeight={(height) => {
               dispatch({ type: ActionTypes.SET_E_HEIGHT, payload: height });
@@ -128,9 +141,7 @@ const InteractiveGrid = () => {
               min-width={layout.e.minWidth}
               max-width={layout.e.maxWidth}
               directions="'r'"
-              style={{
-                borderRight: "1px solid gray",
-              }}
+              style={{ borderRight: borderStyle }}
               updateWidth={(width) => {
                 dispatch({ type: ActionTypes.SET_E_WIDTH, payload: width });
               }}

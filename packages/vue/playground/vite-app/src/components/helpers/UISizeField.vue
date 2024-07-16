@@ -1,5 +1,11 @@
 <template>
-  <div class="ui-size-field">
+  <div
+    class="ui-size-field"
+    :style="{
+      backgroundColor: colors.backgroundSecondary,
+      color: colors.foregroundSecondary,
+    }"
+  >
     <HInput
       label="W:"
       :value="width"
@@ -26,6 +32,8 @@
 <script setup lang="ts">
 import HInput from "./UIInput.vue";
 
+import { colors } from "@/components/colors";
+
 interface Props {
   width?: number;
   height?: number;
@@ -41,20 +49,16 @@ defineEmits<{
 </script>
 
 <style lang="scss">
-$__background--primary: #e8ebec;
-
 .ui {
   &-size-field {
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: 36px;
-    background-color: $__background--primary;
     border-radius: 24px;
-    color: black;
 
     .ui-input {
       &:not(:last-child) {
-        border-right: 1px solid rgba(0, 0, 0, 0.2);
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
       }
     }
 

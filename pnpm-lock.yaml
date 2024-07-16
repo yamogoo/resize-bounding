@@ -137,6 +137,9 @@ importers:
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
+      vue3-resize-bounding:
+        specifier: ^2.0.2
+        version: 2.0.2(vue@3.4.31(typescript@5.5.3))
     devDependencies:
       '@fluentui/merge-styles':
         specifier: ^8.6.12
@@ -5575,6 +5578,12 @@ packages:
     hasBin: true
     peerDependencies:
       typescript: '>=5.0.0'
+
+  vue3-resize-bounding@2.0.2:
+    resolution: {integrity: sha512-SMvzK8WqS2CnISh1q7KmGYVSHLoUbopmMtUQs3cPgwfwOUF5xuAZ9M9Flk+shnOpIABPpYVJUhLCTzqL8ZSCVg==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      vue: ^3.2
 
   vue@3.4.31:
     resolution: {integrity: sha512-njqRrOy7W3YLAlVqSKpBebtZpDVg21FPoaq1I7f/+qqBThK9ChAIjkRWgeP6Eat+8C+iia4P3OYqpATP21BCoQ==}
@@ -12329,6 +12338,10 @@ snapshots:
       '@vue/language-core': 2.0.26(typescript@5.5.3)
       semver: 7.6.2
       typescript: 5.5.3
+
+  vue3-resize-bounding@2.0.2(vue@3.4.31(typescript@5.5.3)):
+    dependencies:
+      vue: 3.4.31(typescript@5.5.3)
 
   vue@3.4.31(typescript@5.5.3):
     dependencies:
