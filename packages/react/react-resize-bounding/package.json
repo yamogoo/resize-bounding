@@ -1,7 +1,7 @@
 {
   "name": "react-resize-bounding",
   "description": "React highly customizable component for resizing nested content",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "MIT",
   "private": false,
   "author": {
@@ -75,5 +75,8 @@
     "vite": "^5.3.1",
     "vite-plugin-dts": "^3.9.1",
     "vitest": "^2.0.2"
+  },
+  "dependencies": {
+    "vue3-resize-bounding": "^2.0.2"
   }
 }

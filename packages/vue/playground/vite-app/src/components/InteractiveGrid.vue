@@ -1,13 +1,22 @@
 <template>
-  <main class="boundarize-app">
+  <main
+    class="boundarize-app"
+    :style="{ background: `${colors.backgroundApp}` }"
+  >
     <div class="boundarize-app--container">
-      <div class="boundarize-app__layout">
+      <div
+        class="boundarize-app__layout"
+        :style="{
+          background: `${colors.backgroundSecondary}`,
+          border: `1px solid ${colors.borderNormal}`,
+        }"
+      >
         <ResizeBounding
           :height="layout.a.height"
           :min-height="layout.a.minHeight"
           :max-height="layout.a.maxHeight"
           :directions="'b'"
-          :style="{ borderBottom: '1px solid gray' }"
+          :style="{ borderBottom: borderStyle }"
           @update:height="
             (height) => {
               layout.a.height = height;
@@ -34,7 +43,7 @@
             :min-width="layout.b.minWidth"
             :max-width="layout.b.maxWidth"
             :directions="'r'"
-            :style="[{ display: 'flex', borderRight: '1px solid gray' }]"
+            :style="[{ display: 'flex', borderRight: borderStyle }]"
             @update:width="
               (width) => {
                 layout.b.width = width;
@@ -60,7 +69,7 @@
             :min-width="layout.d.minWidth"
             :max-width="layout.d.maxWidth"
             :directions="'l'"
-            :style="{ borderLeft: '1px solid gray' }"
+            :style="{ borderLeft: borderStyle }"
             @update:width="
               (width) => {
                 layout.d.width = width;
@@ -84,9 +93,7 @@
           :min-height="layout.e.minHeight"
           :max-height="layout.e.maxHeight"
           :directions="'t'"
-          :style="[
-            { display: 'flex', width: '100%', borderTop: '1px solid gray' },
-          ]"
+          :style="[{ display: 'flex', width: '100%', borderTop: borderStyle }]"
           @update:height="
             (height) => {
               layout.e.height = height;
@@ -98,9 +105,7 @@
             :min-width="layout.e.minWidth"
             :max-width="layout.e.maxWidth"
             :directions="'r'"
-            :style="{
-              borderRight: '1px solid gray',
-            }"
+            :style="{ borderRight: borderStyle }"
             @update:width="
               (width) => {
                 layout.e.width = width;
@@ -152,6 +157,10 @@ import UIInnerBlock from "@/components/helpers/UIInnerBlock.vue";
 import UISizeField from "@/components/helpers/UISizeField.vue";
 
 import ResizeBounding from "./ResizeBounding.vue";
+
+import { colors } from "@/components/colors";
+
+const borderStyle = `1px solid ${colors.borderNormal}`;
 
 interface ContainerSize {
   width: number;
@@ -206,13 +215,6 @@ const layout: Ref<
 </script>
 
 <style lang="scss">
-$__border-color: gray;
-$__background--primary: #e8ebec;
-
-%container--normal {
-  background: $__background--primary;
-}
-
 .boundarize-app {
   display: flex;
   @include box(100%);
@@ -231,8 +233,6 @@ $__background--primary: #e8ebec;
     display: flex;
     flex-direction: column;
     @include box(100%);
-    @extend %container--normal;
-    border: 1px solid $__border-color;
     border-radius: 24px;
     overflow: hidden;
   }

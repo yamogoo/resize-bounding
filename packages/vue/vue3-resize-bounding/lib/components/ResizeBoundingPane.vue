@@ -5,11 +5,13 @@
     :class="[
       classNames.pane,
       { active: isFocused || isPressed },
-      options.addStateClasses && {
-        normal: !isPressed && !isFocused,
-        focused: isFocused,
-        pressed: isPressed,
-      },
+      options.addStateClasses
+        ? isPressed
+          ? 'pressed'
+          : isFocused
+            ? 'focused'
+            : 'normal'
+        : '',
     ]"
     :style="[paneComputedStyle]"
   >
@@ -146,7 +148,7 @@ const onDragStart = (e: PointerEvent): void => {
   isResizing = true;
   isPressed.value = true;
 
-  onSelected(isResizing);
+  onSelected(true);
 
   const el = e.currentTarget as HTMLDivElement;
   el.setPointerCapture(e.pointerId);
@@ -168,8 +170,6 @@ const onDragStart = (e: PointerEvent): void => {
   const onDragEnd = (e: PointerEvent): void => {
     isResizing = false;
     isPressed.value = false;
-
-    updateCursor(isResizing);
 
     const el = e.currentTarget as HTMLDivElement;
     el.releasePointerCapture(e.pointerId);

@@ -141,7 +141,6 @@ const ResizeBoundingPane = ({
 
     isResizing = true;
     setIsPressed(true);
-
     onSelected(isResizing);
 
     const el = e.currentTarget as HTMLDivElement;
@@ -164,8 +163,6 @@ const ResizeBoundingPane = ({
     const onDragEnd = (e: PointerEvent): void => {
       isResizing = false;
       setIsPressed(false);
-
-      updateCursor(isResizing);
 
       const el = e.currentTarget as HTMLDivElement;
       el.releasePointerCapture(e.pointerId);

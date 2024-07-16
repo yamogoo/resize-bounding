@@ -7,18 +7,21 @@
           backgroundImage: `url(${imagePath})`,
           backgroundPosition: 'center',
           backgroundSize: 'cover',
+          backgroundColor: colors.backgroundPrimary,
         },
       ]"
     >
       <div class="ui-inner-block__control-panel">
         <slot></slot>
       </div>
-      <h1>{{ title }}</h1>
+      <h1 :style="{ color: colors.foregroundPrimary }">{{ title }}</h1>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { colors } from "@/components/colors";
+
 interface Props {
   title?: string;
   imagePath?: string;
@@ -42,7 +45,6 @@ defineProps<Props>();
     @include box(100%);
     border-radius: 16px;
     padding: 40px;
-    background-color: white;
   }
 
   &__control-panel {
@@ -51,9 +53,8 @@ defineProps<Props>();
   }
 
   h1 {
-    font-size: 44px;
-    font-weight: 600;
-    color: black;
+    font-size: 64px;
+    font-weight: 500;
   }
 }
 </style>
