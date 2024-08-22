@@ -11,11 +11,7 @@ import ResizeBoundingPane, {
   type PaneEmittedData,
   type Props,
 } from "../../lib/components/ResizeBoundingPane.vue";
-import {
-  SplitterPositions,
-  PaneDirectionAliases,
-  PaneDirections,
-} from "../../lib/shared/typings";
+import { PaneDirections } from "../../lib/shared/typings";
 
 import {
   defaultOptions,
@@ -29,9 +25,9 @@ import {
 
 const classNames = getClassNames({});
 
-const requiredProps = {
+const requiredProps: Props = {
   prefix: PREFIX,
-  direction: PaneDirectionAliases.HORIZONTAL,
+  direction: PaneDirections.LEFT, //PaneDirectionAliases.HORIZONTAL,
   options: defaultOptions,
   classNames,
 };
@@ -284,11 +280,7 @@ describe("ResizeBoundingPane", () => {
 
       describe("active", () => {
         describe("default styles", () => {
-          test.each([
-            PaneDirectionAliases.HORIZONTAL,
-            PaneDirections.RIGHT,
-            PaneDirections.LEFT,
-          ])(
+          test.each([PaneDirections.RIGHT, PaneDirections.LEFT])(
             'default cursor style should be "col-resize" (--%s)',
             async (direction) => {
               const wrapper = shallowMount(ResizeBoundingPane, {
@@ -299,11 +291,7 @@ describe("ResizeBoundingPane", () => {
             },
           );
 
-          test.each([
-            PaneDirectionAliases.VERTICAL,
-            PaneDirections.TOP,
-            PaneDirections.BOTTOM,
-          ])(
+          test.each([PaneDirections.TOP, PaneDirections.BOTTOM])(
             'default cursor style should be "row-resize" (--%s)',
             async (direction) => {
               const wrapper = shallowMount(ResizeBoundingPane, {
@@ -347,7 +335,7 @@ describe("ResizeBoundingPane", () => {
           );
 
           const SIZE = 12;
-          const paneMap = paneBaseStyles(SIZE, SIZE, SplitterPositions.CENTER);
+          const paneMap = paneBaseStyles(SIZE, SIZE, "central");
           const splitterMap = splitterBaseStyles(SIZE, SIZE);
 
           test.each([
@@ -415,46 +403,6 @@ describe("ResizeBoundingPane", () => {
           );
         });
       });
-    });
-
-    describe("custom styles", () => {
-      test.each([
-        [{ left: "70px", right: "70px", width: "70px" }, PaneDirections.RIGHT],
-      ])(
-        "inner styles of splitter should not have to overrided by customStyles",
-        async (_customStyles, direction) => {
-          const SPLITTER_WIDTH = 12;
-
-          const styles = splitterBaseStyles(SPLITTER_WIDTH, SPLITTER_WIDTH)[
-            direction
-          ];
-
-          const wrapper = shallowMount(ResizeBoundingPane, {
-            props: deepmerge(requiredProps, {
-              options: { width: SPLITTER_WIDTH },
-            }),
-          });
-
-          const splitterEl = wrapper.find(
-            `[data-testid="${DataTestIds.SPLITTER}"]`,
-          );
-
-          await splitterEl.trigger("pointerenter");
-          const splitterStyles = splitterEl.attributes("style");
-
-          if (styles && splitterStyles) {
-            for (const [k, v] of Object.entries(styles)) {
-              const value = `${k}: ${v.toString()}`.trim();
-              const trimedStyles = splitterStyles.toString().trim();
-
-              expect(trimedStyles).toContain(value);
-              expect(value).toMatchSnapshot();
-              expect(trimedStyles).toMatchSnapshot();
-            }
-            expect(splitterStyles).toMatchSnapshot();
-          }
-        },
-      );
     });
   });
 

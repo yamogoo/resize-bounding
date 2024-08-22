@@ -1,16 +1,16 @@
-![image](https://raw.githubusercontent.com/yamogoo/resize-bounding/v2.0.4/shared/images/resize-bounding-w-descriptor.svg)
-![Version](https://img.shields.io/badge/version-1.0.4-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+![image](https://raw.githubusercontent.com/yamogoo/resize-bounding/v2.0.5/shared/images/resize-bounding-w-descriptor.svg)
+![Version](https://img.shields.io/badge/version-1.0.5-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 **React Resize Bounding** is a simple, highly customizable React component that allows you to intuitively resize nested content using draggable border panels.
 
 [Demo](https://resize-bounding.netlify.app/)
 
-![image](https://raw.githubusercontent.com/yamogoo/resize-bounding/v2.0.4/shared/images/resize-bounding.gif)
+![image](https://raw.githubusercontent.com/yamogoo/resize-bounding/v2.0.5/shared/images/resize-bounding.gif)
 
 Interactive Grid (Example):
 
 - [stackblitz](https://stackblitz.com/edit/react-resize-bounding-example?file=src%2FApp.tsx)
-- [github](https://github.com/yamogoo/resize-bounding/blob/v2.0.4/packages/react/playground/vite-app/src/components/InteractiveGrid.tsx)
+- [github](https://github.com/yamogoo/resize-bounding/blob/v2.0.5/packages/react/playground/vite-app/src/components/InteractiveGrid.tsx)
 
 Installation
 

@@ -82,8 +82,8 @@ const InteractiveGrid = () => {
           >
             <ResizeBounding
               width={layout.b.width}
-              min-width={layout.b.minWidth}
-              max-width={layout.b.maxWidth}
+              minWidth={layout.b.minWidth}
+              maxWidth={layout.b.maxWidth}
               directions="r"
               style={{ display: "flex", borderRight: borderStyle }}
               updateWidth={(width) => {
@@ -104,8 +104,8 @@ const InteractiveGrid = () => {
             </UIInnerBlock>
             <ResizeBounding
               width={layout.d.width}
-              min-width={layout.d.minWidth}
-              max-width={layout.d.maxWidth}
+              minWidth={layout.d.minWidth}
+              maxWidth={layout.d.maxWidth}
               directions="'l'"
               style={{ borderLeft: borderStyle }}
               updateWidth={(width) => {
@@ -124,8 +124,8 @@ const InteractiveGrid = () => {
           </ResizeBounding>
           <ResizeBounding
             height={layout.e.height}
-            min-height={layout.e.minHeight}
-            max-height={layout.e.maxHeight}
+            minHeight={layout.e.minHeight}
+            maxHeight={layout.e.maxHeight}
             directions="'t'"
             style={{
               display: "flex",
@@ -138,8 +138,8 @@ const InteractiveGrid = () => {
           >
             <ResizeBounding
               width={layout.e.width}
-              min-width={layout.e.minWidth}
-              max-width={layout.e.maxWidth}
+              minWidth={layout.e.minWidth}
+              maxWidth={layout.e.maxWidth}
               directions="'r'"
               style={{ borderRight: borderStyle }}
               updateWidth={(width) => {
