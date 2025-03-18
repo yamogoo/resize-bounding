@@ -1,5 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`Base > should display "label" (Label), "value" (Value) 1`] = `"Label"`;
-
-exports[`Base > should display "label" (Label), "value" (Value) 2`] = `"Value"`;

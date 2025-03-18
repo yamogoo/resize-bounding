@@ -1,34 +1,51 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
-
 import path from "node:path";
 
 import packageJson from "./package.json";
 import terserOptions from "./terser.config.js";
 
+import { ColorsGenerator } from "./colorsGenerator";
+import { TokensParser } from "./tokensParser";
+
+new ColorsGenerator({
+  source: "./tokens/baseColors.json",
+  outDir: "./tokens/colors.json",
+  variations: 40,
+});
+
+new TokensParser({
+  source: "./tokens",
+  outDir: "./assets/scss/abstracts",
+});
+
 export default defineNuxtConfig({
+  typescript: {
+    tsConfig: {
+      compilerOptions: {
+        types: ["gsap/types", "vitest/globals"],
+      },
+      include: ["./tokensParser.ts"],
+    },
+  },
+  modules: [
+    "@pinia/nuxt",
+    "@nuxt/image",
+    "@nuxt/test-utils/module",
+    "nuxt-icons",
+    "nuxt-simple-robots",
+    "@nuxt/eslint",
+    "@nuxt/eslint-config",
+  ],
+  components: {
+    global: true,
+    dirs: ["~/components"],
+  },
+  devtools: { enabled: true },
   app: {
     head: {
       htmlAttrs: {
         lang: "en",
       },
       link: [
-        {
-          rel: "preconnect",
-          href: "https://fonts.googleapis.com",
-        },
-        {
-          rel: "preconnect",
-          href: "https://fonts.gstatic.com",
-        },
-        {
-          rel: "stylesheet",
-          href: "https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap",
-        },
-        {
-          rel: "apple-touch-icon",
-          sizes: "180x180",
-          href: "/favicon/apple-touch-icon.png",
-        },
         {
           rel: "icon",
           type: "image/png",
@@ -48,19 +65,9 @@ export default defineNuxtConfig({
       ],
     },
   },
-
-  robots: {
-    disallow: [],
+  imports: {
+    autoImport: false,
   },
-
-  devtools: { enabled: true },
-
-  nitro: {
-    output: {
-      publicDir: path.join(__dirname, "dist"),
-    },
-  },
-
   runtimeConfig: {
     public: {
       appName: packageJson.name,
@@ -70,30 +77,12 @@ export default defineNuxtConfig({
       productReactVersion: packageJson.productReactVersion,
     },
   },
-
-  components: {
-    global: true,
-    dirs: ["~/components"],
-  },
-
   compatibilityDate: "2024-07-03",
-  modules: [
-    "@nuxtjs/color-mode",
-    "@nuxt/content",
-    "@nuxt/image",
-    "@nuxt/test-utils/module",
-    "nuxt-icons",
-    "nuxt-simple-robots",
-  ],
-
-  colorMode: {
-    preference: "system",
-    fallback: "dark",
-    classPrefix: "theme-",
-    classSuffix: "",
-    storageKey: "theme",
+  nitro: {
+    output: {
+      publicDir: path.join(__dirname, "dist"),
+    },
   },
-
   vite: {
     build: {
       cssCodeSplit: true,
@@ -105,12 +94,18 @@ export default defineNuxtConfig({
       preprocessorOptions: {
         scss: {
           additionalData: `
-            @import 'core-styles';
-            @import '@/styles/fonts.scss';
-            @import '@/styles/index.scss';
+            @use "@/assets/scss/app.colors" as colors;
+            @use "@/assets/scss/app.abstracts" as *;
+            @use "@/assets/scss/app.core" as *;
+            @use "@/assets/scss/app.mixins" as *;
+            @use "@/assets/scss/app.extends" as *;
           `,
         },
       },
     },
+  },
+  eslint: {},
+  robots: {
+    disallow: [],
   },
 });

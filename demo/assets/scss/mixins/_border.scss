@@ -1,0 +1,17 @@
+@use "../abstracts/themes" as *;
+@use "../core/mixins/themify" as *;
+
+@mixin use-border($p: all, $c: null) {
+  @if $p == all {
+    border: 1px solid $c;
+  } @else {
+    border-#{$p}: 1px solid $c;
+  }
+}
+
+@mixin use-themed-border($p: all, $_c: null) {
+  @include themify($themes) {
+    $c: themed("border", $_c);
+    @include use-border($p, $c);
+  }
+}

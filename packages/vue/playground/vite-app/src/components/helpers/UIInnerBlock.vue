@@ -1,3 +1,17 @@
+<script setup lang="ts">
+import colors from "@/tokens.json";
+
+interface Props {
+  title?: string;
+  imagePath?: string;
+  showLogo?: boolean;
+}
+
+withDefaults(defineProps<Props>(), {
+  showLogo: false,
+});
+</script>
+
 <template>
   <div class="ui-inner-block">
     <div
@@ -14,27 +28,19 @@
       <div class="ui-inner-block__control-panel">
         <slot></slot>
       </div>
-      <div v-if="showLogo" :style="{ position: 'absolute', left: '60px' }">
+      <div
+        v-if="showLogo"
+        data-testid="logo"
+        :style="{ position: 'absolute', left: '60px' }"
+      >
         <img src="/resize-bounding-w-descriptor.svg" />
       </div>
-      <h1 :style="{ color: colors.foregroundPrimary }">{{ title }}</h1>
+      <h1 :style="{ color: colors.foregroundPrimary }">
+        {{ title }}
+      </h1>
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { colors } from "@/components/colors";
-
-interface Props {
-  title?: string;
-  imagePath?: string;
-  showLogo?: boolean;
-}
-
-withDefaults(defineProps<Props>(), {
-  showLogo: false,
-});
-</script>
 
 <style lang="scss">
 .ui-inner-block {

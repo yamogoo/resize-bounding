@@ -1,0 +1,104 @@
+{
+  "scrollbar": {
+    "width": 3,
+    "border-radius": 1
+  },
+  "mainContainer": {
+    "padding": "{tokens.spacing.xs}",
+    "roundness": "{tokens.roundness.md}"
+  },
+  "blockContainer": {
+    "md": {
+      "padding": "{tokens.spacing.xs}",
+      "roundness": "{tokens.roundness.sm}"
+    },
+    "lg": {
+      "padding": "{tokens.spacing.xs}",
+      "roundness": "{tokens.roundness.md}"
+    }
+  },
+  "layout": {
+    "cover": {
+      "width": 480,
+      "minWidth": 360,
+      "maxWidth": 960,
+      "respond": {
+        "mobile": {
+          "padding": "{tokens.spacing.lg}",
+          "group-padding": "{tokens.spacing.sm}",
+          "logo-size": 96
+        },
+        "tablet": {
+          "padding": "{tokens.spacing.xl}",
+          "group-padding": "{tokens.spacing.md}",
+          "logo-size": 96
+        },
+        "desktop": {
+          "padding": "{tokens.spacing.xxl}",
+          "group-padding": "{tokens.spacing.lg}",
+          "logo-size": 88
+        }
+      }
+    },
+    "setupGuide": {
+      "width": 480,
+      "minWidth": 440,
+      "maxWidth": 960
+    },
+    "info": {
+      "height": 360,
+      "minHeight": 0,
+      "maxHeight": 640,
+      "width": 800,
+      "minWidth": 580,
+      "maxWidth": 960
+    }
+  },
+  "link": {
+    "md": {
+      "font": "body__2",
+      "icon-size": "{tokens.icon.sm.size}",
+      "icon-margin": "{tokens.spacing.sm}"
+    },
+    "lg": {
+      "font": "body__1",
+      "icon-size": "{tokens.icon.md.size}",
+      "icon-margin": "{tokens.spacing.sm}"
+    }
+  },
+  "switch": {
+    "md": {
+      "width": 40,
+      "height": 20,
+      "gap": "{tokens.gap.xs}",
+      "padding": 2,
+      "roundness": "{components.switch.md.height}",
+      "label": {
+        "font": "label__1"
+      },
+      "knob": {
+        "size": 16
+      }
+    }
+  },
+  "tabbar": {
+    "md": {
+      "font": "label__1",
+      "gap": "{tokens.spacing.md}"
+    }
+  },
+  "code-block": {
+    "line-height": "2em",
+    "tab-size": "4"
+  },
+  "logo": {
+    "mobile": {
+      "size": 96,
+      "gap": "{tokens.gap.md}"
+    },
+    "desktop": {
+      "size": 96,
+      "gap": "{tokens.gap.md}"
+    }
+  }
+}

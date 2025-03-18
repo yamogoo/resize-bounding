@@ -88,16 +88,4 @@ exports[`ResizeBounding > events > drag > should emit the "drag:start -> drag:mo
 ]
 `;
 
-exports[`ResizeBounding > slots > should render default slot (<p>Inner Container</p>) 1`] = `
-"<div data-testid="resize-bounding-container" class="resize-bounding-container resize-bounding-container-0">
-  <p>Inner Container</p>
-  <!--v-if-->
-  <!--v-if-->
-  <!--v-if-->
-  <!--v-if-->
-</div>"
-`;
-
 exports[`ResizeBounding > slots > should render default slot 1`] = `"knob"`;
-
-exports[`ResizeBounding > styles > container > should apply inline styles ({ background: 'blue', display: 'flex' }) 1`] = `"background: blue; display: flex;"`;

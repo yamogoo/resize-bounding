@@ -1,0 +1,28 @@
+@use "sass:list" as list;
+
+@mixin transition($prop, $time, $easing: $ease1, $delay: 0s, $i: "") {
+  $transition: ();
+  @for $i from 1 through list.length($prop) {
+    @for $j from 0 to (list.length($prop)) - (list.length($time)) {
+      $time: list.join($time, list.nth($time, -1));
+    }
+    @for $j from 0 to (list.length($prop)) - (list.length($easing)) {
+      $easing: list.join($easing, list.nth($easing, -1));
+    }
+    @for $j from 0 to (list.length($prop)) - (list.length($delay)) {
+      $delay: list.join($delay, list.nth($delay, -1));
+    }
+
+    $transition: list.append(
+      $transition,
+      (
+        list.nth($prop, $i)
+          list.nth($time, $i)
+          list.nth($easing, $i)
+          list.nth($delay, $i)
+      ),
+      $separator: comma
+    );
+  }
+  transition: $transition;
+}

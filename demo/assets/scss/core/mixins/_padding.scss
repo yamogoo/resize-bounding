@@ -1,0 +1,8 @@
+@use "sass:list" as list;
+
+@mixin padding($list, $value) {
+  @for $i from 1 through list.length($list) {
+    $prop: list.nth($list, $i);
+    padding-#{$prop}: $value;
+  }
+}

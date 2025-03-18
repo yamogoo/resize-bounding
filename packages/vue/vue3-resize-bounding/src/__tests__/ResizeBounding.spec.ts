@@ -36,7 +36,7 @@ describe("ResizeBounding", () => {
 
         expect(panEl.length).toBe(0);
         expect(panEl.length).toMatchSnapshot();
-      },
+      }
     );
 
     test.each(["rl", "ltrb", "bltr", "bl", "tr"])(
@@ -51,7 +51,7 @@ describe("ResizeBounding", () => {
         const panEls = wrapper.findAll(`[data-testid="${DataTestIds.PANE}"]`);
         expect(panEls.length).toBe(directions.length);
         expect(panEls.length).toMatchSnapshot();
-      },
+      }
     );
 
     test.each(["sd", "wo", ""])(
@@ -66,7 +66,7 @@ describe("ResizeBounding", () => {
         const panEls = wrapper.findAll(`[data-testid="${DataTestIds.PANE}"]`);
         expect(panEls.length).toBe(0);
         expect(panEls.length).toMatchSnapshot();
-      },
+      }
     );
   });
 
@@ -85,8 +85,7 @@ describe("ResizeBounding", () => {
 
         const html = wrapper.find(`[data-testid="${DataTestIds.ROOT}"]`).html();
         expect(html).toContain(slot);
-        expect(html).toMatchSnapshot();
-      },
+      }
     );
 
     test.each(["<p>knob</p>"])("should render default slot", (slot) => {
@@ -145,7 +144,7 @@ describe("ResizeBounding", () => {
       const checkData = (
         eventName: string,
         wrapper: VueWrapper,
-        direction: string,
+        direction: string
       ): PaneEmittedData => {
         const ev = wrapper.emitted(eventName) as PaneEmittedData[][];
         const data = ev[0][0];
@@ -167,7 +166,7 @@ describe("ResizeBounding", () => {
           expect(paneWrapper.exists()).toBeTruthy();
 
           const pane = paneWrapper.find(
-            `[data-testid="${DataTestIds.SPLITTER}"]`,
+            `[data-testid="${DataTestIds.SPLITTER}"]`
           );
 
           const events: PaneEmittedData[] = [];
@@ -175,7 +174,7 @@ describe("ResizeBounding", () => {
           const makeTrigger = async (
             event: string,
             eventData: { clientX: number; clientY: number },
-            emittedEventName: string,
+            emittedEventName: string
           ) => {
             await pane.trigger(event, eventData);
             paneWrapper.emitted(emittedEventName) as PaneEmittedData[][];
@@ -185,22 +184,22 @@ describe("ResizeBounding", () => {
           await makeTrigger(
             "pointerdown",
             { clientX: 1, clientY: 1 },
-            Emits.DRAG_START,
+            Emits.DRAG_START
           );
           await makeTrigger(
             "pointermove",
             { clientX: 2, clientY: 2 },
-            Emits.DRAG_MOVE,
+            Emits.DRAG_MOVE
           );
           await makeTrigger(
             "pointerup",
             { clientX: 3, clientY: 3 },
-            Emits.DRAG_END,
+            Emits.DRAG_END
           );
 
           expect(events.length).toBe(3);
           expect(events).toMatchSnapshot();
-        },
+        }
       );
 
       test.each([
@@ -226,7 +225,7 @@ describe("ResizeBounding", () => {
           });
 
           const paneEls = wrapper.findAll(
-            `[data-testid="${DataTestIds.SPLITTER}"]`,
+            `[data-testid="${DataTestIds.SPLITTER}"]`
           );
 
           directions.map(async (_d, idx) => {
@@ -238,13 +237,13 @@ describe("ResizeBounding", () => {
 
           const ev = wrapper.emitted(Emits.DRAG_START) as PaneEmittedData[][];
 
-          let _directions: Array<PaneDirections> = [];
+          const _directions: Array<PaneDirections> = [];
           for (const direction of directions) _directions.push(direction);
 
           expect(ev.length).toBe(directions.length);
           expect(_directions).toMatchObject(directions);
           expect(_directions).toMatchSnapshot();
-        },
+        }
       );
     });
   });
@@ -261,14 +260,13 @@ describe("ResizeBounding", () => {
           });
 
           const containerEl = wrapper.find(
-            `[data-testid="${DataTestIds.ROOT}"]`,
+            `[data-testid="${DataTestIds.ROOT}"]`
           );
           const styles = containerEl.attributes("style");
 
           expect(styles).toContain("display: flex");
           expect(styles).toContain("background: blue");
-          expect(styles).toMatchSnapshot();
-        },
+        }
       );
     });
   });

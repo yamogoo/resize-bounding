@@ -1,25 +1,24 @@
 import type { IStyles, Options, PaneDirectionKey } from "../shared/typings";
 
-export interface Props
-  extends Partial<{
-    width: number;
-    height: number;
-    minWidth: number;
-    maxWidth: number;
-    minHeight: number;
-    maxHeight: number;
-    disabled: boolean;
-    directions: PaneDirectionKey;
-    alwaysShowKnob: boolean;
-    options: Partial<Options>;
-    styles: Partial<IStyles>;
-    updateWidth: (width: number) => void;
-    updateHeight: (height: number) => void;
-    dragStart: (dir: string) => void;
-    dragMove: (dir: string) => void;
-    dragEnd: (dir: string) => void;
-    focus: (data: { state: boolean; direction: string }) => void;
-  }> {}
+export type Props = Partial<{
+  width: number;
+  height: number;
+  minWidth: number;
+  maxWidth: number;
+  minHeight: number;
+  maxHeight: number;
+  disabled: boolean;
+  directions: PaneDirectionKey;
+  alwaysShowKnob: boolean;
+  options: Partial<Options>;
+  styles: Partial<IStyles>;
+  updateWidth: (width: number) => void;
+  updateHeight: (height: number) => void;
+  dragStart: (dir: string) => void;
+  dragMove: (dir: string) => void;
+  dragEnd: (dir: string) => void;
+  focus: (data: { state: boolean; direction: string }) => void;
+}>;
 
 export enum Emits {
   FOCUS = "focus",

@@ -1,0 +1,11 @@
+@use "sass:map";
+
+@use "../../abstracts/typography" as typo;
+
+@mixin defineTypography($map: typo.$display, $weight) {
+  $typo-verion: map.get($map, __#{$weight});
+
+  @each $key, $value in $typo-verion {
+    #{$key}: $value;
+  }
+}

@@ -37,19 +37,13 @@
 </template>
 
 <script setup lang="ts">
-import {
-  onMounted,
-  onUnmounted,
-  ref,
-  type Ref,
-  computed,
-  type StyleValue,
-} from "vue";
+import { onMounted, onUnmounted, ref, type Ref, computed } from "vue";
 
 import {
   type IStyles,
   type Options,
   type IResizeBoundingClassNames,
+  PaneDirections,
   PaneDirectionAliases,
 } from "../shared/typings";
 
@@ -72,9 +66,8 @@ const emits = defineEmits<{
 const refPane: Ref<HTMLDivElement | null> = ref(null);
 
 const isFocused = ref(false),
-  isPressed = ref(false);
-
-const isResizing = ref(false);
+  isPressed = ref(false),
+  isResizing = ref(false);
 
 const paneComputedStyle = computed(() => {
   const _width = props.options?.width ?? 1;
@@ -84,12 +77,11 @@ const paneComputedStyle = computed(() => {
     const _styles = paneBaseStyles(
       _width,
       _areaWidth,
-      props.options?.position ?? "center",
+      props.options?.position ?? "center"
     );
-    const value: StyleValue = _styles[props.direction as PaneDirections];
-    return value;
+    return _styles[props.direction];
   }
-  return;
+  return undefined;
 });
 
 const splitterComputedStyle = computed(() => {
@@ -97,11 +89,10 @@ const splitterComputedStyle = computed(() => {
 
   if (refPane.value && _width) {
     const _areaWidth = props.options.activeAreaWidth ?? props.options.width;
-
     const _styles = splitterBaseStyles(_width, _areaWidth);
-    const value: StyleValue = _styles[props.direction as PaneDirections];
-    return value;
+    return _styles[props.direction];
   }
+  return undefined;
 });
 
 const containerComputedStyles = computed(() => {
@@ -168,7 +159,6 @@ const onDragStart = (e: PointerEvent): void => {
     isResizing.value = false;
     isPressed.value = false;
 
-    const el = e.currentTarget as HTMLDivElement;
     el.releasePointerCapture(e.pointerId);
 
     el.removeEventListener("pointermove", onDragMove);
@@ -202,9 +192,8 @@ const addEventListeners = () => {
   const el = refPane.value;
 
   if (el) {
-    el.addEventListener("pointerenter", (e) => onFocus(e, true));
-    el.addEventListener("pointerleave", (e) => onFocus(e, false));
-
+    el.addEventListener("pointerenter", onPointerEnter);
+    el.addEventListener("pointerleave", onPointerLeave);
     el.addEventListener("pointerdown", onDragStart);
     el.addEventListener("pointercancel", onDragCancel);
   }
@@ -214,13 +203,15 @@ const removeEventListeners = () => {
   const el = refPane.value;
 
   if (el) {
-    el.removeEventListener("pointerenter", (e) => onFocus(e, true));
-    el.removeEventListener("pointerleave", (e) => onFocus(e, false));
-
+    el.removeEventListener("pointerenter", onPointerEnter);
+    el.removeEventListener("pointerleave", onPointerLeave);
     el.removeEventListener("pointerdown", onDragStart);
-    el.addEventListener("pointercancel", onDragCancel);
+    el.removeEventListener("pointercancel", onDragCancel);
   }
 };
+
+const onPointerEnter = (e: PointerEvent) => onFocus(e, true);
+const onPointerLeave = (e: PointerEvent) => onFocus(e, false);
 
 onMounted(addEventListeners);
 onUnmounted(removeEventListeners);
@@ -229,8 +220,6 @@ defineExpose({ refPane });
 </script>
 
 <script lang="ts">
-import { PaneDirections } from "../shared/typings";
-
 export interface Props {
   prefix: string;
   direction: PaneDirections;
@@ -254,10 +243,10 @@ export interface PaneEmittedData {
 
 const checkIsHorizontal = (direction: string): boolean =>
   new RegExp(
-    `[${PaneDirections.LEFT} | ${PaneDirections.RIGHT} | ${PaneDirectionAliases.HORIZONTAL}]`,
+    `[${PaneDirections.LEFT} | ${PaneDirections.RIGHT} | ${PaneDirectionAliases.HORIZONTAL}]`
   ).test(direction);
 const checkIsVertical = (direction: string): boolean =>
   new RegExp(
-    `[${PaneDirections.TOP} | ${PaneDirections.BOTTOM} | ${PaneDirectionAliases.VERTICAL}]`,
+    `[${PaneDirections.TOP} | ${PaneDirections.BOTTOM} | ${PaneDirectionAliases.VERTICAL}]`
   ).test(direction);
 </script>

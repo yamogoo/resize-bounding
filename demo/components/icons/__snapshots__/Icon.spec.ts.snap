@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Icon > should render computerMouse_fill_200 icon from the Icons Set 1`] = `true`;
+
+exports[`Icon > should render copy_outline_300 icon from the Icons Set 1`] = `true`;
+
+exports[`Icon > should render figma-logo icon from the Icons Set 1`] = `true`;
+
+exports[`Icon > should render gestureTap_fill_200 icon from the Icons Set 1`] = `true`;
+
+exports[`Icon > should render git icon from the Icons Set 1`] = `true`;

@@ -1,40 +1,33 @@
+import { computed, type ComputedRef } from "vue";
 import { defineStore } from "pinia";
 
-import type { SettingsStoreState } from "./types";
-import { Themes } from "../../shared/types";
+import { useTheme } from "@/composables/useTheme";
 
-const defaults = {
-  theme: localStorage.getItem("theme") ?? Themes.DARK,
-};
+import type { Theme, Themes } from "@/shared/types";
 
-export const useConfigStore = defineStore("config", {
-  state: (): SettingsStoreState => ({
-    app: {
-      themes: {
-        themes: [Themes.LIGHT, Themes.DARK],
-        current: defaults.theme,
-      },
-    },
-  }),
-  getters: {
-    /**
-     * @description The current theme of the app
-     */
-    appTheme(state): { theme: string; id: number } {
-      const id = this.app.themes.themes.findIndex(
-        (el) => el === this.app.themes.current,
-      );
-      return { theme: state.app.themes.current, id };
-    },
-  },
-  actions: {
-    /**
-     * @description Set the app theme
-     */
-    setAppTheme(state: boolean): void {
-      const theme = this.app.themes.themes[Number(state)];
-      this.app.themes.current = theme;
-      localStorage.setItem("theme", theme);
-    },
-  },
+export const themes: Themes = ["light", "dark"];
+
+export const DEFAULT_THEME = import.meta.env.VITE_UI_LOCAL_THEME as
+  | Theme
+  | undefined;
+
+export const useConfigStore = defineStore("config", () => {
+  const {
+    theme: currentTheme,
+    isSystemThemeEnabled,
+    setTheme,
+    setIsSystemThemeEnabled,
+  } = useTheme(DEFAULT_THEME ?? "dark", { selector: "html" });
+
+  const getSid: ComputedRef<number> = computed(() => {
+    return themes.findIndex((theme) => theme === currentTheme.value);
+  });
+
+  return {
+    currentTheme,
+    isSystemThemeEnabled,
+    setTheme,
+    setIsSystemThemeEnabled,
+    getSid,
+  };
 });

@@ -1,5 +1,5 @@
 <template>
-  <InteractiveGrid />
+  <InteractiveGrid data-testid="interactive-grid" />
 </template>
 
 <script setup lang="ts">

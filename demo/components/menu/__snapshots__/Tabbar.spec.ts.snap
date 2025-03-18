@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Tabbar > elements > should render item value 1`] = `"First"`;
+
+exports[`Tabbar > elements > should render item value 2`] = `"Second"`;
