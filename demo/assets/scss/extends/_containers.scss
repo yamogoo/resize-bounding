@@ -1,0 +1,21 @@
+@use "sass:map";
+@use "../app.abstracts.scss" as *;
+@use "../core/mixins" as *;
+
+%main-container {
+  @include respond-above(sm) {
+    padding: 0 map.get($spacing, "lg");
+  }
+  @include respond-below(sm) {
+    padding: 0 map.get($spacing, "sm");
+  }
+}
+
+%content-container {
+  @include respond-above(sm) {
+    padding: 0 map.get($spacing, "xxl");
+  }
+  @include respond-below(sm) {
+    padding: 0 map.get($spacing, "sm");
+  }
+}

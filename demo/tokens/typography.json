@@ -1,0 +1,80 @@
+{
+  "font-family": {
+    "primary": "Caros",
+    "secondary": "JetBrainsMono"
+  },
+  "display": {
+    "__1": {
+      "font-family": "{typography.font-family.primary}",
+      "font-size": 22,
+      "font-style": "normal",
+      "font-weight": "600",
+      "line-height": "150%",
+      "letter-spacing": 0.66
+    }
+  },
+  "body": {
+    "__1": {
+      "font-family": "{typography.font-family.primary}",
+      "font-size": 15.5,
+      "font-style": "normal",
+      "font-weight": "400",
+      "line-height": "150%",
+      "letter-spacing": 0.48
+    },
+    "__2": {
+      "font-family": "{typography.font-family.primary}",
+      "font-size": 13,
+      "font-style": "normal",
+      "font-weight": "400",
+      "line-height": "150%",
+      "letter-spacing": 0.39
+    }
+  },
+  "label": {
+    "__1": {
+      "font-family": "{typography.font-family.primary}",
+      "font-size": 13.5,
+      "font-style": "normal",
+      "font-weight": "400",
+      "line-height": "150%",
+      "letter-spacing": 0.405
+    }
+  },
+  "code": {
+    "__1": {
+      "font-family": "{typography.font-family.secondary}",
+      "font-size": 13.5,
+      "font-style": "normal",
+      "font-weight": "400",
+      "line-height": "150%",
+      "letter-spacing": 0.54
+    },
+    "__2": {
+      "font-family": "{typography.font-family.secondary}",
+      "font-size": 12,
+      "font-style": "normal",
+      "font-weight": "400",
+      "line-height": "150%",
+      "letter-spacing": 0.36
+    }
+  },
+  "caption": {
+    "__1": {
+      "font-family": "{typography.font-family.secondary}",
+      "font-size": 12,
+      "font-style": "normal",
+      "font-weight": "400",
+      "line-height": "136%",
+      "letter-spacing": 0
+    },
+    "__2": {
+      "font-family": "{typography.font-family.primary}",
+      "font-size": 10,
+      "font-style": "normal",
+      "font-weight": "400",
+      "line-height": "136%",
+      "letter-spacing": 0
+    }
+  }
+}

@@ -1,155 +1,3 @@
-<template>
-  <main
-    class="boundarize-app"
-    :style="{ background: `${colors.backgroundApp}` }"
-  >
-    <div class="boundarize-app--container">
-      <div
-        class="boundarize-app__layout"
-        :style="{
-          background: `${colors.backgroundSecondary}`,
-          border: `1px solid ${colors.borderNormal}`,
-        }"
-      >
-        <ResizeBounding
-          :height="layout.a.height"
-          :min-height="layout.a.minHeight"
-          :max-height="layout.a.maxHeight"
-          :directions="'b'"
-          :style="{ borderBottom: borderStyle }"
-          @update:height="
-            (height) => {
-              layout.a.height = height;
-            }
-          "
-        >
-          <UIInnerBlock :title="layout.a.title" show-logo>
-            <UISizeField
-              :height="layout.a.height"
-              @update:height="
-                (height) => {
-                  layout.a.height = height;
-                }
-              "
-            />
-          </UIInnerBlock>
-        </ResizeBounding>
-        <ResizeBounding
-          :directions="''"
-          :style="[{ display: 'flex', height: '100%' }]"
-        >
-          <ResizeBounding
-            :width="layout.b.width"
-            :min-width="layout.b.minWidth"
-            :max-width="layout.b.maxWidth"
-            :directions="'r'"
-            :style="[{ display: 'flex', borderRight: borderStyle }]"
-            @update:width="
-              (width) => {
-                layout.b.width = width;
-              }
-            "
-          >
-            <UIInnerBlock :title="layout.b.title">
-              <UISizeField
-                :width="layout.b.width"
-                @update:width="
-                  (width) => {
-                    layout.b.width = width;
-                  }
-                "
-              />
-            </UIInnerBlock>
-          </ResizeBounding>
-          <UIInnerBlock :title="layout.c.title">
-            <UISizeField />
-          </UIInnerBlock>
-          <ResizeBounding
-            :width="layout.d.width"
-            :min-width="layout.d.minWidth"
-            :max-width="layout.d.maxWidth"
-            :directions="'l'"
-            :style="{ borderLeft: borderStyle }"
-            @update:width="
-              (width) => {
-                layout.d.width = width;
-              }
-            "
-          >
-            <UIInnerBlock :title="layout.d.title">
-              <UISizeField
-                :width="layout.d.width"
-                @update:width="
-                  (width) => {
-                    layout.d.width = width;
-                  }
-                "
-              />
-            </UIInnerBlock>
-          </ResizeBounding>
-        </ResizeBounding>
-        <ResizeBounding
-          :height="layout.e.height"
-          :min-height="layout.e.minHeight"
-          :max-height="layout.e.maxHeight"
-          :directions="'t'"
-          :style="[{ display: 'flex', width: '100%', borderTop: borderStyle }]"
-          @update:height="
-            (height) => {
-              layout.e.height = height;
-            }
-          "
-        >
-          <ResizeBounding
-            :width="layout.e.width"
-            :min-width="layout.e.minWidth"
-            :max-width="layout.e.maxWidth"
-            :directions="'r'"
-            :style="{ borderRight: borderStyle }"
-            @update:width="
-              (width) => {
-                layout.e.width = width;
-              }
-            "
-          >
-            <UIInnerBlock :title="layout.e.title">
-              <UISizeField
-                :width="layout.e.width"
-                :height="layout.e.height"
-                @update:width="
-                  (width) => {
-                    layout.e.width = width;
-                  }
-                "
-                @update:height="
-                  (height) => {
-                    layout.e.height = height;
-                  }
-                "
-              />
-            </UIInnerBlock>
-          </ResizeBounding>
-          <ResizeBounding
-            :directions="''"
-            :style="[{ display: 'flex', width: '100%' }]"
-          >
-            <UIInnerBlock :title="layout.f.title">
-              <UISizeField
-                :height="layout.e.height"
-                @update:height="
-                  (height) => {
-                    layout.e.height = height;
-                  }
-                "
-              />
-            </UIInnerBlock>
-          </ResizeBounding>
-        </ResizeBounding>
-      </div>
-    </div>
-  </main>
-</template>
-
 <script setup lang="ts">
 import { ref, type Ref } from "vue";
 
@@ -158,7 +6,7 @@ import UISizeField from "@/components/helpers/UISizeField.vue";
 
 import ResizeBounding from "./ResizeBounding.vue";
 
-import { colors } from "@/components/colors";
+import colors from "@/tokens.json";
 
 const borderStyle = `1px solid ${colors.borderNormal}`;
 
@@ -213,6 +61,164 @@ const layout: Ref<
   },
 });
 </script>
+
+<template>
+  <main
+    class="boundarize-app"
+    :style="{ background: `${colors.backgroundApp}` }"
+  >
+    <div class="boundarize-app--container">
+      <div
+        class="boundarize-app__layout"
+        :style="{
+          background: `${colors.backgroundSecondary}`,
+          border: `1px solid ${colors.borderNormal}`,
+        }"
+      >
+        <ResizeBounding
+          data-testid="block-a"
+          :height="layout.a.height"
+          :min-height="layout.a.minHeight"
+          :max-height="layout.a.maxHeight"
+          :directions="'b'"
+          :style="{ borderBottom: borderStyle }"
+          @update:height="
+            (height) => {
+              layout.a.height = height;
+            }
+          "
+        >
+          <UIInnerBlock :title="layout.a.title" show-logo>
+            <UISizeField
+              :height="layout.a.height"
+              @update:height="
+                (height) => {
+                  layout.a.height = height;
+                }
+              "
+            />
+          </UIInnerBlock>
+        </ResizeBounding>
+        <ResizeBounding
+          :directions="''"
+          :style="[{ display: 'flex', height: '100%' }]"
+        >
+          <ResizeBounding
+            data-testid="block-b"
+            :width="layout.b.width"
+            :min-width="layout.b.minWidth"
+            :max-width="layout.b.maxWidth"
+            :directions="'r'"
+            :style="[{ display: 'flex', borderRight: borderStyle }]"
+            @update:width="
+              (width) => {
+                layout.b.width = width;
+              }
+            "
+          >
+            <UIInnerBlock :title="layout.b.title">
+              <UISizeField
+                :width="layout.b.width"
+                @update:width="
+                  (width) => {
+                    layout.b.width = width;
+                  }
+                "
+              />
+            </UIInnerBlock>
+          </ResizeBounding>
+          <UIInnerBlock data-testid="block-c" :title="layout.c.title">
+            <UISizeField />
+          </UIInnerBlock>
+          <ResizeBounding
+            data-testid="block-d"
+            :width="layout.d.width"
+            :min-width="layout.d.minWidth"
+            :max-width="layout.d.maxWidth"
+            :directions="'l'"
+            :style="{ borderLeft: borderStyle }"
+            @update:width="
+              (width) => {
+                layout.d.width = width;
+              }
+            "
+          >
+            <UIInnerBlock :title="layout.d.title">
+              <UISizeField
+                :width="layout.d.width"
+                @update:width="
+                  (width) => {
+                    layout.d.width = width;
+                  }
+                "
+              />
+            </UIInnerBlock>
+          </ResizeBounding>
+        </ResizeBounding>
+        <ResizeBounding
+          data-testid="wrapper-bottom"
+          :height="layout.e.height"
+          :min-height="layout.e.minHeight"
+          :max-height="layout.e.maxHeight"
+          :directions="'t'"
+          :style="[{ display: 'flex', width: '100%', borderTop: borderStyle }]"
+          @update:height="
+            (height) => {
+              layout.e.height = height;
+            }
+          "
+        >
+          <ResizeBounding
+            data-testid="block-e"
+            :width="layout.e.width"
+            :min-width="layout.e.minWidth"
+            :max-width="layout.e.maxWidth"
+            :directions="'r'"
+            :style="{ borderRight: borderStyle }"
+            @update:width="
+              (width) => {
+                layout.e.width = width;
+              }
+            "
+          >
+            <UIInnerBlock :title="layout.e.title">
+              <UISizeField
+                :width="layout.e.width"
+                :height="layout.e.height"
+                @update:width="
+                  (width) => {
+                    layout.e.width = width;
+                  }
+                "
+                @update:height="
+                  (height) => {
+                    layout.e.height = height;
+                  }
+                "
+              />
+            </UIInnerBlock>
+          </ResizeBounding>
+          <ResizeBounding
+            data-testid="block-f"
+            :directions="''"
+            :style="[{ display: 'flex', width: '100%' }]"
+          >
+            <UIInnerBlock :title="layout.f.title">
+              <UISizeField
+                :height="layout.e.height"
+                @update:height="
+                  (height) => {
+                    layout.e.height = height;
+                  }
+                "
+              />
+            </UIInnerBlock>
+          </ResizeBounding>
+        </ResizeBounding>
+      </div>
+    </div>
+  </main>
+</template>
 
 <style lang="scss">
 .boundarize-app {

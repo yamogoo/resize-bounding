@@ -1,0 +1,66 @@
+@use "sass:map";
+@use "../../abstracts/breakpoints" as *;
+
+@mixin respond-above($breakpoint, $container-name: default) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    $breakpoint-value: map.get($breakpoints, $breakpoint);
+
+    @if $container-name == default {
+      @media (min-width: $breakpoint-value) {
+        @content;
+      }
+    } @else {
+      @container #{$container-name} (min-width: $breakpoint-value) {
+        @content;
+      }
+    }
+  } @else {
+    @warn 'Invalid breakpoint: #{$breakpoint}';
+  }
+}
+
+// * * * RESPOND BETWEEN * * * //
+
+@mixin respond-below($breakpoint, $container-name: default) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    $breakpoint-value: map.get($breakpoints, $breakpoint);
+
+    @if $container-name == default {
+      @media (max-width: ($breakpoint-value - 1)) {
+        @content;
+      }
+    } @else {
+      @container #{$container-name} (max-width: ($breakpoint-value - 1)) {
+        @content;
+      }
+    }
+  } @else {
+    @warn 'Invalid breakpoint: #{$breakpoint}';
+  }
+}
+
+// * * * RESPOND BETWEEN * * * //
+
+@mixin respond-between($lower, $upper, $container-name: default) {
+  @if map.has-key($breakpoints, $lower) and map.has-key($breakpoints, $upper) {
+    $lower-breakpoint: map.get($breakpoints, $lower);
+    $upper-breakpoint: map.get($breakpoints, $upper);
+
+    @if $container-name == default {
+      @media (min-width: $lower-breakpoint) and (max-width: ($upper-breakpoint - 1)) {
+        @content;
+      }
+    } @else {
+      @container #{$container-name} (min-width: $lower-breakpoint) and (max-width: ($upper-breakpoint - 1)) {
+        @content;
+      }
+    }
+  } @else {
+    @if (map.has-key($breakpoints, $lower) == false) {
+      @warn 'Your lower breakpoint was invalid: #{$lower}.';
+    }
+    @if (map.has-key($breakpoints, $upper) == false) {
+      @warn 'Your upper breakpoint was invalid: #{$upper}.';
+    }
+  }
+}

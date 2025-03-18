@@ -1,0 +1,9 @@
+@use "../core/mixins/transition" as *;
+
+%base-transition {
+  @include transition(
+    color background background-color fill stroke border border-color opacity,
+    150ms,
+    ease-out
+  );
+}

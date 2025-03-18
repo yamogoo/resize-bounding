@@ -1,42 +1,56 @@
+<script setup lang="ts">
+import { ref, useId, watch } from "vue";
+
+import { strToNum } from "./utils";
+
+interface Props {
+  value?: number;
+  disabled?: boolean;
+  label?: string;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  value: 0,
+  disabled: false,
+});
+
+const { value } = props;
+
+const emit = defineEmits<{
+  (e: "update:value", value: number): void;
+}>();
+
+const id = useId();
+
+const localValue = ref(value);
+
+watch(
+  () => props.value,
+  (updatedValue) => {
+    localValue.value = updatedValue;
+  }
+);
+
+const onUpdateValue = (e: Event) => {
+  emit("update:value", strToNum((e.target as HTMLInputElement).value));
+};
+</script>
+
 <template>
   <div :class="['ui-input', { disabled }]">
-    <label class="ui-input__label" v-if="label"
+    <label :for="id" v-if="label" class="ui-input__label"
       >{{ label }}
       <input
         v-if="!disabled"
+        :id
         type="number"
-        :value
-        @change="
-          (e) =>
-            $emit(
-              'update:value',
-              strToNum((e.target as HTMLInputElement).value),
-            )
-        "
+        :value="localValue ?? 0"
+        @change="onUpdateValue"
       />
     </label>
     <span v-if="disabled">--</span>
   </div>
 </template>
-
-<script setup lang="ts">
-import { strToNum } from "./utils";
-
-interface Props {
-  value: number;
-  disabled?: boolean;
-  label?: string;
-}
-
-withDefaults(defineProps<Props>(), {
-  value: 0,
-  disabled: false,
-});
-
-defineEmits<{
-  (e: "update:value", value: number): void;
-}>();
-</script>
 
 <style lang="scss">
 .ui {

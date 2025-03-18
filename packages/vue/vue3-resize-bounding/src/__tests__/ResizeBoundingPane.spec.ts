@@ -27,7 +27,7 @@ const classNames = getClassNames({});
 
 const requiredProps: Props = {
   prefix: PREFIX,
-  direction: PaneDirections.LEFT, //PaneDirectionAliases.HORIZONTAL,
+  direction: PaneDirections.LEFT,
   options: defaultOptions,
   classNames,
 };
@@ -104,7 +104,9 @@ describe("ResizeBoundingPane", () => {
   describe("events", () => {
     describe("focus", async () => {
       const wrapper = shallowMount(ResizeBoundingPane, {
-        props: deepmerge(requiredProps, { direction: PaneDirections.RIGHT }),
+        props: {
+          ...requiredProps, ...{ direction: PaneDirections.RIGHT }
+        },
       });
 
       const rootEl = wrapper.find(`[data-testid="${DataTestIds.PANE}"]`);
@@ -130,7 +132,9 @@ describe("ResizeBoundingPane", () => {
 
     describe("drag", () => {
       const wrapper = shallowMount(ResizeBoundingPane, {
-        props: deepmerge(requiredProps, { direction: PaneDirections.RIGHT }),
+        props: {
+          ...requiredProps, ...{ direction: PaneDirections.RIGHT }
+        }
       });
 
       const rootEl = wrapper.find(`[data-testid="${DataTestIds.SPLITTER}"]`);

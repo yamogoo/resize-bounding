@@ -1,9 +1,0 @@
-@mixin padding-h($left, $right: $left) {
-  padding-left: $left;
-  padding-right: $right;
-}
-
-@mixin padding-v($top, $bottom: $top) {
-  padding-top: $top;
-  padding-bottom: $bottom;
-}

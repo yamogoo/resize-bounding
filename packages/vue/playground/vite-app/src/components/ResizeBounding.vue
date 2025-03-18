@@ -1,18 +1,3 @@
-<template>
-  <ResizeBounding
-    :options="{
-      width: 6,
-      activeAreaWidth: 16,
-      knob: {
-        show: true,
-      },
-    }"
-    :styles
-  >
-    <slot></slot>
-  </ResizeBounding>
-</template>
-
 <script setup lang="ts">
 import ResizeBounding, {
   globalClassNames,
@@ -20,7 +5,7 @@ import ResizeBounding, {
   type IStyles,
 } from "vue3-resize-bounding";
 
-import { colors } from "@/components/colors";
+import colors from "@/tokens.json";
 
 const styles: Partial<IStyles> = {
   splitter: [
@@ -45,3 +30,25 @@ const styles: Partial<IStyles> = {
   ],
 };
 </script>
+
+<script lang="ts">
+import { type Props as ResizeBoundingProps } from "vue3-resize-bounding";
+
+export type Props = Partial<ResizeBoundingProps>;
+</script>
+
+<template>
+  <ResizeBounding
+    data-testid="'resize-bounding'"
+    :options="{
+      width: 6,
+      activeAreaWidth: 16,
+      knob: {
+        show: true,
+      },
+    }"
+    :styles
+  >
+    <slot></slot>
+  </ResizeBounding>
+</template>

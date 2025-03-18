@@ -1,0 +1,31 @@
+@use "sass:map";
+
+@use "../core/utils/px2rem" as *;
+
+@use "../abstracts/typography" as typo;
+
+// Generate typography extends:
+
+@mixin generateStyles($name, $map) {
+  @each $k, $v in $map {
+    $nestedMap: $v;
+
+    &__#{$name}#{$k} {
+      @each $key, $value in $v {
+        @if $key == "font-size" {
+          #{$key}: px2em($value);
+        } @else {
+          #{$key}: $value;
+        }
+      }
+    }
+  }
+}
+
+%t {
+  @include generateStyles("display", typo.$display);
+  @include generateStyles("body", typo.$body);
+  @include generateStyles("label", typo.$label);
+  @include generateStyles("code", typo.$code);
+  @include generateStyles("caption", typo.$caption);
+}

@@ -1,5 +1,5 @@
 import { createPinia, setActivePinia } from "pinia";
-import { beforeEach, vi } from "vitest";
+import { beforeEach } from "vitest";
 
 beforeEach(() => {
   const pinia = createPinia();

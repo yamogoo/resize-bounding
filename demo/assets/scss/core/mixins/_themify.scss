@@ -1,0 +1,32 @@
+@use "sass:map";
+@use "../../abstracts/themes" as *;
+
+$theme-map: ();
+
+@mixin themify($themes: $themes) {
+  @each $theme, $map in $themes {
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+
+      @if ($theme-map != null) {
+        @each $key, $submap in $map {
+          $value: map.get(map.get($themes, $theme), "#{$key}");
+          $theme-map: map.merge(
+            $theme-map,
+            (
+              $key: $value,
+            )
+          ) !global;
+        }
+      }
+
+      @content;
+      // reset map:
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key, $nested-key) {
+  @return map.get(map.get($theme-map, $key), $nested-key);
+}

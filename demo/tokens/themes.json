@@ -1,0 +1,124 @@
+{
+  "themes": {
+    "light": {
+      "background": {
+        "primary": "{baseColors.white}",
+        "primaryInversed": "{colors.gray-800}",
+        "code": "{colors.gray-0}",
+        "inactive": "{colors.gray-0}"
+      },
+      "label": {
+        "primary": "{colors.gray-975}",
+        "primaryInversed": "{colors.gray-0}",
+        "secondary": "{colors.gray-700}",
+        "secondaryInversed": "{colors.gray-250}",
+        "inactive": "{colors.gray-775}",
+        "disabled": "{colors.gray-450}",
+        "accent": "{colors.accent-550}"
+      },
+      "selection": {
+        "color": "{colors.gray-0}",
+        "background": "{colors.accent-550}"
+      },
+      "border": {
+        "primary": "{colors.gray-75}"
+      },
+      "scrollbar": {
+        "thumb": "{colors.gray-0}"
+      },
+      "code": {
+        "filename": "{colors.gray-250}",
+        "base": "#488FB6",
+        "keyword": "#2A4B94",
+        "punctuation": "#B7B7B7",
+        "comment": "#51B37A",
+        "tag": "#174AB7",
+        "attr-name": "#2C79B8",
+        "attr-value": "#9A5032",
+        "operator": "#D8C687",
+        "function": "#B99F43",
+        "property": "#1877C6",
+        "number": "#71A026",
+        "boolean": "#1877C6",
+        "string": "#9A6832"
+      },
+      "resizer": {
+        "knobNormal": "{colors.gray-250}",
+        "knobActive": "{colors.accent-500}"
+      },
+      "switch": {
+        "trackNormal": "{colors.gray-375}",
+        "trackActive": "{colors.gray-375}",
+        "knobNormal": "{colors.gray-0}",
+        "knobActive": "{colors.gray-0}"
+      },
+      "logo": {
+        "image": "{colors.accent-425}",
+        "descriptor": "{colors.gray-900}"
+      },
+      "image": {
+        "watermark": "{colors.gray-250}"
+      }
+    },
+    "dark": {
+      "background": {
+        "primary": "{colors.gray-950}",
+        "primaryInversed": "{colors.gray-0}",
+        "code": "{colors.gray-875}",
+        "cover": "{colors.gray-950}"
+      },
+      "label": {
+        "primary": "{colors.gray-150}",
+        "primaryInversed": "{colors.gray-975}",
+        "secondary": "{colors.gray-250}",
+        "secondaryInversed": "{colors.gray-250}",
+        "inactive": "{colors.gray-525}",
+        "disabled": "{colors.gray-525}",
+        "accent": "{colors.accent-275}"
+      },
+      "selection": {
+        "color": "{colors.gray-0}",
+        "background": "{colors.accent-550}"
+      },
+      "border": {
+        "primary": "{colors.gray-875}"
+      },
+      "scrollbar": {
+        "thumb": "{colors.gray-500}"
+      },
+      "code": {
+        "filename": "{colors.gray-625}",
+        "base": "#95D0F0",
+        "keyword": "#84A3E5",
+        "punctuation": "#8B8B8B",
+        "comment": "#82E9AD",
+        "tag": "#6D95EA",
+        "attr-name": "#A1D5FF",
+        "attr-value": "#E7AA91",
+        "operator": "#F1E5BB",
+        "property": "#A1D5FF",
+        "function": "#F4DD8B",
+        "number": "#C4ED81",
+        "boolean": "#A1D5FF",
+        "string": "#E7BC91"
+      },
+      "resizer": {
+        "knobNormal": "{colors.gray-600}",
+        "knobActive": "{colors.accent-275}"
+      },
+      "switch": {
+        "trackNormal": "{colors.gray-725}",
+        "trackActive": "{colors.gray-725}",
+        "knobNormal": "{colors.gray-0}",
+        "knobActive": "{colors.gray-0}"
+      },
+      "logo": {
+        "image": "{colors.accent-275}",
+        "descriptor": "{colors.accent-275}"
+      },
+      "image": {
+        "watermark": "{colors.gray-550}"
+      }
+    }
+  }
+}

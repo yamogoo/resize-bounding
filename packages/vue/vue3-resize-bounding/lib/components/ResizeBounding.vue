@@ -13,7 +13,7 @@
         :direction="direction"
         :options="options"
         :styles
-        :classNames
+        :class-names="classNames"
         @focus="
           (isFocused) => {
             $emit(Emits.FOCUS, { state: isFocused, direction });
@@ -48,11 +48,13 @@ import {
   PREFIX,
 } from "./ResizeBounding.classNames";
 
+// Define props with default values
 const props = withDefaults(defineProps<Props>(), {
   minWidth: 0,
   minHeight: 0,
 });
 
+// Define emits
 const emits = defineEmits<{
   (e: Emits.UPDATE_WIDTH, width: number): void;
   (e: Emits.UPDATE_HEIGHT, height: number): void;
@@ -68,43 +70,39 @@ let { width: newWidth, height: newHeight } = props;
 let prevWidth = newWidth,
   prevHeight = newHeight;
 
+// Compute options by merging default options with props options
 const options = computed(() => {
   return deepmerge(defaultOptions, props.options ?? {});
 });
 
+// Get class names based on styles and prefix
 const classNames = getClassNames(
   props.styles ?? {},
-  options.value.prefix ?? PREFIX,
+  options.value.prefix ?? PREFIX
 );
 
+// Compute styles for the component
 const computedStyle: ComputedRef<HTMLAttributes["style"]> = computed(() => {
-  const _width = {
+  return {
     width: `${props.width}px`,
     minWidth: `${props.width}px`,
-  };
-
-  const _height = {
     height: `${props.height}px`,
     minHeight: `${props.height}px`,
   };
-
-  return {
-    ...(props.width && _width),
-    ...(props.height && _height),
-  };
 });
 
+// Get direction alias
 const getDirectionAlias = (d: PaneDirections): PaneDirectionAliases => {
   if (d === PaneDirections.LEFT || d === PaneDirections.RIGHT)
     return PaneDirectionAliases.HORIZONTAL;
   return PaneDirectionAliases.VERTICAL;
 };
 
+// Compute panes based on directions
 const panes = computed(() => {
   const directions = props.directions ?? "";
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  return Object.entries(PaneDirections).map(([_, v]) => {
+  return Object.values(PaneDirections).map((v) => {
     return {
       show:
         RegExp(v).test(directions) ||
@@ -120,6 +118,7 @@ let startWidth = props.width ?? 0,
 let startX = 0,
   startY = 0;
 
+// Handle drag start event
 const onDragStart = ({ x, y, dir }: PaneEmittedData): void => {
   startWidth = props.width ?? 0;
   startHeight = props.height ?? 0;
@@ -130,10 +129,11 @@ const onDragStart = ({ x, y, dir }: PaneEmittedData): void => {
   emits(Emits.DRAG_START, dir);
 };
 
+// Truncate value within a range
 const truncateInRange = (
   min: number,
   max: number | undefined,
-  next: number,
+  next: number
 ): number => {
   const _max = max ?? Number.POSITIVE_INFINITY;
 
@@ -142,6 +142,7 @@ const truncateInRange = (
   return next;
 };
 
+// Handle drag move event
 const onDragMove = ({ x, y, dir }: PaneEmittedData): void => {
   if (!refRoot.value) return;
 
@@ -170,7 +171,7 @@ const onDragMove = ({ x, y, dir }: PaneEmittedData): void => {
     const truncated = truncateInRange(
       props.minHeight,
       props.maxHeight,
-      newHeight,
+      newHeight
     );
 
     emits(Emits.UPDATE_HEIGHT, truncated);
@@ -183,7 +184,7 @@ const onDragMove = ({ x, y, dir }: PaneEmittedData): void => {
     const truncated = truncateInRange(
       props.minHeight,
       props.maxHeight,
-      newHeight,
+      newHeight
     );
 
     emits(Emits.UPDATE_HEIGHT, truncated);
@@ -191,6 +192,7 @@ const onDragMove = ({ x, y, dir }: PaneEmittedData): void => {
   }
 };
 
+// Handle drag end event
 const onDragEnd = ({ dir }: PaneEmittedData): void => {
   emits(Emits.DRAG_END, dir);
 };
