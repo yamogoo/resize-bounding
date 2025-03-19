@@ -32,7 +32,7 @@ export interface Props {
     border-radius: map.get($roundness, "xs");
 
     @include themify($themes) {
-      border: 1px solid themed("border", "primary");
+      border: 1px solid themed("border", "inactive");
     }
     @extend %base-transition;
 
@@ -53,7 +53,7 @@ export interface Props {
     &__value {
       @include themify($themes) {
         color: themed("label", "secondary");
-        background: themed("border", "primary");
+        background: themed("border", "inactive");
       }
       @extend %base-transition;
     }

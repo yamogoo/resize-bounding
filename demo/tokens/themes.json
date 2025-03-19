@@ -4,15 +4,15 @@
       "background": {
         "primary": "{baseColors.white}",
         "primaryInversed": "{colors.gray-800}",
-        "code": "{colors.gray-0}",
-        "inactive": "{colors.gray-0}"
+        "code": "{colors.gray-25}",
+        "cover": "{colors.gray-25}"
       },
       "label": {
         "primary": "{colors.gray-975}",
         "primaryInversed": "{colors.gray-0}",
         "secondary": "{colors.gray-700}",
         "secondaryInversed": "{colors.gray-250}",
-        "inactive": "{colors.gray-775}",
+        "inactive": "{colors.gray-625}",
         "disabled": "{colors.gray-450}",
         "accent": "{colors.accent-550}"
       },
@@ -21,7 +21,9 @@
         "background": "{colors.accent-550}"
       },
       "border": {
-        "primary": "{colors.gray-75}"
+        "primary": "{colors.gray-75}",
+        "primaryFocused": "{colors.gray-225}",
+        "inactive": "rgba(166, 169, 171, 0.25)"
       },
       "scrollbar": {
         "thumb": "{colors.gray-0}"
@@ -72,7 +74,7 @@
         "primaryInversed": "{colors.gray-975}",
         "secondary": "{colors.gray-250}",
         "secondaryInversed": "{colors.gray-250}",
-        "inactive": "{colors.gray-525}",
+        "inactive": "{colors.gray-500}",
         "disabled": "{colors.gray-525}",
         "accent": "{colors.accent-275}"
       },
@@ -81,7 +83,9 @@
         "background": "{colors.accent-550}"
       },
       "border": {
-        "primary": "{colors.gray-875}"
+        "primary": "{colors.gray-875}",
+        "primaryFocused": "{colors.gray-750}",
+        "inactive": "rgba(166, 169, 171, 0.2)"
       },
       "scrollbar": {
         "thumb": "{colors.gray-500}"
@@ -117,7 +121,7 @@
         "descriptor": "{colors.accent-275}"
       },
       "image": {
-        "watermark": "{colors.gray-550}"
+        "watermark": "rgba(113, 115, 116, 0.75)"
       }
     }
   }

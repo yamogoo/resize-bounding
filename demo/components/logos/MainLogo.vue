@@ -37,18 +37,18 @@ defineProps<Props>();
   align-items: center;
   justify-content: center;
   @include respond-above(md) {
-    gap: map.get(map.get($logo, "desktop"), "gap");
+    gap: px2rem(map.get(map.get($logo, "desktop"), "gap"));
   }
   @include respond-below(md) {
-    gap: map.get(map.get($logo, "mobile"), "gap");
+    gap: px2rem(map.get(map.get($logo, "mobile"), "gap"));
   }
 
   &__image {
     @include respond-above(md) {
-      @include box(map.get(map.get($logo, "desktop"), "size"));
+      @include box(px2rem(map.get(map.get($logo, "desktop"), "size")));
     }
     @include respond-below(md) {
-      @include box(map.get(map.get($logo, "mobile"), "size"));
+      @include box(px2rem(map.get(map.get($logo, "mobile"), "size")));
     }
 
     svg {
@@ -64,7 +64,7 @@ defineProps<Props>();
   }
 
   &__descriptor {
-    @extend %t__display__1;
+    @extend %t__#{map.get(map.get($logo, "desktop"), "font")};
 
     @include themify($themes) {
       color: themed("logo", "descriptor");

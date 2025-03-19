@@ -10,6 +10,7 @@ defineProps<Props>();
 <template>
   <div class="ui-size-field">
     <span class="ui-size-field__value"> {{ width ?? "0" }}px </span>
+    <span class="ui-size-field__divider">|</span>
     <span class="ui-size-field__value"> {{ height ?? "0" }}px </span>
   </div>
 </template>
@@ -22,7 +23,7 @@ defineProps<Props>();
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: map.get($gap, "xs");
+    gap: map.get($gap, "xxs");
     padding: map.get($spacing, "xxs") map.get($spacing, "xs");
     border-radius: map.get($roundness, "md");
     @extend %base-transition;
@@ -31,12 +32,17 @@ defineProps<Props>();
       border: 1px solid themed("border", "primary");
     }
 
-    &__value {
+    &__value,
+    &__divider {
       @extend %t__caption__2;
+      @extend %base-transition;
       @include themify($themes) {
         color: themed("label", "inactive");
       }
-      @extend %base-transition;
+    }
+
+    &__divider {
+      opacity: 0.5;
     }
   }
 }

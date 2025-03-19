@@ -1,40 +1,96 @@
 <script setup lang="ts">
+import { ref } from "vue";
+import { useElementHover } from "@vueuse/core";
+
+import type { BaseLinkColor } from "./BaseLink.vue";
+import BaseLink from "./BaseLink.vue";
 import CopyButton from "@/components/controls/CopyButton.vue";
+
+withDefaults(defineProps<Props>(), {
+  variant: "info",
+  color: "primary",
+});
 
 const emits = defineEmits<{
   (e: "copy"): void;
 }>();
+
+const refRoot = ref<HTMLDivElement | null>(null);
+
+const isHovered = useElementHover(refRoot);
+
+const isCopied = ref(false);
+
+const onUpdateIsCopied = (value: boolean): void => {
+  isCopied.value = value;
+};
+
+const onCopyToClipboard = (e: MouseEvent): void => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  isCopied.value = true;
+  emits("copy");
+};
+</script>
+
+<script lang="ts">
+export type BoxedLinkColor = BaseLinkColor;
+
+export type BoxedLinkVariant = "link" | "info";
+
+export interface Props {
+  variant?: BoxedLinkVariant;
+  color?: BoxedLinkColor;
+}
 </script>
 
 <template>
-  <div class="ui-boxed-link">
-    <div class="ui-boxed-link--container">
+  <div
+    ref="refRoot"
+    class="ui-boxed-link"
+    :class="[color, isHovered ? 'hovered' : 'normal']"
+    @click="onCopyToClipboard"
+  >
+    <span v-if="variant === 'info'" class="ui-boxed-link__value">
       <slot></slot>
-    </div>
-    <CopyButton class="ui-boxed-link__icon" @click="() => emits('copy')" />
+    </span>
+    <BaseLink v-if="variant === 'link'" :color data-testid="base-link">
+      <slot></slot>
+    </BaseLink>
+    <CopyButton
+      v-model:is-active="isCopied"
+      class="ui-boxed-link__icon"
+      @click="onCopyToClipboard"
+      @update:is-active="onUpdateIsCopied"
+    />
   </div>
 </template>
 
 <style lang="scss">
+@use "sass:map";
+
 .ui {
   &-boxed-link {
     position: relative;
     display: flex;
     justify-content: center;
     width: 100%;
-    @include padding(top bottom, 32px);
-    padding-left: 20px;
-    padding-right: 50px;
+    @include padding(top bottom, px2rem(map.get($spacing, "md")));
+    @include padding(left right, px2rem(map.get($spacing, "xl")));
     text-align: center;
+    cursor: pointer;
+    @extend %base-transition;
 
     &:not(:last-child) {
-      @include use-themed-border(bottom);
+      @include themify($themes) {
+        border-bottom: 1px solid themed("border", "inactive");
+      }
     }
 
-    &--container {
-      @include themify($themes) {
-        color: themed("label", "secondary");
-      }
+    &__value {
+      @extend %t__code__1;
+      @extend %base-transition;
     }
 
     &__icon {
@@ -42,6 +98,44 @@ const emits = defineEmits<{
       right: 20px;
       cursor: pointer;
       z-index: 1;
+    }
+
+    /* * * states * * */
+
+    &.normal {
+      &.primary {
+        .ui-boxed-link__value {
+          @include themify($themes) {
+            color: themed("label", "inactive");
+          }
+        }
+      }
+
+      &.accent {
+        .ui-boxed-link__value {
+          @include themify($themes) {
+            color: themed("label", "accent");
+          }
+        }
+      }
+    }
+
+    &.hovered {
+      &.primary {
+        .ui-boxed-link__value {
+          @include themify($themes) {
+            color: themed("label", "primary") !important;
+          }
+        }
+      }
+
+      &.accent {
+        .ui-boxed-link__value {
+          @include themify($themes) {
+            color: themed("label", "primary") !important;
+          }
+        }
+      }
     }
   }
 }

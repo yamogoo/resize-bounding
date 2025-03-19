@@ -1,9 +1,24 @@
-<script lang="ts">
+<script setup lang="ts">
+import { ref } from "vue";
+import { useResizeObserver } from "@vueuse/core";
+
+import { useLayoutStore } from "@/stores/layout";
+
 import "@/assets/fonts/_fonts.scss";
+
+const { setAppSize } = useLayoutStore();
+
+const refApp = ref<HTMLDivElement | null>(null);
+
+useResizeObserver(refApp, (entries) => {
+  const entry = entries[0];
+  const { width, height } = entry.contentRect;
+  setAppSize({ width, height });
+});
 </script>
 
 <template>
-  <main id="app">
+  <main id="app" ref="refApp">
     <NuxtPage />
   </main>
 </template>
@@ -11,9 +26,16 @@ import "@/assets/fonts/_fonts.scss";
 <style lang="scss">
 @use "sass:map";
 
-#app,
-body,
-#__nuxt {
+body {
+  padding: 0;
+  margin: 0;
+
+  @include themify($themes) {
+    background-color: themed("background", "primary");
+  }
+}
+
+#app {
   margin: 0;
   padding: 0;
   font-family: map.get($font-family, "primary");
@@ -27,12 +49,12 @@ body,
   * {
     box-sizing: border-box;
 
-    &::selection {
+    /* ::selection {
       @include themify($themes) {
         color: themed("selection", "color") !important;
         background: themed("selection", "background") !important;
       }
-    }
+    } */
   }
 
   * {
@@ -40,7 +62,7 @@ body,
       width: map.get($scrollbar, "width");
 
       &-track {
-        border-radius: map.get($scrollbar, "border-radius");
+        border-radius: map.get($scrollbar, "borderRadius");
       }
 
       &-thumb {

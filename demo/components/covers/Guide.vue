@@ -55,6 +55,7 @@ export interface LinkData {
   <div class="ui-main-guide">
     <div class="ui-theme-switch">
       <Switch
+        data-testid="theme-switch"
         :state="colorMode"
         aria-label="change-theme"
         @update:state="onChangeTheme"
@@ -71,45 +72,43 @@ export interface LinkData {
     >
       {{ name }}
     </BoxedLink>
-    <BoxedLink @copy="onCopy(figmaUrl)">
-      <BaseLink
-        :size="'lg'"
-        :icon-name="'figma-logo'"
-        :to="figmaUrl"
-        :name="'ResizeBounding'"
-        filled
-      />
-    </BoxedLink>
+    <BaseLink
+      :orientation="'horizontal'"
+      :size="'lg'"
+      :icon-name="'figma-logo'"
+      :to="figmaUrl"
+      :name="'ResizeBounding'"
+      filled
+    />
   </div>
 </template>
 
 <style lang="scss">
+@use "sass:map";
+
 .ui {
   &-main-guide {
     display: flex;
     @include flex-col(center);
     @include box(100%);
+    padding: px2rem(map.get($spacing, "xxl"));
 
     .ui-main-guide__title {
-      padding-top: 20px;
       @extend %t__body__1;
       margin: 0;
+      padding: 0;
       text-align: center;
 
       @include themify($themes) {
         color: themed("label", "primary");
       }
     }
-
-    .ui-boxed-link {
-      @extend %t__code__1;
-    }
   }
 
   &-theme-switch {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: px2rem(map.get($spacing, "md"));
+    right: px2rem(map.get($spacing, "md"));
   }
 }
 </style>

@@ -9,7 +9,8 @@
   "type": "module",
   "author": {
     "name": "yamogoo",
-    "email": "grebennikovmisha@gmail.com"
+    "email": "grebennikovmisha@gmail.com",
+    "fullName": "Mikhail Grebennikov"
   },
   "keywords": [],
   "scripts": {
@@ -22,8 +23,8 @@
     "lint:fix": "eslint . --fix",
     "test:unit": "vitest",
     "test:ui": "vitest --ui",
-    "deploy:dev": "vitest run && netlify build && netlify deploy",
-    "deploy:prod": "vitest run && netlify build && netlify deploy --prod"
+    "deploy:dev": "pnpm lint && vitest run && netlify build && netlify deploy",
+    "deploy:prod": "pnpm lint && vitest run && netlify build && netlify deploy --prod"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.10.1",
@@ -56,6 +57,7 @@
     "gsap": "^3.12.7",
     "lightningcss": "^1.29.3",
     "lodash": "^4.17.21",
+    "netlify-cli": "^19.0.2",
     "nuxt-icons": "^3.2.1",
     "nuxt-simple-robots": "4.0.0-rc.20",
     "pinia": "^2.3.1",

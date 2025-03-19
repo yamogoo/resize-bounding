@@ -55,12 +55,12 @@ const onSetLayout = (): void => {
 
     const hFactor = layoutSize.value.width > tokens.breakpoints.lg ? 3 : 2;
 
-    layout.value.cover.width = Math.round(layoutSize.value.width / hFactor);
+    // layout.value.cover.width = Math.round(layoutSize.value.width / hFactor);
 
     layout.value.setupGuide.width = Math.round(
       layoutSize.value.width / hFactor,
     );
-    layout.value.info.width = Math.round(layoutSize.value.width / 2.5);
+    layout.value.info.width = Math.round(layoutSize.value.width / 2);
     layout.value.info.height = Math.round(layoutSize.value.height / 2.5);
   }
 };
@@ -122,7 +122,7 @@ onUnmounted(() => {
                 />
               </BlockContainer>
             </ResizeBounding>
-            <BlockContainer>
+            <BlockContainer class="intro-block">
               <template #header>
                 <SizeField
                   :width="introWidth"
@@ -209,12 +209,6 @@ onUnmounted(() => {
               :style="{ display: 'flex', width: '100%' }"
             >
               <BlockContainer>
-                <template #header>
-                  <SizeField
-                    :width="layoutSize.width - (layout.info.width ?? 0)"
-                    :height="layout.info.height"
-                  />
-                </template>
                 <SetupGuide />
               </BlockContainer>
             </ResizeBounding>
@@ -248,6 +242,18 @@ onUnmounted(() => {
     flex-direction: column;
     @include box(100%);
     overflow: hidden;
+  }
+
+  .layout-resizer-top {
+    min-height: px2rem(map.get(map.get($layout, "topResizer"), "minHeight"));
+  }
+
+  .intro-block {
+    .ui-block-container--container {
+      @include themify($themes) {
+        background-color: themed("background", "cover");
+      }
+    }
   }
 }
 /* 

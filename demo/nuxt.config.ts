@@ -70,6 +70,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
+      authorName: packageJson.author.fullName,
       appName: packageJson.name,
       appTitle: packageJson.title,
       appDescription: packageJson.description,

@@ -13,8 +13,8 @@ export type SymbolName =
   | "computerMouse_fill_200"
   | "gestureTap_fill_200"
   | "figma-logo"
-  | "git"
-  | "doc"
+  | "github-logo"
+  | "vue-logo"
   | "copy_outline_300";
 
 export type SymbolColor =
@@ -61,11 +61,11 @@ export interface Props {
   line-height: 0;
 
   .nuxt-icon {
-    @include box(auto, inherit);
+    @include box(100% !important);
   }
 
   svg {
-    @include box(auto, inherit);
+    @include box(100% !important);
     fill: inherit;
 
     path {

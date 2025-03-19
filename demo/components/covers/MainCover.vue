@@ -93,23 +93,29 @@ export interface Props {
   @include box(100%);
 
   @include respond-above(lg) {
-    padding: map.get(
-      map.get(map.get(map.get($layout, "cover"), "respond"), "desktop"),
-      "padding"
+    padding: px2rem(
+      map.get(
+        map.get(map.get(map.get($layout, "cover"), "respond"), "desktop"),
+        "padding"
+      )
     );
   }
 
   @include respond-between(md, lg) {
-    padding: map.get(
-      map.get(map.get(map.get($layout, "cover"), "respond"), "tablet"),
-      "padding"
+    padding: px2rem(
+      map.get(
+        map.get(map.get(map.get($layout, "cover"), "respond"), "tablet"),
+        "padding"
+      )
     );
   }
 
   @include respond-below(md) {
-    padding: map.get(
-      map.get(map.get(map.get($layout, "cover"), "respond"), "mobile"),
-      "padding"
+    padding: px2rem(
+      map.get(
+        map.get(map.get(map.get($layout, "cover"), "respond"), "mobile"),
+        "padding"
+      )
     );
   }
 
@@ -143,46 +149,58 @@ export interface Props {
 
   .ui-goup {
     @include respond-above(lg) {
-      padding: map.get(
-        map.get(map.get(map.get($layout, "cover"), "respond"), "desktop"),
-        "group-padding"
+      padding: px2rem(
+        map.get(
+          map.get(map.get(map.get($layout, "cover"), "respond"), "desktop"),
+          "groupPadding"
+        )
       );
     }
 
     @include respond-between(md, lg) {
-      padding: map.get(
-        map.get(map.get(map.get($layout, "cover"), "respond"), "tablet"),
-        "group-padding"
+      padding: px2rem(
+        map.get(
+          map.get(map.get(map.get($layout, "cover"), "respond"), "tablet"),
+          "groupPadding"
+        )
       );
     }
 
     @include respond-below(md) {
-      padding: map.get(
-        map.get(map.get(map.get($layout, "cover"), "respond"), "mobile"),
-        "group-padding"
+      padding: px2rem(
+        map.get(
+          map.get(map.get(map.get($layout, "cover"), "respond"), "mobile"),
+          "groupPadding"
+        )
       );
     }
   }
 
   &__logo {
     @include respond-above(lg) {
-      padding: map.get(
-        map.get(map.get(map.get($layout, "cover"), "respond"), "desktop"),
-        "logo-size"
+      padding: px2rem(
+        map.get(
+          map.get(map.get(map.get($layout, "cover"), "respond"), "desktop"),
+          "logoSize"
+        )
       );
     }
 
     @include respond-between(md, lg) {
-      padding: map.get(
-        map.get(map.get(map.get($layout, "cover"), "respond"), "tablet"),
-        "logo-size"
+      padding: px2rem(
+        map.get(
+          map.get(map.get(map.get($layout, "cover"), "respond"), "tablet"),
+          "logoSize"
+        )
       );
     }
 
     @include respond-below(md) {
-      padding: map.get(
-        map.get(map.get(map.get($layout, "cover"), "respond"), "mobile"),
-        "logo-size"
+      padding: px2rem(
+        map.get(
+          map.get(map.get(map.get($layout, "cover"), "respond"), "mobile"),
+          "logoSize"
+        )
       );
     }
   }

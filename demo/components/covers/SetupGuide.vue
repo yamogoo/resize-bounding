@@ -27,15 +27,15 @@ export const menuItems: Array<TabbarItem<string>> = [
 
 <template>
   <div class="ui-setup-guide">
-    <div class="ui-setup-guide--header">
+    <div class="ui-setup-guide__header">
       <Tabbar
         :sid
         :items="menuItems"
         @select="(item: TabbarItem<string>) => (sid = item.id)"
       ></Tabbar>
     </div>
-    <div class="ui-setup-guide--body">
-      <div class="ui-setup-guide--body--content">
+    <div class="ui-setup-guide__body">
+      <div class="ui-setup-guide__body--content">
         <template v-for="({ id, value }, idx) in menuItems" :key="idx">
           <template v-for="(_, hidx) in __DOC__[value]" :key="hidx">
             <Code
@@ -63,12 +63,12 @@ export const menuItems: Array<TabbarItem<string>> = [
     align-items: center;
     @include box(100%);
 
-    &--header {
+    &__header {
       width: 100%;
-      padding: map.get($spacing, "sm") map.get($spacing, "lg");
+      padding: 0 px2rem(map.get($spacing, "xs"));
     }
 
-    &--body {
+    &__body {
       display: flex;
       @include box(100%, 100%);
       overflow: auto;

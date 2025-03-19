@@ -1,20 +1,36 @@
 <script setup lang="ts">
+import { useRuntimeConfig } from "#imports";
+
 import BaseLink from "@/components/controls/BaseLink.vue";
+
+const runtimeConfig = useRuntimeConfig();
 </script>
 
 <template>
   <div class="ui-main-info">
-    <BaseLink
-      :size="'lg'"
-      :icon-name="'git'"
-      :to="'https://github.com/yamogoo/resize-bounding'"
-      :name="'https://github.com/yamogoo/resize-bounding'"
-    />
-    <div class="ui-main-info--container">
+    <div class="ui-main-info__body">
+      <BaseLink
+        :orientation="'vertical'"
+        :size="'lg'"
+        :icon-name="'github-logo'"
+        :to="'https://github.com/yamogoo/resize-bounding'"
+        :name="'https://github.com/yamogoo/resize-bounding'"
+      />
+    </div>
+    <div class="ui-main-info__footer">
+      <p>
+        This project is licensed under the terms of the
+        <BaseLink
+          :color="'accent'"
+          :to="`https://github.com/yamogoo/vue3-resize-bounding/blob/${runtimeConfig.public.productVueVersion}/LICENSE`"
+        >
+          MIT license
+        </BaseLink>
+      </p>
       <p>
         Author:
-        <BaseLink to="https://github.com/yamogoo">
-          Mikhail Grebennikov
+        <BaseLink :color="'accent'" to="https://github.com/yamogoo">
+          {{ runtimeConfig.public.authorName }}
         </BaseLink>
       </p>
     </div>
@@ -26,27 +42,68 @@ import BaseLink from "@/components/controls/BaseLink.vue";
 
 .ui {
   &-main-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 32px;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    justify-content: center;
+    @include box(100%);
 
-    &--container {
+    &__body {
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
+      min-width: px2rem(map.get(map.get($layout, "info"), "minContentWidth"));
+      max-width: px2rem(map.get(map.get($layout, "info"), "maxContentWidth"));
     }
 
-    .ui-content-group {
-      gap: px2rem(map.get($gap, "xs"));
+    &__footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      @include respond-above(lg) {
+        @include padding(
+          left bottom right,
+          px2rem(
+            map.get(
+              map.get(map.get(map.get($layout, "cover"), "respond"), "desktop"),
+              "padding"
+            )
+          )
+        );
+      }
+
+      @include respond-between(md, lg) {
+        @include padding(
+          left bottom right,
+          px2rem(
+            map.get(
+              map.get(map.get(map.get($layout, "cover"), "respond"), "tablet"),
+              "padding"
+            )
+          )
+        );
+      }
+
+      @include respond-below(md) {
+        @include padding(
+          left bottom right,
+          px2rem(
+            map.get(
+              map.get(map.get(map.get($layout, "cover"), "respond"), "mobile"),
+              "padding"
+            )
+          )
+        );
+      }
 
       p {
-        letter-spacing: 0.025em;
-        margin: 0;
         text-align: center;
-        @extend %t__body__1;
+        padding: 0;
+        margin: 0;
+        @extend %t__body__2;
         @include themify($themes) {
-          color: themed("label", "secondary");
+          color: themed("label", "disabled");
         }
       }
     }
