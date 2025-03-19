@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {
-  defineProps,
   ref,
   onMounted,
   onUnmounted,
@@ -59,14 +58,14 @@ export interface Props {
         delay: 0.75,
       }"
     >
-      <div class="ui-main-intro--body">
+      <div class="ui-main-intro__body">
         <p v-if="description" class="ui-main-intro__description">
           {{ description }}
         </p>
       </div>
     </GProvider>
-    <div class="ui-main-intro--footer">
-      <div class="ui-main-intro__info">
+    <div class="ui-main-intro__footer">
+      <div class="ui-main-intro__info--container">
         <p class="ui-main-intro__info__descriptor">
           supports mouse & touch events
         </p>
@@ -97,57 +96,60 @@ export interface Props {
   display: grid;
   grid-template-rows: 1fr auto;
 
-  @include themify($themes) {
-    background-color: themed("background", "cover");
-  }
-  @extend %base-transition;
-
   & {
     @include box(100%);
 
     @include respond-above(lg) {
-      padding: map.get(
-        map.get(map.get(map.get($layout, "cover"), "respond"), "desktop"),
-        "padding"
+      padding: px2rem(
+        map.get(
+          map.get(map.get(map.get($layout, "cover"), "respond"), "desktop"),
+          "padding"
+        )
       );
     }
 
     @include respond-between(md, lg) {
-      padding: map.get(
-        map.get(map.get(map.get($layout, "cover"), "respond"), "tablet"),
-        "padding"
+      padding: px2rem(
+        map.get(
+          map.get(map.get(map.get($layout, "cover"), "respond"), "tablet"),
+          "padding"
+        )
       );
     }
 
     @include respond-below(md) {
-      padding: map.get(
-        map.get(map.get(map.get($layout, "cover"), "respond"), "mobile"),
-        "padding"
+      padding: px2rem(
+        map.get(
+          map.get(map.get(map.get($layout, "cover"), "respond"), "mobile"),
+          "padding"
+        )
       );
     }
   }
 
-  &--body {
+  &__body {
     display: flex;
     @include flex-col(center);
-    gap: map.get($gap, "xs");
+    gap: px2rem(map.get($gap, "xs"));
     @include box(100%, auto);
-    max-width: 480px;
+    min-width: px2rem(map.get(map.get($layout, "info"), "minContentWidth"));
+    max-width: px2rem(map.get(map.get($layout, "info"), "maxContentWidth"));
     margin: auto;
   }
 
-  &--footer {
+  &__footer {
     position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
-    bottom: 0;
+    left: 0;
     right: 0;
+    bottom: 0;
     width: 100%;
     flex-direction: row-reverse;
     gap: map.get($gap, "xs");
-    @include padding(left right, map.get($spacing, "lg"));
-    @include padding(top bottom, map.get($spacing, "lg"));
+    @include padding(left right, px2rem(map.get($spacing, "lg")));
+    @include padding(top bottom, px2rem(map.get($spacing, "lg")));
   }
 
   &__description {
@@ -164,7 +166,15 @@ export interface Props {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: map.get($spacing, "lg");
+
+    &--container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: px2rem(map.get(map.get($layout, "info"), "minContentWidth"));
+      max-width: px2rem(map.get(map.get($layout, "info"), "maxContentWidth"));
+      padding-bottom: px2rem(map.get($spacing, "lg"));
+    }
 
     &__descriptor {
       @extend %t__body__2;
@@ -178,7 +188,8 @@ export interface Props {
 
     &__event-icons {
       display: flex;
-      gap: 12px;
+      gap: px2rem(map.get($gap, "xl"));
+      width: min-content;
       @include themify($themes) {
         color: themed("image", "watermark");
       }

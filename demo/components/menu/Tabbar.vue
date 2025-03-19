@@ -73,6 +73,7 @@ export interface Props<T> {
     }
 
     &__item {
+      padding: px2rem(map.get($spacing, "md")) px2rem(map.get($spacing, "xs"));
       cursor: pointer;
       @extend %base-transition;
 

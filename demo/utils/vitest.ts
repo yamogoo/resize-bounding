@@ -6,11 +6,3 @@ export const getTypedEmittedEvent = <V>(
 ) => {
   return wrapper.emitted(eventName) as V[][];
 };
-
-export const delay = (ms = 1000) => {
-  return new Promise((res: (value: void | PromiseLike<void>) => void) => {
-    setTimeout(() => {
-      res();
-    }, ms);
-  });
-};

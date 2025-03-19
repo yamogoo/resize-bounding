@@ -64,8 +64,8 @@ const onCopy = (code: string | undefined) => {
     position: relative;
     width: 100%;
 
-    $line-height: map.get($code-block, "line-height");
-    $tab-size: map.get($code-block, "tab-size");
+    $line-height: map.get($codeBlock, "lineHeight");
+    $tab-size: map.get($codeBlock, "tabSize");
 
     &--container {
       position: relative;

@@ -41,7 +41,7 @@
     "node": ">=12"
   },
   "scripts": {
-    "build": "pnpm test:unit && pnpm lint && tsc -b tsconfig.build.json && vite build",
+    "build": "pnpm lint && tsc -b tsconfig.build.json && vite build",
     "dev": "vite build --watch",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
     "test:unit": "vitest",

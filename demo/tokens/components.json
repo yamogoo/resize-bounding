@@ -1,7 +1,7 @@
 {
   "scrollbar": {
     "width": 3,
-    "border-radius": 1
+    "borderRadius": 1
   },
   "mainContainer": {
     "padding": "{tokens.spacing.xs}",
@@ -18,25 +18,28 @@
     }
   },
   "layout": {
+    "topResizer": {
+      "minHeight": 420
+    },
     "cover": {
-      "width": 480,
+      "width": 420,
       "minWidth": 360,
       "maxWidth": 960,
       "respond": {
         "mobile": {
           "padding": "{tokens.spacing.lg}",
-          "group-padding": "{tokens.spacing.sm}",
-          "logo-size": 96
+          "groupPadding": "{tokens.spacing.sm}",
+          "logoSize": 96
         },
         "tablet": {
           "padding": "{tokens.spacing.xl}",
-          "group-padding": "{tokens.spacing.md}",
-          "logo-size": 96
+          "groupPadding": "{tokens.spacing.md}",
+          "logoSize": 96
         },
         "desktop": {
           "padding": "{tokens.spacing.xxl}",
-          "group-padding": "{tokens.spacing.lg}",
-          "logo-size": 88
+          "groupPadding": "{tokens.spacing.lg}",
+          "logoSize": 88
         }
       }
     },
@@ -51,19 +54,21 @@
       "maxHeight": 640,
       "width": 800,
       "minWidth": 580,
-      "maxWidth": 960
+      "maxWidth": 960,
+      "minContentWidth": 240,
+      "maxContentWidth": 480
     }
   },
   "link": {
     "md": {
       "font": "body__2",
       "icon-size": "{tokens.icon.sm.size}",
-      "icon-margin": "{tokens.spacing.sm}"
+      "icon-margin": "{tokens.spacing.xs}"
     },
     "lg": {
       "font": "body__1",
       "icon-size": "{tokens.icon.md.size}",
-      "icon-margin": "{tokens.spacing.sm}"
+      "icon-margin": "{tokens.spacing.xs}"
     }
   },
   "switch": {
@@ -84,21 +89,35 @@
   "tabbar": {
     "md": {
       "font": "label__1",
-      "gap": "{tokens.spacing.md}"
+      "gap": 0
     }
   },
-  "code-block": {
-    "line-height": "2em",
-    "tab-size": "4"
+  "codeBlock": {
+    "lineHeight": "1.75em",
+    "tabSize": "4"
   },
   "logo": {
     "mobile": {
-      "size": 96,
-      "gap": "{tokens.gap.md}"
+      "size": 92,
+      "gap": "{tokens.gap.lg}",
+      "font": "display__1"
     },
     "desktop": {
-      "size": 96,
-      "gap": "{tokens.gap.md}"
+      "size": 92,
+      "gap": "{tokens.gap.lg}",
+      "font": "display__1"
     }
+  },
+  "resizer": {
+    "activeAreaWidth": 20,
+    "knobWidth": 76,
+    "knobHeight": 6,
+    "knobRoundness": 3
+  },
+  "speedEffect": {
+    "minSize": 640,
+    "maxSize": 1440,
+    "opacityMin": 0.25,
+    "opacityMax": 1
   }
 }

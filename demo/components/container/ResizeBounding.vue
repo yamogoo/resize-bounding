@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import Resizer, { globalClassNames } from "vue3-resize-bounding";
 
+import tokens from "@/tokens";
+
+const knobWidth = tokens.resizer["knobWidth"];
+const knobHeight = tokens.resizer["knobHeight"];
+const knobRoundness = tokens.resizer["knobRoundness"];
+const activeAreaWidth = tokens.resizer["activeAreaWidth"];
+
 const PREFIX = "ui-resizer__";
 </script>
 
@@ -10,7 +17,7 @@ const PREFIX = "ui-resizer__";
     :options="{
       prefix: PREFIX,
       width: 4,
-      activeAreaWidth: 20,
+      activeAreaWidth,
       position: 'central',
       knob: {
         show: true,
@@ -21,9 +28,9 @@ const PREFIX = "ui-resizer__";
       knob: [
         globalClassNames(PREFIX).knob,
         {
-          width: '64px',
-          height: '6px',
-          borderRadius: '4px',
+          width: knobWidth,
+          height: knobHeight,
+          borderRadius: knobRoundness,
           transition: 'background 75ms ease-out',
         },
       ],
