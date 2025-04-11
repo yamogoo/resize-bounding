@@ -55,8 +55,6 @@ const onSetLayout = (): void => {
 
     const hFactor = layoutSize.value.width > tokens.breakpoints.lg ? 3 : 2;
 
-    // layout.value.cover.width = Math.round(layoutSize.value.width / hFactor);
-
     layout.value.setupGuide.width = Math.round(
       layoutSize.value.width / hFactor,
     );
@@ -86,7 +84,7 @@ onUnmounted(() => {
 
 <template>
   <main class="main page">
-    <div class="main--container">
+    <div class="main__container">
       <div ref="refLayout" class="main__layout">
         <ClientOnly>
           <ResizeBounding
@@ -100,7 +98,7 @@ onUnmounted(() => {
               :min-width="layout.cover.minWidth"
               :max-width="layout.cover.maxWidth"
               :directions="'r'"
-              class="ui--border --r"
+              class="ui_border_r"
               :style="[{ display: 'flex' }]"
               @update:width="
                 (width) => {
@@ -140,7 +138,7 @@ onUnmounted(() => {
               :min-width="layout.setupGuide.minWidth"
               :max-width="layout.setupGuide.maxWidth"
               :directions="'l'"
-              class="ui--border --l"
+              class="ui_border_l"
               :style="{
                 display: 'flex',
                 flexDirection: 'column',
@@ -174,7 +172,7 @@ onUnmounted(() => {
             :min-height="layout.info.minHeight"
             :max-height="layout.info.maxHeight"
             :directions="'t'"
-            class="ui--border --t"
+            class="ui_border_t"
             :style="{ display: 'flex', width: '100%' }"
             @update:height="
               (height) => {
@@ -187,7 +185,7 @@ onUnmounted(() => {
               :min-width="layout.info.minWidth"
               :max-width="layout.info.maxWidth"
               :directions="'r'"
-              class="ui--border --r"
+              class="ui_border_r"
               @update:width="
                 (width) => {
                   layout.info.width = width;
@@ -231,7 +229,7 @@ onUnmounted(() => {
     user-select: none;
   }
 
-  &--container {
+  &__container {
     @include box(100%);
     padding: px2rem(map.get($mainContainer, "padding"));
     box-sizing: border-box;
@@ -258,20 +256,20 @@ onUnmounted(() => {
 }
 /* 
 .ui {
-  &--border {
-    &.--l {
+  &_border {
+    &_l {
       @include use-themed-border(left, "primary");
     }
 
-    &.--r {
+    &_r {
       @include use-themed-border(right, "primary");
     }
 
-    &.--t {
+    &_t {
       @include use-themed-border(top, "primary");
     }
 
-    &.--b {
+    &_b {
       @include use-themed-border(bottom, "primary");
     }
   }

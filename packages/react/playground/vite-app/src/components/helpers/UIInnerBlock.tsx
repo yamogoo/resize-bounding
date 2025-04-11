@@ -19,7 +19,7 @@ const HInnerBlock = ({
   return (
     <div className={"ui-inner-block"}>
       <div
-        className={"ui-inner-block--container"}
+        className={"ui-inner-block__container"}
         style={{
           backgroundImage: `url(${imagePath})`,
           backgroundPosition: "center",

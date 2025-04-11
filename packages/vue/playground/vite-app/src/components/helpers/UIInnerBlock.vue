@@ -15,7 +15,7 @@ withDefaults(defineProps<Props>(), {
 <template>
   <div class="ui-inner-block">
     <div
-      class="ui-inner-block--container"
+      class="ui-inner-block__container"
       :style="[
         {
           backgroundImage: `url(${imagePath})`,
@@ -49,7 +49,7 @@ withDefaults(defineProps<Props>(), {
   padding: 12px;
   overflow: hidden;
 
-  &--container {
+  &__container {
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -27,13 +27,16 @@ export interface Props<T> {
 </script>
 
 <template>
-  <div class="ui-tabbar-menu" :class="[size]">
-    <ul class="ui-tabbar-menu--list">
+  <div class="ui-tabbar-menu" :class="[{ [`ui-tabbar-menu_${size}`]: size }]">
+    <ul class="ui-tabbar-menu__list">
       <li
         v-for="item in items"
         :key="`${item.id}`"
         data-testid="tabbar-item"
-        :class="['ui-tabbar-menu__item', { active: sid === item.id }]"
+        :class="[
+          'ui-tabbar-menu__item',
+          { 'ui-tabbar-menu__item_active': sid === item.id },
+        ]"
         @click="$emit('select', item)"
       >
         {{ item.label }}
@@ -48,8 +51,8 @@ export interface Props<T> {
 @mixin defineStyles($map: $tabbar) {
   @each $size, $val in $map {
     & {
-      &.#{$size} {
-        .ui-tabbar-menu--list {
+      &_#{$size} {
+        .ui-tabbar-menu__list {
           gap: px2rem(map.get($val, "gap"));
         }
 
@@ -65,7 +68,7 @@ export interface Props<T> {
   &-tabbar-menu {
     @include defineStyles();
 
-    &--list {
+    &__list {
       display: flex;
       list-style: none;
       margin: 0;
@@ -89,7 +92,7 @@ export interface Props<T> {
         }
       }
 
-      &.active {
+      &_active {
         opacity: 1;
         @include themify($themes) {
           color: themed("label", "accent");

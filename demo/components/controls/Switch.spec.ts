@@ -20,9 +20,9 @@ describe("Switch", () => {
           },
         });
 
-        const className = wrapper.classes("active");
+        const className = wrapper.classes("ui-switch_active");
         expect(className).toBe(true);
-        expect(wrapper.classes("normal")).toBe(false);
+        expect(wrapper.classes("ui-switch_normal")).toBe(false);
         expect(className).toMatchSnapshot();
       },
     );
@@ -36,9 +36,9 @@ describe("Switch", () => {
           },
         });
 
-        const className = wrapper.classes("normal");
+        const className = wrapper.classes("ui-switch_normal");
         expect(className).toBe(true);
-        expect(wrapper.classes("active")).toBe(false);
+        expect(wrapper.classes("ui-switch_active")).toBe(false);
         expect(className).toMatchSnapshot();
       },
     );

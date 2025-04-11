@@ -29,7 +29,7 @@ defineProps<Props>();
     @extend %base-transition;
 
     @include themify($themes) {
-      border: 1px solid themed("border", "primary");
+      border: 1px solid themed("border", "inactive");
     }
 
     &__value,

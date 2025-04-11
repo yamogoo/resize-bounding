@@ -22,7 +22,7 @@ const borderStyle = `1px solid ${colors.borderNormal}`;
 
 const layoutReducer = (
   state: typeof initState,
-  action: Actions,
+  action: Actions
 ): typeof initState => {
   const { type, payload } = action;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -33,7 +33,7 @@ const layoutReducer = (
     if (sectionKey === v) {
       return deepmerge(
         state,
-        (state[sectionKey][propKey as ContainerSizeKeys] = payload),
+        (state[sectionKey][propKey as ContainerSizeKeys] = payload)
       );
     }
   }
@@ -49,7 +49,7 @@ const InteractiveGrid = () => {
       className="boundarize-app"
       style={{ background: `${colors.backgroundApp}` }}
     >
-      <div className="boundarize-app--container">
+      <div className="boundarize-app__container">
         <div
           className="boundarize-app__layout"
           style={{

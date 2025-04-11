@@ -65,11 +65,11 @@ export interface Props {
       </div>
     </GProvider>
     <div class="ui-main-intro__footer">
-      <div class="ui-main-intro__info--container">
-        <p class="ui-main-intro__info__descriptor">
+      <div class="ui-main-intro__info-container">
+        <p class="ui-main-intro__info-descriptor">
           supports mouse & touch events
         </p>
-        <div class="ui-main-intro__info__event-icons">
+        <div class="ui-main-intro__info-event-icons">
           <Icon
             data-testid="mouse-icon"
             :name="'computerMouse_fill_200'"
@@ -167,7 +167,7 @@ export interface Props {
     flex-direction: column;
     align-items: center;
 
-    &--container {
+    &-container {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -176,7 +176,7 @@ export interface Props {
       padding-bottom: px2rem(map.get($spacing, "lg"));
     }
 
-    &__descriptor {
+    &-descriptor {
       @extend %t__body__2;
       text-align: center;
 
@@ -186,7 +186,7 @@ export interface Props {
       @extend %base-transition;
     }
 
-    &__event-icons {
+    &-event-icons {
       display: flex;
       gap: px2rem(map.get($gap, "xl"));
       width: min-content;

@@ -1,36 +1,3 @@
-<template>
-  <div
-    ref="refRoot"
-    data-testid="resize-bounding-container"
-    :class="[classNames.container, { disabled }]"
-    :style="[computedStyle]"
-  >
-    <slot></slot>
-    <template v-for="{ show, direction } in panes" :key="direction">
-      <ResizeBoundingPane
-        v-if="!disabled && show"
-        :prefix="options.prefix ?? ''"
-        :direction="direction"
-        :options="options"
-        :styles
-        :class-names="classNames"
-        @focus="
-          (isFocused) => {
-            $emit(Emits.FOCUS, { state: isFocused, direction });
-          }
-        "
-        @drag:start="onDragStart"
-        @drag:move="onDragMove"
-        @drag:end="onDragEnd"
-      >
-        <template #default>
-          <slot name="knob"></slot>
-        </template>
-      </ResizeBoundingPane>
-    </template>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref, computed, type ComputedRef, type HTMLAttributes } from "vue";
 import deepmerge from "deepmerge";
@@ -197,3 +164,36 @@ const onDragEnd = ({ dir }: PaneEmittedData): void => {
   emits(Emits.DRAG_END, dir);
 };
 </script>
+
+<template>
+  <div
+    ref="refRoot"
+    data-testid="resize-bounding-container"
+    :class="[classNames.container, { disabled }]"
+    :style="[computedStyle]"
+  >
+    <slot></slot>
+    <template v-for="{ show, direction } in panes" :key="direction">
+      <ResizeBoundingPane
+        v-if="!disabled && show"
+        :prefix="options.prefix ?? ''"
+        :direction="direction"
+        :options="options"
+        :styles
+        :class-names="classNames"
+        @focus="
+          (isFocused) => {
+            $emit(Emits.FOCUS, { state: isFocused, direction });
+          }
+        "
+        @drag:start="onDragStart"
+        @drag:move="onDragMove"
+        @drag:end="onDragEnd"
+      >
+        <template #default>
+          <slot name="knob"></slot>
+        </template>
+      </ResizeBoundingPane>
+    </template>
+  </div>
+</template>

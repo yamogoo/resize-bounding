@@ -53,7 +53,7 @@ export interface LinkData {
 
 <template>
   <div class="ui-main-guide">
-    <div class="ui-theme-switch">
+    <div class="ui-main-guide__theme-switch">
       <Switch
         data-testid="theme-switch"
         :state="colorMode"
@@ -103,12 +103,12 @@ export interface LinkData {
         color: themed("label", "primary");
       }
     }
-  }
 
-  &-theme-switch {
-    position: absolute;
-    top: px2rem(map.get($spacing, "md"));
-    right: px2rem(map.get($spacing, "md"));
+    &__theme-switch {
+      position: absolute;
+      top: px2rem(map.get($spacing, "md"));
+      right: px2rem(map.get($spacing, "md"));
+    }
   }
 }
 </style>

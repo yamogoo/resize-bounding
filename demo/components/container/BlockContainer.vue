@@ -175,14 +175,17 @@ export type BlockContainerSize = keyof typeof tokens.blockContainer;
 </script>
 
 <template>
-  <div class="ui-block-container" :class="[size]">
-    <div ref="refRoot" class="ui-block-container--container">
+  <div
+    class="ui-block-container"
+    :class="[{ [`ui-block-container_${size}`]: size }]"
+  >
+    <div ref="refRoot" class="ui-block-container__container">
       <Transition :css="false" @enter="onEffectEnter" @leave="onEffectLeave">
         <div
           v-show="isEffectShown"
           :id
           ref="refEffect"
-          class="ui-block-container--effect"
+          class="ui-block-container__effect"
         ></div>
       </Transition>
       <div class="ui-block-container__control-panel">
@@ -191,7 +194,7 @@ export type BlockContainerSize = keyof typeof tokens.blockContainer;
       <slot></slot>
       <div
         v-if="imagePath"
-        class="ui-block-container--cover"
+        class="ui-block-container__cover"
         :style="[
           {
             backgroundImage: `url(${imagePath})`,
@@ -213,10 +216,10 @@ export type BlockContainerSize = keyof typeof tokens.blockContainer;
     $roundness: px2rem(map.get($val, "roundness"));
 
     & {
-      &.#{$size} {
+      &_#{$size} {
         padding: $padding;
 
-        .ui-block-container--container {
+        .ui-block-container__container {
           border-radius: $roundness;
         }
       }
@@ -231,7 +234,7 @@ export type BlockContainerSize = keyof typeof tokens.blockContainer;
 
   @include defineStyles();
 
-  &--effect {
+  &__effect {
     position: absolute;
     @include box(720px);
     overflow: hidden;
@@ -247,7 +250,7 @@ export type BlockContainerSize = keyof typeof tokens.blockContainer;
     }
   }
 
-  &--container {
+  &__container {
     position: relative;
     display: flex;
     align-items: center;
@@ -263,7 +266,7 @@ export type BlockContainerSize = keyof typeof tokens.blockContainer;
   }
 
   &:hover {
-    .ui-block-container--container {
+    .ui-block-container__container {
       @include use-themed-border(all, "primaryFocused");
     }
   }
