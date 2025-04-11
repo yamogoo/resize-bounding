@@ -68,7 +68,7 @@ export interface Props {
 <template>
   <label
     :for="id"
-    :class="['ui-switch', state ? 'active' : 'normal']"
+    :class="['ui-switch', state ? 'ui-switch_active' : 'ui-switch_normal']"
     aria-label="switch"
   >
     <input
@@ -79,7 +79,7 @@ export interface Props {
       @change="onChange"
     />
     <div class="ui-switch__track">
-      <div class="ui-switch__track--container">
+      <div class="ui-switch__track-container">
         <span ref="refKnob" class="ui-switch__knob"></span>
       </div>
     </div>
@@ -144,7 +144,7 @@ export interface Props {
   &__track {
     overflow: hidden;
 
-    &--container {
+    &-container {
       @include box(100%);
     }
   }
@@ -153,7 +153,7 @@ export interface Props {
     display: block;
   }
 
-  &.active {
+  &_active {
     .ui-switch__track {
       @include themify($themes) {
         background-color: themed("switch", "trackActive");
@@ -167,7 +167,7 @@ export interface Props {
     }
   }
 
-  &.normal {
+  &_normal {
     .ui-switch__track {
       @include themify($themes) {
         background-color: themed("switch", "trackNormal");

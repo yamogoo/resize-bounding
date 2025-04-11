@@ -38,7 +38,7 @@ const onCopy = (code: string | undefined) => {
 <template>
   <div class="ui-code">
     <span v-if="fileName" class="ui-code__file-name">/* {{ fileName }} */</span>
-    <div class="ui-code--container">
+    <div class="ui-code__container">
       <pre v-if="block">
       <code ref="refCode" :class="`language-${lang}`">{{ code }}<slot></slot></code>
     </pre>
@@ -67,7 +67,7 @@ const onCopy = (code: string | undefined) => {
     $line-height: map.get($codeBlock, "lineHeight");
     $tab-size: map.get($codeBlock, "tabSize");
 
-    &--container {
+    &__container {
       position: relative;
       width: 100%;
     }

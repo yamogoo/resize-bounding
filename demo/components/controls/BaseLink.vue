@@ -31,7 +31,17 @@ export interface Props {
 </script>
 
 <template>
-  <NuxtLink :to class="ui-link" :class="[size, color, orientation]">
+  <NuxtLink
+    :to
+    class="ui-link"
+    :class="[
+      {
+        [`ui-link_${size}`]: size,
+        [`ui-link_${color}`]: color,
+        [`ui-link_${orientation}`]: orientation,
+      },
+    ]"
+  >
     <Icon v-if="iconName" class="ui-link__icon" :name="iconName" :filled />
     <span class="ui-link__name">{{ name }} <slot></slot></span>
   </NuxtLink>
@@ -50,7 +60,7 @@ export interface Props {
     $icon-margin: map.get($val, "icon-margin");
     $font-name: map.get($val, "font");
 
-    &.#{$size} {
+    &_#{$size} {
       .ui-link__icon {
         margin: px2rem($icon-margin);
 
@@ -73,14 +83,14 @@ export interface Props {
 
     /* * * orientation * * */
 
-    &.horizontal {
+    &_horizontal {
       display: flex;
       flex-direction: row;
       align-items: center;
       gap: px2rem(map.get($gap, "sm"));
     }
 
-    &.vertical {
+    &_vertical {
       .ui-link__icon {
         margin: auto;
         margin-bottom: px2rem(map.get($spacing, "md"));
@@ -89,7 +99,7 @@ export interface Props {
 
     /* * * colors * * */
 
-    &.primary {
+    &_primary {
       @include themify($themes) {
         color: themed("label", "inactive");
       }
@@ -101,7 +111,7 @@ export interface Props {
       }
     }
 
-    &.accent {
+    &_accent {
       @include themify($themes) {
         color: themed("label", "accent");
       }

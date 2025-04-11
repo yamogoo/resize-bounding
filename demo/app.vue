@@ -48,13 +48,6 @@ body {
 
   * {
     box-sizing: border-box;
-
-    /* ::selection {
-      @include themify($themes) {
-        color: themed("selection", "color") !important;
-        background: themed("selection", "background") !important;
-      }
-    } */
   }
 
   * {

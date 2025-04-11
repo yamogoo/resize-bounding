@@ -1,41 +1,3 @@
-<template>
-  <div
-    ref="refPane"
-    data-testid="resize-bounding-pane"
-    :class="[
-      classNames.pane,
-      { active: isFocused || isPressed },
-      options.addStateClasses
-        ? isPressed
-          ? 'pressed'
-          : isFocused
-            ? 'focused'
-            : 'normal'
-        : '',
-    ]"
-    :style="[paneComputedStyle]"
-  >
-    <div
-      data-testid="resize-bounding-splitter"
-      :class="[classNames.splitter]"
-      :style="[splitterComputedStyle]"
-    >
-      <div
-        v-if="
-          (isFocused || !options?.knob?.normalHidden) && options?.knob?.show
-        "
-        data-testid="resize-bounding-splitter-container"
-        :class="[classNames.splitterContainer]"
-        :style="[containerComputedStyles]"
-      >
-        <div data-testid="resize-bounding-knob" :class="[classNames.knob]">
-          <slot v-if="$slots.default"></slot>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, type Ref, computed } from "vue";
 
@@ -250,3 +212,41 @@ const checkIsVertical = (direction: string): boolean =>
     `[${PaneDirections.TOP} | ${PaneDirections.BOTTOM} | ${PaneDirectionAliases.VERTICAL}]`
   ).test(direction);
 </script>
+
+<template>
+  <div
+    ref="refPane"
+    data-testid="resize-bounding-pane"
+    :class="[
+      classNames.pane,
+      { active: isFocused || isPressed },
+      options.addStateClasses
+        ? isPressed
+          ? 'pressed'
+          : isFocused
+            ? 'focused'
+            : 'normal'
+        : '',
+    ]"
+    :style="[paneComputedStyle]"
+  >
+    <div
+      data-testid="resize-bounding-splitter"
+      :class="[classNames.splitter]"
+      :style="[splitterComputedStyle]"
+    >
+      <div
+        v-if="
+          (isFocused || !options?.knob?.normalHidden) && options?.knob?.show
+        "
+        data-testid="resize-bounding-splitter-container"
+        :class="[classNames.splitterContainer]"
+        :style="[containerComputedStyles]"
+      >
+        <div data-testid="resize-bounding-knob" :class="[classNames.knob]">
+          <slot v-if="$slots.default"></slot>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

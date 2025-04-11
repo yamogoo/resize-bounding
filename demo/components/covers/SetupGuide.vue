@@ -35,7 +35,7 @@ export const menuItems: Array<TabbarItem<string>> = [
       ></Tabbar>
     </div>
     <div class="ui-setup-guide__body">
-      <div class="ui-setup-guide__body--content">
+      <div class="ui-setup-guide__body-content">
         <template v-for="({ id, value }, idx) in menuItems" :key="idx">
           <template v-for="(_, hidx) in __DOC__[value]" :key="hidx">
             <Code
@@ -73,7 +73,7 @@ export const menuItems: Array<TabbarItem<string>> = [
       @include box(100%, 100%);
       overflow: auto;
 
-      &--content {
+      &-content {
         width: 100%;
         margin: auto;
       }

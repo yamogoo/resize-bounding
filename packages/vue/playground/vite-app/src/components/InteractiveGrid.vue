@@ -67,7 +67,7 @@ const layout: Ref<
     class="boundarize-app"
     :style="{ background: `${colors.backgroundApp}` }"
   >
-    <div class="boundarize-app--container">
+    <div class="boundarize-app__container">
       <div
         class="boundarize-app__layout"
         :style="{
@@ -229,7 +229,7 @@ const layout: Ref<
     user-select: none;
   }
 
-  &--container {
+  &__container {
     @include box(100%);
     padding: 20px;
     box-sizing: border-box;

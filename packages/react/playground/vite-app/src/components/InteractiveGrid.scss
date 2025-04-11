@@ -6,7 +6,7 @@
     user-select: none;
   }
 
-  &--container {
+  &__container {
     @include box(100%);
     padding: 20px;
     box-sizing: border-box;

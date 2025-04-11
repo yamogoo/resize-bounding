@@ -35,7 +35,11 @@ export interface Props {
 </script>
 
 <template>
-  <div class="icon" data-testid="icon" :class="[size, color]">
+  <div
+    class="icon"
+    data-testid="icon"
+    :class="[{ [`icon_${size}`]: size, [`icon_${color}`]: color }]"
+  >
     <Suspense>
       <NuxtIcon :name></NuxtIcon>
       <template #fallback>
@@ -50,7 +54,7 @@ export interface Props {
 
 @mixin defineIconSizes($map: $icon) {
   @each $size, $val in $map {
-    &.#{$size} {
+    &_#{$size} {
       @include box(px2rem(map.get($val, "size")));
     }
   }
@@ -83,31 +87,31 @@ export interface Props {
 
   /* * * Colors * * */
 
-  &.primary {
+  &_primary {
     @include themify($themes) {
       fill: themed("label", "primary");
     }
   }
 
-  &.primary-inversed {
+  &_primary-inversed {
     @include themify($themes) {
       fill: themed("label", "primaryInversed");
     }
   }
 
-  &.secondary {
+  &_secondary {
     @include themify($themes) {
       fill: themed("label", "secondary");
     }
   }
 
-  &.secondary-inversed {
+  &_secondary-inversed {
     @include themify($themes) {
       fill: themed("label", "secondaryInversed");
     }
   }
 
-  &.disabled {
+  &_disabled {
     @include themify($themes) {
       fill: themed("label", "disabled");
     }

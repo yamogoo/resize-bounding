@@ -96,7 +96,7 @@ const onTooltipLeave = (el: Element, done: () => void): void => {
   <div
     :id="id.toString()"
     ref="refIcon"
-    :class="[`ui-copy-button`, { active: localIsActive }]"
+    :class="[`ui-copy-button`, { ['ui-copy-button_active']: localIsActive }]"
     @click="onClick"
   >
     <Transition :css="false" @enter="onTooltipEnter" @leave="onTooltipLeave">
@@ -136,7 +136,7 @@ const onTooltipLeave = (el: Element, done: () => void): void => {
       }
     }
 
-    &.active {
+    &_active {
       @include themify($themes) {
         color: themed("label", "accent");
       }

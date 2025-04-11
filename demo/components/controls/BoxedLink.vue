@@ -49,7 +49,10 @@ export interface Props {
   <div
     ref="refRoot"
     class="ui-boxed-link"
-    :class="[color, isHovered ? 'hovered' : 'normal']"
+    :class="[
+      { [`ui-boxed-link_${color}`]: color },
+      isHovered ? 'ui-boxed-link_hovered' : 'ui-boxed-link_normal',
+    ]"
     @click="onCopyToClipboard"
   >
     <span v-if="variant === 'info'" class="ui-boxed-link__value">
@@ -102,8 +105,8 @@ export interface Props {
 
     /* * * states * * */
 
-    &.normal {
-      &.primary {
+    &_normal {
+      &.ui-boxed-link_primary {
         .ui-boxed-link__value {
           @include themify($themes) {
             color: themed("label", "inactive");
@@ -111,7 +114,7 @@ export interface Props {
         }
       }
 
-      &.accent {
+      &.ui-boxed-link_accent {
         .ui-boxed-link__value {
           @include themify($themes) {
             color: themed("label", "accent");
@@ -120,8 +123,8 @@ export interface Props {
       }
     }
 
-    &.hovered {
-      &.primary {
+    &_hovered {
+      &.ui-boxed-link_primary {
         .ui-boxed-link__value {
           @include themify($themes) {
             color: themed("label", "primary") !important;
@@ -129,7 +132,7 @@ export interface Props {
         }
       }
 
-      &.accent {
+      &.ui-boxed-link_accent {
         .ui-boxed-link__value {
           @include themify($themes) {
             color: themed("label", "primary") !important;

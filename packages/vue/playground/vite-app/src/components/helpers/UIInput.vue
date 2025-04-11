@@ -37,7 +37,7 @@ const onUpdateValue = (e: Event) => {
 </script>
 
 <template>
-  <div :class="['ui-input', { disabled }]">
+  <div :class="['ui-input', { 'ui-input_disabled': disabled }]">
     <label :for="id" v-if="label" class="ui-input__label"
       >{{ label }}
       <input
@@ -82,7 +82,7 @@ const onUpdateValue = (e: Event) => {
       height: max-content;
     }
 
-    &.disabled {
+    &_disabled {
       opacity: 0.5;
     }
   }

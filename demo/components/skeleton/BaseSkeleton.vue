@@ -27,7 +27,7 @@ const onAnimate = (el: Element): void => {
 
 <template>
   <div class="skeleton">
-    <div ref="refShape" class="skeleton--shape"></div>
+    <div ref="refShape" class="skeleton__shape"></div>
   </div>
 </template>
 
@@ -41,7 +41,7 @@ const onAnimate = (el: Element): void => {
   z-index: 1;
   cursor: wait;
 
-  &--shape {
+  &__shape {
     position: absolute;
     inset: 0;
     z-index: 0;
