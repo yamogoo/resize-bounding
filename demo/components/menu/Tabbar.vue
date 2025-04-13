@@ -80,7 +80,7 @@ export interface Props<T> {
       cursor: pointer;
       @extend %base-transition;
 
-      &:not(.active) {
+      &:not(.ui-tabbar-menu__item_active) {
         @include themify($themes) {
           color: themed("label", "inactive");
         }
