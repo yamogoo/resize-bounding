@@ -32,7 +32,6 @@ export interface Props
       maxHeight: number;
       disabled: boolean;
       directions: PaneDirectionKey;
-      alwaysShowKnob: boolean;
       options: Partial<Options>;
       style: CSSProperties;
       styles: Partial<IStyles>;
@@ -136,7 +135,7 @@ const ResizeBounding = (props: Partial<Props>) => {
   const truncateInRange = (
     min: number,
     max: number | undefined,
-    next: number,
+    next: number
   ): number => {
     const _max = max ?? Number.POSITIVE_INFINITY;
 

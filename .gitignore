@@ -30,3 +30,5 @@ tests-report
 
 *.back
 .pnpm-lock.yaml
+*storybook.log
+storybook-static/

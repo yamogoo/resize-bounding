@@ -5,7 +5,7 @@ import type {
   Options,
 } from "../shared/typings";
 
-export const PREFIX = "resize-bounding-";
+export const PREFIX = "resize-bounding__";
 
 export const defaultOptions: Options = {
   prefix: PREFIX,
@@ -27,7 +27,7 @@ export const globalClassNames = (prefix = PREFIX) => ({
   container: `${prefix}container`,
   pane: `${prefix}pane`,
   splitter: `${prefix}splitter`,
-  splitterContainer: `${prefix}splitter--container`,
+  splitterContainer: `${prefix}splitter-container`,
   knob: `${prefix}knob`,
 });
 
@@ -101,7 +101,7 @@ export const defaultStyles = (prefix: string): IStyles => ({
 
 export const getClassNames = (
   args: Partial<IStyles>,
-  prefix = PREFIX,
+  prefix = PREFIX
 ): IResizeBoundingClassNames => {
   return mergeStyleSets(defaultStyles(prefix), args);
 };

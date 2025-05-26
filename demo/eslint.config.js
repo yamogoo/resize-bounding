@@ -18,6 +18,13 @@ export default withNuxt(
       "**/dist/*",
     ],
   },
+  {
+    languageOptions: {
+      parserOptions: {
+        project: "./tsconfig.json",
+      },
+    },
+  },
   { files: ["**/*.{js,ts,vue}"] },
   { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
