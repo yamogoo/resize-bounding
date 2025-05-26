@@ -8,10 +8,14 @@ export type Props = Partial<{
   minHeight: number;
   maxHeight: number;
   disabled: boolean;
+
+  /** Pane variants that must be enabled for resizing */
   directions: PaneDirectionKey;
-  alwaysShowKnob: boolean;
+
   options: Partial<Options>;
+
   styles: Partial<IStyles>;
+
   updateWidth: (width: number) => void;
   updateHeight: (height: number) => void;
   dragStart: (dir: string) => void;

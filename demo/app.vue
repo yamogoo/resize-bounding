@@ -27,6 +27,7 @@ useResizeObserver(refApp, (entries) => {
 @use "sass:map";
 
 body {
+  -webkit-font-smoothing: antialiased;
   padding: 0;
   margin: 0;
 
