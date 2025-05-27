@@ -9,11 +9,16 @@ export type SplitterPosition = "central" | "external" | "internal";
 
 export interface Options {
   prefix: string;
-  width: number;
+
+  /** legacy old splitter width prop */
+  width?: number;
+
+  /** new splitter width props */
+  splitterWidthNormal: number;
+  splitterWidthActive?: number;
+
   activeAreaWidth?: number;
   addStateClasses?: boolean;
-  enableCornerControl?: boolean;
-  showCornerControl?: boolean;
   position: SplitterPosition;
   cursor: Partial<
     Record<"horizontal" | "vertical", CSSStyleDeclaration["cursor"]>
@@ -56,3 +61,8 @@ export enum PaneDirections {
 }
 
 export type PaneDirectionKey = string;
+
+export interface EmittedFocusData {
+  state: boolean;
+  direction: string;
+}

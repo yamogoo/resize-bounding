@@ -5,11 +5,18 @@ import type {
   Options,
 } from "../shared/typings";
 
-export const PREFIX = "resize-bounding";
+export const PREFIX = "resize-bounding__";
 
 export const defaultOptions: Options = {
   prefix: PREFIX,
+
+  /** legacy old splitter width prop */
   width: 4,
+
+  /** new splitter width props */
+  splitterWidthNormal: 4,
+  splitterWidthActive: undefined,
+
   activeAreaWidth: undefined,
   position: "central",
   knob: {
@@ -44,6 +51,11 @@ export const defaultStyles = (prefix: string): IStyles => ({
       display: "block",
       zIndex: 9998,
       touchAction: "none",
+      selectors: {
+        "&.active": {
+          zIndex: 9999,
+        },
+      },
     },
   ],
   splitter: [
@@ -51,7 +63,7 @@ export const defaultStyles = (prefix: string): IStyles => ({
     {
       displayName: globalClassNames(prefix).splitter,
       position: "absolute",
-      zIndex: 9999,
+      zIndex: 9998,
       transition: "background 125ms ease-out",
       [`.${globalClassNames(prefix).pane}.active &`]: {
         background: "cornflowerblue",

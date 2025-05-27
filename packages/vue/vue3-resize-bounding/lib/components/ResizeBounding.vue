@@ -3,7 +3,11 @@ import { ref, computed, type ComputedRef, type HTMLAttributes } from "vue";
 import deepmerge from "deepmerge";
 
 import { type Props, Emits } from "./ResizeBounding";
-import { PaneDirections, PaneDirectionAliases } from "../shared/typings";
+import {
+  PaneDirections,
+  PaneDirectionAliases,
+  EmittedFocusData,
+} from "../shared/typings";
 
 import ResizeBoundingPane, {
   type PaneEmittedData,
@@ -28,7 +32,7 @@ const emits = defineEmits<{
   (e: Emits.DRAG_START, dir: string): void;
   (e: Emits.DRAG_MOVE, dir: string): void;
   (e: Emits.DRAG_END, dir: string): void;
-  (e: Emits.FOCUS, data: { state: boolean; direction: string }): void;
+  (e: Emits.FOCUS, data: EmittedFocusData): void;
 }>();
 
 const refRoot = ref<HTMLDivElement | null>(null);

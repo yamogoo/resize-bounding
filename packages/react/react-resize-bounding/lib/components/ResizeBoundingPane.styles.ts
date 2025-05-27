@@ -4,7 +4,7 @@ import { PaneDirections, type SplitterPosition } from "../shared/typings";
 export const paneBaseStyles = (
   size: number,
   areaWidth: number,
-  position: SplitterPosition,
+  position: SplitterPosition
 ): Record<PaneDirections, CSSProperties> => {
   let _offset: string = "0px";
 
@@ -35,7 +35,7 @@ export const paneBaseStyles = (
 
 export const splitterBaseStyles = (
   size: number,
-  areaWidth: number,
+  areaWidth: number
 ): Record<PaneDirections, CSSProperties> => {
   const _size = `${size}px`;
 

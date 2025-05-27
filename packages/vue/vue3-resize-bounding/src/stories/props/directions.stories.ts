@@ -1,7 +1,10 @@
 import { ref } from "vue";
 import { Meta, StoryObj } from "@storybook/vue3";
 
-import { PaneDirections } from "../../../lib/shared/typings";
+import {
+  PaneDirectionAliases,
+  PaneDirections,
+} from "../../../lib/shared/typings";
 
 import StoryResizeBounding, {
   type Props,
@@ -60,10 +63,20 @@ export const Horizontal = defineStory(
   `${PaneDirections.LEFT}${PaneDirections.RIGHT}`
 );
 
+export const HorizontalAlias = defineStory(
+  `${PaneDirectionAliases.HORIZONTAL}`
+);
+
 export const Vertical = defineStory(
   `${PaneDirections.TOP}${PaneDirections.BOTTOM}`
 );
 
+export const VerticalAlias = defineStory(`${PaneDirectionAliases.VERTICAL}`);
+
 export const All = defineStory(
   `${PaneDirections.LEFT}${PaneDirections.RIGHT}${PaneDirections.TOP}${PaneDirections.BOTTOM}`
+);
+
+export const AllAlias = defineStory(
+  `${PaneDirectionAliases.HORIZONTAL}${PaneDirectionAliases.VERTICAL}`
 );

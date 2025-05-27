@@ -5,6 +5,7 @@ import StoryResizeBounding, {
   type Props,
 } from "../../components/StoryResizeBounding.vue";
 import StoryPropField from "../../components/StoryPropField.vue";
+import StoryValuesContainer from "../../components/StoryValuesContainer.vue";
 
 const meta = {
   title: "Props/width",
@@ -23,7 +24,7 @@ const defaultProps: Props = {
 export const Width: Story = {
   args: defaultProps,
   render: (args) => ({
-    components: { StoryResizeBounding, StoryPropField },
+    components: { StoryResizeBounding, StoryPropField, StoryValuesContainer },
     setup() {
       const width = ref(args.width);
 
@@ -40,9 +41,11 @@ export const Width: Story = {
       return { width, args };
     },
     template: `
-    <StoryPropField
-      name="width"
-      :value="width"/>
+    <StoryValuesContainer>
+      <StoryPropField
+        name="width"
+        :value="width"/>
+    </StoryValuesContainer>
     <StoryResizeBounding
       directions="r"
       :width="width"

@@ -4,6 +4,6 @@ export default create({
   base: "light",
   brandTitle: "My custom Storybook",
   brandUrl: "https://example.com",
-  brandImage: "../src/assets/logo.png",
+  brandImage: "../src/assets/images/logo.png",
   brandTarget: "_self",
 });
