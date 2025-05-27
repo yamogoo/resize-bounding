@@ -42,8 +42,13 @@ export const defaultStyles = (prefix: string): IStyles => ({
       displayName: globalClassNames(prefix).pane,
       position: "absolute",
       display: "block",
-      zIndex: 9999,
+      zIndex: 9998,
       touchAction: "none",
+      selectors: {
+        "&.active": {
+          zIndex: 9999,
+        },
+      },
     },
   ],
   splitter: [
@@ -51,7 +56,7 @@ export const defaultStyles = (prefix: string): IStyles => ({
     {
       displayName: globalClassNames(prefix).splitter,
       position: "absolute",
-      zIndex: 9999,
+      zIndex: 9998,
       transition: "background 125ms ease-out",
       [`.${globalClassNames(prefix).pane}.active &`]: {
         background: "cornflowerblue",
@@ -101,7 +106,7 @@ export const defaultStyles = (prefix: string): IStyles => ({
 
 export const getClassNames = (
   args: Partial<IStyles>,
-  prefix = PREFIX,
+  prefix = PREFIX
 ): IResizeBoundingClassNames => {
   return mergeStyleSets(defaultStyles(prefix), args);
 };

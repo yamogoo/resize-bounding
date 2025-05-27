@@ -5,6 +5,7 @@ import StoryResizeBounding, {
   type Props,
 } from "../../components/StoryResizeBounding.vue";
 import StoryPropField from "../../components/StoryPropField.vue";
+import StoryValuesContainer from "../../components/StoryValuesContainer.vue";
 
 const EVENT_NAME = "@update:width";
 
@@ -25,7 +26,7 @@ const defaultProps: Props = {
 export const UpdateWidth: Story = {
   args: defaultProps,
   render: (args) => ({
-    components: { StoryResizeBounding, StoryPropField },
+    components: { StoryResizeBounding, StoryPropField, StoryValuesContainer },
     setup() {
       const eventCount = ref(0);
 
@@ -44,14 +45,16 @@ export const UpdateWidth: Story = {
       return { width, eventCount, args };
     },
     template: `
-    <StoryPropField
-      name="emittedTimes"
-      :description="'Number of times the ${EVENT_NAME} event was emitted'"
-      :value="eventCount"/>
-    <StoryPropField
-      name="eventValue"
-      description="Current width value"
-      :value="width"/>
+    <StoryValuesContainer>
+      <StoryPropField
+        name="emittedTimes"
+        :description="'Number of times the ${EVENT_NAME} event was emitted'"
+        :value="eventCount"/>
+      <StoryPropField
+        name="eventValue"
+        description="Current width value"
+        :value="width"/>
+    </StoryValuesContainer>
     <StoryResizeBounding
       directions="h"
       :width="width"

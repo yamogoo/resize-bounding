@@ -28,7 +28,7 @@ export interface Props {
 
 <style lang="scss" scoped>
 .prop-field {
-  padding: 6px 0px;
+  padding: 0px 0px;
 
   &__container {
     display: flex;
@@ -37,7 +37,7 @@ export interface Props {
     font-family: monospace;
     font-size: 14px;
     margin: 0;
-    margin-bottom: 4px;
+    margin-bottom: 0px;
   }
 
   &__name,
@@ -56,6 +56,7 @@ export interface Props {
   }
 
   &__description {
+    margin-top: 8px;
     color: #696969;
   }
 

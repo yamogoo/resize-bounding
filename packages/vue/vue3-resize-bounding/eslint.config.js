@@ -5,7 +5,13 @@ import tseslint from "typescript-eslint";
 
 export default [
   {
-    ignores: ["*.d.ts", "**/tests-report/*", "**/.netlify/*", "**/dist/*"],
+    ignores: [
+      "*.d.ts",
+      "**/tests-report/*",
+      "**/.netlify/*",
+      "**/dist/*",
+      "**/storybook-static/*",
+    ],
   },
   { files: ["**/*.{ts,vue}"] },
   { languageOptions: { globals: globals.browser } },

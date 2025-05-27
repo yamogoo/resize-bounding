@@ -34,6 +34,9 @@
     :min-height="120"
     :directions="'hv'"
     :options="{
+        position: 'central',
+        splitterWidthNormal: 1,
+        splitterWidthActive: 4,
         knob: {
           show: true
         }

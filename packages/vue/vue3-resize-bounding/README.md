@@ -7,6 +7,8 @@
 
 [Docs](https://resize-bounding.netlify.app/)
 
+![image](https://raw.githubusercontent.com/yamogoo/resize-bounding/v2.0.7/shared/images/resize-bounding.gif)
+
 Interactive Grid (Example):
 
 - [stackblitz](https://stackblitz.com/edit/vue3-resize-bounding-example?file=src%2FApp.vue)

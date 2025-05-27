@@ -5,6 +5,7 @@ import StoryResizeBounding, {
   type Props,
 } from "../../components/StoryResizeBounding.vue";
 import StoryPropField from "../../components/StoryPropField.vue";
+import StoryValuesContainer from "../../components/StoryValuesContainer.vue";
 
 const EVENT_NAME = "@drag:end";
 
@@ -26,7 +27,7 @@ const defaultProps: Props = {
 export const DragEnd: Story = {
   args: defaultProps,
   render: (args) => ({
-    components: { StoryResizeBounding, StoryPropField },
+    components: { StoryResizeBounding, StoryPropField, StoryValuesContainer },
     setup() {
       const eventValue = ref<null | string>(null);
       const eventCount = ref(0);
@@ -45,14 +46,16 @@ export const DragEnd: Story = {
       return { width, height, eventValue, eventCount };
     },
     template: `
-    <StoryPropField
-      name="emittedTimes"
-      :description="'Number of times the ${EVENT_NAME} event was emitted'"
-      :value="eventCount"/>
-    <StoryPropField
-      name="eventValue"
-      description="Value of the drag start event"
-      :value="String(JSON.stringify(eventValue))"/>
+    <StoryValuesContainer>
+      <StoryPropField
+        name="emittedTimes"
+        :description="'Number of times the ${EVENT_NAME} event was emitted'"
+        :value="eventCount"/>
+      <StoryPropField
+        name="eventValue"
+        description="Value of the drag start event"
+        :value="String(JSON.stringify(eventValue))"/>
+    </StoryValuesContainer>
     <StoryResizeBounding
       :directions="'vh'"
       :width="width"
