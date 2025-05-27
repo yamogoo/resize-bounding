@@ -60,6 +60,11 @@
     }
   },
   "link": {
+    "sm": {
+      "font": "body__2",
+      "icon-size": "{tokens.icon.xs.size}",
+      "icon-margin": "{tokens.spacing.xs}"
+    },
     "md": {
       "font": "body__2",
       "icon-size": "{tokens.icon.sm.size}",

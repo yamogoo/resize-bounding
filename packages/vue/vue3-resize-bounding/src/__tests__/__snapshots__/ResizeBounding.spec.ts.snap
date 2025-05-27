@@ -9,8 +9,8 @@ exports[`ResizeBounding > classes > prefix > should have custom prefix (my-prefi
 
 exports[`ResizeBounding > classes > prefix > should have default prefix (%s) 1`] = `
 [
-  "resize-bounding-container",
-  "resize-bounding-container-0",
+  "resize-boundingcontainer",
+  "resize-boundingcontainer-0",
 ]
 `;
 

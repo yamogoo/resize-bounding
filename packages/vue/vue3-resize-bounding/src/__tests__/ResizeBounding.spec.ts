@@ -1,6 +1,6 @@
+import type { HTMLAttributes } from "vue";
 import { describe, test, expect, beforeEach, vi } from "vitest";
 import { mount, shallowMount, VueWrapper } from "@vue/test-utils";
-import type { HTMLAttributes } from "vue";
 
 import { DataTestIds, PREFIX } from "./setup";
 

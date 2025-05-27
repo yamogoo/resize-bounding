@@ -8,7 +8,7 @@ import "@/assets/fonts/_fonts.scss";
 
 const { setAppSize } = useLayoutStore();
 
-const refApp = ref<HTMLDivElement | null>(null);
+const refApp = ref<HTMLDivElement | null>();
 
 useResizeObserver(refApp, (entries) => {
   const entry = entries[0];

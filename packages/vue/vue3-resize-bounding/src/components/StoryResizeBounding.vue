@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import type { Options } from "../../lib/shared/typings";
-
 import { Emits, type Props } from "../../lib/components/ResizeBounding";
+
 import ResizeBounding from "../../lib/components/ResizeBounding.vue";
 
 defineOptions({
   inheritAttrs: false,
 });
 
-const defaultOptions: Partial<Options> = {
-  knob: {
-    show: true,
-  },
-};
-
 const props = withDefaults(defineProps<Props>(), {
-  options: () => defaultOptions,
+  options: () => {
+    return {
+      knob: {
+        show: true,
+        activeAreaWidth: 12,
+      },
+    };
+  },
 });
 
 // Define emits

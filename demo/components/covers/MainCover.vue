@@ -2,7 +2,7 @@
 import { ref, onMounted, onUnmounted } from "vue";
 
 import GProvider from "@/components/transition/GProvider.vue";
-import Badge from "~/components/badges/Badge.vue";
+import Badge from "@/components/badges/Badge.vue";
 import MainLogo from "@/components/logos/MainLogo.vue";
 
 withDefaults(defineProps<Props>(), {

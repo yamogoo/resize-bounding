@@ -3,7 +3,7 @@
   "title": "Vue3 resize bounding (vue3 resizer)",
   "description": "highly customizable component for resizing nested content",
   "private": true,
-  "version": "2.0.2",
+  "version": "2.0.3",
   "productVueVersion": "2.0.8",
   "productReactVersion": "1.0.7",
   "type": "module",

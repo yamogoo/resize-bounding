@@ -6,10 +6,8 @@ import StoryResizeBounding, {
 } from "../../components/StoryResizeBounding.vue";
 import StoryPropField from "../../components/StoryPropField.vue";
 
-const EVENT_NAME = "@update:height";
-
 const meta = {
-  title: "Events/@update:height",
+  title: "Props/height",
   component: StoryResizeBounding,
   tags: ["autodocs"],
   argTypes: {},
@@ -19,16 +17,14 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const defaultProps: Props = {
-  height: 240,
+  height: 320,
 };
 
-export const UpdateHeight: Story = {
+export const Height: Story = {
   args: defaultProps,
   render: (args) => ({
     components: { StoryResizeBounding, StoryPropField },
     setup() {
-      const eventCount = ref(0);
-
       const height = ref(args.height);
 
       watch(
@@ -41,25 +37,20 @@ export const UpdateHeight: Story = {
         }
       );
 
-      return { height, eventCount, args };
+      return { height, args };
     },
     template: `
     <StoryPropField
-      name="emittedTimes"
-      :description="'Number of times the ${EVENT_NAME} event was emitted'"
-      :value="eventCount"/>
-    <StoryPropField
-      name="eventValue"
-      description="Current height value"
+      name="height"
       :value="height"/>
     <StoryResizeBounding
-      directions="v"
-      :width="320"
+      directions="b"
+      width="320"
       :height="height"
-      :minHeight="128"
-      @update:height="(value) => { height = value; eventCount++; } "/>
+      minHeight="128"
+      @update:height="(value) => { height = value; } "/>
   `,
   }),
 };
 
-UpdateHeight.storyName = "@update:height";
+Height.storyName = "height";

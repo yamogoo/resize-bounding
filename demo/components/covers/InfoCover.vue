@@ -4,6 +4,10 @@ import { useRuntimeConfig } from "#imports";
 import BaseLink from "@/components/controls/BaseLink.vue";
 
 const runtimeConfig = useRuntimeConfig();
+
+const authoGithubLInk = import.meta.env.VITE_AUTHOR_GITHUB_URL;
+const githubLink = import.meta.env.VITE_MONOREPO_URL;
+const monorepoBlobUrl = import.meta.env.VITE_MONOREPO_BLOB_URL;
 </script>
 
 <template>
@@ -13,23 +17,26 @@ const runtimeConfig = useRuntimeConfig();
         :orientation="'vertical'"
         :size="'lg'"
         :icon-name="'github-logo'"
-        :to="'https://github.com/yamogoo/resize-bounding'"
-        :name="'https://github.com/yamogoo/resize-bounding'"
+        :to="githubLink"
+        :target="'_blank'"
+        :name="githubLink"
       />
     </div>
     <div class="ui-main-info__footer">
       <p>
         This project is licensed under the terms of the
         <BaseLink
+          data-testid="repo-link"
           :color="'accent'"
-          :to="`https://github.com/yamogoo/vue3-resize-bounding/blob/${runtimeConfig.public.productVueVersion}/LICENSE`"
+          :to="`${monorepoBlobUrl}v.${runtimeConfig.public.productVueVersion}/LICENSE`"
+          :target="'_blank'"
         >
           MIT license
         </BaseLink>
       </p>
       <p>
         Author:
-        <BaseLink :color="'accent'" to="https://github.com/yamogoo">
+        <BaseLink :color="'accent'" :to="authoGithubLInk" target="_blank">
           {{ runtimeConfig.public.authorName }}
         </BaseLink>
       </p>

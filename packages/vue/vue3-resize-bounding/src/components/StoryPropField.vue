@@ -9,7 +9,7 @@ export interface Props {
   name?: string;
   description?: string;
   value?: string | number;
-  separator?: string;
+  separator?: string | null;
 }
 </script>
 
