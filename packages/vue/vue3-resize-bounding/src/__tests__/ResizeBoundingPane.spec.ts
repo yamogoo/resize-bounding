@@ -1,6 +1,6 @@
+import { nextTick } from "vue";
 import { describe, test, expect, beforeEach, vi } from "vitest";
 import { mount, shallowMount, VueWrapper } from "@vue/test-utils";
-import { nextTick } from "vue";
 
 import { DataTestIds, PREFIX } from "./setup";
 
@@ -105,7 +105,8 @@ describe("ResizeBoundingPane", () => {
     describe("focus", async () => {
       const wrapper = shallowMount(ResizeBoundingPane, {
         props: {
-          ...requiredProps, ...{ direction: PaneDirections.RIGHT }
+          ...requiredProps,
+          ...{ direction: PaneDirections.RIGHT },
         },
       });
 
@@ -133,8 +134,9 @@ describe("ResizeBoundingPane", () => {
     describe("drag", () => {
       const wrapper = shallowMount(ResizeBoundingPane, {
         props: {
-          ...requiredProps, ...{ direction: PaneDirections.RIGHT }
-        }
+          ...requiredProps,
+          ...{ direction: PaneDirections.RIGHT },
+        },
       });
 
       const rootEl = wrapper.find(`[data-testid="${DataTestIds.SPLITTER}"]`);
@@ -143,7 +145,7 @@ describe("ResizeBoundingPane", () => {
         const checkData = (
           eventName: string,
           wrapper: VueWrapper,
-          eventData: { clientX: number; clientY: number },
+          eventData: { clientX: number; clientY: number }
         ): PaneEmittedData => {
           const ev = wrapper.emitted(eventName) as PaneEmittedData[][];
           const data = ev[0][0];
@@ -165,7 +167,7 @@ describe("ResizeBoundingPane", () => {
         const makeTrigger = async (
           event: string,
           eventData: { clientX: number; clientY: number },
-          emittedEventName: string,
+          emittedEventName: string
         ) => {
           await rootEl.trigger(event, eventData);
           events.push(checkData(emittedEventName, wrapper, eventData));
@@ -175,17 +177,17 @@ describe("ResizeBoundingPane", () => {
         await makeTrigger(
           "pointerdown",
           { clientX: 1, clientY: 1 },
-          Emits.DRAG_START,
+          Emits.DRAG_START
         );
         await makeTrigger(
           "pointermove",
           { clientX: 2, clientY: 2 },
-          Emits.DRAG_MOVE,
+          Emits.DRAG_MOVE
         );
         await makeTrigger(
           "pointerup",
           { clientX: 3, clientY: 3 },
-          Emits.DRAG_END,
+          Emits.DRAG_END
         );
 
         expect(events.length).toBe(3);
@@ -237,7 +239,7 @@ describe("ResizeBoundingPane", () => {
         const wrapper = shallowMount(ResizeBoundingPane, { props });
 
         const knobEl = wrapper.find(
-          `[data-testid="${DataTestIds.SPLITTER_CONTAINER}"]`,
+          `[data-testid="${DataTestIds.SPLITTER_CONTAINER}"]`
         );
         const styles = knobEl.attributes("style");
 
@@ -269,7 +271,7 @@ describe("ResizeBoundingPane", () => {
       const checkCursorActive = async (
         wrapper: VueWrapper,
         props: Partial<Props>,
-        comparedCursorStyle: string,
+        comparedCursorStyle: string
       ): Promise<void> => {
         await wrapper.setProps(props);
 
@@ -292,7 +294,7 @@ describe("ResizeBoundingPane", () => {
               });
 
               checkCursorActive(wrapper, { direction }, "col-resize");
-            },
+            }
           );
 
           test.each([PaneDirections.TOP, PaneDirections.BOTTOM])(
@@ -303,7 +305,7 @@ describe("ResizeBoundingPane", () => {
               });
 
               checkCursorActive(wrapper, { direction }, "row-resize");
-            },
+            }
           );
         });
 
@@ -333,9 +335,9 @@ describe("ResizeBoundingPane", () => {
                     touchActions: false,
                   },
                 },
-                CUSTOM_ACTIVE_CURSOR,
+                CUSTOM_ACTIVE_CURSOR
               );
-            },
+            }
           );
 
           const SIZE = 12;
@@ -360,7 +362,7 @@ describe("ResizeBoundingPane", () => {
               await nextTick();
 
               const paneEl = wrapper.find(
-                `[data-testid="${DataTestIds.PANE}"]`,
+                `[data-testid="${DataTestIds.PANE}"]`
               );
               const style = paneEl.attributes("style");
 
@@ -371,7 +373,7 @@ describe("ResizeBoundingPane", () => {
 
                 expect(style).toMatchSnapshot();
               }
-            },
+            }
           );
 
           test.each([
@@ -392,7 +394,7 @@ describe("ResizeBoundingPane", () => {
               await nextTick();
 
               const splitterEl = wrapper.find(
-                `[data-testid="${DataTestIds.SPLITTER}"]`,
+                `[data-testid="${DataTestIds.SPLITTER}"]`
               );
               const style = splitterEl.attributes("style");
 
@@ -403,7 +405,7 @@ describe("ResizeBoundingPane", () => {
 
                 expect(style).toMatchSnapshot();
               }
-            },
+            }
           );
         });
       });

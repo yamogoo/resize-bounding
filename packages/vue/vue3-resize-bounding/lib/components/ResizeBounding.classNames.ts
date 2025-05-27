@@ -5,7 +5,7 @@ import type {
   Options,
 } from "../shared/typings";
 
-export const PREFIX = "resize-bounding__";
+export const PREFIX = "resize-bounding";
 
 export const defaultOptions: Options = {
   prefix: PREFIX,
@@ -42,7 +42,7 @@ export const defaultStyles = (prefix: string): IStyles => ({
       displayName: globalClassNames(prefix).pane,
       position: "absolute",
       display: "block",
-      zIndex: 9999,
+      zIndex: 9998,
       touchAction: "none",
     },
   ],

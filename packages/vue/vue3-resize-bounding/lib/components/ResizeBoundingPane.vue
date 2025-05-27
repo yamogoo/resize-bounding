@@ -200,7 +200,7 @@ export enum Emits {
 export interface PaneEmittedData {
   x: number;
   y: number;
-  dir: PaneDirections;
+  dir: PaneDirections | string;
 }
 
 const checkIsHorizontal = (direction: string): boolean =>

@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from "@storybook/vue3";
 import { ref, watchEffect } from "vue";
+import { Meta, StoryObj } from "@storybook/vue3";
 
 import StoryResizeBounding, {
   type Props,

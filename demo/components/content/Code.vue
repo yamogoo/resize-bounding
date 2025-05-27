@@ -18,7 +18,7 @@ withDefaults(defineProps<Props>(), {
   codeBlock: false,
 });
 
-const refCode = ref<Element | null>(null);
+const refCode = ref<Element | null>();
 
 watch(
   refCode,

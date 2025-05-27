@@ -12,6 +12,8 @@ export interface Options {
   width: number;
   activeAreaWidth?: number;
   addStateClasses?: boolean;
+  enableCornerControl?: boolean;
+  showCornerControl?: boolean;
   position: SplitterPosition;
   cursor: Partial<
     Record<"horizontal" | "vertical", CSSStyleDeclaration["cursor"]>

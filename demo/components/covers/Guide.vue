@@ -10,11 +10,6 @@ import Switch from "@/components/controls/Switch.vue";
 import BaseLink from "@/components/controls/BaseLink.vue";
 import BoxedLink from "@/components/controls/BoxedLink.vue";
 
-interface Props {
-  title?: string;
-  links: Array<LinkData>;
-}
-
 withDefaults(defineProps<Props>(), {
   title: "Install",
 });
@@ -26,8 +21,7 @@ const onCopy = (name: string | undefined): void => {
   if (name) navigator.clipboard.writeText(name);
 };
 
-const figmaUrl =
-  "https://www.figma.com/community/file/1392603830584852243/resize-bounding";
+const figmaUrl = import.meta.env.VITE_FIGMA_URL;
 
 const colorMode = computed({
   get() {
@@ -49,6 +43,11 @@ export interface LinkData {
   name: string;
   url?: string;
 }
+
+export interface Props {
+  title?: string;
+  links: Array<LinkData>;
+}
 </script>
 
 <template>
@@ -67,16 +66,19 @@ export interface LinkData {
     <BoxedLink
       v-for="({ url, name }, idx) in links"
       :key="idx"
+      data-testid="boxed-link"
       :src="url"
       @copy="onCopy(name)"
     >
       {{ name }}
     </BoxedLink>
     <BaseLink
+      data-testid="figma-link"
       :orientation="'horizontal'"
       :size="'lg'"
       :icon-name="'figma-logo'"
       :to="figmaUrl"
+      :target="'_blank'"
       :name="'ResizeBounding'"
       filled
     />

@@ -15,7 +15,9 @@ export type SymbolName =
   | "figma-logo"
   | "github-logo"
   | "vue-logo"
-  | "copy_outline_300";
+  | "copy_outline_300"
+  | "storybook-logo"
+  | "git";
 
 export type SymbolColor =
   | "primary"

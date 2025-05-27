@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from "@storybook/vue3";
 import { ref, watch } from "vue";
+import { Meta, StoryObj } from "@storybook/vue3";
 
 import StoryResizeBounding, {
   type Props,
@@ -19,7 +19,6 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const defaultProps: Props = {
-  directions: "h",
   width: 320,
 };
 
@@ -54,7 +53,7 @@ export const UpdateWidth: Story = {
       description="Current width value"
       :value="width"/>
     <StoryResizeBounding
-      :directions="args.directions"
+      directions="h"
       :width="width"
       :minWidth="128"
       height="240"

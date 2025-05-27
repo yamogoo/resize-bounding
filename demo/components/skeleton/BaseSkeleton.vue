@@ -2,10 +2,11 @@
 import { onMounted, ref } from "vue";
 import g from "gsap";
 
-const refShape = ref<HTMLDivElement | null>(null);
+const refShape = ref<HTMLDivElement | null>();
 
 onMounted(() => {
-  if (refShape.value) onAnimate(refShape.value);
+  const el = refShape.value;
+  if (el) onAnimate(el);
 });
 
 const onAnimate = (el: Element): void => {

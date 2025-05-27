@@ -21,6 +21,7 @@ export type BaseLinkOrientation = UIElementOrientation | "none";
 
 export interface Props {
   to?: string;
+  target?: "_blank" | "_self" | "_parent" | "_top";
   name?: string;
   iconName?: SymbolName;
   orientation?: BaseLinkOrientation;
@@ -31,9 +32,11 @@ export interface Props {
 </script>
 
 <template>
-  <NuxtLink
-    :to
+  <a
     class="ui-link"
+    data-testid="ui-link"
+    :href="to"
+    :target
     :class="[
       {
         [`ui-link_${size}`]: size,
@@ -43,8 +46,9 @@ export interface Props {
     ]"
   >
     <Icon v-if="iconName" class="ui-link__icon" :name="iconName" :filled />
+    <slot name="icon"></slot>
     <span class="ui-link__name">{{ name }} <slot></slot></span>
-  </NuxtLink>
+  </a>
 </template>
 
 <style lang="scss">
@@ -62,6 +66,7 @@ export interface Props {
 
     &_#{$size} {
       .ui-link__icon {
+        @include box(px2rem($icon-size));
         margin: px2rem($icon-margin);
 
         svg {
