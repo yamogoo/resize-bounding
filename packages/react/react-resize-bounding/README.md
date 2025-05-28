@@ -1,16 +1,15 @@
-![image](https://raw.githubusercontent.com/yamogoo/resize-bounding/v2.1.0/shared/images/resize-bounding-w-descriptor.svg)
+![image](https://github.com/yamogoo/resize-bounding/blob/v.2.1.0/shared/images/resize-bounding-w-descriptor.svg)
 ![Version](https://img.shields.io/badge/version-1.1.0-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-
-**React Resize Bounding** is a simple, highly customizable React component that allows you to intuitively resize nested content using draggable border panels.
-
-[Demo](https://resize-bounding.netlify.app/)
 
 ![image](https://github.com/yamogoo/resize-bounding/blob/v.2.1.0/shared/images/resize-bounding.gif)
 
-Interactive Grid (Example):
+**React Resize Bounding** is a simple, highly customizable React component that allows you to intuitively resize nested content using draggable border panels.
 
-- [stackblitz](https://stackblitz.com/edit/react-resize-bounding-example?file=src%2FApp.tsx)
-- [github](https://github.com/yamogoo/resize-bounding/blob/v2.1.0/packages/react/playground/vite-app/src/components/InteractiveGrid.tsx)
+|                                              |                                                                                                      |                                                                                                            |                                                                                                            |     |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | --- |
+| [Demo](https://resize-bounding.netlify.app/) | [Documentation](https://react-resize-bounding-docs.netlify.app/?path=/story/sandbox-examples--cover) | [Example (Interactive Grid)](https://stackblitz.com/edit/react-resize-bounding-example?file=src%2FApp.vue) | [Repository](https://github.com/yamogoo/resize-bounding/tree/v.2.1.0/packages/react/react-resize-bounding) |
+
+---
 
 Installation
 
@@ -901,8 +900,12 @@ const styles = (prefix: string): IStyles => ({
 
 ---
 
+## License
+
+Licensing is in accordance with the original.
+
+[MIT](https://github.com/yamogoo/resize-bounding/blob/main/LICENSE)
+
 ## Author
 
 **Mikhail Grebennikov** - [yamogoo](https://github.com/yamogoo)
-
-This project is licensed under the terms of the [MIT license](./LICENSE).

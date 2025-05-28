@@ -28,7 +28,7 @@
     "test:ui": "pnpm --filter vue3-resize-bounding test:ui run && pnpm --filter react-resize-bounding test:ui run && pnpm --filter resize-bounding-demo test:ui run",
     "playground:vite": "pnpm --filter vite-app dev",
     "prepare": "bash prepare.sh",
-    "deploy:dev": "pnpm prepare && pnpm --filter resize-bounding-demo run deploy:dev && pnpm --filter vue3-resize-bounding run deploy:docs:dev",
-    "deploy:prod": "pnpm prepare && pnpm --filter resize-bounding-demo run deploy:prod && pnpm --filter vue3-resize-bounding run deploy:docs:prod"
+    "deploy:dev": "pnpm prepare && pnpm --filter resize-bounding-demo run deploy:dev && pnpm --filter vue3-resize-bounding run deploy:docs:dev && pnpm --filter react-resize-bounding run deploy:docs:dev",
+    "deploy:prod": "pnpm prepare && pnpm --filter resize-bounding-demo run deploy:prod && pnpm --filter vue3-resize-bounding run deploy:docs:prod && pnpm --filter react-resize-bounding run deploy:docs:prod"
   }
 }

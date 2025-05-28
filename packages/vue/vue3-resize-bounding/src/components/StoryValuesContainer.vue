@@ -11,7 +11,9 @@ defineOptions({
 </template>
 
 <style lang="scss">
+@use "../assets/scss/utils.scss" as *;
+
 .story-values-container {
-  padding-bottom: 32px;
+  padding-bottom: px2rem(32px);
 }
 </style>

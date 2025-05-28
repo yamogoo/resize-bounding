@@ -1,4 +1,4 @@
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { Meta, StoryObj } from "@storybook/vue3";
 
 import StoryResizeBounding, {
@@ -29,29 +29,20 @@ export const Height: Story = {
       const width = ref(320);
       const height = ref(320);
 
-      const maxWidth = ref(args.maxWidth);
-
-      watch(
-        () => args.maxWidth,
-        (newValue) => {
-          maxWidth.value = newValue;
-        }
-      );
-
-      return { width, height, maxWidth, args };
+      return { width, height, args };
     },
     template: `
     <StoryValuesContainer>
       <StoryPropField
         description="Container max width:"
         name="maxWidth"
-        :value="maxWidth"/>
+        :value="args.maxWidth"/>
     </StoryValuesContainer>
     <StoryResizeBounding
       directions="r"
       :width="width"
       :height="height"
-      :maxWidth="maxWidth"
+      :maxWidth="args.maxWidth"
       @update:width="(value) => { width = value; } "
       @update:height="(value) => { height = value; } "
     />

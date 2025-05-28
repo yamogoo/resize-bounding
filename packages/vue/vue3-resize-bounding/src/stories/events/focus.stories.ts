@@ -32,8 +32,6 @@ export const Focus: Story = {
       const eventValue = ref<null>(null);
       const eventCount = ref(0);
 
-      const isFocused = ref(false);
-
       const width = ref(args.width);
       const height = ref(args.height);
 
@@ -45,7 +43,7 @@ export const Focus: Story = {
         height.value = args.height;
       });
 
-      return { isFocused, width, height, eventValue, eventCount };
+      return { width, height, eventValue, eventCount };
     },
     template: `
     <StoryValuesContainer>
@@ -56,7 +54,7 @@ export const Focus: Story = {
       <StoryPropField
         name="eventValue"
         description="Value of the ${EVENT_NAME} event"
-        :value="String(JSON.stringify(eventValue))"/>
+        :value="String(eventValue)"/>
     </StoryValuesContainer>
     <StoryResizeBounding
       :directions="'vh'"
@@ -66,7 +64,7 @@ export const Focus: Story = {
       :minHeight="128"
       @update:width="(value) => { width = value; }"
       @update:height="(value) => { height = value; }"
-      @focus="(value) => { eventCount++; eventValue = value; isFocused = value; }"
+      @focus="(value) => { eventCount++; eventValue = JSON.stringify(value); }"
       "/>
   `,
   }),

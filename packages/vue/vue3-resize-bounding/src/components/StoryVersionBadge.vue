@@ -38,6 +38,7 @@ export interface Props {
     &__value {
       display: block;
       font-family: $font-family;
+      font-size: px2em(13px);
       padding: px2rem(6px) px2rem(16px);
     }
 

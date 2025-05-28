@@ -27,15 +27,19 @@ export interface Props {
 </template>
 
 <style lang="scss" scoped>
+@use "../assets/scss/utils.scss" as *;
+@use "../assets/scss/colors.scss" as *;
+@use "../assets/scss/typography.scss" as *;
+
 .prop-field {
-  padding: 0px 0px;
+  padding: px2rem(0px) px2rem(0px);
 
   &__container {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: px2rem(4px);
     font-family: monospace;
-    font-size: 14px;
+    font-size: px2em(14px);
     margin: 0;
     margin-bottom: 0px;
   }
@@ -44,8 +48,8 @@ export interface Props {
   &__description,
   &__separator,
   &__value {
-    font-family: "Roboto";
-    font-size: 12.5px;
+    font-family: $font-family;
+    font-size: px2em(12.5px);
     font-weight: 400;
     margin: 0;
     padding: 0;
@@ -56,7 +60,7 @@ export interface Props {
   }
 
   &__description {
-    margin-top: 8px;
+    margin-top: px2rem(8px);
     color: #696969;
   }
 
@@ -66,7 +70,7 @@ export interface Props {
 
   &__value {
     white-space: nowrap;
-    color: #252525;
+    color: $label;
   }
 }
 </style>

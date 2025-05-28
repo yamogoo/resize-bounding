@@ -92,6 +92,9 @@ export const defaultStyles = (prefix: string): IStyles => ({
     {
       displayName: globalClassNames(prefix).knob,
       position: "relative",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
       width: "64px",
       height: "6px",
       background: "gray",

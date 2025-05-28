@@ -1,18 +1,15 @@
-![image](https://raw.githubusercontent.com/yamogoo/vue3-resize-bounding/v2.1.0/shared/images/resize-bounding-w-descriptor.svg)
+![image](https://github.com/yamogoo/resize-bounding/blob/v.2.1.0/shared/images/resize-bounding-w-descriptor.svg)
 ![Version](https://img.shields.io/badge/version-2.1.0-green) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-
-**Vue3 Resize Bounding** is a simple, highly customizable Vue3 component that allows you to intuitively resize nested content using draggable border panels.
-
-[Demo](https://resize-bounding.netlify.app/)
-
-[Docs](https://resize-bounding.netlify.app/)
 
 ![image](https://github.com/yamogoo/resize-bounding/blob/v.2.1.0/shared/images/resize-bounding.gif)
 
-Interactive Grid (Example):
+**Vue3 Resize Bounding** is a simple, highly customizable Vue3 component that allows you to intuitively resize nested content using draggable border panels.
 
-- [stackblitz](https://stackblitz.com/edit/vue3-resize-bounding-example?file=src%2FApp.vue)
-- [github](https://github.com/yamogoo/resize-bounding/blob/v2.1.0/packages/vue/playground/vite-app/src/components/InteractiveGrid.vue)
+|                                              |                                                                                                     |                                                                                                           |                                                                                                         |     |
+| -------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | --- |
+| [Demo](https://resize-bounding.netlify.app/) | [Documentation](https://vue3-resize-bounding-docs.netlify.app/?path=/story/sandbox-examples--cover) | [Example (Interactive Grid)](https://stackblitz.com/edit/vue3-resize-bounding-example?file=src%2FApp.vue) | [Repository](https://github.com/yamogoo/resize-bounding/tree/v.2.1.0/packages/vue/vue3-resize-bounding) |
+
+---
 
 Installation
 
@@ -935,8 +932,12 @@ Use the included `:options="{ addStateClasses: true }"` flag to style the `.sele
 
 ---
 
+## License
+
+Licensing is in accordance with the original.
+
+[MIT](https://github.com/yamogoo/resize-bounding/blob/main/LICENSE)
+
 ## Author
 
 **Mikhail Grebennikov** - [yamogoo](https://github.com/yamogoo)
-
-This project is licensed under the terms of the [MIT license](./LICENSE).

@@ -1,4 +1,4 @@
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { Meta, StoryObj } from "@storybook/vue3";
 
 import StoryResizeBounding, {
@@ -29,29 +29,20 @@ export const Height: Story = {
       const width = ref(320);
       const height = ref(320);
 
-      const minWidth = ref(args.minWidth);
-
-      watch(
-        () => args.minWidth,
-        (newValue) => {
-          minWidth.value = newValue;
-        }
-      );
-
-      return { width, height, minWidth, args };
+      return { width, height, args };
     },
     template: `
     <StoryValuesContainer>
       <StoryPropField
         description="Container min width:"
         name="minWidth"
-        :value="minWidth"/>
+        :value="args.minWidth"/>
     </StoryValuesContainer>
     <StoryResizeBounding
       directions="r"
       :width="width"
       :height="height"
-      :minWidth="minWidth"
+      :minWidth="args.minWidth"
       @update:width="(value) => { width = value; } "
       @update:height="(value) => { height = value; } "
     />
