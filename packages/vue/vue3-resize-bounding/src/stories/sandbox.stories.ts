@@ -22,11 +22,11 @@ type Story = StoryObj<typeof meta>;
 
 const defaultProps = (prefix = "resize-bounding__"): Props => ({
   width: 320,
-  minWidth: 128,
+  minWidth: 320,
   maxWidth: 800,
   height: 480,
   minHeight: 128,
-  maxHeight: 800,
+  maxHeight: 480,
   directions: "rtlb",
   disabled: false,
   options: {

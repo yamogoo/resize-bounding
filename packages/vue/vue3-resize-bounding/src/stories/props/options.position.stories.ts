@@ -20,7 +20,7 @@ const defineStory = (position: SplitterPosition): Story => {
   return {
     args: {
       options: {
-        width: 8,
+        width: 32,
         position,
       },
     },
@@ -51,10 +51,10 @@ const defineStory = (position: SplitterPosition): Story => {
           borderRadius: '3px',
         }
       }"
-      minWidth: 128,
-      maxWidth: 512,
-      minHeight: 128,
-      maxHeight: 512,
+      minWidth="128"
+      maxWidth="512"
+      minHeight="128"
+      maxHeight="512"
       @update:width="(value) => { width = value; }"
       @update:height="(value) => { height = value; }"
       "/>

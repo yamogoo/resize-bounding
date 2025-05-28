@@ -14,7 +14,7 @@ export interface Options {
   width?: number;
 
   /** new splitter width props */
-  splitterWidthNormal: number;
+  splitterWidthNormal?: number;
   splitterWidthActive?: number;
 
   activeAreaWidth?: number;

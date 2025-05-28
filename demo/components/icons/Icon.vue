@@ -2,6 +2,7 @@
 import tokens from "@/tokens";
 
 import BaseSkeleton from "@/components/skeleton/BaseSkeleton.vue";
+import { NuxtIcon } from "#components";
 
 withDefaults(defineProps<Props>(), {
   size: "md",

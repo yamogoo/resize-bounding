@@ -4,7 +4,7 @@
   "description": "highly customizable component for resizing nested content",
   "private": true,
   "version": "2.0.3",
-  "productVueVersion": "2.0.8",
+  "productVueVersion": "2.1.0",
   "productReactVersion": "1.0.7",
   "type": "module",
   "author": {
@@ -16,6 +16,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "serve": "pnpm build && serve -s dist -p 3001",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -23,8 +24,8 @@
     "lint:fix": "eslint . --fix",
     "test:unit": "vitest",
     "test:ui": "vitest --ui",
-    "deploy:dev": "pnpm lint && vitest run && netlify build && netlify deploy",
-    "deploy:prod": "pnpm lint && vitest run && netlify build && netlify deploy --prod"
+    "deploy:dev": "pnpm lint && pnpm build && vitest run && netlify build && netlify deploy",
+    "deploy:prod": "pnpm lint && pnpm build && netlify build && netlify deploy --prod"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.10.1",
@@ -63,6 +64,7 @@
     "pinia": "^2.3.1",
     "prettier": "^3.5.3",
     "sass": "^1.86.3",
+    "serve": "^14.2.4",
     "terser": "^5.39.0",
     "tinycolor2": "^1.6.0",
     "typescript-eslint": "^8.31.0",
