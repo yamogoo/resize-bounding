@@ -8,9 +8,12 @@ const VERSION = import.meta.env.APP_VERSION;
 <template>
   <div class="resize-bounding-cover">
     <div class="resize-bounding-cover__container">
-      <StoryCoverMainLogo
-        class="resize-bounding-cover__logo"
-      ></StoryCoverMainLogo>
+      <div class="resize-bounding-cover__logo">
+        <StoryCoverMainLogo></StoryCoverMainLogo>
+        <p class="resize-bounding-cover__text">
+          VUE3
+        </p>
+      </div>
       <StoryVersionBadge
         class="resize-bounding-cover__version-badge"
         label="version"
@@ -23,6 +26,7 @@ const VERSION = import.meta.env.APP_VERSION;
 <style lang="scss">
 @use "../assets/scss/utils.scss" as *;
 @use "../assets/scss/colors.scss" as *;
+@use "../assets/scss/typography.scss" as *;
 
 .resize-bounding-cover {
   container-type: size;
@@ -45,7 +49,7 @@ const VERSION = import.meta.env.APP_VERSION;
     border-radius: 0.5rem;
   }
 
-  @container cover-container (min-height: 320px) {
+  @container cover-container (min-height: 360px) {
     .resize-bounding-cover__container {
       gap: px2rem(24px);
     }
@@ -60,10 +64,28 @@ const VERSION = import.meta.env.APP_VERSION;
     }
   }
 
-  @container cover-container (max-height: 319px) {
+  @container cover-container (max-height: 359px) {
+    .resize-bounding-cover__container {
+      gap: px2rem(8px);
+    }
+
     .resize-bounding-cover__logo {
       gap: px2rem(4px) !important;
     }
+
+    .main-logo {
+      gap: px2rem(4px) !important;
+    }
+  }
+
+  &__text {
+    display: block;
+    font-family: $font-family;
+    font-size: px2em(11px);
+    font-weight: 500;
+    letter-spacing: 6%;
+    color: $label;
+    text-align: center;
   }
 }
 </style>

@@ -26,15 +26,15 @@ export const menuItems: Array<ExtendedTabbarItem> = [
     value: "vue3",
     link: import.meta.env.VITE_VUE3_DOCS_URL,
     linkName: "vue3 documentation",
-    show: true,
+    show: Boolean(+import.meta.env.VITE_ENABLE_VUE3_DOCS),
   },
   {
     id: 1,
     label: "React",
     value: "react",
-    link: import.meta.env.VITE_VUE3_DOCS_URL,
+    link: import.meta.env.VITE_REACT_DOCS_URL,
     linkName: "react documentation",
-    show: false,
+    show: Boolean(+import.meta.env.VITE_ENABLE_REACT_DOCS),
   },
 ];
 

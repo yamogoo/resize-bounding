@@ -53,7 +53,7 @@ export const DragEnd: Story = {
         :value="eventCount"/>
       <StoryPropField
         name="eventValue"
-        description="Value of the drag start event"
+        description="Value of the ${EVENT_NAME} event"
         :value="String(JSON.stringify(eventValue))"/>
     </StoryValuesContainer>
     <StoryResizeBounding

@@ -54,7 +54,7 @@
 
   &__descriptor {
     font-family: $font-family;
-    font-size: px2rem(24px);
+    font-size: px2em(24px);
     font-weight: 700;
     color: $label;
     text-align: center;

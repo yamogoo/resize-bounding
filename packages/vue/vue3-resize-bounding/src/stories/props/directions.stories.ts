@@ -22,11 +22,15 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const defaultProps = (directions: PaneDirections | string): Props => ({
+const defaultProps = (
+  directions: PaneDirections | PaneDirectionAliases | string
+): Props => ({
   directions,
 });
 
-const defineStory = (_directions: PaneDirections | string): Story => {
+const defineStory = (
+  _directions: PaneDirections | PaneDirectionAliases | string
+): Story => {
   return {
     args: defaultProps(_directions),
     render: (args) => ({

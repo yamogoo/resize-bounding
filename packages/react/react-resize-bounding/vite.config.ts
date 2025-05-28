@@ -8,10 +8,15 @@ import terserOptions from "./terser.config";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import packageJson from "./package.json";
+
 export default defineConfig({
   plugins: [react(), dts({})],
   server: {
     port: 9089,
+  },
+  define: {
+    "import.meta.env.APP_VERSION": JSON.stringify(packageJson.version),
   },
   build: {
     outDir: "dist",

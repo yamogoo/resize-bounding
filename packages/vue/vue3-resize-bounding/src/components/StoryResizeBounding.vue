@@ -64,6 +64,7 @@ interface LocalProps extends Props {
 </template>
 
 <style lang="scss">
+@use "../assets/scss/utils.scss" as *;
 @use "../assets/scss/typography.scss" as *;
 
 .resize-bounding-content {
@@ -80,13 +81,13 @@ interface LocalProps extends Props {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 12px;
+    gap: px2rem(12px);
     width: 100%;
     height: 100%;
-    padding: 24px;
+    padding: px2rem(24px);
     background-image: url("../assets/images/cutting-pattern.svg");
     background-repeat: repeat;
-    background-size: 32px;
+    background-size: px2rem(32px);
 
     p,
     h3 {
@@ -100,13 +101,13 @@ interface LocalProps extends Props {
     }
 
     h3 {
-      font-size: 13px;
+      font-size: px2em(13px);
       font-weight: 400;
       letter-spacing: 0.3%;
     }
 
     p {
-      font-size: 11px;
+      font-size: px2em(11px);
       letter-spacing: 0.3%;
     }
   }
