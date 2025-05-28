@@ -50,6 +50,9 @@ interface LocalProps extends Props {
     @drag:end="(dir: string) => emit(Emits.DRAG_END, dir)"
     @focus="(args: EmittedFocusData) => emit(Emits.FOCUS, args)"
   >
+    <template #knob>
+      <slot name="knob"></slot>
+    </template>
     <div class="resize-bounding-content">
       <div v-if="!showCover" class="resize-bounding-content__container">
         <h3>Slot</h3>

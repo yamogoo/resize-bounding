@@ -20,7 +20,7 @@ export interface Props {
     </p>
     <pre class="prop-field__container">
         <span v-if="name" class="prop-field__name">{{ name }}</span>
-        <span v-if="separator" class="prop-field__separator">{{ separator }}</span>
+        <span v-if="separator && name" class="prop-field__separator">{{ separator }}</span>
         <span v-if="value !== undefined" class="prop-field__value">{{ value }}</span>
     </pre>
   </div>
