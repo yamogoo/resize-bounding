@@ -19,8 +19,6 @@ type Story = StoryObj<typeof meta>;
 
 const defaultProps: Props = {
   disabled: false,
-  width: 320,
-  height: 320,
 };
 
 export const Disabled: Story = {
@@ -28,28 +26,14 @@ export const Disabled: Story = {
   render: (args) => ({
     components: { StoryResizeBounding, StoryPropField, StoryValuesContainer },
     setup() {
-      const width = ref(args.width);
-      const height = ref(args.height);
+      const width = ref(320);
+      const height = ref(320);
       const disabled = ref(args.disabled);
 
       watch(
-        () => args.width,
-        () => {
-          width.value = args.width;
-        }
-      );
-
-      watch(
-        () => args.height,
-        () => {
-          height.value = args.height;
-        }
-      );
-
-      watch(
         () => args.disabled,
-        () => {
-          disabled.value = args.disabled;
+        (newValue) => {
+          disabled.value = newValue;
         }
       );
 
@@ -58,8 +42,9 @@ export const Disabled: Story = {
     template: `
     <StoryValuesContainer>
       <StoryPropField
-        name="height"
-        :value="height"/>
+        description="Disabled drag actions and hide splitters (panes):"
+        name="disabled"
+        :value="disabled"/>
     </StoryValuesContainer>
     <StoryResizeBounding
       directions="hv"

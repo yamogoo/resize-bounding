@@ -30,11 +30,8 @@ export const Height: Story = {
 
       watch(
         () => args.height,
-        () => {
-          height.value = args.height;
-        },
-        {
-          immediate: true,
+        (newValue) => {
+          height.value = newValue;
         }
       );
 
@@ -43,6 +40,7 @@ export const Height: Story = {
     template: `
     <StoryValuesContainer>
       <StoryPropField
+        description="Container heigh:"
         name="height"
         :value="height"/>
     </StoryValuesContainer>

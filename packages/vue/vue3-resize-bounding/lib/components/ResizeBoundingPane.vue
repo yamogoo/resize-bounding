@@ -33,7 +33,7 @@ const isFocused = ref(false),
 
 const paneComputedStyle = computed(() => {
   const splitterWidth =
-    props.options?.splitterWidthNormal || props.options?.width;
+    props.options?.splitterWidthNormal ?? props.options?.width;
   const _width = splitterWidth ?? 1;
 
   if (refPane.value && _width) {
@@ -51,13 +51,13 @@ const paneComputedStyle = computed(() => {
 
 const splitterComputedStyle = computed(() => {
   const splitterWidth =
-    props.options?.splitterWidthNormal || props.options?.width;
+    props.options?.splitterWidthNormal ?? props.options?.width;
   const splitterWidthActive =
-    props.options?.splitterWidthActive || splitterWidth;
+    props.options?.splitterWidthActive ?? splitterWidth;
   const activeAreaWidth = props.options.activeAreaWidth;
 
   const _width =
-    isFocused.value || isPressed.value ? splitterWidthActive : splitterWidth;
+    isFocused.value ?? isPressed.value ? splitterWidthActive : splitterWidth;
 
   if (refPane.value && _width) {
     const _areaWidth = activeAreaWidth ?? splitterWidth ?? 1;
@@ -234,8 +234,8 @@ const checkIsVertical = (direction: string): boolean =>
         ? isPressed
           ? 'pressed'
           : isFocused
-          ? 'focused'
-          : 'normal'
+            ? 'focused'
+            : 'normal'
         : '',
     ]"
     :style="[paneComputedStyle]"

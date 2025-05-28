@@ -14,6 +14,7 @@ const monorepoBlobUrl = import.meta.env.VITE_MONOREPO_BLOB_URL;
   <div class="ui-main-info">
     <div class="ui-main-info__body">
       <BaseLink
+        data-testid="github-link"
         :orientation="'vertical'"
         :size="'lg'"
         :icon-name="'github-logo'"

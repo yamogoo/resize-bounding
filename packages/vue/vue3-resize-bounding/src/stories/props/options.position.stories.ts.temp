@@ -1,11 +1,10 @@
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { Meta, StoryObj } from "@storybook/vue3";
 
 import type { SplitterPosition } from "../../../lib/shared/typings";
 
 import StoryResizeBounding from "../../components/StoryResizeBounding.vue";
 import StoryPropField from "../../components/StoryPropField.vue";
-import StoryValuesContainer from "../../components/StoryValuesContainer.vue";
 
 const meta = {
   title: "Props/options/position",
@@ -17,54 +16,31 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const defineStory = (_position: SplitterPosition): Story => {
+const defineStory = (position: SplitterPosition): Story => {
   return {
     args: {
       options: {
-        width: 32,
-        position: _position,
+        splitterWidthNormal: 32,
+        position,
       },
     },
     render: (args) => ({
-      components: { StoryResizeBounding, StoryPropField, StoryValuesContainer },
+      components: { StoryResizeBounding, StoryPropField },
       setup() {
         const width = ref(320);
         const height = ref(240);
 
-        const splitterWidthNormal = ref(args.options?.width);
-        const position = ref(args.options?.position);
-
-        watch(
-          () => args.options?.width,
-          (newValue) => {
-            splitterWidthNormal.value = newValue;
-          }
-        );
-
-        watch(
-          () => args.options?.position,
-          (newValue) => {
-            position.value = newValue;
-          }
-        );
-
-        return { width, height, args, splitterWidthNormal, position };
+        return { width, height, args };
       },
       template: `
-    <StoryValuesContainer>
-      <StoryPropField
-        description="Set pisition of a splitters inside the root container (internal, central, external):"
-        name="position"
-        :value="position"/>
-    </StoryValuesContainer>
     <StoryResizeBounding
       :directions="'hv'"
       v-bind="args"
       :width="width"
       :height="height"
       :options="{
-        splitterWidthNormal: splitterWidthNormal,
-        position: position,
+        splitterWidthNormal: ${args.options?.splitterWidthNormal},
+        position: '${position}',
         knob: {
           show: true,
         }

@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { Meta, StoryObj } from "@storybook/vue3";
 
 import {
@@ -10,6 +10,7 @@ import StoryResizeBounding, {
   type Props,
 } from "../../components/StoryResizeBounding.vue";
 import StoryPropField from "../../components/StoryPropField.vue";
+import StoryValuesContainer from "../../components/StoryValuesContainer.vue";
 
 const meta = {
   title: "Props/directions",
@@ -25,18 +26,33 @@ const defaultProps = (directions: PaneDirections | string): Props => ({
   directions,
 });
 
-const defineStory = (directions: PaneDirections | string): Story => {
+const defineStory = (_directions: PaneDirections | string): Story => {
   return {
-    args: defaultProps(directions),
+    args: defaultProps(_directions),
     render: (args) => ({
-      components: { StoryResizeBounding, StoryPropField },
+      components: { StoryResizeBounding, StoryPropField, StoryValuesContainer },
       setup() {
         const width = ref(320);
         const height = ref(240);
 
+        const directions = ref(args.directions);
+
+        watch(
+          () => args.directions,
+          (newValue) => {
+            directions.value = newValue;
+          }
+        );
+
         return { width, height, args, directions };
       },
       template: `
+    <StoryValuesContainer>
+      <StoryPropField
+        description="Enable specific splitters (panes):"
+        name="directions"
+        :value="directions"/>
+    </StoryValuesContainer>
     <StoryResizeBounding
       :directions="directions"
       v-bind="args"

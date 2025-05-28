@@ -8,7 +8,7 @@ import StoryPropField from "../../components/StoryPropField.vue";
 import StoryValuesContainer from "../../components/StoryValuesContainer.vue";
 
 const meta = {
-  title: "Props/width",
+  title: "Props/maxHeight",
   component: StoryResizeBounding,
   tags: ["autodocs"],
   argTypes: {},
@@ -18,40 +18,45 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const defaultProps: Props = {
-  width: 320,
+  maxHeight: 480,
 };
 
-export const Width: Story = {
+export const Height: Story = {
   args: defaultProps,
   render: (args) => ({
     components: { StoryResizeBounding, StoryPropField, StoryValuesContainer },
     setup() {
-      const width = ref(args.width);
+      const width = ref(320);
+      const height = ref(320);
+
+      const maxHeight = ref(args.maxHeight);
 
       watch(
-        () => args.width,
+        () => args.maxHeight,
         (newValue) => {
-          width.value = newValue;
+          maxHeight.value = newValue;
         }
       );
 
-      return { width, args };
+      return { width, height, maxHeight, args };
     },
     template: `
     <StoryValuesContainer>
       <StoryPropField
-        description="Container width:"
-        name="width"
-        :value="width"/>
+        description="Container max height:"
+        name="maxHeight"
+        :value="maxHeight"/>
     </StoryValuesContainer>
     <StoryResizeBounding
-      directions="r"
+      directions="b"
       :width="width"
-      :minWidth="128"
-      height="240"
-      @update:width="(value) => { width = value; } "/>
+      :height="height"
+      :maxHeight="maxHeight"
+      @update:width="(value) => { width = value; } "
+      @update:height="(value) => { height = value; } "
+    />
   `,
   }),
 };
 
-Width.storyName = "width";
+Height.storyName = "maxHeight";
