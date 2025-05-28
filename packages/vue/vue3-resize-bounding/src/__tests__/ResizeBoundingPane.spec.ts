@@ -367,8 +367,6 @@ describe("ResizeBoundingPane", () => {
               );
               const style = paneEl.attributes("style");
 
-              console.log(style);
-
               if (styles) {
                 // for (const [k, v] of Object.entries(styles)) {
                 //   expect(style).toContain(`${k}: ${v}`);

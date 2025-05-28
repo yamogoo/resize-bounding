@@ -234,8 +234,8 @@ const checkIsVertical = (direction: string): boolean =>
         ? isPressed
           ? 'pressed'
           : isFocused
-            ? 'focused'
-            : 'normal'
+          ? 'focused'
+          : 'normal'
         : '',
     ]"
     :style="[paneComputedStyle]"

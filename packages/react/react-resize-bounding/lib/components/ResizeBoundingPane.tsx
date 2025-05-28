@@ -68,10 +68,12 @@ const ResizeBoundingPane = ({
   let isResizing = false;
 
   const paneComputedStyle = useMemo(() => {
-    const _width = options?.width ?? 1;
+    const splitterWidth = options?.splitterWidthNormal || options?.width;
+    const _width = splitterWidth ?? 1;
 
     if (refPane && _width) {
-      const _areaWidth = options.activeAreaWidth ?? options.width;
+      const _areaWidth =
+        options.activeAreaWidth ?? options.splitterWidthNormal ?? 1;
       const _styles = paneBaseStyles(
         _width,
         _areaWidth,
@@ -82,19 +84,36 @@ const ResizeBoundingPane = ({
     }
 
     return;
-  }, [options.width, options.activeAreaWidth, options?.position, direction]);
+  }, [
+    options.width,
+    options.splitterWidthNormal,
+    options.activeAreaWidth,
+    options?.position,
+    direction,
+  ]);
 
   const splitterComputedStyle = useMemo(() => {
-    const _width = options?.width;
+    const splitterWidth = options?.splitterWidthNormal || options?.width;
+    const splitterWidthActive = options?.splitterWidthActive || splitterWidth;
+    const activeAreaWidth = options.activeAreaWidth;
+
+    const _width = isFocused || isPressed ? splitterWidthActive : splitterWidth;
 
     if (refPane && _width) {
-      const _areaWidth = options.activeAreaWidth ?? options.width;
-
+      const _areaWidth = activeAreaWidth ?? splitterWidth ?? 1;
       const _styles = splitterBaseStyles(_width, _areaWidth);
       const value: CSSProperties = _styles[direction as PaneDirections];
       return value;
     }
-  }, [options.width, options.activeAreaWidth, direction]);
+  }, [
+    isFocused,
+    isPressed,
+    options.width,
+    options.splitterWidthNormal,
+    options.splitterWidthActive,
+    options.activeAreaWidth,
+    direction,
+  ]);
 
   const containerComputedStyles = useMemo(() => {
     const isHorizontal = checkIsHorizontal(direction);

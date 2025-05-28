@@ -9,7 +9,14 @@ export const PREFIX = "resize-bounding-";
 
 export const defaultOptions: Options = {
   prefix: PREFIX,
+
+  /** legacy old splitter width prop */
   width: 4,
+
+  /** new splitter width props */
+  splitterWidthNormal: undefined,
+  splitterWidthActive: undefined,
+
   activeAreaWidth: undefined,
   position: "central",
   knob: {
