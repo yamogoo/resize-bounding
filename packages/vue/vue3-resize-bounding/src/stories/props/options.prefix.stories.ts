@@ -1,14 +1,16 @@
 import { ref, watch } from "vue";
 import { Meta, StoryObj } from "@storybook/vue3";
 
-import type { IStyle } from "../../../lib/shared/typings";
+import { PREFIX } from "../../../lib/components/ResizeBounding.classNames";
 
-import StoryResizeBounding from "../../components/StoryResizeBounding.vue";
+import StoryResizeBounding, {
+  type Props,
+} from "../../components/StoryResizeBounding.vue";
 import StoryPropField from "../../components/StoryPropField.vue";
 import StoryValuesContainer from "../../components/StoryValuesContainer.vue";
 
 const meta = {
-  title: "Props/styles/knob/color",
+  title: "Props/options/prefix",
   component: StoryResizeBounding,
   tags: ["autodocs"],
   argTypes: {},
@@ -17,48 +19,47 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const defineStory = (styles: IStyle): Story => {
+const defaultProps = (): Props => ({
+  options: {
+    prefix: PREFIX,
+  },
+});
+
+const defineStory = (): Story => {
   return {
-    args: {
-      styles: {
-        knob: styles,
-      },
-    },
+    args: defaultProps(),
     render: (args) => ({
       components: { StoryResizeBounding, StoryPropField, StoryValuesContainer },
       setup() {
         const width = ref(320);
         const height = ref(240);
 
-        const styles = ref(args.styles?.knob);
+        const prefix = ref(args.options?.prefix);
 
         watch(
-          () => args.styles?.knob,
+          () => args.options?.prefix,
           (newValue) => {
-            styles.value = newValue;
+            prefix.value = newValue ?? "";
           }
         );
 
-        return { width, height, args, styles };
+        return { width, height, args, prefix };
       },
       template: `
     <StoryValuesContainer>
       <StoryPropField
-        description="Set a knob color:"
-        name="background"
-        :value="styles.background"/>
+        description="Set element class name prefix:"
+        name="prefix"
+        :value="prefix"/>
     </StoryValuesContainer>
     <StoryResizeBounding
       :directions="'hv'"
       v-bind="args"
       :width="width"
-      :height="height"
+      :height="height",
       :options="{
-        knob: {
-          show: true,
-        }
+        prefix
       }"
-      :styles="args.styles"
       minWidth="128"
       maxWidth="512"
       minHeight="128"
@@ -71,22 +72,6 @@ const defineStory = (styles: IStyle): Story => {
   };
 };
 
-export const Gray: Story = defineStory({
-  background: "gray",
-});
+export const Show = defineStory();
 
-export const Red: Story = defineStory({
-  background: "red",
-});
-
-export const Green: Story = defineStory({
-  background: "#12e767",
-});
-
-export const Blue: Story = defineStory({
-  background: "cornflowerblue",
-});
-
-export const Violet: Story = defineStory({
-  background: "violet",
-});
+Show.storyName = "prefix";

@@ -1,14 +1,14 @@
 import { ref, watch } from "vue";
 import { Meta, StoryObj } from "@storybook/vue3";
 
-import type { IStyle } from "../../../lib/shared/typings";
-
-import StoryResizeBounding from "../../components/StoryResizeBounding.vue";
+import StoryResizeBounding, {
+  type Props,
+} from "../../components/StoryResizeBounding.vue";
 import StoryPropField from "../../components/StoryPropField.vue";
 import StoryValuesContainer from "../../components/StoryValuesContainer.vue";
 
 const meta = {
-  title: "Props/styles/knob/color",
+  title: "Props/options/cursor",
   component: StoryResizeBounding,
   tags: ["autodocs"],
   argTypes: {},
@@ -17,48 +17,50 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const defineStory = (styles: IStyle): Story => {
-  return {
-    args: {
-      styles: {
-        knob: styles,
-      },
+const defaultProps = (): Props => ({
+  options: {
+    cursor: {
+      horizontal: "col-resize",
+      vertical: "row-resize",
     },
+  },
+});
+
+const defineStory = (): Story => {
+  return {
+    args: defaultProps(),
     render: (args) => ({
       components: { StoryResizeBounding, StoryPropField, StoryValuesContainer },
       setup() {
         const width = ref(320);
         const height = ref(240);
 
-        const styles = ref(args.styles?.knob);
+        const cursor = ref(args.options?.cursor);
 
         watch(
-          () => args.styles?.knob,
+          () => args.options?.cursor,
           (newValue) => {
-            styles.value = newValue;
+            cursor.value = newValue;
           }
         );
 
-        return { width, height, args, styles };
+        return { width, height, args, cursor };
       },
       template: `
     <StoryValuesContainer>
       <StoryPropField
-        description="Set a knob color:"
-        name="background"
-        :value="styles.background"/>
+        description="Set cursor style for normal/focused states of a splitter:"
+        name="cursor"
+        :value="JSON.stringify(cursor)"/>
     </StoryValuesContainer>
     <StoryResizeBounding
       :directions="'hv'"
       v-bind="args"
       :width="width"
-      :height="height"
+      :height="height",
       :options="{
-        knob: {
-          show: true,
-        }
+        cursor
       }"
-      :styles="args.styles"
       minWidth="128"
       maxWidth="512"
       minHeight="128"
@@ -71,22 +73,6 @@ const defineStory = (styles: IStyle): Story => {
   };
 };
 
-export const Gray: Story = defineStory({
-  background: "gray",
-});
+export const Show = defineStory();
 
-export const Red: Story = defineStory({
-  background: "red",
-});
-
-export const Green: Story = defineStory({
-  background: "#12e767",
-});
-
-export const Blue: Story = defineStory({
-  background: "cornflowerblue",
-});
-
-export const Violet: Story = defineStory({
-  background: "violet",
-});
+Show.storyName = "cursor";

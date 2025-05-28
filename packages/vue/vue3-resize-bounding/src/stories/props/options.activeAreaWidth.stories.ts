@@ -1,14 +1,14 @@
 import { ref, watch } from "vue";
 import { Meta, StoryObj } from "@storybook/vue3";
 
-import type { IStyle } from "../../../lib/shared/typings";
-
-import StoryResizeBounding from "../../components/StoryResizeBounding.vue";
+import StoryResizeBounding, {
+  type Props,
+} from "../../components/StoryResizeBounding.vue";
 import StoryPropField from "../../components/StoryPropField.vue";
 import StoryValuesContainer from "../../components/StoryValuesContainer.vue";
 
 const meta = {
-  title: "Props/styles/knob/color",
+  title: "Props/options/activeAreaWidth",
   component: StoryResizeBounding,
   tags: ["autodocs"],
   argTypes: {},
@@ -17,48 +17,47 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const defineStory = (styles: IStyle): Story => {
+const defaultProps = (): Props => ({
+  options: {
+    activeAreaWidth: 32,
+  },
+});
+
+const defineStory = (): Story => {
   return {
-    args: {
-      styles: {
-        knob: styles,
-      },
-    },
+    args: defaultProps(),
     render: (args) => ({
       components: { StoryResizeBounding, StoryPropField, StoryValuesContainer },
       setup() {
         const width = ref(320);
         const height = ref(240);
 
-        const styles = ref(args.styles?.knob);
+        const activeAreaWidth = ref(args.options?.activeAreaWidth);
 
         watch(
-          () => args.styles?.knob,
+          () => args.options?.activeAreaWidth,
           (newValue) => {
-            styles.value = newValue;
+            activeAreaWidth.value = newValue;
           }
         );
 
-        return { width, height, args, styles };
+        return { width, height, args, activeAreaWidth };
       },
       template: `
     <StoryValuesContainer>
       <StoryPropField
-        description="Set a knob color:"
-        name="background"
-        :value="styles.background"/>
+        description="Set active touch area width of a splitter (if the value is not specified, the active area will be equal to the width of the splitter (pane)):"
+        name="activeAreaWidth"
+        :value="activeAreaWidth"/>
     </StoryValuesContainer>
     <StoryResizeBounding
       :directions="'hv'"
       v-bind="args"
       :width="width"
-      :height="height"
+      :height="height",
       :options="{
-        knob: {
-          show: true,
-        }
+        activeAreaWidth
       }"
-      :styles="args.styles"
       minWidth="128"
       maxWidth="512"
       minHeight="128"
@@ -71,22 +70,6 @@ const defineStory = (styles: IStyle): Story => {
   };
 };
 
-export const Gray: Story = defineStory({
-  background: "gray",
-});
+export const Show = defineStory();
 
-export const Red: Story = defineStory({
-  background: "red",
-});
-
-export const Green: Story = defineStory({
-  background: "#12e767",
-});
-
-export const Blue: Story = defineStory({
-  background: "cornflowerblue",
-});
-
-export const Violet: Story = defineStory({
-  background: "violet",
-});
+Show.storyName = "activeAreaWidth";

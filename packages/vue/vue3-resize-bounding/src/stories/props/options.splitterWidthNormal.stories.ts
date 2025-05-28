@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { Meta, StoryObj } from "@storybook/vue3";
 
 import StoryResizeBounding from "../../components/StoryResizeBounding.vue";
@@ -28,17 +28,26 @@ const defineStory = (paneWidth: number): Story => {
         const width = ref(320);
         const height = ref(240);
 
-        return { width, height, args };
+        const splitterWidthNormal = ref(args.options?.splitterWidthNormal);
+
+        watch(
+          () => args.options?.splitterWidthNormal,
+          (newValue) => {
+            splitterWidthNormal.value = newValue;
+          }
+        );
+
+        return { width, height, args, splitterWidthNormal };
       },
       template: `
       <StoryValuesContainer>
         <StoryPropField
+        description="Pane width for both normal and active states"
         name="splitterWidthNormal"
-        :description="'Pane width for both normal and active states'"
-        :value="${args.options?.splitterWidthNormal}"/>
+        :value="splitterWidthNormal"/>
         <StoryPropField
         name="splitterWidthActive"
-        :value="${args.options?.splitterWidthNormal}"/>
+        :value="splitterWidthNormal"/>
       </StoryValuesContainer>
     <StoryResizeBounding
       :directions="'hv'"

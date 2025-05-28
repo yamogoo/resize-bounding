@@ -8,10 +8,15 @@ import terserOptions from "./terser.config.js";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import packageJson from "./package.json";
+
 export default defineConfig({
   plugins: [vue(), dts()],
   server: {
     port: 9090,
+  },
+  define: {
+    "import.meta.env.APP_VERSION": JSON.stringify(packageJson.version),
   },
   build: {
     outDir: "dist",

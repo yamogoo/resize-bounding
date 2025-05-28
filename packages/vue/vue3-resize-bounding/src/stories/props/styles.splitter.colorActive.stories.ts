@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { Meta, StoryObj } from "@storybook/vue3";
 
 import colors from "../../tokens/colors.json";
@@ -7,6 +7,7 @@ import type { IStyle } from "../../../lib/shared/typings";
 
 import StoryResizeBounding from "../../components/StoryResizeBounding.vue";
 import StoryPropField from "../../components/StoryPropField.vue";
+import StoryValuesContainer from "../../components/StoryValuesContainer.vue";
 
 const meta = {
   title: "Props/styles/splitter/color.active",
@@ -41,14 +42,29 @@ const defineStory = (styles: IStyle): Story => {
       },
     },
     render: (args) => ({
-      components: { StoryResizeBounding, StoryPropField },
+      components: { StoryResizeBounding, StoryPropField, StoryValuesContainer },
       setup() {
         const width = ref(320);
         const height = ref(240);
 
-        return { width, height, args };
+        const styles = ref(args.styles?.splitter);
+
+        watch(
+          () => args.styles?.splitter,
+          (newValue) => {
+            styles.value = newValue;
+          }
+        );
+
+        return { width, height, args, styles };
       },
       template: `
+    <StoryValuesContainer>
+      <StoryPropField
+        description="Set splitter (pane) color in active state:"
+        name="styles"
+        :value="JSON.stringify(styles)"/>
+    </StoryValuesContainer>
     <StoryResizeBounding
       :directions="'hv'"
       v-bind="args"

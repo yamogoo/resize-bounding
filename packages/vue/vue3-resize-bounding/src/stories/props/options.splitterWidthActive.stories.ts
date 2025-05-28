@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { Meta, StoryObj } from "@storybook/vue3";
 
 import StoryResizeBounding from "../../components/StoryResizeBounding.vue";
@@ -32,17 +32,41 @@ const defineStory = (
         const width = ref(320);
         const height = ref(240);
 
-        return { width, height, args };
+        const splitterWidthNormal = ref(args.options?.splitterWidthNormal);
+
+        watch(
+          () => args.options?.splitterWidthNormal,
+          (newValue) => {
+            splitterWidthNormal.value = newValue;
+          }
+        );
+
+        const splitterWidthActive = ref(args.options?.splitterWidthActive);
+
+        watch(
+          () => args.options?.splitterWidthActive,
+          (newValue) => {
+            splitterWidthActive.value = newValue;
+          }
+        );
+
+        return {
+          width,
+          height,
+          args,
+          splitterWidthNormal,
+          splitterWidthActive,
+        };
       },
       template: `
       <StoryValuesContainer>
         <StoryPropField
+        description="Pane width separately for normal and active states"
         name="width"
-        :description="'Pane width separately for normal and active states'"
-        :value="${args.options?.splitterWidthNormal}"/>
+        :value="splitterWidthNormal"/>
         <StoryPropField
         name="splitterWidthActive"
-        :value="${args.options?.splitterWidthActive}"/>
+        :value="splitterWidthActive"/>
       </StoryValuesContainer>
     <StoryResizeBounding
       :directions="'hv'"
@@ -50,9 +74,9 @@ const defineStory = (
       :width="width"
       :height="height"
       :options="{
-        width: ${args.options?.width},
-        splitterWidthNormal: ${args.options?.splitterWidthNormal},
-        splitterWidthActive: ${args.options?.splitterWidthActive},
+        width: splitterWidthNormal,
+        splitterWidthNormal: splitterWidthNormal,
+        splitterWidthActive: splitterWidthActive,
       }"
       :styles="{
         splitter: {

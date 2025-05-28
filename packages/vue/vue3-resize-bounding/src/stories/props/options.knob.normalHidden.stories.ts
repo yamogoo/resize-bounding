@@ -1,14 +1,14 @@
 import { ref, watch } from "vue";
 import { Meta, StoryObj } from "@storybook/vue3";
 
-import type { IStyle } from "../../../lib/shared/typings";
-
-import StoryResizeBounding from "../../components/StoryResizeBounding.vue";
+import StoryResizeBounding, {
+  type Props,
+} from "../../components/StoryResizeBounding.vue";
 import StoryPropField from "../../components/StoryPropField.vue";
 import StoryValuesContainer from "../../components/StoryValuesContainer.vue";
 
 const meta = {
-  title: "Props/styles/knob/color",
+  title: "Props/options/knob/normalHidden",
   component: StoryResizeBounding,
   tags: ["autodocs"],
   argTypes: {},
@@ -17,36 +17,40 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const defineStory = (styles: IStyle): Story => {
-  return {
-    args: {
-      styles: {
-        knob: styles,
-      },
+const defaultProps = (): Props => ({
+  options: {
+    knob: {
+      normalHidden: false,
     },
+  },
+});
+
+const defineStory = (): Story => {
+  return {
+    args: defaultProps(),
     render: (args) => ({
       components: { StoryResizeBounding, StoryPropField, StoryValuesContainer },
       setup() {
         const width = ref(320);
         const height = ref(240);
 
-        const styles = ref(args.styles?.knob);
+        const normalHidden = ref(args.options?.knob?.normalHidden);
 
         watch(
-          () => args.styles?.knob,
+          () => args.options?.knob?.normalHidden,
           (newValue) => {
-            styles.value = newValue;
+            normalHidden.value = newValue;
           }
         );
 
-        return { width, height, args, styles };
+        return { width, height, args, normalHidden };
       },
       template: `
     <StoryValuesContainer>
       <StoryPropField
-        description="Set a knob color:"
-        name="background"
-        :value="styles.background"/>
+        description="Hide a knob in normal state of the splitter:"
+        name="normalHidden"
+        :value="normalHidden"/>
     </StoryValuesContainer>
     <StoryResizeBounding
       :directions="'hv'"
@@ -56,9 +60,9 @@ const defineStory = (styles: IStyle): Story => {
       :options="{
         knob: {
           show: true,
+          normalHidden
         }
       }"
-      :styles="args.styles"
       minWidth="128"
       maxWidth="512"
       minHeight="128"
@@ -71,22 +75,6 @@ const defineStory = (styles: IStyle): Story => {
   };
 };
 
-export const Gray: Story = defineStory({
-  background: "gray",
-});
+export const Show = defineStory();
 
-export const Red: Story = defineStory({
-  background: "red",
-});
-
-export const Green: Story = defineStory({
-  background: "#12e767",
-});
-
-export const Blue: Story = defineStory({
-  background: "cornflowerblue",
-});
-
-export const Violet: Story = defineStory({
-  background: "violet",
-});
+Show.storyName = "normalHidden";

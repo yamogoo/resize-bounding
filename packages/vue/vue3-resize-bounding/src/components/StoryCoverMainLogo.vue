@@ -25,11 +25,12 @@
 <style lang="scss">
 @use "sass:map";
 
+@use "../assets/scss/utils.scss" as *;
 @use "../assets/scss/colors.scss" as *;
 @use "../assets/scss/typography.scss" as *;
 
 .main-logo {
-  $logo-size: 96px;
+  $logo-size: px2rem(96px);
 
   display: flex;
   flex-direction: column;
@@ -53,7 +54,7 @@
 
   &__descriptor {
     font-family: $font-family;
-    font-size: 1.5em;
+    font-size: px2rem(24px);
     font-weight: 700;
     color: $label;
     text-align: center;

@@ -1,10 +1,11 @@
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { Meta, StoryObj } from "@storybook/vue3";
 
 import type { IStyle } from "../../../lib/shared/typings";
 
 import StoryResizeBounding from "../../components/StoryResizeBounding.vue";
 import StoryPropField from "../../components/StoryPropField.vue";
+import StoryValuesContainer from "../../components/StoryValuesContainer.vue";
 
 const meta = {
   title: "Props/styles/knob/size",
@@ -24,14 +25,29 @@ const defineStory = (styles: IStyle): Story => {
       },
     },
     render: (args) => ({
-      components: { StoryResizeBounding, StoryPropField },
+      components: { StoryResizeBounding, StoryPropField, StoryValuesContainer },
       setup() {
         const width = ref(320);
         const height = ref(240);
 
-        return { width, height, args };
+        const size = ref(args.styles?.knob);
+
+        watch(
+          () => args.styles?.knob,
+          (newValue) => {
+            size.value = newValue;
+          }
+        );
+
+        return { width, height, args, size };
       },
       template: `
+    <StoryValuesContainer>
+      <StoryPropField
+        description="Set custon knob size:"
+        name="size"
+        :value="JSON.stringify(size)"/>
+    </StoryValuesContainer>
     <StoryResizeBounding
       :directions="'hv'"
       v-bind="args"

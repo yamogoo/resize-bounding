@@ -50,7 +50,7 @@
     "docs:build": "storybook build",
     "docs:preview": "pnpm storybook:build && serve storybook-static -p 6007",
     "deploy:docs:dev": "netlify build && netlify deploy",
-    "deploy:docs:prod": "netlify build && netlify deploy --prod"
+    "deploy:docs:prod": "pnpm docs:build && netlify build && netlify deploy --prod"
   },
   "peerDependencies": {
     "vue": "^3.3"
