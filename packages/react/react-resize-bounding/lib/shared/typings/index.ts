@@ -9,7 +9,14 @@ export type SplitterPosition = "central" | "external" | "internal";
 
 export interface Options {
   prefix: string;
-  width: number;
+
+  /** legacy old splitter width prop */
+  width?: number;
+
+  /** new splitter width props */
+  splitterWidthNormal?: number;
+  splitterWidthActive?: number;
+
   activeAreaWidth?: number;
   addStateClasses?: boolean;
   position: SplitterPosition;

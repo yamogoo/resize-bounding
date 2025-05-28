@@ -7,7 +7,7 @@
 
 [Docs](https://resize-bounding.netlify.app/)
 
-![image](https://raw.githubusercontent.com/yamogoo/resize-bounding/v2.1.0/shared/images/resize-bounding.gif)
+![image](https://github.com/yamogoo/resize-bounding/blob/v.2.1.0/shared/images/resize-bounding.gif)
 
 Interactive Grid (Example):
 
@@ -229,7 +229,7 @@ app.mount("#app");
           <code>'resize-bounding-'</code>
         </td>
       </tr>
-      <!-- options.pane.width -->
+      <!-- options.width -->
       <tr>
         <td colspan="3">
           <b><code>options.width</code></b>
@@ -237,7 +237,7 @@ app.mount("#app");
       </tr>
       <tr>
         <td colspan="2">description</td>
-        <td colspan="2">Set width of splitter in pixels</td>
+        <td colspan="2">!Legacy. Set width of splitter (both `splitterWidthNormal` and `splitterWidthActive` props) in pixels</td>
       </tr>
       <tr>
         <td colspan="2">type</td>
@@ -249,6 +249,47 @@ app.mount("#app");
           <code>4</code>
         </td>
       </tr>
+      <!-- options.splitterWidthNormal -->
+      <tr>
+        <td colspan="3">
+          <b><code>options.splitterWidthNormal</code></b>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">description</td>
+        <td colspan="2">Set width of splitter in normal state in pixels (`splitterWidthActive` will be equal to `splitterWidthNormal` if `splitterWidthActive` prop is not set)</td>
+      </tr>
+      <tr>
+        <td colspan="2">type</td>
+        <td colspan="2"><code>number</code></td>
+      </tr>
+      <tr>
+        <td colspan="2">default value</td>
+        <td colspan="2">
+          <code>undefined</code>
+        </td>
+      </tr>
+      <!-- options.splitterWidthActive -->
+      <tr>
+        <td colspan="3">
+          <b><code>options.splitterWidthActive</code></b>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">description</td>
+        <td colspan="2">Set width of splitter in active state. If `splitterWidthNormal` and `splitterWidthActive` are different then the splitter width will be animated by default. To change the animation parameters or disable the animation use `:styles` props</td>
+      </tr>
+      <tr>
+        <td colspan="2">type</td>
+        <td colspan="2"><code>number</code></td>
+      </tr>
+      <tr>
+        <td colspan="2">default value</td>
+        <td colspan="2">
+          <code>undefined</code>
+        </td>
+      </tr>
+      <!-- options.activeAreaWidth -->
       <tr>
         <td colspan="3">
           <b><code>options.activeAreaWidth</code></b>
