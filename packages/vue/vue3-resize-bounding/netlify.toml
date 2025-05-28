@@ -1,0 +1,22 @@
+# example netlify.toml
+[build]
+  command = "pnpm --filter vue3-resize-bounding... run build && pnpm --filter vue3-resize-bounding... run storybook:build"
+  functions = "netlify/functions"
+  publish = "packages/vue/vue3-resize-bounding/storybook-static"
+
+  [[redirects]]
+    from = "/*"
+    status = 200
+
+  ## (optional) Settings for Netlify Dev
+  ## https://github.com/netlify/cli/blob/main/docs/netlify-dev.md#project-detection
+  #[dev]
+  #  command = "yarn start" # Command to start your dev server
+  #  port = 3000 # Port that the dev server will be listening on
+  #  publish = "dist" # Folder with the static content for _redirect file
+
+  ## more info on configuring this file: https://ntl.fyi/file-based-build-config
+  [[headers]]
+    for = "/*"
+    [headers.values]
+      Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"

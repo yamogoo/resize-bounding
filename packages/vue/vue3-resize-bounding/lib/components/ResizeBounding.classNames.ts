@@ -14,7 +14,7 @@ export const defaultOptions: Options = {
   width: 4,
 
   /** new splitter width props */
-  splitterWidthNormal: 4,
+  splitterWidthNormal: undefined,
   splitterWidthActive: undefined,
 
   activeAreaWidth: undefined,

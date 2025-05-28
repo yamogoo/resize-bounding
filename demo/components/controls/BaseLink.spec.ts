@@ -1,3 +1,4 @@
+import { describe, test, expect } from "vitest";
 import { mount, VueWrapper } from "@vue/test-utils";
 
 import BaseLink, {
