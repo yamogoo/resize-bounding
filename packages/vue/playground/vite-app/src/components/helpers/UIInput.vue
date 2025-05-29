@@ -58,13 +58,13 @@ const onUpdateValue = (e: Event) => {
     display: flex;
     flex-direction: row;
     gap: 6px;
-    padding: 0px 12px;
+    padding: 0px 16px;
     color: inherit;
 
     &__label,
     input,
     span {
-      font-size: 14px;
+      font-size: 12px;
       letter-spacing: 0.3px;
       align-self: center;
       color: inherit;

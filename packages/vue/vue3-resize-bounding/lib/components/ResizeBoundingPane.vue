@@ -37,8 +37,7 @@ const paneComputedStyle = computed(() => {
   const _width = splitterWidth ?? 1;
 
   if (refPane.value && _width) {
-    const _areaWidth =
-      props.options.activeAreaWidth ?? props.options.splitterWidthNormal ?? 1;
+    const _areaWidth = props.options.activeAreaWidth ?? _width;
     const _styles = paneBaseStyles(
       _width,
       _areaWidth,

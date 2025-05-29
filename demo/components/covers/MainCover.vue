@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
+import { storeToRefs } from "pinia";
 
 import GProvider from "@/components/transition/GProvider.vue";
 import Badge from "@/components/badges/Badge.vue";
 import MainLogo from "@/components/logos/MainLogo.vue";
+
+import { useConfigStore } from "@/stores/config";
+
+const { currentPackageVersion } = storeToRefs(useConfigStore());
 
 withDefaults(defineProps<Props>(), {
   isDateShown: false,
@@ -24,8 +29,6 @@ onUnmounted(() => {
 export interface Props {
   title: string;
   description?: string;
-  vueVersion: string;
-  reactVersion: string;
   isDateShown?: boolean;
 }
 </script>
@@ -77,7 +80,7 @@ export interface Props {
         :alignment="'center'"
         data-testid="ui-main-cover-footer"
       >
-        <Badge :label="'version'" :value="`${vueVersion}`"></Badge>
+        <Badge :label="'version'" :value="`${currentPackageVersion}`"></Badge>
         <span v-if="isDateShown" class="ui-main-cover__date">2024-2025</span>
       </div>
     </GProvider>

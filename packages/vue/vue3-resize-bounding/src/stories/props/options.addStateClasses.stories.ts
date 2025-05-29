@@ -58,10 +58,10 @@ const defineStory = (): Story => {
       :options="{
         addStateClasses
       }"
-      minWidth="128"
-      maxWidth="512"
-      minHeight="128"
-      maxHeight="512"
+      :minWidth="128"
+      :maxWidth="512"
+      :minHeight="128"
+      :maxHeight="512"
       @update:width="(value) => { width = value; }"
       @update:height="(value) => { height = value; }"
       "/>

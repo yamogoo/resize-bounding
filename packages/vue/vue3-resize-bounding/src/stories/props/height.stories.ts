@@ -46,9 +46,9 @@ export const Height: Story = {
     </StoryValuesContainer>
     <StoryResizeBounding
       directions="b"
-      width="320"
+      :width="320"
       :height="height"
-      minHeight="128"
+      :minHeight="128"
       @update:height="(value) => { height = value; } "/>
   `,
   }),

@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { ref, type Ref } from "vue";
+import { onMounted, ref, type Ref } from "vue";
+import { useRuntimeConfig } from "#app";
+import { useConfigStore } from "@/stores/config";
 import g from "gsap";
 
 import { __DOC__ } from "@/components/docs.js";
@@ -9,34 +11,21 @@ import type { TabbarItem } from "@/components/menu/Tabbar.vue";
 import Code from "@/components/content/Code.vue";
 import DocumentationLink from "@/components/controls/DocumentationLink.vue";
 
+const runtimeConfig = useRuntimeConfig();
+
+const { setCurrentPackageVersion } = useConfigStore();
+
 const sid: Ref<number> = ref(0);
-</script>
 
-<script lang="ts">
-interface ExtendedTabbarItem extends TabbarItem<string> {
-  link: string;
-  linkName: string;
-  show: boolean;
-}
+onMounted(() => {
+  setCurrentPackageVersion(menuItems[sid.value].version);
+});
 
-export const menuItems: Array<ExtendedTabbarItem> = [
-  {
-    id: 0,
-    label: "Vue3",
-    value: "vue3",
-    link: import.meta.env.VITE_VUE3_DOCS_URL,
-    linkName: "vue3 documentation",
-    show: Boolean(+import.meta.env.VITE_ENABLE_VUE3_DOCS),
-  },
-  {
-    id: 1,
-    label: "React",
-    value: "react",
-    link: import.meta.env.VITE_REACT_DOCS_URL,
-    linkName: "react documentation",
-    show: Boolean(+import.meta.env.VITE_ENABLE_REACT_DOCS),
-  },
-];
+const onSelectTabItem = (item: TabbarItem<string>) => {
+  const i = item as ExtendedTabbarItem;
+  sid.value = i.id;
+  setCurrentPackageVersion(i.version);
+};
 
 /* * * Animations * * */
 
@@ -70,16 +59,42 @@ const onLinkLeave = (el: Element, done: () => void): void => {
     onComplete: done,
   });
 };
+
+const menuItems: Array<ExtendedTabbarItem> = [
+  {
+    id: 0,
+    label: "Vue3",
+    value: "vue3",
+    version: runtimeConfig.public.productVueVersion,
+    link: import.meta.env.VITE_VUE3_DOCS_URL,
+    linkName: "vue3 documentation",
+    show: Boolean(+import.meta.env.VITE_ENABLE_VUE3_DOCS),
+  },
+  {
+    id: 1,
+    label: "React",
+    value: "react",
+    version: runtimeConfig.public.productReactVersion,
+    link: import.meta.env.VITE_REACT_DOCS_URL,
+    linkName: "react documentation",
+    show: Boolean(+import.meta.env.VITE_ENABLE_REACT_DOCS),
+  },
+];
+</script>
+
+<script lang="ts">
+interface ExtendedTabbarItem extends TabbarItem<string> {
+  version: string;
+  link: string;
+  linkName: string;
+  show: boolean;
+}
 </script>
 
 <template>
   <div class="ui-setup-guide">
     <div class="ui-setup-guide__header">
-      <Tabbar
-        :sid
-        :items="menuItems"
-        @select="(item: TabbarItem<string>) => (sid = item.id)"
-      ></Tabbar>
+      <Tabbar :sid :items="menuItems" @select="onSelectTabItem"></Tabbar>
     </div>
     <div class="ui-setup-guide__body">
       <div class="ui-setup-guide__body-content">

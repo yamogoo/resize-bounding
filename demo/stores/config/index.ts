@@ -1,4 +1,4 @@
-import { computed, type ComputedRef } from "vue";
+import { computed, ref, type ComputedRef } from "vue";
 import { defineStore } from "pinia";
 
 import { useTheme } from "@/composables/useTheme";
@@ -23,11 +23,17 @@ export const useConfigStore = defineStore("config", () => {
     return themes.findIndex((theme) => theme === currentTheme.value);
   });
 
+  const currentPackageVersion = ref("");
+  const setCurrentPackageVersion = (version: string) =>
+    (currentPackageVersion.value = version);
+
   return {
     currentTheme,
     isSystemThemeEnabled,
     setTheme,
     setIsSystemThemeEnabled,
     getSid,
+    currentPackageVersion,
+    setCurrentPackageVersion,
   };
 });

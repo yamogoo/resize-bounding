@@ -198,9 +198,6 @@ importers:
       '@eslint/js':
         specifier: ^9.27.0
         version: 9.27.0
-      '@storybook/addon-onboarding':
-        specifier: ^9.0.0
-        version: 9.0.0(storybook@9.0.0(@testing-library/dom@10.4.0)(prettier@3.5.3))
       '@storybook/manager-api':
         specifier: ^8.6.14
         version: 8.6.14(storybook@9.0.0(@testing-library/dom@10.4.0)(prettier@3.5.3))
@@ -393,9 +390,6 @@ importers:
         specifier: ^8.6.14
         version: 8.6.14(@types/react@18.3.23)(storybook@8.6.14(prettier@3.5.3))
       '@storybook/addon-interactions':
-        specifier: ^8.6.14
-        version: 8.6.14(storybook@8.6.14(prettier@3.5.3))
-      '@storybook/addon-onboarding':
         specifier: ^8.6.14
         version: 8.6.14(storybook@8.6.14(prettier@3.5.3))
       '@storybook/blocks':
@@ -2950,16 +2944,6 @@ packages:
     resolution: {integrity: sha512-1Tlyb72NX8aAqm6I6OICsUuGOP6hgnXcuFlXucyhKomPa6j3Eu2vKu561t/f0oGtAK2nO93Z70kVaEh5X+vaGw==}
     peerDependencies:
       storybook: ^8.6.14
-
-  '@storybook/addon-onboarding@8.6.14':
-    resolution: {integrity: sha512-bHdHiGJFigVcSzMIsNLHY5IODZHr+nKwyz5/QOZLMkLcGH2IaUbOJfm4RyGOaTTPsUtAKbdsVXNEG3Otf+qO9A==}
-    peerDependencies:
-      storybook: ^8.6.14
-
-  '@storybook/addon-onboarding@9.0.0':
-    resolution: {integrity: sha512-akYjo65k7p/t5qY8wYon3SCUpgmOoYp7swrVV/zn69TWueaX012THdXnTlSc6To8uO0aaYaE6qXztB9FL3KQXA==}
-    peerDependencies:
-      storybook: ^9.0.0
 
   '@storybook/addon-outline@8.6.14':
     resolution: {integrity: sha512-CW857JvN6OxGWElqjlzJO2S69DHf+xO3WsEfT5mT3ZtIjmsvRDukdWfDU9bIYUFyA2lFvYjncBGjbK+I91XR7w==}
@@ -13321,14 +13305,6 @@ snapshots:
       storybook: 8.6.14(prettier@3.5.3)
       tiny-invariant: 1.3.3
 
-  '@storybook/addon-onboarding@8.6.14(storybook@8.6.14(prettier@3.5.3))':
-    dependencies:
-      storybook: 8.6.14(prettier@3.5.3)
-
-  '@storybook/addon-onboarding@9.0.0(storybook@9.0.0(@testing-library/dom@10.4.0)(prettier@3.5.3))':
-    dependencies:
-      storybook: 9.0.0(@testing-library/dom@10.4.0)(prettier@3.5.3)
-
   '@storybook/addon-outline@8.6.14(storybook@8.6.14(prettier@3.5.3))':
     dependencies:
       '@storybook/global': 5.0.0
@@ -18633,7 +18609,7 @@ snapshots:
 
   lightningcss@1.29.3:
     dependencies:
-      detect-libc: 2.0.3
+      detect-libc: 2.0.4
     optionalDependencies:
       lightningcss-darwin-arm64: 1.29.3
       lightningcss-darwin-x64: 1.29.3
