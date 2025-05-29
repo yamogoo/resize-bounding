@@ -129,6 +129,7 @@ export interface Props {
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    scroll-snap-type: y mandatory;
   }
 
   .screen {
@@ -137,6 +138,7 @@ export interface Props {
     flex-direction: column;
     width: 100%;
     height: calc(100dvh - px2rem(map.get($spacing, "md")));
+    scroll-snap-align: start;
   }
 }
 </style>

@@ -125,7 +125,7 @@ const onTooltipLeave = (el: Element, done: () => void): void => {
 
     &__label {
       position: absolute;
-      right: map.get($spacing, "lg");
+      right: map.get($spacing, "md");
       @extend %t__label__2;
       margin: 0 map.get($spacing, "xs");
     }

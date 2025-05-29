@@ -4,10 +4,6 @@ import { setMatchMedia } from "~/vitest.setup";
 import Guide, { type LinkData, type Props } from "./Guide.vue";
 import { createPinia, setActivePinia } from "pinia";
 
-const getSwitchComponent = <T>(wrapper: VueWrapper<T>) => {
-  return wrapper.findComponent({ name: "Switch" });
-};
-
 const getBoxedLink = <T>(wrapper: VueWrapper<T>) => {
   return wrapper.findAll(`[data-testid="boxed-link"]`);
 };
@@ -40,15 +36,6 @@ describe("Guide", () => {
   });
 
   describe("elements", () => {
-    test("should render Switch component", () => {
-      const wrapper = mount(Guide, {
-        props: { ...REQUIRED_PROPS },
-      });
-
-      const switchComponent = getSwitchComponent(wrapper);
-      expect(switchComponent.exists()).toBeTruthy();
-    });
-
     test("should render BoxedLink component(s)", () => {
       const wrapper = mount(Guide, {
         props: { ...REQUIRED_PROPS, links: LINKS },
@@ -66,6 +53,30 @@ describe("Guide", () => {
 
       const figmaLink = getFigmaLink(wrapper);
       expect(figmaLink.exists()).toBeTruthy();
+    });
+  });
+
+  describe("slots", () => {
+    test("should render controls slot (name)", async () => {
+      const expectedSlotValue = "Slot Content";
+      const expectedSlot = `<div class="slot">${expectedSlotValue}</div>`;
+
+      const wrapper = mount(Guide, {
+        slots: {
+          controls: expectedSlot,
+        },
+      });
+
+      await vi.dynamicImportSettled();
+
+      const slot = wrapper.find(".slot");
+      const isSlotExists = slot.exists();
+
+      const slotValue = slot.text();
+
+      expect(isSlotExists).toBeTruthy();
+      expect(slotValue).toBe(expectedSlotValue);
+      expect(slotValue).toMatchInlineSnapshot(`"Slot Content"`);
     });
   });
 });
