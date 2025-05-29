@@ -23,27 +23,26 @@ const defaultProps = (): Props => ({
   },
 });
 
-const defineStory = (): Story => {
-  return {
-    args: defaultProps(),
-    render: (args) => ({
-      components: { StoryResizeBounding, StoryPropField, StoryValuesContainer },
-      setup() {
-        const width = ref(320);
-        const height = ref(240);
+const TouchAction: Story = {
+  args: defaultProps(),
+  render: (args) => ({
+    components: { StoryResizeBounding, StoryPropField, StoryValuesContainer },
+    setup() {
+      const width = ref(320);
+      const height = ref(240);
 
-        const touchActions = ref(args.options?.touchActions);
+      const touchActions = ref(args.options?.touchActions);
 
-        watch(
-          () => args.options?.touchActions,
-          (newValue) => {
-            touchActions.value = newValue;
-          }
-        );
+      watch(
+        () => args.options?.touchActions,
+        (newValue) => {
+          touchActions.value = newValue;
+        }
+      );
 
-        return { width, height, args, touchActions };
-      },
-      template: `
+      return { width, height, args, touchActions };
+    },
+    template: `
     <StoryValuesContainer>
       <StoryPropField
         description="Enable touch actions (mobile/tablet devices):"
@@ -66,10 +65,7 @@ const defineStory = (): Story => {
       @update:height="(value) => { height = value; }"
       "/>
   `,
-    }),
-  };
+  }),
 };
 
-export const Show = defineStory();
-
-Show.storyName = "touchActions";
+TouchAction.storyName = "touchActions";

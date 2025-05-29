@@ -43,6 +43,7 @@ const defineStory = (styles: IStyle, component: Component): Story => {
       template: `
     <StoryValuesContainer>
       <StoryPropField
+        description="Slot for customizing the contents of the knob"
         name="slot"
         value="#knob"/>
     </StoryValuesContainer>

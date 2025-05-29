@@ -6,11 +6,9 @@ import type { IStyle } from "../../../lib/shared/typings";
 import StoryResizeBounding from "../../components/StoryResizeBounding";
 import StoryPropField from "../../components/StoryPropField";
 import StoryValuesContainer from "../../components/StoryValuesContainer";
-import StoryResizeBoundingKnobIconDots from "../../components/icons/StoryResizeBoundingKnobIconDots";
-import StoryResizeBoundingKnobIconLines from "../../components/icons/StoryResizeBoundingKnobIconLines";
 
 const meta = {
-  title: "Props/knob",
+  title: "Props/styles/knob/size",
   component: StoryResizeBounding,
   tags: ["autodocs"],
   argTypes: {},
@@ -19,10 +17,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const defineStory = (
-  styles: IStyle,
-  component: () => React.JSX.Element
-): Story => {
+const defineStory = (styles: IStyle): Story => {
   return {
     args: {
       styles: {
@@ -40,13 +35,14 @@ const defineStory = (
       const updateHeight = (height: number) => {
         setHeight(height);
       };
+
       return (
         <>
           <StoryValuesContainer>
             <StoryPropField
-              description="Slot for customizing the contents of the knob"
-              name="slot"
-              value={"#knob"}
+              description="Set a knob color in active state:"
+              name="background"
+              value={JSON.stringify(args.styles?.knob)}
             ></StoryPropField>
           </StoryValuesContainer>
           <StoryResizeBounding
@@ -59,11 +55,12 @@ const defineStory = (
             minHeight={128}
             maxHeight={512}
             options={{
+              splitterWidthNormal: args.options?.splitterWidthNormal,
               knob: {
                 show: true,
               },
             }}
-            knob={component()}
+            styles={args.styles}
             updateWidth={updateWidth}
             updateHeight={updateHeight}
           />
@@ -73,20 +70,20 @@ const defineStory = (
   };
 };
 
-export const IconEllipsis: Story = defineStory(
-  {
-    width: "44px",
-    height: "14px",
-    borderRadius: "12px",
-  },
-  StoryResizeBoundingKnobIconDots
-);
+export const Small: Story = defineStory({
+  width: "36px",
+  height: "3px",
+  borderRadius: "2px",
+});
 
-export const IconSeparator: Story = defineStory(
-  {
-    width: "36px",
-    height: "8px",
-    borderRadius: "6px",
-  },
-  StoryResizeBoundingKnobIconLines
-);
+export const Medium: Story = defineStory({
+  width: "48px",
+  height: "6px",
+  borderRadius: "3px",
+});
+
+export const Bold: Story = defineStory({
+  width: "64px",
+  height: "8px",
+  borderRadius: "4px",
+});

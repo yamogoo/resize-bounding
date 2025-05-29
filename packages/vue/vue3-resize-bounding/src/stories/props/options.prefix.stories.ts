@@ -48,7 +48,7 @@ const defineStory = (): Story => {
       template: `
     <StoryValuesContainer>
       <StoryPropField
-        description="Set element class name prefix:"
+        description="Set element class names prefix:"
         name="prefix"
         :value="prefix"/>
     </StoryValuesContainer>

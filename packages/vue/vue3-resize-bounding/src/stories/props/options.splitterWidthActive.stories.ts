@@ -62,7 +62,7 @@ const defineStory = (
       <StoryValuesContainer>
         <StoryPropField
         description="Pane width separately for normal and active states"
-        name="width"
+        name="splitterWidthNormal"
         :value="splitterWidthNormal"/>
         <StoryPropField
         name="splitterWidthActive"

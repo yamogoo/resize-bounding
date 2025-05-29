@@ -6,11 +6,9 @@ import type { IStyle } from "../../../lib/shared/typings";
 import StoryResizeBounding from "../../components/StoryResizeBounding";
 import StoryPropField from "../../components/StoryPropField";
 import StoryValuesContainer from "../../components/StoryValuesContainer";
-import StoryResizeBoundingKnobIconDots from "../../components/icons/StoryResizeBoundingKnobIconDots";
-import StoryResizeBoundingKnobIconLines from "../../components/icons/StoryResizeBoundingKnobIconLines";
 
 const meta = {
-  title: "Props/knob",
+  title: "Props/styles/knob/colorActive",
   component: StoryResizeBounding,
   tags: ["autodocs"],
   argTypes: {},
@@ -19,14 +17,17 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const defineStory = (
-  styles: IStyle,
-  component: () => React.JSX.Element
-): Story => {
+const defineStory = (styles: IStyle): Story => {
+  const { background } = styles as { background: string };
+
   return {
     args: {
       styles: {
-        knob: styles,
+        knob: {
+          [".resize-bounding__pane.active &"]: {
+            background: background,
+          },
+        },
       },
     },
     render: (args) => {
@@ -40,13 +41,14 @@ const defineStory = (
       const updateHeight = (height: number) => {
         setHeight(height);
       };
+
       return (
         <>
           <StoryValuesContainer>
             <StoryPropField
-              description="Slot for customizing the contents of the knob"
-              name="slot"
-              value={"#knob"}
+              description="Set a knob color in active state:"
+              name="background"
+              value={background}
             ></StoryPropField>
           </StoryValuesContainer>
           <StoryResizeBounding
@@ -59,11 +61,12 @@ const defineStory = (
             minHeight={128}
             maxHeight={512}
             options={{
+              splitterWidthNormal: args.options?.splitterWidthNormal,
               knob: {
                 show: true,
               },
             }}
-            knob={component()}
+            styles={args.styles}
             updateWidth={updateWidth}
             updateHeight={updateHeight}
           />
@@ -73,20 +76,22 @@ const defineStory = (
   };
 };
 
-export const IconEllipsis: Story = defineStory(
-  {
-    width: "44px",
-    height: "14px",
-    borderRadius: "12px",
-  },
-  StoryResizeBoundingKnobIconDots
-);
+export const Gray: Story = defineStory({
+  background: "gray",
+});
 
-export const IconSeparator: Story = defineStory(
-  {
-    width: "36px",
-    height: "8px",
-    borderRadius: "6px",
-  },
-  StoryResizeBoundingKnobIconLines
-);
+export const Red: Story = defineStory({
+  background: "red",
+});
+
+export const Green: Story = defineStory({
+  background: "#12e767",
+});
+
+export const Blue: Story = defineStory({
+  background: "cornflowerblue",
+});
+
+export const Violet: Story = defineStory({
+  background: "violet",
+});

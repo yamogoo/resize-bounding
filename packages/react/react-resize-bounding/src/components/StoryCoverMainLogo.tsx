@@ -2,9 +2,13 @@ import React from "react";
 
 import "./StoryCoverMainLogo.scss";
 
-const StoryCoverMainLogo = () => {
+export interface Props {
+  [key: string]: unknown;
+}
+
+const StoryCoverMainLogo = (props) => {
   return (
-    <div className="main-logo">
+    <div className="main-logo" {...props}>
       <div className="main-logo__image">
         <svg
           width="24"

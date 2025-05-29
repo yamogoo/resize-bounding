@@ -5,14 +5,20 @@ import "./StoryVersionBadge.scss";
 export interface Props {
   label: string;
   value: string;
-  className: string;
+  className?: string;
+  dataTestid?: string;
 }
 
 const StoryVersionBadge = (props: Props) => {
-  const { label, value } = props;
+  const {
+    label,
+    value,
+    dataTestid = "ui-badge",
+    className = "ui-badge",
+  } = props;
 
   return (
-    <div className="ui-badge" data-testid="ui-badge">
+    <div className={className} data-testid={dataTestid}>
       <span className="ui-badge__label" data-testid="ui-badge-label">
         {label}
       </span>

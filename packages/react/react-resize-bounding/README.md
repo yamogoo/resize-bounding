@@ -1,12 +1,11 @@
 ![image](https://github.com/yamogoo/resize-bounding/blob/v.2.1.0/shared/images/resize-bounding-w-descriptor.svg)
+
 ![Version](https://img.shields.io/badge/version-1.1.0-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ![image](https://github.com/yamogoo/resize-bounding/blob/v.2.1.0/shared/images/resize-bounding.gif)
 
 **React Resize Bounding** is a simple, highly customizable React component that allows you to intuitively resize nested content using draggable border panels.
 
-|                                              |                                                                                                      |                                                                                                            |                                                                                                            |     |
-| -------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | --- |
 | [Demo](https://resize-bounding.netlify.app/) | [Documentation](https://react-resize-bounding-docs.netlify.app/?path=/story/sandbox-examples--cover) | [Example (Interactive Grid)](https://stackblitz.com/edit/react-resize-bounding-example?file=src%2FApp.vue) | [Repository](https://github.com/yamogoo/resize-bounding/tree/v.2.1.0/packages/react/react-resize-bounding) |
 
 ---

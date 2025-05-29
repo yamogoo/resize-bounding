@@ -9,38 +9,38 @@ DOMTokenList {
 
 exports[`ResizeBounding > classes > prefix > should have default prefix (%s) 1`] = `
 DOMTokenList {
-  "0": "resize-bounding-container",
-  "1": "resize-bounding-container-0",
+  "0": "resize-bounding__container",
+  "1": "resize-bounding__container-0",
 }
 `;
 
-exports[`ResizeBounding > components > Should not display any selected borders when set to "disabled" (--b) 1`] = `0`;
+exports[`ResizeBounding > elements > Should not display any selected borders when set to "disabled" (--b) 1`] = `0`;
 
-exports[`ResizeBounding > components > Should not display any selected borders when set to "disabled" (--h) 1`] = `0`;
+exports[`ResizeBounding > elements > Should not display any selected borders when set to "disabled" (--h) 1`] = `0`;
 
-exports[`ResizeBounding > components > Should not display any selected borders when set to "disabled" (--l) 1`] = `0`;
+exports[`ResizeBounding > elements > Should not display any selected borders when set to "disabled" (--l) 1`] = `0`;
 
-exports[`ResizeBounding > components > Should not display any selected borders when set to "disabled" (--r) 1`] = `0`;
+exports[`ResizeBounding > elements > Should not display any selected borders when set to "disabled" (--r) 1`] = `0`;
 
-exports[`ResizeBounding > components > Should not display any selected borders when set to "disabled" (--t) 1`] = `0`;
+exports[`ResizeBounding > elements > Should not display any selected borders when set to "disabled" (--t) 1`] = `0`;
 
-exports[`ResizeBounding > components > Should not display any selected borders when set to "disabled" (--v) 1`] = `0`;
+exports[`ResizeBounding > elements > Should not display any selected borders when set to "disabled" (--v) 1`] = `0`;
 
-exports[`ResizeBounding > components > should not render any pane element 1`] = `0`;
+exports[`ResizeBounding > elements > should not render any pane element 1`] = `0`;
 
-exports[`ResizeBounding > components > should not render any pane element 2`] = `0`;
+exports[`ResizeBounding > elements > should not render any pane element 2`] = `0`;
 
-exports[`ResizeBounding > components > should not render any pane element 3`] = `0`;
+exports[`ResizeBounding > elements > should not render any pane element 3`] = `0`;
 
-exports[`ResizeBounding > components > should render bl panes (panes computed value) 1`] = `2`;
+exports[`ResizeBounding > elements > should render bl panes (panes computed value) 1`] = `2`;
 
-exports[`ResizeBounding > components > should render bltr panes (panes computed value) 1`] = `4`;
+exports[`ResizeBounding > elements > should render bltr panes (panes computed value) 1`] = `4`;
 
-exports[`ResizeBounding > components > should render ltrb panes (panes computed value) 1`] = `4`;
+exports[`ResizeBounding > elements > should render ltrb panes (panes computed value) 1`] = `4`;
 
-exports[`ResizeBounding > components > should render rl panes (panes computed value) 1`] = `2`;
+exports[`ResizeBounding > elements > should render rl panes (panes computed value) 1`] = `2`;
 
-exports[`ResizeBounding > components > should render tr panes (panes computed value) 1`] = `2`;
+exports[`ResizeBounding > elements > should render tr panes (panes computed value) 1`] = `2`;
 
 exports[`ResizeBounding > events > drag > should emit the "dragStart -> dragMove -> dragEnd" event, which takes a direction argument "b" 1`] = `Promise {}`;
 

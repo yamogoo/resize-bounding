@@ -21,6 +21,7 @@ type Story = StoryObj<typeof meta>;
 
 const defineStory = (styles: IStyle): Story => {
   const { background } = styles as { background: string };
+
   return {
     args: {
       styles: {

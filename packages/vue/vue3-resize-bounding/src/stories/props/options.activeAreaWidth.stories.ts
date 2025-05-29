@@ -70,6 +70,6 @@ const defineStory = (): Story => {
   };
 };
 
-export const Show = defineStory();
+export const ActiveAreaWidth = defineStory();
 
-Show.storyName = "activeAreaWidth";
+ActiveAreaWidth.storyName = "activeAreaWidth";
