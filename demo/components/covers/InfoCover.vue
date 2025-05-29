@@ -21,6 +21,7 @@ const monorepoBlobUrl = import.meta.env.VITE_MONOREPO_BLOB_URL;
         :to="githubLink"
         :target="'_blank'"
         :name="githubLink"
+        :style="{ width: '100%' }"
       />
     </div>
     <div class="ui-main-info__footer">
@@ -62,6 +63,7 @@ const monorepoBlobUrl = import.meta.env.VITE_MONOREPO_BLOB_URL;
       justify-content: center;
       min-width: px2rem(map.get(map.get($layout, "info"), "minContentWidth"));
       max-width: px2rem(map.get(map.get($layout, "info"), "maxContentWidth"));
+      padding: 0 px2rem(map.get($spacing, "md"));
     }
 
     &__footer {

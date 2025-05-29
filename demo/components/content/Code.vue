@@ -63,6 +63,7 @@ const onCopy = (code: string | undefined) => {
   &-code {
     position: relative;
     width: 100%;
+    height: 100%;
 
     $line-height: map.get($codeBlock, "lineHeight");
     $tab-size: map.get($codeBlock, "tabSize");
@@ -70,6 +71,8 @@ const onCopy = (code: string | undefined) => {
     &__container {
       position: relative;
       width: 100%;
+      height: 100%;
+      min-height: 100%;
     }
 
     &__file-name {
@@ -104,6 +107,7 @@ const onCopy = (code: string | undefined) => {
     code[class*="language-"],
     pre[class*="language-"] {
       width: 100%;
+      min-height: 100%;
       background: none;
       font-family: map.get($font-family, "secondary");
       text-align: left;

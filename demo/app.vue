@@ -41,7 +41,7 @@ body {
   padding: 0;
   font-family: map.get($font-family, "primary");
   overflow: hidden;
-  @include box(100vw, 100vh);
+  @include box(100vw, 100dvh);
   @include themify($themes) {
     background-color: themed("background", "primary");
   }

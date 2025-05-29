@@ -76,6 +76,7 @@ export interface Props {
 
       .ui-link__name {
         @extend %t__#{$font-name};
+        word-break: break-all;
       }
     }
   }
@@ -84,6 +85,7 @@ export interface Props {
 .ui {
   &-link {
     text-decoration: none;
+    text-align: center;
     @include defineStyles();
 
     /* * * orientation * * */

@@ -35,6 +35,9 @@ export interface Props {
 
 <template>
   <div class="ui-main-cover">
+    <div class="ui-main-cover__controls">
+      <slot name="controls"></slot>
+    </div>
     <div class="ui-main-cover__body">
       <GProvider
         :show="isMounted"
@@ -214,6 +217,12 @@ export interface Props {
       color: themed("label", "secondary");
     }
     @extend %base-transition;
+  }
+
+  &__controls {
+    position: absolute;
+    top: px2rem(map.get($spacing, "md"));
+    right: px2rem(map.get($spacing, "md"));
   }
 }
 </style>
