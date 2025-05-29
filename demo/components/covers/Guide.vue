@@ -1,12 +1,4 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { storeToRefs } from "pinia";
-
-import { useConfigStore } from "@/stores/config";
-
-import type { Theme } from "@/shared/types";
-
-import Switch from "@/components/controls/Switch.vue";
 import BaseLink from "@/components/controls/BaseLink.vue";
 import BoxedLink from "@/components/controls/BoxedLink.vue";
 
@@ -14,28 +6,11 @@ withDefaults(defineProps<Props>(), {
   title: "Install",
 });
 
-const { currentTheme } = storeToRefs(useConfigStore());
-const { setTheme } = useConfigStore();
-
 const onCopy = (name: string | undefined): void => {
   if (name) navigator.clipboard.writeText(name);
 };
 
 const figmaUrl = import.meta.env.VITE_FIGMA_URL;
-
-const colorMode = computed({
-  get() {
-    return currentTheme.value === "light";
-  },
-  set(value: Theme) {
-    setTheme(value);
-    return value;
-  },
-});
-
-const onChangeTheme = () => {
-  colorMode.value = currentTheme.value === "light" ? "dark" : "light";
-};
 </script>
 
 <script lang="ts">
@@ -52,13 +27,8 @@ export interface Props {
 
 <template>
   <div class="ui-main-guide">
-    <div class="ui-main-guide__theme-switch">
-      <Switch
-        data-testid="theme-switch"
-        :state="colorMode"
-        aria-label="change-theme"
-        @update:state="onChangeTheme"
-      />
+    <div class="ui-main-guide__controls">
+      <slot name="controls"></slot>
     </div>
     <h3 class="ui-main-guide__title">
       {{ title }}
@@ -93,7 +63,14 @@ export interface Props {
     display: flex;
     @include flex-col(center);
     @include box(100%);
-    padding: px2rem(map.get($spacing, "xxl"));
+
+    @include respond-above("md") {
+      padding: px2rem(map.get($spacing, "xxl"));
+    }
+
+    @include respond-below("md") {
+      padding: px2rem(map.get($spacing, "sm"));
+    }
 
     .ui-main-guide__title {
       @extend %t__body__1;
@@ -106,7 +83,7 @@ export interface Props {
       }
     }
 
-    &__theme-switch {
+    &__controls {
       position: absolute;
       top: px2rem(map.get($spacing, "md"));
       right: px2rem(map.get($spacing, "md"));

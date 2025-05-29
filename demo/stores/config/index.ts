@@ -16,6 +16,7 @@ export const useConfigStore = defineStore("config", () => {
     theme: currentTheme,
     isSystemThemeEnabled,
     setTheme,
+    toggleTheme,
     setIsSystemThemeEnabled,
   } = useTheme(DEFAULT_THEME ?? "dark", { selector: "html" });
 
@@ -31,6 +32,7 @@ export const useConfigStore = defineStore("config", () => {
     currentTheme,
     isSystemThemeEnabled,
     setTheme,
+    toggleTheme,
     setIsSystemThemeEnabled,
     getSid,
     currentPackageVersion,

@@ -4,7 +4,14 @@
     "borderRadius": 1
   },
   "mainContainer": {
-    "padding": "{tokens.spacing.xs}",
+    "respond": {
+      "mobile": {
+        "padding": "{tokens.spacing.xxs}"
+      },
+      "desktop": {
+        "padding": "{tokens.spacing.xs}"
+      }
+    },
     "roundness": "{tokens.roundness.md}"
   },
   "blockContainer": {
@@ -23,6 +30,8 @@
     },
     "cover": {
       "width": 420,
+      "height": "",
+      "minHeight": 0,
       "minWidth": 360,
       "maxWidth": 960,
       "respond": {

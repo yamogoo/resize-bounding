@@ -149,7 +149,6 @@ interface ExtendedTabbarItem extends TabbarItem<string> {
 
       &-content {
         width: 100%;
-        margin: auto;
       }
     }
 

@@ -1,5 +1,7 @@
-import { ref, type Ref } from "vue";
+import { computed, ref, type Ref } from "vue";
 import { defineStore } from "pinia";
+
+import tokens from "@/tokens";
 
 import type { ISize } from "@/shared/types";
 
@@ -13,8 +15,23 @@ export const useLayoutStore = defineStore("layout-store", () => {
     appSize.value = size;
   };
 
+  const layoutType = computed(() => {
+    if (appSize.value.width < tokens.breakpoints.md) return "mobile";
+
+    return "desktop";
+  });
+
+  const isTabletLayout = computed(() => {
+    return (
+      appSize.value.width >= tokens.breakpoints.md &&
+      appSize.value.width < tokens.breakpoints.lg
+    );
+  });
+
   return {
     appSize,
     setAppSize,
+    layoutType,
+    isTabletLayout,
   };
 });

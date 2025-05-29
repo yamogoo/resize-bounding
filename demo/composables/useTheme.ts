@@ -57,6 +57,10 @@ export const useTheme = (
     theme.value = _theme;
   };
 
+  const toggleTheme = (): void => {
+    return theme.value === "light" ? setTheme("dark") : setTheme("light");
+  };
+
   const setIsSystemThemeEnabled = (isEnabled: boolean) =>
     (isSystemThemeEnabled.value = isEnabled);
 
@@ -98,6 +102,7 @@ export const useTheme = (
   return {
     theme,
     setTheme,
+    toggleTheme,
     localTheme,
     localSystemTheme,
     isSystemThemeEnabled,
