@@ -42,12 +42,12 @@ export interface Props extends PropsWithChildren {
 
 const checkIsHorizontal = (direction: string): boolean =>
   new RegExp(
-    `[${PaneDirections.LEFT} | ${PaneDirections.RIGHT} | ${PaneDirectionAliases.HORIZONTAL}]`
+    `[${PaneDirections.LEFT} | ${PaneDirections.RIGHT} | ${PaneDirectionAliases.HORIZONTAL}]`,
   ).test(direction);
 
 const checkIsVertical = (direction: string): boolean =>
   new RegExp(
-    `[${PaneDirections.TOP} | ${PaneDirections.BOTTOM} | ${PaneDirectionAliases.VERTICAL}]`
+    `[${PaneDirections.TOP} | ${PaneDirections.BOTTOM} | ${PaneDirectionAliases.VERTICAL}]`,
   ).test(direction);
 
 const ResizeBoundingPane = ({
@@ -72,12 +72,11 @@ const ResizeBoundingPane = ({
     const _width = splitterWidth ?? 1;
 
     if (refPane && _width) {
-      const _areaWidth =
-        options.activeAreaWidth ?? options.splitterWidthNormal ?? 1;
+      const _areaWidth = options.activeAreaWidth ?? _width;
       const _styles = paneBaseStyles(
         _width,
         _areaWidth,
-        options?.position ?? "central"
+        options?.position ?? "central",
       );
       const value: CSSProperties = _styles[direction as PaneDirections];
       return value;

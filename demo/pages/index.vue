@@ -113,11 +113,7 @@ onUnmounted(() => {
                     :height="layoutSize.height - (layout.info.height ?? 0)"
                   />
                 </template>
-                <MainCover
-                  title="Resize Bounding"
-                  :vue-version="runtimeConfig.public.productVueVersion"
-                  :react-version="runtimeConfig.public.productReactVersion"
-                />
+                <MainCover title="Resize Bounding" />
               </BlockContainer>
             </ResizeBounding>
             <BlockContainer class="intro-block">

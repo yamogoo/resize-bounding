@@ -21,7 +21,7 @@ const defineStory = (_position: SplitterPosition): Story => {
   return {
     args: {
       options: {
-        width: 32,
+        splitterWidthNormal: 32,
         position: _position,
       },
     },
@@ -31,11 +31,11 @@ const defineStory = (_position: SplitterPosition): Story => {
         const width = ref(320);
         const height = ref(240);
 
-        const splitterWidthNormal = ref(args.options?.width);
+        const splitterWidthNormal = ref(args.options?.splitterWidthNormal);
         const position = ref(args.options?.position);
 
         watch(
-          () => args.options?.width,
+          () => args.options?.splitterWidthNormal,
           (newValue) => {
             splitterWidthNormal.value = newValue;
           }
@@ -63,8 +63,8 @@ const defineStory = (_position: SplitterPosition): Story => {
       :width="width"
       :height="height"
       :options="{
-        splitterWidthNormal: splitterWidthNormal,
-        position: position,
+        splitterWidthNormal,
+        position,
         knob: {
           show: true,
         }
@@ -75,10 +75,10 @@ const defineStory = (_position: SplitterPosition): Story => {
           borderRadius: '3px',
         }
       }"
-      minWidth="128"
-      maxWidth="512"
-      minHeight="128"
-      maxHeight="512"
+      :minWidth="128"
+      :maxWidth="512"
+      :minHeight="128"
+      :maxHeight="512"
       @update:width="(value) => { width = value; }"
       @update:height="(value) => { height = value; }"
       "/>

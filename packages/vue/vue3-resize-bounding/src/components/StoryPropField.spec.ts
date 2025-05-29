@@ -74,9 +74,14 @@ describe("StoryPropField", () => {
     });
 
     test("should render separator", () => {
+      const expectedNameValue = "Some Name";
+      const expectedValue = "Some Value";
       const expectedSeparatorValue = "Some Separator";
+
       const wrapper = shallowMount(StoryPropField, {
         props: {
+          name: expectedNameValue,
+          value: expectedValue,
           separator: expectedSeparatorValue,
         },
       });

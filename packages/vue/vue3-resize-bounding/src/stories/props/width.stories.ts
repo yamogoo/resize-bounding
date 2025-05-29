@@ -48,7 +48,7 @@ export const Width: Story = {
       directions="r"
       :width="width"
       :minWidth="128"
-      height="240"
+      :height="240"
       @update:width="(value) => { width = value; } "/>
   `,
   }),
