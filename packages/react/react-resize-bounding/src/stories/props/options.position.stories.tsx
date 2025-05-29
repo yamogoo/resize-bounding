@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import type { IStyle } from "../../../lib/shared/typings";
+import { SplitterPosition } from "../../../lib/shared/typings";
 
 import StoryResizeBounding from "../../components/StoryResizeBounding";
 import StoryPropField from "../../components/StoryPropField";
 import StoryValuesContainer from "../../components/StoryValuesContainer";
-import StoryResizeBoundingKnobIconDots from "../../components/icons/StoryResizeBoundingKnobIconDots";
-import StoryResizeBoundingKnobIconLines from "../../components/icons/StoryResizeBoundingKnobIconLines";
 
 const meta = {
-  title: "Props/knob",
+  title: "Props/options/position",
   component: StoryResizeBounding,
   tags: ["autodocs"],
   argTypes: {},
@@ -19,14 +17,12 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const defineStory = (
-  styles: IStyle,
-  component: () => React.JSX.Element
-): Story => {
+const defineStory = (position: SplitterPosition): Story => {
   return {
     args: {
-      styles: {
-        knob: styles,
+      options: {
+        position,
+        splitterWidthNormal: 32,
       },
     },
     render: (args) => {
@@ -44,9 +40,9 @@ const defineStory = (
         <>
           <StoryValuesContainer>
             <StoryPropField
-              description="Slot for customizing the contents of the knob"
-              name="slot"
-              value={"#knob"}
+              description="Set pisition of a splitters inside the root container (internal, central, external):"
+              name="position"
+              value={args.options?.position}
             ></StoryPropField>
           </StoryValuesContainer>
           <StoryResizeBounding
@@ -59,11 +55,12 @@ const defineStory = (
             minHeight={128}
             maxHeight={512}
             options={{
+              splitterWidthNormal: args.options?.splitterWidthNormal,
+              position: args.options?.position,
               knob: {
                 show: true,
               },
             }}
-            knob={component()}
             updateWidth={updateWidth}
             updateHeight={updateHeight}
           />
@@ -73,20 +70,6 @@ const defineStory = (
   };
 };
 
-export const IconEllipsis: Story = defineStory(
-  {
-    width: "44px",
-    height: "14px",
-    borderRadius: "12px",
-  },
-  StoryResizeBoundingKnobIconDots
-);
-
-export const IconSeparator: Story = defineStory(
-  {
-    width: "36px",
-    height: "8px",
-    borderRadius: "6px",
-  },
-  StoryResizeBoundingKnobIconLines
-);
+export const Central: Story = defineStory("central");
+export const External: Story = defineStory("external");
+export const Internal: Story = defineStory("internal");

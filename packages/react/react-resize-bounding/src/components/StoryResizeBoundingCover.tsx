@@ -14,11 +14,12 @@ const StoryResizeBoundingCover = () => {
     <div className="resize-bounding-cover">
       <div className="resize-bounding-cover__container">
         <div className="resize-bounding-cover__logo">
-          <StoryCoverMainLogo></StoryCoverMainLogo>
+          <StoryCoverMainLogo data-testid="resize-bounding-cover__logo"></StoryCoverMainLogo>
           <p className="resize-bounding-cover__text">REACT</p>
         </div>
         <StoryVersionBadge
           className="resize-bounding-cover__version-badge"
+          dataTestid="resize-bounding-cover__badge"
           label="version"
           value={VERSION}
         ></StoryVersionBadge>

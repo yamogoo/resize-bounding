@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import colors from "../../tokens/colors.json";
+
 import type { IStyle } from "../../../lib/shared/typings";
 
 import StoryResizeBounding from "../../components/StoryResizeBounding";
 import StoryPropField from "../../components/StoryPropField";
 import StoryValuesContainer from "../../components/StoryValuesContainer";
-import StoryResizeBoundingKnobIconDots from "../../components/icons/StoryResizeBoundingKnobIconDots";
-import StoryResizeBoundingKnobIconLines from "../../components/icons/StoryResizeBoundingKnobIconLines";
 
 const meta = {
-  title: "Props/knob",
+  title: "Props/styles/splitter/color.active",
   component: StoryResizeBounding,
   tags: ["autodocs"],
   argTypes: {},
@@ -19,14 +19,27 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const defineStory = (
-  styles: IStyle,
-  component: () => React.JSX.Element
-): Story => {
+const defineStory = (styles: IStyle): Story => {
+  const { background } = styles as { background: string };
+
   return {
     args: {
       styles: {
-        knob: styles,
+        splitter: {
+          background: "lightgray",
+          [".resize-bounding__pane.active &"]: {
+            background: background,
+          },
+        },
+        knob: {
+          height: "8px",
+          boxSizing: "content-box",
+          border: "2px solid white",
+          borderRadius: "8px",
+          [".resize-bounding__pane.active &"]: {
+            background: background,
+          },
+        },
       },
     },
     render: (args) => {
@@ -44,9 +57,9 @@ const defineStory = (
         <>
           <StoryValuesContainer>
             <StoryPropField
-              description="Slot for customizing the contents of the knob"
-              name="slot"
-              value={"#knob"}
+              description="Set splitter (pane) color in active state:"
+              name="styles"
+              value={JSON.stringify(args.styles)}
             ></StoryPropField>
           </StoryValuesContainer>
           <StoryResizeBounding
@@ -59,11 +72,13 @@ const defineStory = (
             minHeight={128}
             maxHeight={512}
             options={{
+              splitterWidthNormal: 1,
+              splitterWidthActive: 8,
               knob: {
                 show: true,
               },
             }}
-            knob={component()}
+            styles={args.styles}
             updateWidth={updateWidth}
             updateHeight={updateHeight}
           />
@@ -73,20 +88,22 @@ const defineStory = (
   };
 };
 
-export const IconEllipsis: Story = defineStory(
-  {
-    width: "44px",
-    height: "14px",
-    borderRadius: "12px",
-  },
-  StoryResizeBoundingKnobIconDots
-);
+export const Gray: Story = defineStory({
+  background: colors.gray,
+});
 
-export const IconSeparator: Story = defineStory(
-  {
-    width: "36px",
-    height: "8px",
-    borderRadius: "6px",
-  },
-  StoryResizeBoundingKnobIconLines
-);
+export const Red: Story = defineStory({
+  background: colors.red,
+});
+
+export const Green: Story = defineStory({
+  background: colors.green,
+});
+
+export const Blue: Story = defineStory({
+  background: colors.blue,
+});
+
+export const Violet: Story = defineStory({
+  background: colors.violet,
+});

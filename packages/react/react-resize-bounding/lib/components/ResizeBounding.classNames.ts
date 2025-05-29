@@ -5,7 +5,7 @@ import type {
   Options,
 } from "../shared/typings";
 
-export const PREFIX = "resize-bounding-";
+export const PREFIX = "resize-bounding__";
 
 export const defaultOptions: Options = {
   prefix: PREFIX,

@@ -112,7 +112,7 @@ exports[`ResizeBoundingPane > options > knob > pane (--t) should rotated to (0 d
 
 exports[`ResizeBoundingPane > options > knob > should always show knob 1`] = `
 <div
-  class="resize-bounding-knob resize-bounding-knob-4"
+  class="resize-bounding__knob resize-bounding__knob-4"
   data-testid="resize-bounding-knob"
 />
 `;

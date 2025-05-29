@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import type { IStyle } from "../../../lib/shared/typings";
-
 import StoryResizeBounding from "../../components/StoryResizeBounding";
 import StoryPropField from "../../components/StoryPropField";
 import StoryValuesContainer from "../../components/StoryValuesContainer";
-import StoryResizeBoundingKnobIconDots from "../../components/icons/StoryResizeBoundingKnobIconDots";
-import StoryResizeBoundingKnobIconLines from "../../components/icons/StoryResizeBoundingKnobIconLines";
 
 const meta = {
-  title: "Props/knob",
+  title: "Props/options/splitterWidthNormal",
   component: StoryResizeBounding,
   tags: ["autodocs"],
   argTypes: {},
@@ -19,14 +15,11 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const defineStory = (
-  styles: IStyle,
-  component: () => React.JSX.Element
-): Story => {
+const defineStory = (paneWidthNormal: number): Story => {
   return {
     args: {
-      styles: {
-        knob: styles,
+      options: {
+        splitterWidthNormal: paneWidthNormal,
       },
     },
     render: (args) => {
@@ -44,9 +37,13 @@ const defineStory = (
         <>
           <StoryValuesContainer>
             <StoryPropField
-              description="Slot for customizing the contents of the knob"
-              name="slot"
-              value={"#knob"}
+              description="Pane width for both normal and active states"
+              name="splitterWidthNormal"
+              value={args.options?.splitterWidthNormal}
+            ></StoryPropField>
+            <StoryPropField
+              name="splitterWidthActive"
+              value={args.options?.splitterWidthNormal}
             ></StoryPropField>
           </StoryValuesContainer>
           <StoryResizeBounding
@@ -59,11 +56,11 @@ const defineStory = (
             minHeight={128}
             maxHeight={512}
             options={{
+              splitterWidthNormal: args.options?.splitterWidthNormal,
               knob: {
                 show: true,
               },
             }}
-            knob={component()}
             updateWidth={updateWidth}
             updateHeight={updateHeight}
           />
@@ -73,20 +70,7 @@ const defineStory = (
   };
 };
 
-export const IconEllipsis: Story = defineStory(
-  {
-    width: "44px",
-    height: "14px",
-    borderRadius: "12px",
-  },
-  StoryResizeBoundingKnobIconDots
-);
-
-export const IconSeparator: Story = defineStory(
-  {
-    width: "36px",
-    height: "8px",
-    borderRadius: "6px",
-  },
-  StoryResizeBoundingKnobIconLines
-);
+export const Thin: Story = defineStory(2);
+export const Regular: Story = defineStory(4);
+export const Bold: Story = defineStory(8);
+export const ExtraBold: Story = defineStory(12);

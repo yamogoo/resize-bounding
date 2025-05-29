@@ -37,7 +37,7 @@ describe("ResizeBounding", () => {
     cleanup();
   });
 
-  describe("components", () => {
+  describe("elements", () => {
     test.each([
       ...Object.values(PaneDirections),
       ...Object.values(PaneDirectionAliases),
@@ -45,46 +45,46 @@ describe("ResizeBounding", () => {
       `Should not display any selected borders when set to "disabled" (--%s)`,
       async (direction) => {
         const { container } = render(
-          <ResizeBounding directions={direction} disabled={true} />,
+          <ResizeBounding directions={direction} disabled={true} />
         );
 
         const paneEl = container.querySelectorAll(
-          `[data-testid="${DataTestIds.PANE}"]`,
+          `[data-testid="${DataTestIds.PANE}"]`
         );
 
         expect(paneEl.length).toBe(0);
         expect(paneEl.length).toMatchSnapshot();
-      },
+      }
     );
 
     test.each(["rl", "ltrb", "bltr", "bl", "tr"])(
       "should render %s panes (panes computed value)",
       (directions) => {
         const { container } = render(
-          <ResizeBounding directions={directions} />,
+          <ResizeBounding directions={directions} />
         );
 
         const panEls = container.querySelectorAll(
-          `[data-testid="${DataTestIds.PANE}"]`,
+          `[data-testid="${DataTestIds.PANE}"]`
         );
         expect(panEls.length).toBe(directions.length);
         expect(panEls.length).toMatchSnapshot();
-      },
+      }
     );
 
     test.each(["sd", "wo", ""])(
       "should not render any pane element",
       (directions) => {
         const { container } = render(
-          <ResizeBounding directions={directions} />,
+          <ResizeBounding directions={directions} />
         );
 
         const panEls = container.querySelectorAll(
-          `[data-testid="${DataTestIds.PANE}"]`,
+          `[data-testid="${DataTestIds.PANE}"]`
         );
         expect(panEls.length).toBe(0);
         expect(panEls.length).toMatchSnapshot();
-      },
+      }
     );
   });
 
@@ -99,7 +99,7 @@ describe("ResizeBounding", () => {
         const slotText = screen.getByTestId(DataTestIds.ROOT).textContent;
         expect(slotText).toContain(SLOT_CONTENT);
         expect(slotText).toMatchSnapshot();
-      },
+      }
     );
 
     test.each([<p>knob</p>])("should render default slot", (slot) => {
@@ -112,11 +112,11 @@ describe("ResizeBounding", () => {
             },
           }}
           knob={slot}
-        />,
+        />
       );
 
       const text = container.querySelector(
-        `[data-testid="${DataTestIds.KNOB}"]`,
+        `[data-testid="${DataTestIds.KNOB}"]`
       )?.textContent;
 
       expect(text).toBe("knob");
@@ -159,7 +159,7 @@ describe("ResizeBounding", () => {
             node: HTMLElement,
             eventName: string,
             eventData: { clientX: number; clientY: number },
-            callback: (data: PaneEmittedData) => void,
+            callback: (data: PaneEmittedData) => void
           ) => {
             const ev = createEvent[eventName](node, eventData);
             fireEvent(node, ev);
@@ -174,25 +174,25 @@ describe("ResizeBounding", () => {
             paneEl,
             "pointerDown",
             { clientX: 1, clientY: 1 },
-            props.dragStart,
+            props.dragStart
           );
 
           checkEvent(
             paneEl,
             "pointerMove",
             { clientX: 2, clientY: 2 },
-            props.dragMove,
+            props.dragMove
           );
 
           const callback = checkEvent(
             paneEl,
             "pointerUp",
             { clientX: 3, clientY: 3 },
-            props.dragEnd,
+            props.dragEnd
           );
 
           expect(callback).toMatchSnapshot();
-        },
+        }
       );
 
       test.each([
@@ -225,7 +225,7 @@ describe("ResizeBounding", () => {
 
             expect(props.dragStart).toHaveBeenCalledWith(_d);
           });
-        },
+        }
       );
     });
   });
@@ -244,7 +244,7 @@ describe("ResizeBounding", () => {
           expect(styles).toContain("display: flex");
           expect(styles).toContain("background: blue");
           expect(styles).toMatchSnapshot();
-        },
+        }
       );
     });
   });
