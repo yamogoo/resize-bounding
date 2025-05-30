@@ -2,17 +2,21 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import { storeToRefs } from "pinia";
 
+import { useLocaleStore } from "@/stores/locale";
+import { useConfigStore } from "@/stores/config";
+
 import GProvider from "@/components/transition/GProvider.vue";
 import Badge from "@/components/badges/Badge.vue";
 import MainLogo from "@/components/logos/MainLogo.vue";
-
-import { useConfigStore } from "@/stores/config";
-
-const { currentPackageVersion } = storeToRefs(useConfigStore());
+import ControlsHeader from "@/components/container/ControlsHeader.vue";
 
 withDefaults(defineProps<Props>(), {
   isDateShown: false,
 });
+
+const { $t } = storeToRefs(useLocaleStore());
+
+const { currentPackageVersion } = storeToRefs(useConfigStore());
 
 const isMounted = ref(false);
 
@@ -35,9 +39,9 @@ export interface Props {
 
 <template>
   <div class="ui-main-cover">
-    <div class="ui-main-cover__controls">
+    <ControlsHeader class="ui-main-cover__controls">
       <slot name="controls"></slot>
-    </div>
+    </ControlsHeader>
     <div class="ui-main-cover__body">
       <GProvider
         :show="isMounted"
@@ -83,7 +87,10 @@ export interface Props {
         :alignment="'center'"
         data-testid="ui-main-cover-footer"
       >
-        <Badge :label="'version'" :value="`${currentPackageVersion}`"></Badge>
+        <Badge
+          :label="`${$t['main-cover'].version}`"
+          :value="`${currentPackageVersion}`"
+        ></Badge>
         <span v-if="isDateShown" class="ui-main-cover__date">2024-2025</span>
       </div>
     </GProvider>
@@ -142,9 +149,6 @@ export interface Props {
 
   &__description {
     @extend %t__body__1;
-  }
-
-  &__description {
     text-align: center;
 
     @include themify($themes) {
@@ -221,8 +225,10 @@ export interface Props {
 
   &__controls {
     position: absolute;
-    top: px2rem(map.get($spacing, "md"));
-    right: px2rem(map.get($spacing, "md"));
+    top: 0;
+    left: 0;
+    right: 0;
+    justify-content: space-between;
   }
 }
 </style>

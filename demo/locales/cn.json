@@ -1,0 +1,22 @@
+{
+  "intro-cover": {
+    "title": "Resize Bounding 是一个简单、高度可定制的 Vue3 和 React 组件，允许您使用可拖动边框面板直观地调整嵌套内容的大小",
+    "description": "支持鼠标和触摸事件"
+  },
+  "main-cover": {
+    "version": "版本"
+  },
+  "setup-guide": {
+    "documentation-vue": "Vue3 文档",
+    "documentation-react": "React 文档"
+  },
+  "install-guide": {
+    "install": "安装"
+  },
+  "info-cover": {
+    "licensed-by": "该项目根据",
+    "license": "执照",
+    "author": "作者",
+    "author-name": "Mikhail Grebennikov"
+  }
+}

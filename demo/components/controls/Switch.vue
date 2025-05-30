@@ -126,6 +126,7 @@ export interface Props {
   align-items: center;
   cursor: pointer;
   box-sizing: border-box;
+  @include box(max-content);
 
   @include defineStyles();
 

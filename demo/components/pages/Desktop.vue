@@ -2,6 +2,7 @@
 import { ref, computed, watch } from "vue";
 import { storeToRefs } from "pinia";
 
+import { useLocaleStore } from "@/stores/locale";
 import { useLayoutStore } from "@/stores/layout";
 
 import tokens from "@/tokens";
@@ -10,16 +11,18 @@ import type { ISize } from "@/shared/types";
 
 import ResizeBounding from "@/components/container/ResizeBounding.vue";
 import BlockContainer from "@/components/container/BlockContainer.vue";
-import CoverGuide from "@/components/covers/Guide.vue";
+import InstallGuide from "@/components/covers/InstallGuide.vue";
 import MainCover from "@/components/covers/MainCover.vue";
 import IntroCover from "@/components/covers/IntroCover.vue";
 import InfoCover from "@/components/covers/InfoCover.vue";
 import SetupGuide from "@/components/covers/SetupGuide.vue";
 import SizeField from "@/components/controls/SizeField.vue";
 import ThemeSwitch from "@/components/controls/ThemeSwitch.vue";
+import LocaleMenu from "@/components/controls/LocaleMenu.vue";
 
 const props = defineProps<Props>();
 
+const { $t } = storeToRefs(useLocaleStore());
 const { isTabletLayout } = storeToRefs(useLayoutStore());
 
 const layout = ref({
@@ -27,7 +30,7 @@ const layout = ref({
 });
 
 watch(
-  () => [props.layoutSize, layout.value.cover],
+  () => [props.layoutSize, layout.value.cover, isTabletLayout],
   () => {
     const hFactor = props.layoutSize.width > tokens.breakpoints.lg ? 3 : 2;
 
@@ -95,8 +98,8 @@ export interface Props {
           />
         </template>
         <IntroCover
-          :title="'Supports Mouse & Touch Events'"
-          description="Resize Bounding is a simple, highly customizable Vue3 & React component that allows you to intuitively resize nested content using draggable border panels"
+          :title="`${$t['intro-cover'].title}`"
+          :description="`${$t['intro-cover'].title}`"
         />
       </BlockContainer>
       <ResizeBounding
@@ -123,7 +126,8 @@ export interface Props {
               :height="layoutSize.height - (layout.info.height ?? 0)"
             />
           </template>
-          <CoverGuide
+          <InstallGuide
+            :title="`${$t['install-guide'].install}`"
             :links="[
               { name: 'npm i vue3-resize-bounding' },
               { name: 'npm i react-resize-bounding' },
@@ -131,8 +135,9 @@ export interface Props {
           >
             <template #controls>
               <ThemeSwitch />
+              <LocaleMenu />
             </template>
-          </CoverGuide>
+          </InstallGuide>
         </BlockContainer>
       </ResizeBounding>
     </ResizeBounding>

@@ -85,6 +85,11 @@
       "icon-margin": "{tokens.spacing.xs}"
     }
   },
+  "options": {
+    "option": {
+      "minHeight": 24
+    }
+  },
   "switch": {
     "md": {
       "width": 40,

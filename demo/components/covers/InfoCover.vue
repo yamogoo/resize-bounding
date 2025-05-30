@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { useRuntimeConfig } from "#imports";
+import { storeToRefs, useRuntimeConfig } from "#imports";
+
+import { useLocaleStore } from "@/stores/locale";
 
 import BaseLink from "@/components/controls/BaseLink.vue";
 
 const runtimeConfig = useRuntimeConfig();
+
+const { $t } = storeToRefs(useLocaleStore());
 
 const authoGithubLInk = import.meta.env.VITE_AUTHOR_GITHUB_URL;
 const githubLink = import.meta.env.VITE_MONOREPO_URL;
@@ -26,20 +30,20 @@ const monorepoBlobUrl = import.meta.env.VITE_MONOREPO_BLOB_URL;
     </div>
     <div class="ui-main-info__footer">
       <p>
-        This project is licensed under the terms of the
+        {{ $t["info-cover"]["licensed-by"] }}
         <BaseLink
           data-testid="repo-link"
           :color="'accent'"
           :to="`${monorepoBlobUrl}v.${runtimeConfig.public.productVueVersion}/LICENSE`"
           :target="'_blank'"
         >
-          MIT license
+          MIT {{ $t["info-cover"]["license"] }}
         </BaseLink>
       </p>
       <p>
-        Author:
+        {{ $t["info-cover"]["author"] }}
         <BaseLink :color="'accent'" :to="authoGithubLInk" target="_blank">
-          {{ runtimeConfig.public.authorName }}
+          {{ $t["info-cover"]["author-name"] }}
         </BaseLink>
       </p>
     </div>
@@ -61,7 +65,7 @@ const monorepoBlobUrl = import.meta.env.VITE_MONOREPO_BLOB_URL;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-width: px2rem(map.get(map.get($layout, "info"), "minContentWidth"));
+      min-width: 100%;
       max-width: px2rem(map.get(map.get($layout, "info"), "maxContentWidth"));
       padding: 0 px2rem(map.get($spacing, "md"));
     }

@@ -1,7 +1,7 @@
 import { mount, VueWrapper } from "@vue/test-utils";
 import { setMatchMedia } from "~/vitest.setup";
 
-import Guide, { type LinkData, type Props } from "./Guide.vue";
+import InstallGuide, { type LinkData, type Props } from "./InstallGuide.vue";
 import { createPinia, setActivePinia } from "pinia";
 
 const getBoxedLink = <T>(wrapper: VueWrapper<T>) => {
@@ -27,7 +27,7 @@ const LINKS: Array<LinkData> = [
   },
 ];
 
-describe("Guide", () => {
+describe("InstallGuide", () => {
   const pinia = createPinia();
   setActivePinia(pinia);
 
@@ -37,7 +37,7 @@ describe("Guide", () => {
 
   describe("elements", () => {
     test("should render BoxedLink component(s)", () => {
-      const wrapper = mount(Guide, {
+      const wrapper = mount(InstallGuide, {
         props: { ...REQUIRED_PROPS, links: LINKS },
       });
 
@@ -47,7 +47,7 @@ describe("Guide", () => {
     });
 
     test("should render Figma link", () => {
-      const wrapper = mount(Guide, {
+      const wrapper = mount(InstallGuide, {
         props: { ...REQUIRED_PROPS, links: LINKS },
       });
 
@@ -61,7 +61,7 @@ describe("Guide", () => {
       const expectedSlotValue = "Slot Content";
       const expectedSlot = `<div class="slot">${expectedSlotValue}</div>`;
 
-      const wrapper = mount(Guide, {
+      const wrapper = mount(InstallGuide, {
         slots: {
           controls: expectedSlot,
         },

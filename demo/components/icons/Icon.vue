@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { NuxtIcon } from "#components";
+
 import tokens from "@/tokens";
 
 import BaseSkeleton from "@/components/skeleton/BaseSkeleton.vue";
-import { NuxtIcon } from "#components";
 
 withDefaults(defineProps<Props>(), {
   size: "md",
@@ -18,7 +19,8 @@ export type SymbolName =
   | "vue-logo"
   | "copy_outline_300"
   | "storybook-logo"
-  | "git";
+  | "git"
+  | "down_outline_400";
 
 export type SymbolColor =
   | "primary"
@@ -59,6 +61,7 @@ export interface Props {
   @each $size, $val in $map {
     &_#{$size} {
       @include box(px2rem(map.get($val, "size")));
+      @include minBox(px2rem(map.get($val, "size")));
     }
   }
 }
@@ -68,7 +71,13 @@ export interface Props {
   line-height: 0;
 
   .nuxt-icon {
+    display: block;
     @include box(100% !important);
+
+    svg {
+      display: block;
+      margin-bottom: 0;
+    }
   }
 
   svg {

@@ -1,0 +1,22 @@
+{
+  "intro-cover": {
+    "title": "Resize Bounding is a simple, highly customizable Vue3 & React component that allows you to intuitively resize nested content using draggable border panels",
+    "description": "Supports Mouse & Touch Events"
+  },
+  "main-cover": {
+    "version": "version"
+  },
+  "setup-guide": {
+    "documentation-vue": "Documentation for Vue3",
+    "documentation-react": "Documentation for React"
+  },
+  "install-guide": {
+    "install": "Install"
+  },
+  "info-cover": {
+    "licensed-by": "This project is licensed under the terms of the",
+    "license": "license",
+    "author": "Author",
+    "author-name": "Mikhail Grebennikov"
+  }
+}

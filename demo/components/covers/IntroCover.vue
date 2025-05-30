@@ -7,11 +7,16 @@ import {
   computed,
   type CSSProperties,
 } from "vue";
+import { storeToRefs } from "pinia";
+
+import { useLocaleStore } from "@/stores/locale";
 
 import GProvider from "@/components/transition/GProvider.vue";
 import Icon from "@/components/icons/Icon.vue";
 
 const props = defineProps<Props>();
+
+const { $t } = storeToRefs(useLocaleStore());
 
 const { imagePath } = props;
 
@@ -67,7 +72,7 @@ export interface Props {
     <div class="ui-main-intro__footer">
       <div class="ui-main-intro__info-container">
         <p class="ui-main-intro__info-descriptor">
-          supports mouse & touch events
+          {{ $t["intro-cover"].description }}
         </p>
         <div class="ui-main-intro__info-event-icons">
           <Icon

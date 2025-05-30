@@ -1,3 +1,5 @@
+import locales from "@/locales";
+
 export type SystemTheme = "light" | "dark";
 export type Theme = SystemTheme;
 
@@ -37,3 +39,5 @@ export type UIElementDirection = "ltr" | "rtl";
 export type UIElementOrientation = "horizontal" | "vertical";
 
 export type UIElementAlignment = "start" | "center" | "end";
+
+export type Locale = keyof typeof locales;

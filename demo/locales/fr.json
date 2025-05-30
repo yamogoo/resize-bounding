@@ -1,0 +1,22 @@
+{
+  "intro-cover": {
+    "title": "Resize Bounding est un composant Vue3 et React simple et hautement personnalisable qui vous permet de redimensionner intuitivement le contenu imbriqué à l'aide de panneaux de bordure déplaçables",
+    "description": "Prend en charge les événements de souris et tactiles"
+  },
+  "main-cover": {
+    "version": "версия"
+  },
+  "setup-guide": {
+    "documentation-vue": "Documentation pour Vue3",
+    "documentation-react": "Documentation pour React"
+  },
+  "install-guide": {
+    "install": "Installer"
+  },
+  "info-cover": {
+    "licensed-by": "Ce projet est sous licence selon les termes de la",
+    "license": "licence",
+    "author": "Auteur",
+    "author-name": "Mikhail Grebennikov"
+  }
+}

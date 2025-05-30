@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { onMounted, ref, type Ref } from "vue";
 import { useRuntimeConfig } from "#app";
-import { useConfigStore } from "@/stores/config";
+import { storeToRefs } from "pinia";
 import g from "gsap";
+
+import { useConfigStore } from "@/stores/config";
+import { useLocaleStore } from "@/stores/locale";
 
 import { __DOC__ } from "@/components/docs.js";
 
@@ -12,6 +15,10 @@ import Code from "@/components/content/Code.vue";
 import DocumentationLink from "@/components/controls/DocumentationLink.vue";
 
 const runtimeConfig = useRuntimeConfig();
+
+const { $t } = storeToRefs(useLocaleStore());
+
+type LinkKey = keyof (typeof $t.value)["setup-guide"];
 
 const { setCurrentPackageVersion } = useConfigStore();
 
@@ -67,7 +74,7 @@ const menuItems: Array<ExtendedTabbarItem> = [
     value: "vue3",
     version: runtimeConfig.public.productVueVersion,
     link: import.meta.env.VITE_VUE3_DOCS_URL,
-    linkName: "vue3 documentation",
+    linkName: "documentation-vue",
     show: Boolean(+import.meta.env.VITE_ENABLE_VUE3_DOCS),
   },
   {
@@ -76,7 +83,7 @@ const menuItems: Array<ExtendedTabbarItem> = [
     value: "react",
     version: runtimeConfig.public.productReactVersion,
     link: import.meta.env.VITE_REACT_DOCS_URL,
-    linkName: "react documentation",
+    linkName: "documentation-react",
     show: Boolean(+import.meta.env.VITE_ENABLE_REACT_DOCS),
   },
 ];
@@ -117,7 +124,7 @@ interface ExtendedTabbarItem extends TabbarItem<string> {
               class="ui-setup-guide__documentation-link"
               :to="link"
               :target="'_blank'"
-              :name="linkName"
+              :name="`${$t['setup-guide'][linkName as LinkKey]}`"
             ></DocumentationLink>
           </Transition>
         </template>

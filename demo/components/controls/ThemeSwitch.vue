@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 
 import { useConfigStore } from "@/stores/config";
@@ -11,10 +11,13 @@ const { toggleTheme } = useConfigStore();
 
 const colorMode = ref(false);
 
-const onChangeTheme = () => {
-  toggleTheme();
+const setSwitchState = (): void => {
   colorMode.value = currentTheme.value === "light";
 };
+
+watch(currentTheme, () => setSwitchState(), { immediate: true });
+
+const onChangeTheme = () => toggleTheme();
 </script>
 
 <template>

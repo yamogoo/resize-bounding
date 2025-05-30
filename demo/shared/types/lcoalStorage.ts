@@ -1,4 +1,5 @@
 export enum LocalStorageKeys {
+  "LOCALE",
   "THEME",
   "IS_SYSTEM_THEME_ENABLED",
 }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import BaseLink from "@/components/controls/BaseLink.vue";
 import BoxedLink from "@/components/controls/BoxedLink.vue";
+import ControlsHeader from "@/components/container/ControlsHeader.vue";
 
 withDefaults(defineProps<Props>(), {
   title: "Install",
@@ -27,9 +28,9 @@ export interface Props {
 
 <template>
   <div class="ui-main-guide">
-    <div class="ui-main-guide__controls">
+    <ControlsHeader class="ui-main-guide__controls">
       <slot name="controls"></slot>
-    </div>
+    </ControlsHeader>
     <h3 class="ui-main-guide__title">
       {{ title }}
     </h3>
@@ -43,6 +44,7 @@ export interface Props {
       {{ name }}
     </BoxedLink>
     <BaseLink
+      class="figma-link"
       data-testid="figma-link"
       :orientation="'horizontal'"
       :size="'lg'"
@@ -85,8 +87,13 @@ export interface Props {
 
     &__controls {
       position: absolute;
-      top: px2rem(map.get($spacing, "md"));
-      right: px2rem(map.get($spacing, "md"));
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+
+    .figma-link {
+      margin-top: px2rem(map.get($spacing, xs));
     }
   }
 }

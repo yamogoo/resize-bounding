@@ -1,9 +1,9 @@
-import { computed, ref, type ComputedRef } from "vue";
+import { ref, computed, type ComputedRef } from "vue";
 import { defineStore } from "pinia";
 
-import { useTheme } from "@/composables/useTheme";
-
 import type { Theme, Themes } from "@/shared/types";
+
+import { useTheme } from "@/composables/useTheme";
 
 export const themes: Themes = ["light", "dark"];
 

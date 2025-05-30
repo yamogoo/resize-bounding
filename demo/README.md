@@ -1,24 +1,8 @@
-# Nuxt 3 Minimal Starter
+![image](/shared/images/resize-bounding-w-descriptor.svg)
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+# Resize Bounding Demo App
 
-## Setup
-
-Make sure to install the dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
+[App](https://resize-bounding.netlify.app/)
 
 ## Development Server
 
@@ -38,24 +22,6 @@ yarn dev
 bun run dev
 ```
 
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
 Locally preview production build:
 
 ```bash
@@ -72,4 +38,14 @@ yarn preview
 bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+---
+
+## License
+
+Licensing is in accordance with the original.
+
+[MIT](https://github.com/yamogoo/resize-bounding/blob/main/LICENSE)
+
+## Author
+
+**Mikhail Grebennikov** - [yamogoo](https://github.com/yamogoo)
