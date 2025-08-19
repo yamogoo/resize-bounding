@@ -39,8 +39,11 @@ abstract class Parser {
 }
 
 export class SCSSParser extends Parser {
-  constructor(private tokensParser: TokensParser) {
+  private tokensParser: TokensParser;
+
+  constructor(tokensParser: TokensParser) {
     super();
+    this.tokensParser = tokensParser;
   }
 
   parseValue<T>(value: Value<T>, opts: ParseValueOptions): Value<T> {
@@ -82,7 +85,10 @@ export class SCSSParser extends Parser {
 export class TokensParser {
   private parser: Parser;
 
-  constructor(private opts: TokensParserOptions) {
+  private opts: TokensParserOptions;
+
+  constructor(opts: TokensParserOptions) {
+    this.opts = opts;
     this.parser = new SCSSParser(this);
     const { source, outDir } = opts;
     this.listDir(source, outDir);
@@ -154,7 +160,8 @@ export class TokensParser {
         return convertPxToRem
           ? this.valuePxToRem(nestedValue)
           : `${nestedValue}px`;
-      return nestedValue as string;
+      // parse nested path and return result:
+      return this.parseNestedValue(nestedValue as string, opts);
     }
     return value;
   }

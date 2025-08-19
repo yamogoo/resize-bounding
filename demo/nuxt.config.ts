@@ -63,6 +63,21 @@ export default defineNuxtConfig({
           href: "/favicon/site.webmanifest",
         },
       ],
+      script: [
+        {
+          src: "https://www.googletagmanager.com/gtag/js?id=G-1Y60DZ2V3T",
+          async: true,
+        },
+        {
+          innerHTML: `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1Y60DZ2V3T');
+      `,
+          type: "text/javascript",
+        },
+      ],
     },
   },
   imports: {
