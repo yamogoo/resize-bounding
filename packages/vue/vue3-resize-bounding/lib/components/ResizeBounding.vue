@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, type ComputedRef, type HTMLAttributes } from "vue";
+import { computed, type ComputedRef, type HTMLAttributes, useTemplateRef } from "vue";
 import deepmerge from "deepmerge";
 
 import { type Props, Emits } from "./ResizeBounding";
@@ -35,7 +35,7 @@ const emits = defineEmits<{
   (e: Emits.FOCUS, data: EmittedFocusData): void;
 }>();
 
-const refRoot = ref<HTMLDivElement | null>(null);
+const refRoot = useTemplateRef<HTMLDivElement | null>('root');
 
 let { width: newWidth, height: newHeight } = props;
 let prevWidth = newWidth,
@@ -171,7 +171,7 @@ const onDragEnd = ({ dir }: PaneEmittedData): void => {
 
 <template>
   <div
-    ref="refRoot"
+    ref="root"
     data-testid="resize-bounding-container"
     :class="[classNames.container, { disabled }]"
     :style="[computedStyle]"
