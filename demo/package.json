@@ -4,7 +4,7 @@
   "description": "highly customizable component for resizing nested content",
   "private": true,
   "version": "2.0.3",
-  "productVueVersion": "2.1.1",
+  "productVueVersion": "2.1.2",
   "productReactVersion": "1.1.1",
   "type": "module",
   "author": {
