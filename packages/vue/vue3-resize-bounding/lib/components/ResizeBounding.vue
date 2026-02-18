@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, type HTMLAttributes, useTemplateRef } from "vue";
+import { computed, type ComputedRef, type HTMLAttributes, ref } from "vue";
 import deepmerge from "deepmerge";
 
 import { type Props, Emits } from "./ResizeBounding";
@@ -35,7 +35,7 @@ const emits = defineEmits<{
   (e: Emits.FOCUS, data: EmittedFocusData): void;
 }>();
 
-const refRoot = useTemplateRef<HTMLDivElement | null>('root');
+const refRoot = ref<HTMLDivElement | null>(null);
 
 let { width: newWidth, height: newHeight } = props;
 let prevWidth = newWidth,
@@ -54,12 +54,19 @@ const classNames = getClassNames(
 
 // Compute styles for the component
 const computedStyle: ComputedRef<HTMLAttributes["style"]> = computed(() => {
-  return {
-    width: `${props.width}px`,
-    minWidth: `${props.width}px`,
-    height: `${props.height}px`,
-    minHeight: `${props.height}px`,
-  };
+  const styles: Record<string, string> = {};
+
+  if (props.width !== undefined) {
+    styles.width = `${props.width}px`;
+    styles.minWidth = `${props.width}px`;
+  }
+
+  if (props.height !== undefined) {
+    styles.height = `${props.height}px`;
+    styles.minHeight = `${props.height}px`;
+  }
+
+  return styles;
 });
 
 // Get direction alias
@@ -93,6 +100,8 @@ let startX = 0,
 const onDragStart = ({ x, y, dir }: PaneEmittedData): void => {
   startWidth = props.width ?? 0;
   startHeight = props.height ?? 0;
+  prevWidth = props.width;
+  prevHeight = props.height;
 
   startX = x;
   startY = y;
@@ -121,42 +130,37 @@ const onDragMove = ({ x, y, dir }: PaneEmittedData): void => {
 
   if (dir === PaneDirections.LEFT) {
     newWidth = startWidth + (startX - x);
-    if (prevWidth === newWidth) return;
-
     const truncated = truncateInRange(props.minWidth, props.maxWidth, newWidth);
+    if (prevWidth === truncated) return;
+
     emits(Emits.UPDATE_WIDTH, truncated);
     prevWidth = truncated;
   } else if (dir === PaneDirections.RIGHT) {
     newWidth = startWidth + (x - startX);
-
-    if (prevWidth === newWidth) return;
-
     const truncated = truncateInRange(props.minWidth, props.maxWidth, newWidth);
+    if (prevWidth === truncated) return;
+
     emits(Emits.UPDATE_WIDTH, truncated);
     prevWidth = truncated;
   } else if (dir === PaneDirections.TOP) {
     newHeight = startHeight + (startY - y);
-
-    if (prevHeight === newHeight) return;
-
     const truncated = truncateInRange(
       props.minHeight,
       props.maxHeight,
       newHeight
     );
+    if (prevHeight === truncated) return;
 
     emits(Emits.UPDATE_HEIGHT, truncated);
     prevHeight = truncated;
   } else if (dir === PaneDirections.BOTTOM) {
     newHeight = startHeight + (y - startY);
-
-    if (prevHeight === newHeight) return;
-
     const truncated = truncateInRange(
       props.minHeight,
       props.maxHeight,
       newHeight
     );
+    if (prevHeight === truncated) return;
 
     emits(Emits.UPDATE_HEIGHT, truncated);
     prevHeight = truncated;
@@ -171,7 +175,7 @@ const onDragEnd = ({ dir }: PaneEmittedData): void => {
 
 <template>
   <div
-    ref="root"
+    ref="refRoot"
     data-testid="resize-bounding-container"
     :class="[classNames.container, { disabled }]"
     :style="[computedStyle]"

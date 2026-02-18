@@ -250,6 +250,19 @@ describe("ResizeBounding", () => {
 
   describe("styles", () => {
     describe("container", () => {
+      test("should not render undefined size styles when width/height are not provided", () => {
+        const wrapper = shallowMount(ResizeBounding, {
+          props: {
+            directions: "",
+          },
+        });
+
+        const containerEl = wrapper.find(`[data-testid="${DataTestIds.ROOT}"]`);
+        const styles = containerEl.attributes("style") ?? "";
+
+        expect(styles).not.toContain("undefinedpx");
+      });
+
       test.each([{ background: "blue", display: "flex" }])(
         "should apply inline styles (%s)",
         (container: HTMLAttributes["style"]) => {

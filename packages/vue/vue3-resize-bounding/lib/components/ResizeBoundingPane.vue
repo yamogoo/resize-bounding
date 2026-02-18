@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, computed, useTemplateRef } from "vue";
+import { onMounted, onUnmounted, ref, computed } from "vue";
 
 import {
   type IStyles,
@@ -25,7 +25,7 @@ const emits = defineEmits<{
   (e: Emits.FOCUS, isFocused: boolean): void;
 }>();
 
-const refPane = useTemplateRef<HTMLDivElement | null>('pane');
+const refPane = ref<HTMLDivElement | null>(null);
 
 const isFocused = ref(false),
   isPressed = ref(false),
@@ -56,7 +56,7 @@ const splitterComputedStyle = computed(() => {
   const activeAreaWidth = props.options.activeAreaWidth;
 
   const _width =
-    isFocused.value ?? isPressed.value ? splitterWidthActive : splitterWidth;
+    isFocused.value || isPressed.value ? splitterWidthActive : splitterWidth;
 
   if (refPane.value && _width) {
     const _areaWidth = activeAreaWidth ?? splitterWidth ?? 1;
@@ -129,6 +129,13 @@ const onDragEnd = (e: PointerEvent) => {
   });
 };
 
+const onPointerUp = (e: PointerEvent) => {
+  const el = e.currentTarget as HTMLDivElement;
+  onDragEnd(e);
+  el.removeEventListener("pointermove", onDragMove);
+  el.removeEventListener("pointerup", onPointerUp);
+};
+
 const onDragStart = (e: PointerEvent) => {
   if (!props.options.touchActions && e.pointerType === "touch") return;
 
@@ -150,18 +157,25 @@ const onDragStart = (e: PointerEvent) => {
     dir: props.direction,
   });
 
+  el.removeEventListener("pointermove", onDragMove);
+  el.removeEventListener("pointerup", onPointerUp);
   el.addEventListener("pointermove", onDragMove);
-  el.addEventListener("pointerup", (ev) => {
-    onDragEnd(ev);
-    el.removeEventListener("pointermove", onDragMove);
-  });
+  el.addEventListener("pointerup", onPointerUp);
 };
 
 const onDragCancel = (e: PointerEvent): void => {
   const el = e.currentTarget as HTMLDivElement;
 
   isResizing.value = false;
-  el.releasePointerCapture(e.pointerId);
+  isPressed.value = false;
+
+  if (refPointerId.value !== null) {
+    el.releasePointerCapture(refPointerId.value);
+    refPointerId.value = null;
+  }
+
+  el.removeEventListener("pointermove", onDragMove);
+  el.removeEventListener("pointerup", onPointerUp);
 
   emits(Emits.DRAG_END, {
     x: Math.round(e.clientX),
@@ -189,6 +203,8 @@ const removeEventListeners = () => {
     el.removeEventListener("pointerleave", onPointerLeave);
     el.removeEventListener("pointerdown", onDragStart);
     el.removeEventListener("pointercancel", onDragCancel);
+    el.removeEventListener("pointermove", onDragMove);
+    el.removeEventListener("pointerup", onPointerUp);
   }
 };
 
@@ -235,7 +251,7 @@ const checkIsVertical = (direction: string): boolean =>
 
 <template>
   <div
-    ref="pane"
+    ref="refPane"
     data-testid="resize-bounding-pane"
     :class="[
       classNames.pane,

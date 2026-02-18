@@ -293,7 +293,7 @@ describe("ResizeBoundingPane", () => {
                 props: requiredProps,
               });
 
-              checkCursorActive(wrapper, { direction }, "col-resize");
+              await checkCursorActive(wrapper, { direction }, "col-resize");
             }
           );
 
@@ -304,7 +304,7 @@ describe("ResizeBoundingPane", () => {
                 props: requiredProps,
               });
 
-              checkCursorActive(wrapper, { direction }, "row-resize");
+              await checkCursorActive(wrapper, { direction }, "row-resize");
             }
           );
         });
@@ -319,7 +319,7 @@ describe("ResizeBoundingPane", () => {
                 props: requiredProps,
               });
 
-              checkCursorActive(
+              await checkCursorActive(
                 wrapper,
                 {
                   direction,

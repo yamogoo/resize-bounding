@@ -91,7 +91,7 @@ export interface Props {
           :label="`${$t['main-cover'].version}`"
           :value="`${currentPackageVersion}`"
         ></Badge>
-        <span v-if="isDateShown" class="ui-main-cover__date">2024-2025</span>
+        <span v-if="isDateShown" class="ui-main-cover__date">2024-2026</span>
       </div>
     </GProvider>
   </div>

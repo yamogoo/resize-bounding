@@ -1,6 +1,6 @@
 ![image](https://github.com/yamogoo/resize-bounding/blob/v.2.1.0/shared/images/resize-bounding-w-descriptor.svg)
 
-![Version](https://img.shields.io/badge/version-2.1.2-green) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+![Version](https://img.shields.io/badge/version-2.1.3-green) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 ![image](https://github.com/yamogoo/resize-bounding/blob/v.2.1.0/shared/images/resize-bounding.gif)
 
@@ -68,7 +68,7 @@ import { createApp } from "vue";
 import ResizeBounding from "vue3-resize-bounding";
 
 const app = createApp(App);
-app.use(ResizeBounding, { name: "resize-bounding" });
+app.component("ResizeBounding", ResizeBounding);
 app.mount("#app");
 ```
 

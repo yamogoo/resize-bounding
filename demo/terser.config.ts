@@ -12,7 +12,7 @@ export default {
     toplevel: true,
     passes: 3,
   },
-  output: {
+  format: {
     comments: false,
   },
 };
