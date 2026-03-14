@@ -26,7 +26,7 @@ const UISizeField = ({ width, height, updateWidth, updateHeight }: Props) => {
         value={width}
         disabled={width === undefined}
         updateValue={(width) => {
-          typeof updateWidth === "function" && updateWidth(width);
+          updateWidth?.(width);
         }}
       />
       <UIInput
@@ -34,7 +34,7 @@ const UISizeField = ({ width, height, updateWidth, updateHeight }: Props) => {
         value={height}
         disabled={height === undefined}
         updateValue={(height) => {
-          typeof updateHeight === "function" && updateHeight(height);
+          updateHeight?.(height);
         }}
       />
     </div>

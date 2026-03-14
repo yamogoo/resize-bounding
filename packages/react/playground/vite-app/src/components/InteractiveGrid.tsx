@@ -25,11 +25,9 @@ const layoutReducer = (
   action: Actions
 ): typeof initState => {
   const { type, payload } = action;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [sectionKey, propKey] = type.toLowerCase().split("_");
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  for (const [_, v] of Object.entries(LayoutKeys)) {
+  for (const v of Object.values(LayoutKeys)) {
     if (sectionKey === v) {
       return deepmerge(
         state,

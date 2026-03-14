@@ -59,7 +59,7 @@ describe("StoryResizeBoundingCover", () => {
         badge[0].querySelector(".ui-badge__value")?.textContent;
 
       expect(badgeValue).toBe(VERSION);
-      expect(badgeValue).toMatchInlineSnapshot(`"1.1.0"`);
+      expect(badgeValue).toMatchInlineSnapshot(`"1.1.3"`);
     });
   });
 });

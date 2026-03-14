@@ -13,6 +13,10 @@ const getValue = (container: HTMLElement) => {
   return container.querySelectorAll('[data-testid="ui-badge-value"]');
 };
 
+const getBadge = (container: HTMLElement) => {
+  return container.querySelector('[data-testid="ui-badge"]');
+};
+
 afterEach(() => {
   cleanup();
 });
@@ -46,6 +50,21 @@ describe("StoryVersionBadge", () => {
 
       expect(isValueExists).toBeTruthy();
       expect(valueContent).toBe(expectedValue);
+    });
+
+    test("should preserve ui-badge class when custom className is provided", () => {
+      const { container } = render(
+        <StoryVersionBadge
+          label={expectedLabelValue}
+          value={expectedValue}
+          className="custom-badge"
+        />
+      );
+
+      const badge = getBadge(container);
+
+      expect(badge).toHaveClass("ui-badge");
+      expect(badge).toHaveClass("custom-badge");
     });
   });
 });

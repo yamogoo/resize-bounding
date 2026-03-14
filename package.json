@@ -13,12 +13,23 @@
     "resize container",
     "draggable container"
   ],
-  "vueVersion": "2.1.4",
-  "reactVersion": "1.1.2",
+  "vueVersion": "2.1.5",
+  "reactVersion": "1.1.3",
   "private": false,
   "author": {
     "name": "yamogoo",
     "email": "grebennikovmisha@gmail.com"
+  },
+  "pnpm": {
+    "overrides": {
+      "node-forge": "1.3.3",
+      "rollup": "4.59.0",
+      "glob@10.4.5": "10.5.0",
+      "editorconfig@1.0.4": "1.0.7",
+      "diff@4.0.2": "4.0.4",
+      "minimatch@5.1.6": "5.1.8",
+      "minimatch@9.0.5": "9.0.9"
+    }
   },
   "scripts": {
     "preview:demo": "pnpm --filter resize-bounding-demo run dev",

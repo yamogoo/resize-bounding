@@ -1,8 +1,7 @@
 # example netlify.toml
 [build]
   command = "pnpm --filter vue3-resize-bounding... run build && pnpm --filter vue3-resize-bounding... run docs:build"
-  functions = "netlify/functions"
-  publish = "packages/vue/vue3-resize-bounding/storybook-static"
+  publish = "storybook-static"
 
   [[redirects]]
     from = "/*"

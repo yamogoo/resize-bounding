@@ -1,6 +1,6 @@
 ![image](https://github.com/yamogoo/resize-bounding/blob/v.2.1.0/shared/images/resize-bounding-w-descriptor.svg)
 
-![Version](https://img.shields.io/badge/version-2.1.4-green) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+![Version](https://img.shields.io/badge/version-2.1.5-green) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 ![image](https://github.com/yamogoo/resize-bounding/blob/v.2.1.0/shared/images/resize-bounding.gif)
 
@@ -23,36 +23,41 @@ Usage
 ```html
 <!-- @filename: MyComponent.vue -->
 <script setup lang="ts">
-  import { ref } from "vue";
-  import ResizeBounding from "vue3-resize-bounding";
+import { ref } from "vue";
+import ResizeBounding from "vue3-resize-bounding";
 
-  const container = ref({ width: 320, height: 480 });
+const container = ref({
+  width: 320,
+  height: 480,
+});
+
+const options = {
+  knob: {
+    show: true,
+  },
+};
 </script>
 
 <template>
   <ResizeBounding
-    :width="container.width"
-    :height="container.height"
+    v-model:width="container.width"
+    v-model:height="container.height"
     :min-width="240"
     :max-width="480"
     :min-height="120"
-    :directions="'hv'"
-    :options="{
-        knob: {
-          show: true
-        }
-    }"
+    directions="hv"
+    :options="options"
     :style="{ border: '1px solid gray' }"
-    @update:width="(width) => (container.width = width)"
-    @update:height="(height) => (container.height = height)"
   >
     <!-- CONTENT START -->
-    <div :style="{ width: '100%', height: '100%' }">My Container</div>
+    <div :style="{ width: '100%', height: '100%' }">
+      My Container
+    </div>
     <!-- CONTENT END -->
 
     <!-- KNOB INNER CONTENT START -->
     <template #knob>
-      <div class="some-icon"></div>
+      <div class="some-icon" />
     </template>
     <!-- KNOB INNER CONTENT END -->
   </ResizeBounding>

@@ -23,7 +23,7 @@ describe("ResizeBounding", () => {
       expect(isComponentExists).toMatchInlineSnapshot(`true`);
     });
 
-    test("should always render the knob", () => {
+    test("should not render the knob before focus", () => {
       const wrapper = mount(ResizeBounding, {
         props: {
           directions: "b",
@@ -33,8 +33,8 @@ describe("ResizeBounding", () => {
       const knob = getResizeBoundingKnob(wrapper);
       const isKnobExists = knob.exists();
 
-      expect(isKnobExists).toBeTruthy();
-      expect(isKnobExists).toMatchInlineSnapshot(`true`);
+      expect(isKnobExists).toBeFalsy();
+      expect(isKnobExists).toMatchInlineSnapshot(`false`);
     });
   });
 

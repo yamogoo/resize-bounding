@@ -127,9 +127,10 @@ const ResizeBounding = (props: Partial<Props>) => {
     startWidth = props.width ?? 0;
     startHeight = props.height ?? 0;
 
-    (startX = x), (startY = y);
+    startX = x;
+    startY = y;
 
-    typeof dragStart === "function" && dragStart(dir);
+    dragStart?.(dir);
   };
 
   const truncateInRange = (
@@ -146,7 +147,7 @@ const ResizeBounding = (props: Partial<Props>) => {
 
   const onDragMove = ({ x, y, dir }: PaneEmittedData): void => {
     if (!refRoot.current) return;
-    typeof dragMove === "function" && dragMove(dir);
+    dragMove?.(dir);
 
     if (dir === PaneDirections.LEFT) {
       newWidth = startWidth + (startX - x);
@@ -155,7 +156,7 @@ const ResizeBounding = (props: Partial<Props>) => {
 
       const truncated = truncateInRange(minWidth, maxWidth, newWidth);
 
-      typeof updateWidth === "function" && updateWidth(truncated);
+      updateWidth?.(truncated);
       prevWidth = truncated;
     } else if (dir === PaneDirections.RIGHT) {
       newWidth = startWidth + (x - startX);
@@ -164,7 +165,7 @@ const ResizeBounding = (props: Partial<Props>) => {
 
       const truncated = truncateInRange(minWidth, maxWidth, newWidth);
 
-      typeof updateWidth === "function" && updateWidth(truncated);
+      updateWidth?.(truncated);
       prevWidth = truncated;
     } else if (dir === PaneDirections.TOP) {
       newHeight = startHeight + (startY - y);
@@ -173,7 +174,7 @@ const ResizeBounding = (props: Partial<Props>) => {
 
       const truncated = truncateInRange(minHeight, maxHeight, newHeight);
 
-      typeof updateHeight === "function" && updateHeight(truncated);
+      updateHeight?.(truncated);
       prevHeight = truncated;
     } else if (dir === PaneDirections.BOTTOM) {
       newHeight = startHeight + (y - startY);
@@ -182,7 +183,7 @@ const ResizeBounding = (props: Partial<Props>) => {
 
       const truncated = truncateInRange(minHeight, maxHeight, newHeight);
 
-      typeof updateHeight === "function" && updateHeight(truncated);
+      updateHeight?.(truncated);
       prevHeight = truncated;
     }
   };
@@ -207,13 +208,11 @@ const ResizeBounding = (props: Partial<Props>) => {
               styles={styles}
               classNames={classNames}
               focus={(state) => {
-                typeof focus === "function" && focus({ state, direction });
+                focus?.({ state, direction });
               }}
               dragStart={onDragStart}
               dragMove={onDragMove}
-              dragEnd={({ dir }) =>
-                typeof dragEnd === "function" && dragEnd(dir)
-              }
+              dragEnd={({ dir }) => dragEnd?.(dir)}
             >
               {knob}
             </ResizeBoundingPane>

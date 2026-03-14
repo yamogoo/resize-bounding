@@ -1,8 +1,7 @@
 # example netlify.toml
 [build]
   command = "pnpm --filter resize-bounding-demo... run build"
-  functions = "netlify/functions"
-  publish = "demo/dist"
+  publish = "dist"
 
   [[redirects]]
     from = "/*"

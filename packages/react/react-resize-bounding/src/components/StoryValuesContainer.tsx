@@ -2,7 +2,7 @@ import React, { type PropsWithChildren } from "react";
 
 import "./StoryValuesContainer.scss";
 
-export interface Props extends PropsWithChildren {}
+export type Props = PropsWithChildren;
 
 const StoryValuesContainer = (props: Props) => {
   const { children } = props;

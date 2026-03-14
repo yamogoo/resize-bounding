@@ -38,8 +38,7 @@ const onUpdateValue = (e: Event) => {
 
 <template>
   <div :class="['ui-input', { 'ui-input_disabled': disabled }]">
-    <label :for="id" v-if="label" class="ui-input__label"
-      >{{ label }}
+    <label v-if="label" :for="id" class="ui-input__label">{{ label }}
       <input
         v-if="!disabled"
         :id

@@ -5,7 +5,7 @@ import "./StoryResizeBoundingCover.scss";
 import StoryCoverMainLogo from "./StoryCoverMainLogo";
 import StoryVersionBadge from "./StoryVersionBadge";
 
-export interface Props extends PropsWithChildren {}
+export type Props = PropsWithChildren;
 
 const VERSION = import.meta.env.APP_VERSION;
 

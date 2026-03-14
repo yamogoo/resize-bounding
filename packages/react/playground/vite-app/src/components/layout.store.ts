@@ -31,8 +31,7 @@ type ContainerSizeKeys =
   | "maxHeight";
 type ContainerSize = Record<ContainerSizeKeys, number>;
 
-interface Layout
-  extends Record<LayoutKeys, Partial<ContainerSize & { title: string }>> {}
+type Layout = Record<LayoutKeys, Partial<ContainerSize & { title: string }>>;
 
 interface Actions {
   type: ActionTypes;

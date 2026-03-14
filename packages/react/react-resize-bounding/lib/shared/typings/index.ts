@@ -42,8 +42,8 @@ export interface IResizeBoundingClassNames {
   knob: string;
 }
 
-export interface IStyles extends Record<ResizeBoundingClassNames, IStyle> {}
 export type IStyle = fluentui.IStyle;
+export type IStyles = Record<ResizeBoundingClassNames, IStyle>;
 export type IStyleSet = fluentui.IStyleSet;
 
 /* * * Pane * * */

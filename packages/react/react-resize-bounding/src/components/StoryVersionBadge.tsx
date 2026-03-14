@@ -14,11 +14,13 @@ const StoryVersionBadge = (props: Props) => {
     label,
     value,
     dataTestid = "ui-badge",
-    className = "ui-badge",
+    className,
   } = props;
 
+  const badgeClassName = ["ui-badge", className].filter(Boolean).join(" ");
+
   return (
-    <div className={className} data-testid={dataTestid}>
+    <div className={badgeClassName} data-testid={dataTestid}>
       <span className="ui-badge__label" data-testid="ui-badge-label">
         {label}
       </span>
