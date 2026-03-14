@@ -7,7 +7,7 @@ describe("useLocaleStore", () => {
     store.setLocale("en");
     expect(store.currentLocale).toBe("en");
 
-    store.setLocale("ru");
-    expect(store.currentLocale).toBe("ru");
+    store.setLocale("fr");
+    expect(store.currentLocale).toBe("fr");
   });
 });
