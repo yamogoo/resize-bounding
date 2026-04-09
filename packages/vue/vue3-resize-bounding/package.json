@@ -1,7 +1,7 @@
 {
   "name": "vue3-resize-bounding",
   "description": "Vue3 highly customizable component for resizing nested content",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "license": "MIT",
   "private": false,
   "author": {
@@ -88,7 +88,7 @@
     "terser": "^5.46.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.57.0",
-    "vite": "^6.4.1",
+    "vite": "^6.4.2",
     "vite-plugin-dts": "^4.5.4",
     "vitest": "^3.2.4",
     "vue-tsc": "^2.2.12"

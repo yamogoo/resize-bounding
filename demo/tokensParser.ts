@@ -1,6 +1,5 @@
 import fs from "node:fs/promises";
 import { readFileSync } from "node:fs";
-import _ from "lodash";
 
 type List<T> = Array<T>;
 
@@ -49,8 +48,8 @@ export class SCSSParser extends Parser {
   parseValue<T>(value: Value<T>, opts: ParseValueOptions): Value<T> {
     const { convertPxToRem } = opts as ParseMapOptions;
 
-    if (_.isArray(value)) return this.parseList(value as List<unknown>, opts);
-    else if (_.isPlainObject(value)) return this.parseMap(value as IMap, opts);
+    if (Array.isArray(value)) return this.parseList(value as List<unknown>, opts);
+    else if (isPlainObject(value)) return this.parseMap(value as IMap, opts);
     else if (value === "") return '""';
     else if (typeof value === "string")
       return this.tokensParser.parseNestedValue(value, opts);
@@ -80,6 +79,12 @@ export class SCSSParser extends Parser {
       })
       .join(",")})`;
   }
+}
+
+function isPlainObject(value: unknown): value is IMap {
+  if (value === null || typeof value !== "object") return false;
+  const prototype = Object.getPrototypeOf(value);
+  return prototype === Object.prototype || prototype === null;
 }
 
 export class TokensParser {
